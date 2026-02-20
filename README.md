@@ -10,7 +10,17 @@ AI calls now route through a local server endpoint:
 ### Run locally
 
 ```bash
+# AI providers (set at least one)
+export GEMINI_API_KEY=your_google_ai_studio_key   # free tier available
+# Optional premium providers
 export ANTHROPIC_API_KEY=your_key_here
+export OPENAI_API_KEY=your_key_here
+
+# Provider strategy:
+# - premium-first (default): Anthropic/OpenAI first, then Gemini fallback
+# - free-first: Gemini first, then premium fallbacks
+export SPANISH_APP_AI_MODE=premium-first
+
 # Optional: enable Google Sign-In button
 export VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 npm install
