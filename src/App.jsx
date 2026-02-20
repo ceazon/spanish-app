@@ -1295,7 +1295,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onLogout, aiStatus, contentPackMeta, onImportPack, onResetPack }) {
+function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -1387,7 +1387,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, contentPackMeta, o
         </div>
       </div>
 
-      <ContentPackManager contentPackMeta={contentPackMeta} onImportPack={onImportPack} onResetPack={onResetPack} />
+      {/* Content Pack Manager hidden for now (admin feature) */}
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"24px", marginBottom:28 }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:600, marginBottom:20 }}>Weekly Progress</div>
@@ -1601,7 +1601,7 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} contentPackMeta={{ id: contentPack?.id, name: contentPack?.name }} onImportPack={importContentPack} onResetPack={resetContentPack} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
       {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
     </div>
