@@ -1,0 +1,114 @@
+{
+  "id": "starter-pack",
+  "name": "Starter Pack",
+  "version": 2,
+  "vocab": {
+    "Greetings": [
+      { "en": "Hello", "es": "Hola" },
+      { "en": "Goodbye", "es": "Adiós" },
+      { "en": "Thank you", "es": "Gracias" },
+      { "en": "Please", "es": "Por favor" },
+      { "en": "Excuse me", "es": "Disculpa" }
+    ],
+    "Numbers": [
+      { "en": "One", "es": "Uno" },
+      { "en": "Two", "es": "Dos" },
+      { "en": "Three", "es": "Tres" },
+      { "en": "Four", "es": "Cuatro" },
+      { "en": "Five", "es": "Cinco" }
+    ],
+    "Food": [
+      { "en": "Water", "es": "Agua" },
+      { "en": "Bread", "es": "Pan" },
+      { "en": "Coffee", "es": "Café" },
+      { "en": "Chicken", "es": "Pollo" },
+      { "en": "Rice", "es": "Arroz" }
+    ]
+  },
+  "sentences": [
+    { "template": "Yo ___ un estudiante.", "answer": "soy", "hint": "I ___ a student." },
+    { "template": "Ella ___ en casa.", "answer": "está", "hint": "She ___ at home." },
+    { "template": "Nosotros ___ español.", "answer": "hablamos", "hint": "We ___ Spanish." },
+    { "template": "Yo ___ café por la mañana.", "answer": "bebo", "hint": "I ___ coffee in the morning." },
+    { "template": "Tú ___ muy bien.", "answer": "hablas", "hint": "You speak very well." }
+  ],
+  "verbs": [
+    {
+      "infinitive": "hablar",
+      "meaning": "to speak",
+      "type": "Regular -ar",
+      "example": "Yo hablo español todos los días.",
+      "exampleEn": "I speak Spanish every day.",
+      "conjugations": [
+        { "pronoun": "yo", "form": "hablo", "meaning": "I speak" },
+        { "pronoun": "tú", "form": "hablas", "meaning": "you speak" },
+        { "pronoun": "él / ella", "form": "habla", "meaning": "he/she speaks" },
+        { "pronoun": "nosotros", "form": "hablamos", "meaning": "we speak" }
+      ]
+    },
+    {
+      "infinitive": "comer",
+      "meaning": "to eat",
+      "type": "Regular -er",
+      "example": "Ella come pizza los viernes.",
+      "exampleEn": "She eats pizza on Fridays.",
+      "conjugations": [
+        { "pronoun": "yo", "form": "como", "meaning": "I eat" },
+        { "pronoun": "tú", "form": "comes", "meaning": "you eat" },
+        { "pronoun": "él / ella", "form": "come", "meaning": "he/she eats" },
+        { "pronoun": "nosotros", "form": "comemos", "meaning": "we eat" }
+      ]
+    }
+  ],
+  "listenSentences": [
+    { "es": "Hola, ¿cómo estás?", "en": "Hello, how are you?" },
+    { "es": "Quiero un café, por favor.", "en": "I want a coffee, please." },
+    { "es": "¿Dónde está el baño?", "en": "Where is the bathroom?" },
+    { "es": "Ella habla español muy bien.", "en": "She speaks Spanish very well." },
+    { "es": "Mañana vamos al mercado.", "en": "Tomorrow we are going to the market." }
+  ],
+  "scenarios": [
+    {
+      "setting": "🍽️ At a Restaurant",
+      "context": "You've just sat down. The waiter approaches.",
+      "dialogue": [
+        { "speaker": "Waiter", "line": "¡Buenas noches! ¿Qué desea ordenar?" },
+        { "speaker": "", "line": "Good evening! What would you like to order?" }
+      ],
+      "options": [
+        { "text": "Quiero el menú del día, por favor.", "correct": true, "feedback": "¡Perfecto!" },
+        { "text": "Dame comida ahora.", "correct": false, "feedback": "Too abrupt." }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "name": "La Cocina (The Kitchen)",
+      "items": [
+        { "label": "Mesa", "en": "Table", "emoji": "🪑", "x": 20, "y": 68 },
+        { "label": "Leche", "en": "Milk", "emoji": "🥛", "x": 50, "y": 42 },
+        { "label": "Pan", "en": "Bread", "emoji": "🍞", "x": 75, "y": 58 }
+      ]
+    }
+  ],
+  "scrambleSentences": [
+    { "words": ["Yo", "hablo", "español"], "correct": "Yo hablo español", "hint": "I speak Spanish." },
+    { "words": ["Ella", "come", "arroz"], "correct": "Ella come arroz", "hint": "She eats rice." }
+  ],
+  "chatTopics": [
+    {
+      "id": "hotel",
+      "label": "🏨 Checking into a Hotel",
+      "systemPrompt": "You are a polite hotel receptionist in Madrid. ONLY speak beginner Spanish (max 15 words)."
+    },
+    {
+      "id": "market",
+      "label": "🛒 Shopping at a Market",
+      "systemPrompt": "You are a friendly market vendor. ONLY speak beginner Spanish (max 15 words)."
+    }
+  ],
+  "pictureScenes": [
+    { "emoji": "🐕 🌳 ☀️", "description": "A dog under a tree", "prompt": "Un perro está bajo un árbol." },
+    { "emoji": "👩 📚 ☕", "description": "A woman reading and drinking coffee", "prompt": "Una mujer lee y bebe café." }
+  ]
+}
