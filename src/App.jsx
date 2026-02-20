@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { shuffle, speak } from "./services/utils";
@@ -183,6 +183,104 @@ const PICTURE_SCENES = [
 ];
 
 const CATEGORIES = Object.keys(VOCAB);
+const FLASHCARD_HISTORY_KEY = "spanish_app_flashcard_recent_v1";
+
+function estimateWordDifficulty(item = {}) {
+  const es = (item.es || "").trim();
+  if (!es) return 1;
+  const tokens = es.split(/\s+/).filter(Boolean);
+  const lettersOnly = es.replace(/[^\p{L}]/gu, "");
+  const hasAccent = /[áéíóúñü]/i.test(es);
+
+  let score = 1;
+  if (tokens.length >= 2) score += 1;
+  if (lettersOnly.length >= 7) score += 1;
+  if (lettersOnly.length >= 11) score += 1;
+  if (hasAccent) score += 0.5;
+
+  return Math.max(1, Math.min(5, Math.round(score)));
+}
+
+function targetMixForDifficulty(level = 1) {
+  const d = Math.max(1, Math.min(5, Number(level) || 1));
+  if (d <= 1) return { easy: 0.75, medium: 0.2, hard: 0.05 };
+  if (d === 2) return { easy: 0.6, medium: 0.3, hard: 0.1 };
+  if (d === 3) return { easy: 0.45, medium: 0.4, hard: 0.15 };
+  if (d === 4) return { easy: 0.3, medium: 0.45, hard: 0.25 };
+  return { easy: 0.2, medium: 0.4, hard: 0.4 };
+}
+
+function readRecentFlashcards(userKey, category) {
+  try {
+    const raw = localStorage.getItem(FLASHCARD_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    return Array.isArray(data?.[userKey]?.[category]) ? data[userKey][category] : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeRecentFlashcards(userKey, category, words = []) {
+  try {
+    const raw = localStorage.getItem(FLASHCARD_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    const userData = data[userKey] || {};
+    const prior = Array.isArray(userData[category]) ? userData[category] : [];
+    const next = [...words.map(w => w.es), ...prior]
+      .filter(Boolean)
+      .filter((w, i, arr) => arr.indexOf(w) === i)
+      .slice(0, 150);
+    data[userKey] = { ...userData, [category]: next };
+    localStorage.setItem(FLASHCARD_HISTORY_KEY, JSON.stringify(data));
+  } catch {
+    // ignore storage failures
+  }
+}
+
+function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userKey = "guest", category = "General" } = {}) {
+  const unique = Object.values(
+    (pool || []).reduce((acc, w) => {
+      if (w?.es) acc[w.es] = w;
+      return acc;
+    }, {}),
+  );
+
+  if (!unique.length) return [];
+
+  const recent = readRecentFlashcards(userKey, category);
+  const mix = targetMixForDifficulty(difficulty);
+
+  const scored = unique
+    .map((w) => {
+      const diff = estimateWordDifficulty(w);
+      const recencyIdx = recent.indexOf(w.es);
+      const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0, 1 - recencyIdx / Math.max(1, recent.length));
+      const randomBoost = Math.random() * 0.35;
+      return { ...w, _diff: diff, _score: noveltyBoost + randomBoost };
+    })
+    .sort((a, b) => b._score - a._score);
+
+  const easy = scored.filter((w) => w._diff <= 2);
+  const medium = scored.filter((w) => w._diff === 3);
+  const hard = scored.filter((w) => w._diff >= 4);
+
+  const wantEasy = Math.max(1, Math.round(target * mix.easy));
+  const wantMedium = Math.max(1, Math.round(target * mix.medium));
+  const wantHard = Math.max(0, target - wantEasy - wantMedium);
+
+  const chosen = [
+    ...easy.slice(0, wantEasy),
+    ...medium.slice(0, wantMedium),
+    ...hard.slice(0, wantHard),
+  ];
+
+  const fallback = scored.filter((w) => !chosen.find((c) => c.es === w.es));
+  while (chosen.length < Math.min(target, scored.length) && fallback.length) {
+    chosen.push(fallback.shift());
+  }
+
+  return shuffle(chosen.map(({ _diff, _score, ...w }) => w));
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // AUTH SCREEN
@@ -1432,7 +1530,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
 // LESSON SCREEN (router)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1 }) {
+function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
   const [category, setCategory] = useState(NO_CATEGORY.has(type)?type:null);
   const [words, setWords] = useState([]);
   const vocabMap = contentPack?.vocab || VOCAB;
@@ -1445,17 +1543,25 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const scrambleSentences = contentPack?.scrambleSentences || SCRAMBLE_SENTENCES;
   const chatTopics = contentPack?.chatTopics || CHAT_TOPICS;
   const pictureScenes = contentPack?.pictureScenes || PICTURE_SCENES;
+  const userKey = user?.username || "guest";
 
   const vocabTarget = Math.min(10, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
-  const wordsForLesson = words.slice(0, Math.max(4, vocabTarget));
+  const wordsForLesson = useMemo(() => (
+    selectAdaptiveFlashcards(words, {
+      difficulty,
+      target: Math.max(4, vocabTarget),
+      userKey,
+      category: category || type,
+    })
+  ), [words, difficulty, vocabTarget, userKey, category, type]);
   const fillForLesson = shuffle(fillBlankSentences).slice(0, Math.max(5, sentenceTarget));
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const scenariosForLesson = shuffle(scenariosData).slice(0, Math.max(3, Math.min(6, 2 + difficulty)));
   const scenesForLesson = shuffle(scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
   const scrambleForLesson = shuffle(scrambleSentences).slice(0, Math.max(4, Math.min(8, 3 + difficulty)));
-  function pickCategory(cat) { setCategory(cat); setWords(shuffle(vocabMap[cat] || [])); }
+  function pickCategory(cat) { setCategory(cat); setWords(vocabMap[cat] || []); }
   function done(pts,correct,total) { onComplete(pts,correct,total,category||type); }
 
   if (AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable) {
@@ -1482,7 +1588,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     </div>
   );
   const lessonRegistry = {
-    "Flashcards": () => <FlashcardLesson words={wordsForLesson} onComplete={done} />,
+    "Flashcards": () => <FlashcardLesson words={wordsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, wordsForLesson); done(pts,correct,total); }} />,
     "Word Match": () => <WordMatchLesson words={wordsForLesson} onComplete={done} />,
     "Fill in the Blank": () => <FillBlankLesson onComplete={done} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
@@ -1602,7 +1708,7 @@ export default function App() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
-      {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
     </div>
   );
