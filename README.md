@@ -26,6 +26,18 @@ ANTHROPIC_API_KEY=your_key_here npm run preview
 
 If `ANTHROPIC_API_KEY` is missing, AI features will fail with a clear error response.
 
+## Google Sign-In troubleshooting
+
+If Google shows `401: invalid_client`:
+
+1. In Google Cloud, create/use an OAuth client of type **Web application**.
+2. Ensure `VITE_GOOGLE_CLIENT_ID` is exactly the full client id:
+   - `1234567890-xxxx.apps.googleusercontent.com`
+3. Add **Authorized JavaScript origins** that exactly match where you run the app:
+   - `http://localhost:5173` (or your dev port)
+   - your production domain(s) (e.g. Vercel/custom domain)
+4. Redeploy after changing env vars (Vite injects env values at build time).
+
 ## Dynamic progression features
 
 - Persistent profile migration (`schemaVersion` based)
@@ -35,3 +47,18 @@ If `ANTHROPIC_API_KEY` is missing, AI features will fail with a clear error resp
 - Content Pack Manager (import/reset custom JSON packs)
 
 See `RELEASE_CHECKLIST.md` for public-hosting readiness.
+
+## Automated testing
+
+```bash
+npm test
+npm run test:e2e
+```
+
+If Playwright fails locally due missing Linux libs, run:
+
+```bash
+npx playwright install --with-deps chromium
+```
+
+CI is configured via `.github/workflows/ci.yml` to run unit + build + e2e on push/PR.

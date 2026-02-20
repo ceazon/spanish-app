@@ -192,7 +192,10 @@ function AuthScreen({ onLogin }) {
   const [mode, setMode] = useState("login");
   const [username, setUsername] = useState(""); const [password, setPassword] = useState("");
   const [toast, setToast] = useState(null); const [loading, setLoading] = useState(false);
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const googleClientId = (import.meta.env.VITE_GOOGLE_CLIENT_ID || "").trim();
+  const isGoogleClientIdValid = /^\d+-[\w-]+\.apps\.googleusercontent\.com$/.test(googleClientId);
+  const showGoogleAuthDebug = !!import.meta.env.DEV;
+  const currentOrigin = typeof window !== "undefined" ? window.location.origin : "";
 
   function showToast(msg, type="error") { setToast({ msg, type }); setTimeout(() => setToast(null), 3000); }
 
@@ -206,7 +209,7 @@ function AuthScreen({ onLogin }) {
     }
   }
   useEffect(() => {
-    if (!googleClientId) return;
+    if (!googleClientId || !isGoogleClientIdValid) return;
 
     const mount = () => {
       if (!window.google?.accounts?.id) return;
@@ -260,7 +263,7 @@ function AuthScreen({ onLogin }) {
     return () => {
       if (script.parentNode) script.parentNode.removeChild(script);
     };
-  }, [googleClientId]);
+  }, [googleClientId, isGoogleClientIdValid]);
 
   async function handle() {
     if (!username.trim() || !password.trim()) { showToast("Please fill in all fields"); return; }
@@ -300,11 +303,27 @@ function AuthScreen({ onLogin }) {
             </div>
           ))}
           <PrimaryBtn onClick={handle} disabled={loading} style={{ marginTop:8 }}>{loading ? "…" : mode==="login" ? "Sign In →" : "Create Account →"}</PrimaryBtn>
-          {googleClientId && (
+          {googleClientId && isGoogleClientIdValid && (
             <>
               <div style={{ color:"#6b7280", fontSize:11, textAlign:"center", marginTop:8 }}>or</div>
               <div id="google-signin-btn" style={{ display:"flex", justifyContent:"center", marginTop:8 }} />
             </>
+          )}
+          {googleClientId && !isGoogleClientIdValid && (
+            <div style={{ marginTop:12, background:"rgba(239,68,68,0.12)", border:"1px solid rgba(239,68,68,0.45)", borderRadius:10, padding:"10px 12px", color:"#fecaca", fontSize:12, lineHeight:1.4 }}>
+              Google Sign-In config error: <code style={{ color:"#fff" }}>VITE_GOOGLE_CLIENT_ID</code> format looks invalid.
+              <br />
+              Expected: <code style={{ color:"#fff" }}>123...-abc.apps.googleusercontent.com</code>
+            </div>
+          )}
+          {showGoogleAuthDebug && (
+            <div style={{ marginTop:12, background:"rgba(59,130,246,0.10)", border:"1px solid rgba(59,130,246,0.35)", borderRadius:10, padding:"10px 12px", color:"#bfdbfe", fontSize:11, lineHeight:1.45 }}>
+              <div><strong style={{ color:"#dbeafe" }}>Auth debug (dev only)</strong></div>
+              <div>Origin: <code style={{ color:"#fff" }}>{currentOrigin || "(unknown)"}</code></div>
+              <div>Client ID set: <code style={{ color:"#fff" }}>{googleClientId ? "yes" : "no"}</code></div>
+              <div>Client ID format: <code style={{ color:"#fff" }}>{isGoogleClientIdValid ? "valid" : "invalid"}</code></div>
+              <div style={{ marginTop:4, opacity:0.9 }}>Make sure this origin is added under Google OAuth → Authorized JavaScript origins.</div>
+            </div>
           )}
         </div>
       </div>
