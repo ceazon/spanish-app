@@ -188,6 +188,24 @@ const FILLBLANK_HISTORY_KEY = "spanish_app_fillblank_recent_v1";
 const SCRAMBLE_HISTORY_KEY = "spanish_app_scramble_recent_v1";
 const LISTEN_HISTORY_KEY = "spanish_app_listen_recent_v1";
 
+function buildCanonicalTranslationMap() {
+  const out = {};
+  const sources = [starterPack, { vocab: VOCAB }];
+  for (const src of sources) {
+    for (const [category, items] of Object.entries(src?.vocab || {})) {
+      for (const item of items || []) {
+        const enKey = normalizeSimple(item.en);
+        const categoryKey = `${category}::${enKey}`;
+        out[categoryKey] = item.es;
+        if (!out[enKey]) out[enKey] = item.es;
+      }
+    }
+  }
+  return out;
+}
+
+const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
+
 function estimateWordDifficulty(item = {}) {
   const es = (item.es || "").trim();
   if (!es) return 1;
@@ -243,7 +261,11 @@ function writeRecentFlashcards(userKey, category, words = []) {
 function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userKey = "guest", category = "General" } = {}) {
   const unique = Object.values(
     (pool || []).reduce((acc, w) => {
-      if (w?.es) acc[w.es] = w;
+      if (!w?.en && !w?.es) return acc;
+      const enKey = normalizeSimple(w?.en || "");
+      const canonical = CANONICAL_TRANSLATION_MAP[`${category}::${enKey}`] || CANONICAL_TRANSLATION_MAP[enKey] || w?.es;
+      const normalized = { ...w, es: canonical || w?.es };
+      if (normalized?.es) acc[`${normalizeSimple(normalized.en || "")}|${normalizeSimple(normalized.es || "")}`] = normalized;
       return acc;
     }, {}),
   );
