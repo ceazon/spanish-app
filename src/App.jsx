@@ -1840,7 +1840,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenAdmin }) {
+function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -1861,10 +1861,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenAdmin }) {
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
         <div><div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div><h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{user.displayName}</h1></div>
-        <div style={{ display:"flex", gap:8 }}>
-          <button onClick={onOpenAdmin} style={{ padding:"8px 14px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(124,58,237,0.2)", color:"#c4b5fd", fontFamily:"'Outfit', sans-serif", border:"1px solid rgba(124,58,237,0.35)" }}>Admin</button>
-          <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
-        </div>
+        <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, marginBottom:24 }}>
         {[{label:"Total Points",value:user.points,icon:"⚡",color:"#f59e0b"},{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"},{label:"Lessons",value:user.history.length,icon:"📚",color:"#a78bfa"}].map(s=>(
@@ -2178,7 +2175,7 @@ function AdminScreen({ onBack }) {
         ))}
       </div>
 
-      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px" }}>
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Most Played Modules</div>
         {stats.topLessons.length === 0 ? (
           <div style={{ color:"#9ca3af", fontSize:13 }}>No lesson history yet.</div>
@@ -2190,6 +2187,43 @@ function AdminScreen({ onBack }) {
                 <span style={{ color:"#a78bfa" }}>{count}</span>
               </div>
             ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px" }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Registered Users</div>
+        {users.length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No users found in storage.</div>
+        ) : (
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
+              <thead>
+                <tr style={{ color:"#9ca3af", textAlign:"left" }}>
+                  <th style={{ padding:"8px 6px" }}>Username</th>
+                  <th style={{ padding:"8px 6px" }}>Display</th>
+                  <th style={{ padding:"8px 6px" }}>Joined</th>
+                  <th style={{ padding:"8px 6px" }}>Last Login</th>
+                  <th style={{ padding:"8px 6px" }}>Points</th>
+                  <th style={{ padding:"8px 6px" }}>Lessons</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users
+                  .slice()
+                  .sort((a, b) => Date.parse(b?.joined || "") - Date.parse(a?.joined || ""))
+                  .map((u) => (
+                    <tr key={u.username} style={{ borderTop:"1px solid rgba(255,255,255,0.06)", color:"#d1d5db" }}>
+                      <td style={{ padding:"8px 6px" }}>{u.username}</td>
+                      <td style={{ padding:"8px 6px" }}>{u.displayName || "—"}</td>
+                      <td style={{ padding:"8px 6px" }}>{u.joined ? new Date(u.joined).toLocaleDateString() : "—"}</td>
+                      <td style={{ padding:"8px 6px" }}>{u.lastLogin ? new Date(u.lastLogin).toLocaleString() : "—"}</td>
+                      <td style={{ padding:"8px 6px" }}>{u.points || 0}</td>
+                      <td style={{ padding:"8px 6px" }}>{Array.isArray(u.history) ? u.history.length : 0}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
@@ -2273,7 +2307,8 @@ export default function App() {
     let streak=u.streak;
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
     const updated={...u,lastLogin:new Date().toISOString(),streak};
-    setUser(updated);saveUser(updated);setScreen("dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
+    const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
+    setUser(updated);saveUser(updated);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
   }
   async function handleLessonComplete(pts,correct,total,category,meta) {
     const difficulty = getAdaptiveDifficulty(user?.profile || {}, lessonType);
@@ -2302,8 +2337,8 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onOpenAdmin={()=>setScreen("admin")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
-      {screen==="admin"&&<AdminScreen onBack={()=>setScreen("dashboard")} />}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
       {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
