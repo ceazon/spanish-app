@@ -73,6 +73,35 @@ Access admin at:
 
 The app sends analytics events to `/api/analytics/event` for register/login/lesson completion.
 
+## Synthetic Student Agent (daily feedback)
+
+Run a bot-like student session and generate a daily draft blog post:
+
+```bash
+npm run student:run
+```
+
+Outputs:
+
+- JSON report: `blog/reports/YYYY-MM-DD.json`
+- Blog draft: `blog/drafts/YYYY-MM-DD.md`
+
+Optional env var:
+
+- `STUDENT_BASE_URL` (default: `https://chadlingo.com`)
+
+Example:
+
+```bash
+STUDENT_BASE_URL=https://chadlingo.com npm run student:run
+```
+
+Suggested daily cron (server/local):
+
+```bash
+0 9 * * * cd /path/to/Spanish-app && npm run student:run
+```
+
 ## Automated testing
 
 ```bash
