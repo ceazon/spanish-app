@@ -547,6 +547,63 @@ function selectAdaptiveListenSentences(pool = [], { difficulty = 1, target = 6, 
   return shuffle(chosen.map(({ _diff, _score, ...s }) => s));
 }
 
+const SUSPICIOUS_SPANISH_VALUES = new Set(["bye", "hello", "thanks", "please", "sorry", "goodbye"]);
+
+function normalizeSimple(text = "") {
+  return String(text).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
+}
+
+function buildStarterVocabMap(pack) {
+  const map = {};
+  for (const [category, items] of Object.entries(pack?.vocab || {})) {
+    for (const item of items || []) {
+      const key = `${category}::${normalizeSimple(item.en)}`;
+      map[key] = item.es;
+    }
+  }
+  return map;
+}
+
+function looksSuspiciousSpanish(en, es) {
+  const enNorm = normalizeSimple(en);
+  const esNorm = normalizeSimple(es);
+  if (!esNorm) return true;
+  if (esNorm === enNorm) return true;
+  if (SUSPICIOUS_SPANISH_VALUES.has(esNorm)) return true;
+  return false;
+}
+
+function validateAndSanitizeContentPack(pack) {
+  const starterMap = buildStarterVocabMap(starterPack);
+  const cloned = JSON.parse(JSON.stringify(pack || {}));
+  const issues = [];
+
+  if (cloned?.vocab && typeof cloned.vocab === "object") {
+    for (const [category, items] of Object.entries(cloned.vocab)) {
+      if (!Array.isArray(items)) continue;
+      cloned.vocab[category] = items.map((item) => {
+        const en = item?.en || "";
+        const es = item?.es || "";
+        const fallbackKey = `${category}::${normalizeSimple(en)}`;
+        const fallback = starterMap[fallbackKey];
+
+        if (looksSuspiciousSpanish(en, es) && fallback) {
+          issues.push(`${category}: "${en}" had suspicious Spanish "${es}" → replaced with "${fallback}"`);
+          return { ...item, es: fallback };
+        }
+
+        if (!en || !es) {
+          issues.push(`${category}: missing en/es for one vocab item`);
+        }
+
+        return item;
+      });
+    }
+  }
+
+  return { pack: cloned, issues };
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // AUTH SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1920,15 +1977,29 @@ export default function App() {
   useEffect(() => {
     async function loadPack() {
       const parsed = await loadActiveContentPack();
-      if (parsed?.vocab) setContentPack(parsed);
+      if (parsed?.vocab) {
+        const { pack: sanitized, issues } = validateAndSanitizeContentPack(parsed);
+        setContentPack(sanitized);
+        if (issues.length) {
+          await saveActiveContentPack(sanitized);
+          showToast(`Content pack auto-corrected (${issues.length} translation issue${issues.length > 1 ? "s" : ""})`, "error");
+          console.warn("[content-pack] translation issues fixed", issues);
+        }
+      }
     }
     loadPack();
   }, []);
 
   async function importContentPack(pack) {
-    await saveActiveContentPack(pack);
-    setContentPack(pack);
-    showToast(`Loaded content pack: ${pack.name || pack.id}`);
+    const { pack: sanitized, issues } = validateAndSanitizeContentPack(pack);
+    await saveActiveContentPack(sanitized);
+    setContentPack(sanitized);
+    if (issues.length) {
+      showToast(`Loaded with ${issues.length} auto-fix${issues.length > 1 ? "es" : ""} to translations`, "error");
+      console.warn("[content-pack] import translation issues fixed", issues);
+    } else {
+      showToast(`Loaded content pack: ${sanitized.name || sanitized.id}`);
+    }
   }
 
   async function resetContentPack() {
