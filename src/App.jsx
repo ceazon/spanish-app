@@ -2250,7 +2250,9 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
           )}
         </div>
       </div>
-      {lessonNode}
+      <div key={`${type}:${category || "default"}`}>
+        {lessonNode}
+      </div>
     </div>
   );
 }
