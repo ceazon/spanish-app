@@ -259,18 +259,31 @@ function writeRecentFlashcards(userKey, category, words = []) {
 }
 
 function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userKey = "guest", category = "General" } = {}) {
+  const strictCategory = CATEGORIES.includes(category);
   const unique = Object.values(
     (pool || []).reduce((acc, w) => {
       if (!w?.en && !w?.es) return acc;
-      const enKey = normalizeSimple(w?.en || "");
-      const canonical = CANONICAL_TRANSLATION_MAP[`${category}::${enKey}`] || CANONICAL_TRANSLATION_MAP[enKey] || w?.es;
-      const normalized = { ...w, es: canonical || w?.es };
+      const en = (w?.en || "").trim();
+      const enKey = normalizeSimple(en);
+      const esKey = normalizeSimple(w?.es || "");
+      const canonical = CANONICAL_TRANSLATION_MAP[`${category}::${enKey}`] || CANONICAL_TRANSLATION_MAP[enKey] || null;
+
+      let normalized = null;
+      if (canonical) {
+        normalized = { ...w, en, es: canonical };
+      } else if (!strictCategory && esKey && esKey !== enKey) {
+        normalized = { ...w, en };
+      }
+
       if (normalized?.es) acc[`${normalizeSimple(normalized.en || "")}|${normalizeSimple(normalized.es || "")}`] = normalized;
       return acc;
     }, {}),
   );
 
-  if (!unique.length) return [];
+  if (!unique.length) {
+    if (strictCategory) return (VOCAB[category] || []).slice(0, target);
+    return [];
+  }
 
   const recent = readRecentFlashcards(userKey, category);
   const mix = targetMixForDifficulty(difficulty);
