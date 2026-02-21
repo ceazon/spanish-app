@@ -2076,7 +2076,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
   const SELECTOR_MODULES = new Set(["Scenario Builder", "Image Labeling", "Picture Description"]);
   const needsCategory = !NO_CATEGORY.has(type) || SELECTOR_MODULES.has(type);
-  const [category, setCategory] = useState(NO_CATEGORY.has(type) ? null : type);
+  const [category, setCategory] = useState(needsCategory ? null : type);
   const [words, setWords] = useState([]);
   const vocabMap = APPROVED_VOCAB_MAP;
   const categories = Object.keys(vocabMap);
