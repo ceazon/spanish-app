@@ -2270,6 +2270,8 @@ function AdminScreen({ onBack }) {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [health, setHealth] = useState(null);
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [approvingSlug, setApprovingSlug] = useState("");
 
   async function unlock() {
     setLoading(true);
@@ -2300,10 +2302,11 @@ function AdminScreen({ onBack }) {
     async function loadAdminData() {
       try {
         const headers = { "x-admin-password": token };
-        const [statsReq, usersReq, healthReq] = await Promise.allSettled([
+        const [statsReq, usersReq, healthReq, blogReq] = await Promise.allSettled([
           fetch("/api/admin/stats", { headers }),
           fetch("/api/admin/users", { headers }),
           fetch("/api/admin/health", { headers }),
+          fetch("/api/admin/blog/list", { headers }),
         ]);
 
         if (!mounted) return;
@@ -2323,6 +2326,11 @@ function AdminScreen({ onBack }) {
           setUsers(Array.isArray(usersData?.users) ? usersData.users : []);
         }
 
+        if (blogReq.status === "fulfilled" && blogReq.value.ok) {
+          const blogData = await blogReq.value.json();
+          setBlogPosts(Array.isArray(blogData?.posts) ? blogData.posts : []);
+        }
+
         if (!(statsReq.status === "fulfilled" && statsReq.value.ok)) {
           const details = statsReq.status === "fulfilled" ? await statsReq.value.json().catch(() => ({})) : {};
           setErr(details?.error || "Admin stats unavailable.");
@@ -2337,6 +2345,24 @@ function AdminScreen({ onBack }) {
       mounted = false;
     };
   }, [token]);
+
+  async function approveBlogPost(slug) {
+    if (!slug || !token) return;
+    setApprovingSlug(slug);
+    try {
+      const res = await fetch("/api/admin/blog/approve", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-admin-password": token },
+        body: JSON.stringify({ slug }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Approve failed");
+      setBlogPosts((prev) => prev.map((p) => (p.slug === slug ? { ...p, approved: true } : p)));
+    } catch (e) {
+      setErr(e?.message || "Could not approve blog post");
+    }
+    setApprovingSlug("");
+  }
 
   if (!token) {
     return (
@@ -2407,6 +2433,36 @@ function AdminScreen({ onBack }) {
               <div key={name} style={{ display:"flex", justifyContent:"space-between", color:"#d1d5db", fontSize:13 }}>
                 <span>{name}</span>
                 <span style={{ color:"#a78bfa" }}>{count}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Student Blog Draft Approval</div>
+        {blogPosts.length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No draft posts found yet. Daily agent posts will appear here.</div>
+        ) : (
+          <div style={{ display:"grid", gap:10 }}>
+            {blogPosts.map((post) => (
+              <div key={post.slug} style={{ border:"1px solid rgba(255,255,255,0.08)", borderRadius:10, padding:"10px 12px", background:"rgba(255,255,255,0.02)" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:10 }}>
+                  <div>
+                    <div style={{ color:"#fff", fontSize:13, fontWeight:700 }}>{post.name}</div>
+                    <div style={{ color:"#9ca3af", fontSize:11, whiteSpace:"pre-wrap", marginTop:4 }}>{post.excerpt || "No preview"}</div>
+                  </div>
+                  <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                    <a href={post.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:12 }}>Open</a>
+                    <button
+                      onClick={() => approveBlogPost(post.slug)}
+                      disabled={post.approved || approvingSlug === post.slug}
+                      style={{ padding:"8px 10px", borderRadius:8, fontSize:12, fontWeight:700, background:post.approved?"rgba(34,197,94,0.2)":"rgba(124,58,237,0.22)", color:post.approved?"#86efac":"#ddd6fe", border:"1px solid rgba(124,58,237,0.4)" }}
+                    >
+                      {post.approved ? "Approved" : approvingSlug === post.slug ? "Approving..." : "Approve"}
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
