@@ -234,12 +234,41 @@ const STORY_CHALLENGES = [
   "Placement Test",
 ];
 
+const STORY_EPISODES = [
+  {
+    id: "madrid-arrival",
+    title: "Arrival in Madrid",
+    vibe: "Get oriented and warm up your core Spanish.",
+    nodes: ["Flashcards", "Word Match", "Fill in the Blank"],
+  },
+  {
+    id: "cafe-run",
+    title: "Café Mission",
+    vibe: "Order confidently and respond fast.",
+    nodes: ["Sentence Scramble", "Transcription", "Scenario Builder"],
+  },
+  {
+    id: "street-survival",
+    title: "Street Survival",
+    vibe: "Handle mixed real-world prompts under pressure.",
+    nodes: ["Word Match", "Fill in the Blank", "Placement Test"],
+  },
+];
+
 function buildStoryPlan(minutes = 10, aiStatus = { anyAvailable: true }) {
   const targetCount = Math.max(3, Math.min(12, Math.round((Number(minutes) || 10) / 2)));
-  const pool = STORY_CHALLENGES.filter((type) => !(AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable));
+  const available = STORY_CHALLENGES.filter((type) => !(AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable));
+  const episodePool = STORY_EPISODES.map((ep) => ({
+    ...ep,
+    nodes: ep.nodes.filter((n) => available.includes(n)),
+  })).filter((ep) => ep.nodes.length > 0);
+
+  if (!episodePool.length) return { plan: [], episodeTitle: "Story Run", episodeVibe: "" };
+
+  const selected = episodePool[Math.floor(Math.random() * episodePool.length)];
   const plan = [];
-  for (let i = 0; i < targetCount; i += 1) plan.push(pool[i % pool.length]);
-  return plan;
+  for (let i = 0; i < targetCount; i += 1) plan.push(selected.nodes[i % selected.nodes.length]);
+  return { plan, episodeTitle: selected.title, episodeVibe: selected.vibe };
 }
 
 function MascotSpeechBubble({ text, tone = "default", style = {} }) {
@@ -880,10 +909,6 @@ function AuthScreen({ onLogin }) {
           <MascotSpeechBubble text={mode === "login" ? "¡Hola! Ready for today’s Spanish win?" : "Let’s build your streak — create your account!"} tone="default" style={{ margin:"0 auto 10px", maxWidth:300 }} />
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
           <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
-          <div style={{ marginTop:12, background:"linear-gradient(135deg, rgba(124,58,237,0.26), rgba(6,182,212,0.2))", border:"1px solid rgba(167,139,250,0.45)", borderRadius:12, padding:"10px 12px" }}>
-            <div style={{ color:"#fff", fontSize:13, fontWeight:800 }}>🎮 Hop into Story Mode</div>
-            <div style={{ color:"#c4b5fd", fontSize:11, marginTop:2 }}>Sign in and take on a timed challenge run.</div>
-          </div>
         </div>
         <div style={{ display:"flex", background:"rgba(255,255,255,0.06)", borderRadius:12, padding:4, marginBottom:28 }}>
           {["login","register"].map(m => <button key={m} onClick={() => setMode(m)} style={{ flex:1, padding:"10px 0", borderRadius:9, fontSize:13, fontWeight:600, fontFamily:"'Outfit', sans-serif", transition:"all 0.2s", background:mode===m?"#7c3aed":"transparent", color:mode===m?"#fff":"#9ca3af" }}>{m.charAt(0).toUpperCase()+m.slice(1)}</button>)}
@@ -2360,6 +2385,7 @@ function AdminScreen({ onBack }) {
 function StoryModeSetup({ aiStatus, onBack, onStart }) {
   const [minutes, setMinutes] = useState(10);
   const durations = [5, 10, 15, 20];
+  const preview = useMemo(() => buildStoryPlan(minutes, aiStatus), [minutes, aiStatus]);
 
   return (
     <div style={{ maxWidth:760, margin:"0 auto", padding:"28px 20px 60px" }}>
@@ -2373,6 +2399,13 @@ function StoryModeSetup({ aiStatus, onBack, onStart }) {
             <div style={{ color:"#ddd6fe", fontSize:13 }}>Timed adventure run with mixed Spanish challenges and a final mission report.</div>
           </div>
         </div>
+
+        <div style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", borderRadius:12, padding:"10px 12px", marginBottom:14 }}>
+          <div style={{ color:"#fff", fontSize:16, fontWeight:800 }}>{preview.episodeTitle || "Story Run"}</div>
+          <div style={{ color:"#c4b5fd", fontSize:12, marginTop:2 }}>{preview.episodeVibe || "A focused mission through core challenges."}</div>
+          <div style={{ color:"#9ca3af", fontSize:11, marginTop:6 }}>Planned challenges: {(preview.plan || []).join(" • ")}</div>
+        </div>
+
         <div style={{ color:"#9ca3af", fontSize:12, marginBottom:10 }}>Choose your session length</div>
         <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:16 }}>
           {durations.map((d) => (
@@ -2382,7 +2415,7 @@ function StoryModeSetup({ aiStatus, onBack, onStart }) {
           ))}
         </div>
         {!aiStatus?.anyAvailable && <div style={{ color:"#fca5a5", fontSize:12, marginBottom:12 }}>AI modules are currently unavailable; story run will use non-AI challenges.</div>}
-        <PrimaryBtn onClick={() => onStart(minutes)}>🚀 Start Story Mode</PrimaryBtn>
+        <PrimaryBtn onClick={() => onStart(minutes, preview)}>🚀 Start Story Mode</PrimaryBtn>
       </div>
     </div>
   );
@@ -2399,6 +2432,8 @@ function StorySummaryScreen({ summary, onBack }) {
           <div>
             <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>MISSION COMPLETE</div>
             <h2 style={{ color:"#fff", margin:"6px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Story Session Report</h2>
+            <div style={{ color:"#c4b5fd", fontSize:13, marginTop:4 }}>{summary.episodeTitle || "Story Run"}</div>
+            {summary.episodeVibe && <div style={{ color:"#9ca3af", fontSize:12, marginTop:2 }}>{summary.episodeVibe}</div>}
           </div>
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:10, marginTop:12 }}>
@@ -2508,8 +2543,9 @@ export default function App() {
       lessons: Array.isArray(updated.history) ? updated.history.length : 0,
     });
   }
-  function startStoryMode(minutes = 10) {
-    const plan = buildStoryPlan(minutes, aiStatus);
+  function startStoryMode(minutes = 10, preview = null) {
+    const built = preview || buildStoryPlan(minutes, aiStatus);
+    const plan = built?.plan || [];
     const first = plan[0];
     if (!first) {
       showToast("No Story Mode challenges available right now", "error");
@@ -2521,6 +2557,8 @@ export default function App() {
       active: true,
       minutes,
       plan,
+      episodeTitle: built?.episodeTitle || "Story Run",
+      episodeVibe: built?.episodeVibe || "",
       index: 0,
       startedAt: now,
       endAt: now + minutes * 60 * 1000,
@@ -2528,7 +2566,7 @@ export default function App() {
     });
     setLessonType(first);
     setScreen("lesson");
-    showToast(`Story Mode started: ${minutes} min`);
+    showToast(`Story Mode started: ${built?.episodeTitle || "Mission"}`);
   }
 
   async function handleLessonComplete(pts,correct,total,category,meta) {
@@ -2576,6 +2614,8 @@ export default function App() {
         const totalQuestions = nextResults.reduce((s, r) => s + (Number(r.total) || 0), 0);
         setStorySummary({
           minutes: storyMode.minutes,
+          episodeTitle: storyMode.episodeTitle,
+          episodeVibe: storyMode.episodeVibe,
           completed: nextResults.length,
           points: totalPoints,
           totalCorrect,
@@ -2589,7 +2629,7 @@ export default function App() {
       const nextType = storyMode.plan[nextIndex];
       setStoryMode({ ...storyMode, index: nextIndex, results: nextResults });
       setLessonType(nextType);
-      showToast(`Next challenge: ${nextType}`);
+      showToast(`${storyMode.episodeTitle} • Challenge ${nextIndex + 1}/${storyMode.plan.length}: ${nextType}`);
       setScreen("lesson");
       return;
     }
