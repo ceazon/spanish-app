@@ -2168,6 +2168,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       </div>
     </div>
   );
+
+  if (isFlashcards && (!category || !flashcardsForLesson.length)) {
+    return (
+      <div style={{ maxWidth:600, margin:"0 auto", padding:"20px" }}>
+        <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", marginBottom:24, display:"flex", alignItems:"center", gap:6 }}>← Back</button>
+        <h2 style={{ color:"#fff", fontFamily:"'Playfair Display', serif", marginBottom:8 }}>Flashcards</h2>
+        <p style={{ color:"#9ca3af", fontSize:14 }}>Preparing your random category…</p>
+      </div>
+    );
+  }
   const lessonRegistry = {
     "Flashcards": () => <FlashcardLesson words={flashcardsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, flashcardsForLesson); done(pts,correct,total); }} />,
     "Word Match": () => <WordMatchLesson words={wordsForLesson} difficulty={difficulty} onComplete={done} />,
