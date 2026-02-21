@@ -2074,11 +2074,12 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
-  const isFlashcards = type === "Flashcards";
+  const needsCategory = !NO_CATEGORY.has(type);
   const [category, setCategory] = useState(NO_CATEGORY.has(type)?type:null);
   const [words, setWords] = useState([]);
   const vocabMap = APPROVED_VOCAB_MAP;
   const categories = Object.keys(vocabMap);
+  const categoryOptions = type === "Fill in the Blank" ? [...categories, "General"] : categories;
   const fillBlankSentences = contentPack?.sentences || SENTENCES;
   const verbs = contentPack?.verbs || VERBS;
   const listenSentences = contentPack?.listenSentences || LISTEN_SENTENCES;
@@ -2136,14 +2137,22 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       category: "Sentence Scramble",
     })
   ), [scrambleSentences, difficulty, userKey]);
-  function pickCategory(cat) { setCategory(cat); setWords(vocabMap[cat] || []); }
+  function pickCategory(cat) {
+    if (cat === "General") {
+      setCategory("General");
+      setWords([]);
+      return;
+    }
+    setCategory(cat);
+    setWords(vocabMap[cat] || []);
+  }
   function done(pts,correct,total) { onComplete(pts,correct,total,category||type); }
 
   useEffect(() => {
-    if (!isFlashcards || category || !categories.length) return;
-    const random = categories[Math.floor(Math.random() * categories.length)];
+    if (!needsCategory || category || !categoryOptions.length) return;
+    const random = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
     pickCategory(random);
-  }, [isFlashcards, category, categories.length]);
+  }, [needsCategory, category, categoryOptions.length]);
 
   if (AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable) {
     return (
@@ -2157,19 +2166,17 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     );
   }
 
-  if(!category && !isFlashcards) return (
-    <div style={{ maxWidth:600, margin:"0 auto", padding:"20px" }}>
-      <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", marginBottom:24, display:"flex", alignItems:"center", gap:6 }}>← Back</button>
-      <h2 style={{ color:"#fff", fontFamily:"'Playfair Display', serif", marginBottom:8 }}>{type}</h2>
-      <p style={{ color:"#9ca3af", fontSize:14, marginBottom:24 }}>Choose a vocabulary category:</p>
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-        {categories.map(cat=><button key={cat} onClick={()=>pickCategory(cat)} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"18px 20px", textAlign:"left", cursor:"pointer", fontFamily:"'Outfit', sans-serif", color:"#e5e7eb", fontSize:15, fontWeight:600, transition:"all 0.2s" }} onMouseEnter={e=>{e.currentTarget.style.borderColor="#7c3aed";e.currentTarget.style.background="rgba(124,58,237,0.1)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.08)";e.currentTarget.style.background="rgba(255,255,255,0.04)";}}>{ cat}</button>)}
-        {type==="Fill in the Blank"&&<button onClick={()=>{ setCategory("General"); setWords([]); }} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"18px 20px", textAlign:"left", cursor:"pointer", fontFamily:"'Outfit', sans-serif", color:"#e5e7eb", fontSize:15, fontWeight:600 }}>General Sentences</button>}
+  if (needsCategory && !category) {
+    return (
+      <div style={{ maxWidth:600, margin:"0 auto", padding:"20px" }}>
+        <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", marginBottom:24, display:"flex", alignItems:"center", gap:6 }}>← Back</button>
+        <h2 style={{ color:"#fff", fontFamily:"'Playfair Display', serif", marginBottom:8 }}>{type}</h2>
+        <p style={{ color:"#9ca3af", fontSize:14 }}>Preparing your random category…</p>
       </div>
-    </div>
-  );
+    );
+  }
 
-  if (isFlashcards && (!category || !flashcardsForLesson.length)) {
+  if (type === "Flashcards" && !flashcardsForLesson.length) {
     return (
       <div style={{ maxWidth:600, margin:"0 auto", padding:"20px" }}>
         <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", marginBottom:24, display:"flex", alignItems:"center", gap:6 }}>← Back</button>
@@ -2202,11 +2209,11 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
         <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", display:"flex", alignItems:"center", gap:6 }}>← Back</button>
         <div style={{ textAlign:"right", display:"grid", gap:6 }}>
           <div style={{ color:"#e5e7eb", fontWeight:600, fontSize:15 }}>{type}</div>
-          {isFlashcards ? (
+          {needsCategory ? (
             <div style={{ display:"flex", alignItems:"center", gap:8, justifyContent:"flex-end" }}>
               <span style={{ color:"#9ca3af", fontSize:11 }}>Category</span>
               <select value={category || ""} onChange={(e) => pickCategory(e.target.value)} style={{ padding:"6px 8px", borderRadius:8, background:"#1f1638", border:"1px solid rgba(255,255,255,0.14)", color:"#fff", fontSize:12, appearance:"none" }}>
-                {categories.map((cat) => <option key={cat} value={cat} style={{ backgroundColor:"#1f1638", color:"#f3f4f6" }}>{cat}</option>)}
+                {categoryOptions.map((cat) => <option key={cat} value={cat} style={{ backgroundColor:"#1f1638", color:"#f3f4f6" }}>{cat}</option>)}
               </select>
             </div>
           ) : (
