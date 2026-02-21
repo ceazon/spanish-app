@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { execSync } from "node:child_process";
 
 async function readJsonBody(req) {
   return new Promise((resolve, reject) => {
@@ -276,6 +277,18 @@ function aiProxy() {
   };
 }
 
+const APP_COMMIT = (() => {
+  if (process.env.VITE_APP_COMMIT) return process.env.VITE_APP_COMMIT;
+  try {
+    return execSync("git rev-parse --short HEAD", { stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
+  } catch {
+    return "unknown";
+  }
+})();
+
 export default defineConfig({
   plugins: [aiProxy()],
+  define: {
+    __APP_COMMIT__: JSON.stringify(APP_COMMIT),
+  },
 });

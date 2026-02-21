@@ -215,6 +215,7 @@ function buildApprovedVocabMap() {
 
 const APPROVED_VOCAB_MAP = buildApprovedVocabMap();
 const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
+const APP_COMMIT = typeof __APP_COMMIT__ !== "undefined" ? __APP_COMMIT__ : "unknown";
 
 function estimateWordDifficulty(item = {}) {
   if (Number.isFinite(Number(item?.difficulty))) {
@@ -2133,6 +2134,9 @@ export default function App() {
       {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
       {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
+      <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
+        build {APP_COMMIT}
+      </div>
     </div>
   );
 }
