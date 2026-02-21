@@ -238,11 +238,11 @@ function estimateWordDifficulty(item = {}) {
 
 function targetMixForDifficulty(level = 1) {
   const d = Math.max(1, Math.min(5, Number(level) || 1));
-  if (d <= 1) return { easy: 0.75, medium: 0.2, hard: 0.05 };
-  if (d === 2) return { easy: 0.6, medium: 0.3, hard: 0.1 };
-  if (d === 3) return { easy: 0.45, medium: 0.4, hard: 0.15 };
-  if (d === 4) return { easy: 0.3, medium: 0.45, hard: 0.25 };
-  return { easy: 0.2, medium: 0.4, hard: 0.4 };
+  if (d <= 1) return { easy: 0.78, medium: 0.2, hard: 0.02 };
+  if (d === 2) return { easy: 0.62, medium: 0.3, hard: 0.08 };
+  if (d === 3) return { easy: 0.42, medium: 0.4, hard: 0.18 };
+  if (d === 4) return { easy: 0.26, medium: 0.42, hard: 0.32 };
+  return { easy: 0.14, medium: 0.36, hard: 0.5 };
 }
 
 function readRecentFlashcards(userKey, category) {
@@ -307,8 +307,11 @@ function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userK
       const diff = estimateWordDifficulty(w);
       const recencyIdx = recent.indexOf(w.es);
       const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0, 1 - recencyIdx / Math.max(1, recent.length));
-      const randomBoost = Math.random() * 0.35;
-      return { ...w, _diff: diff, _score: noveltyBoost + randomBoost };
+      const desired = Math.max(1, Math.min(5, Number(difficulty) || 1));
+      const fitBoost = 1 - Math.min(1, Math.abs(diff - desired) / 4);
+      const spacingBoost = recencyIdx >= 6 && recencyIdx <= 20 ? 0.18 : 0;
+      const randomBoost = Math.random() * 0.2;
+      return { ...w, _diff: diff, _score: noveltyBoost * 0.55 + fitBoost * 0.35 + spacingBoost + randomBoost };
     })
     .sort((a, b) => b._score - a._score);
 
@@ -1924,7 +1927,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const pictureScenes = contentPack?.pictureScenes || PICTURE_SCENES;
   const userKey = user?.username || "guest";
 
-  const vocabTarget = Math.min(10, 4 + difficulty * 2);
+  const vocabTarget = Math.min(12, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
   const wordsForLesson = useMemo(() => (
     selectAdaptiveFlashcards(words, {
