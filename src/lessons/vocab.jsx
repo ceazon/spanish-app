@@ -205,6 +205,10 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
       color:m?"#4ade80":w?"#f87171":s?"#c4b5fd":"#e5e7eb", opacity:m?0.5:1 };
   }
 
+  if (!words?.length) {
+    return <div style={{ color:"#9ca3af", textAlign:"center" }}>No words available for this category yet.</div>;
+  }
+
   if (!left.length || !right.length) {
     return <div style={{ color:"#9ca3af", textAlign:"center" }}>Preparing word match cards…</div>;
   }

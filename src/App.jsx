@@ -2130,6 +2130,11 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
     return fixed.length ? fixed : (APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget));
   }, [wordsForLesson, category, vocabTarget]);
+
+  const wordsForMatch = useMemo(() => {
+    const fallback = (APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget));
+    return (wordsForLesson && wordsForLesson.length) ? wordsForLesson : fallback;
+  }, [wordsForLesson, category, vocabTarget]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const transcriptionForLesson = useMemo(() => (
@@ -2216,7 +2221,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }
   const lessonRegistry = {
     "Flashcards": () => <FlashcardLesson words={flashcardsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, flashcardsForLesson); done(pts,correct,total); }} />,
-    "Word Match": () => <WordMatchLesson words={wordsForLesson} difficulty={difficulty} onComplete={done} />,
+    "Word Match": () => <WordMatchLesson words={wordsForMatch} difficulty={difficulty} onComplete={done} />,
     "Fill in the Blank": () => <FillBlankLesson difficulty={difficulty} onComplete={(pts,correct,total) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total); }} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
