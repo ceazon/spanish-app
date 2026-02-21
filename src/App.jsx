@@ -591,8 +591,8 @@ function validateAndSanitizeContentPack(pack) {
         const categoryKey = `${category}::${enKey}`;
         const fallback = starterMaps.byCategory[categoryKey] || starterMaps.byEnglish[enKey] || null;
 
-        if (looksSuspiciousSpanish(en, es) && fallback) {
-          issues.push(`${category}: "${en}" had suspicious Spanish "${es}" → replaced with "${fallback}"`);
+        if (fallback && normalizeSimple(es) !== normalizeSimple(fallback)) {
+          issues.push(`${category}: "${en}" had non-canonical Spanish "${es}" → replaced with "${fallback}"`);
           return { ...item, es: fallback };
         }
 
