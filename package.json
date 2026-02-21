@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "node --test",
     "test:e2e": "playwright test",
+    "test:e2e:prod": "E2E_BASE_URL=https://chadlingo.com playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {

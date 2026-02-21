@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = process.env.E2E_PORT || 4173;
-const BASE_URL = `http://127.0.0.1:${PORT}`;
+const LOCAL_BASE_URL = `http://127.0.0.1:${PORT}`;
+const BASE_URL = process.env.E2E_BASE_URL || LOCAL_BASE_URL;
+const USE_LOCAL_SERVER = !process.env.E2E_BASE_URL;
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -13,12 +15,14 @@ export default defineConfig({
     baseURL: BASE_URL,
     trace: 'on-first-retry',
   },
-  webServer: {
-    command: `npm run dev -- --host 127.0.0.1 --port ${PORT}`,
-    url: BASE_URL,
-    reuseExistingServer: true,
-    timeout: 120_000,
-  },
+  webServer: USE_LOCAL_SERVER
+    ? {
+        command: `npm run dev -- --host 127.0.0.1 --port ${PORT}`,
+        url: LOCAL_BASE_URL,
+        reuseExistingServer: true,
+        timeout: 120_000,
+      }
+    : undefined,
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
