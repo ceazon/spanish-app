@@ -154,23 +154,49 @@ export function FlashcardLesson({ words, onComplete }) {
 
 export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
   const targetPairs = Math.max(4, Math.min(12, Math.round(3 + difficulty * 1.4)));
-  const pool = words.slice(0, Math.min(targetPairs, words.length));
-  const [left] = useState(() => shuffle(pool)); const [right] = useState(() => shuffle(pool));
-  const [selL, setSelL] = useState(null); const [selR, setSelR] = useState(null);
-  const [matched, setMatched] = useState([]); const [wrong, setWrong] = useState([]);
+  const [left, setLeft] = useState([]);
+  const [right, setRight] = useState([]);
+  const [selL, setSelL] = useState(null);
+  const [selR, setSelR] = useState(null);
+  const [matched, setMatched] = useState([]);
+  const [wrong, setWrong] = useState([]);
   const [errors, setErrors] = useState(0);
+
+  useEffect(() => {
+    const pool = words.slice(0, Math.min(targetPairs, words.length));
+    setLeft(shuffle(pool));
+    setRight(shuffle(pool));
+    setSelL(null);
+    setSelR(null);
+    setMatched([]);
+    setWrong([]);
+    setErrors(0);
+  }, [words, targetPairs]);
+
   useEffect(() => {
     if (selL && selR) {
       if (selL.es === selR.es) {
-        const nm = [...matched, selL.en]; setMatched(nm); setSelL(null); setSelR(null);
-        if (nm.length === pool.length) {
+        const nm = [...matched, selL.en];
+        setMatched(nm);
+        setSelL(null);
+        setSelR(null);
+        if (nm.length === left.length && left.length > 0) {
           const basePerPair = 10 + Math.round(difficulty * 2);
           const penalty = 4 + Math.round(difficulty);
-          onComplete(Math.max(0, pool.length * basePerPair - errors * penalty), pool.length, pool.length);
+          onComplete(Math.max(0, left.length * basePerPair - errors * penalty), left.length, left.length);
         }
-      } else { setWrong([selL.en, selR.en]); setErrors(e => e+1); setTimeout(() => { setWrong([]); setSelL(null); setSelR(null); }, 800); }
+      } else {
+        setWrong([selL.en, selR.en]);
+        setErrors((e) => e + 1);
+        setTimeout(() => {
+          setWrong([]);
+          setSelL(null);
+          setSelR(null);
+        }, 800);
+      }
     }
-  }, [selL, selR]);
+  }, [selL, selR, matched, left.length, difficulty, errors, onComplete]);
+
   function bs(word, sel) {
     const m=matched.includes(word.en), w=wrong.includes(word.en), s=sel&&sel.en===word.en;
     return { padding:"12px 20px", borderRadius:10, fontSize:14, fontWeight:600, fontFamily:"'Outfit', sans-serif", cursor:m?"default":"pointer", transition:"all 0.2s", width:140, textAlign:"center",
@@ -178,6 +204,11 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
       border:`1px solid ${m?"#22c55e66":w?"#ef444466":s?"#a855f7":"rgba(255,255,255,0.08)"}`,
       color:m?"#4ade80":w?"#f87171":s?"#c4b5fd":"#e5e7eb", opacity:m?0.5:1 };
   }
+
+  if (!left.length || !right.length) {
+    return <div style={{ color:"#9ca3af", textAlign:"center" }}>Preparing word match cards…</div>;
+  }
+
   return (
     <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:20 }}>
       <div style={{ color:"#9ca3af", fontSize:13 }}>Match English → Spanish • Errors: {errors}</div>
