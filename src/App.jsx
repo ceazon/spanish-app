@@ -224,6 +224,20 @@ const MASCOT_ASSETS = {
   streak: "/mascot/chadlingo-streak.png",
 };
 
+function MascotSpeechBubble({ text, tone = "default", style = {} }) {
+  const toneStyles = {
+    default: { bg: "rgba(124,58,237,0.18)", border: "rgba(124,58,237,0.38)", color: "#ddd6fe" },
+    success: { bg: "rgba(34,197,94,0.16)", border: "rgba(34,197,94,0.38)", color: "#bbf7d0" },
+    hype: { bg: "rgba(245,158,11,0.18)", border: "rgba(245,158,11,0.42)", color: "#fde68a" },
+  };
+  const t = toneStyles[tone] || toneStyles.default;
+  return (
+    <div style={{ background:t.bg, border:`1px solid ${t.border}`, borderRadius:14, padding:"10px 12px", color:t.color, fontSize:12, fontWeight:700, lineHeight:1.35, ...style }}>
+      {text}
+    </div>
+  );
+}
+
 function loadAllUsersFromLocalStorage() {
   if (typeof localStorage === "undefined") return [];
   const users = [];
@@ -843,8 +857,9 @@ function AuthScreen({ onLogin }) {
             src={MASCOT_ASSETS.base}
             alt="Chadlingo mascot"
             onError={(e) => { e.currentTarget.style.display = "none"; }}
-            style={{ width:112, height:112, objectFit:"contain", marginBottom:10, filter:"drop-shadow(0 10px 20px rgba(124,58,237,0.35))" }}
+            style={{ width:148, height:148, objectFit:"contain", marginBottom:10, filter:"drop-shadow(0 10px 20px rgba(124,58,237,0.35))" }}
           />
+          <MascotSpeechBubble text={mode === "login" ? "¡Hola! Ready for today’s Spanish win?" : "Let’s build your streak — create your account!"} tone="default" style={{ margin:"0 auto 10px", maxWidth:300 }} />
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
           <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
         </div>
@@ -1794,9 +1809,11 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
 function ResultScreen({ points, correct, total, onBack }) {
   const pct=Math.round(correct/total*100);
   const mascot = pct >= 80 ? MASCOT_ASSETS.success : pct >= 50 ? MASCOT_ASSETS.progress : MASCOT_ASSETS.base;
+  const bubble = pct >= 80 ? "¡Excelente! You crushed it 🔥" : pct >= 50 ? "Nice work — keep pushing, you’re leveling up." : "Great effort. One more round and you’ll nail it 💪";
   return (
     <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:20, padding:"20px 0" }}>
-      <img src={mascot} alt="Chadlingo mascot feedback" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:140, height:140, objectFit:"contain" }} />
+      <img src={mascot} alt="Chadlingo mascot feedback" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:180, height:180, objectFit:"contain" }} />
+      <MascotSpeechBubble text={bubble} tone={pct >= 80 ? "success" : pct >= 50 ? "default" : "hype"} style={{ maxWidth:360, textAlign:"center" }} />
       <h2 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{pct>=80?"¡Excelente!":pct>=50?"¡Bien hecho!":"Keep Practicing!"}</h2>
       <div style={{ background:"rgba(124,58,237,0.15)", border:"1px solid #7c3aed44", borderRadius:16, padding:"24px 40px", textAlign:"center" }}>
         <div style={{ color:"#a78bfa", fontSize:13, letterSpacing:2, marginBottom:8 }}>POINTS EARNED</div>
@@ -1869,15 +1886,22 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
   const avgAcc = recentAcc.length ? Math.round(recentAcc.reduce((s,n)=>s+n,0)/recentAcc.length) : null;
   const groups={};
   LESSON_TYPES.forEach(t=>{ const g=LESSON_META[t].group; if(!groups[g]) groups[g]=[]; groups[g].push(t); });
+  const dashboardMascot = user.streak >= 3 ? MASCOT_ASSETS.streak : MASCOT_ASSETS.base;
+  const mascotLine = user.streak >= 7
+    ? `🔥 ${user.streak}-day streak! You’re unstoppable.`
+    : user.streak >= 3
+      ? `Nice streak, ${user.displayName}. Let’s keep it alive today.`
+      : "Small steps daily. Let’s get your streak rolling!";
   return (
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
         <div><div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div><h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{user.displayName}</h1></div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-          <img src={MASCOT_ASSETS.base} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:56, height:56, objectFit:"contain", borderRadius:12, background:"rgba(124,58,237,0.12)", padding:4 }} />
+          <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
           <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
         </div>
       </div>
+      <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:16, maxWidth:430 }} />
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, marginBottom:24 }}>
         {[{label:"Total Points",value:user.points,icon:"⚡",color:"#f59e0b"},{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"},{label:"Lessons",value:user.history.length,icon:"📚",color:"#a78bfa"}].map(s=>(
           <div key={s.label} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:16, padding:"16px 18px" }}>
