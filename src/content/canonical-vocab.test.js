@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const canonicalPath = path.resolve(process.cwd(), 'src/content/canonical-vocab.json');
+const canonicalPath = path.resolve(process.cwd(), 'src/content/approved-vocab-1000.json');
 const canonical = JSON.parse(fs.readFileSync(canonicalPath, 'utf8'));
 
 function norm(s = '') {

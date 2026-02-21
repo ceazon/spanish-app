@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
-import canonicalVocab from "./content/canonical-vocab.json";
+import approvedVocab from "./content/approved-vocab-1000.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
@@ -183,7 +183,7 @@ const PICTURE_SCENES = [
   { emoji: "👦 ⚽ 🏟️", description: "A boy playing soccer in a stadium", prompt: "Un niño juega al fútbol en un estadio." },
 ];
 
-const CATEGORIES = Object.keys(canonicalVocab?.vocab || VOCAB);
+const CATEGORIES = Object.keys(approvedVocab?.vocab || VOCAB);
 const FLASHCARD_HISTORY_KEY = "spanish_app_flashcard_recent_v1";
 const FILLBLANK_HISTORY_KEY = "spanish_app_fillblank_recent_v1";
 const SCRAMBLE_HISTORY_KEY = "spanish_app_scramble_recent_v1";
@@ -191,7 +191,7 @@ const LISTEN_HISTORY_KEY = "spanish_app_listen_recent_v1";
 
 function buildCanonicalTranslationMap() {
   const out = {};
-  for (const [category, items] of Object.entries(canonicalVocab?.vocab || {})) {
+  for (const [category, items] of Object.entries(approvedVocab?.vocab || {})) {
     for (const item of items || []) {
       if (!item?.approved) continue;
       const enKey = normalizeSimple(item.en);
@@ -205,7 +205,7 @@ function buildCanonicalTranslationMap() {
 
 function buildApprovedVocabMap() {
   const out = {};
-  for (const [category, items] of Object.entries(canonicalVocab?.vocab || {})) {
+  for (const [category, items] of Object.entries(approvedVocab?.vocab || {})) {
     out[category] = (items || [])
       .filter((item) => item?.approved && item?.en && item?.es)
       .map(({ en, es, difficulty }) => ({ en, es, difficulty: Number(difficulty) || undefined }));
