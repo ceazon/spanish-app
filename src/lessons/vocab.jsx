@@ -88,7 +88,7 @@ export function FlashcardLesson({ words, onComplete }) {
           {[false, true].map(back => (
             <div key={String(back)} style={{ position:"absolute", width:"100%", height:"100%", backfaceVisibility:"hidden", borderRadius:20, background:back?"linear-gradient(135deg, #14532d33, #166534aa)":"linear-gradient(135deg, #1e1347, #2d1b69)", border:`1px solid ${back?"#22c55e55":"#7c3aed55"}`, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:8, transform:back?"rotateY(180deg)":"none" }}>
               <div style={{ color:back?"#86efac":"#a78bfa", fontSize:12, fontWeight:600, letterSpacing:2 }}>{(dir==="en→es"?!back:back)?"ENGLISH":"ESPAÑOL"}</div>
-              <div style={{ color:"#fff", fontSize:32, fontWeight:700, fontFamily:"'Playfair Display', serif" }}>{dir==="en→es"?(back?card.es:card.en):(back?card.en:card.es)}</div>
+              <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:32, fontWeight:700, fontFamily:"'Playfair Display', serif" }}>{dir==="en→es"?(back?card.es:card.en):(back?card.en:card.es)}</div>
               {!back && <div style={{ color:"#6b7280", fontSize:12 }}>tap to flip</div>}
             </div>
           ))}
