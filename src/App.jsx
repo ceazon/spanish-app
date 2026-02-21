@@ -17,7 +17,7 @@ const VOCAB = {
     { en: "Good morning", es: "Buenos días" }, { en: "Good night", es: "Buenas noches" },
     { en: "Thank you", es: "Gracias" }, { en: "Please", es: "Por favor" },
     { en: "Yes", es: "Sí" }, { en: "No", es: "No" },
-    { en: "Excuse me", es: "Disculpa" }, { en: "Sorry", es: "Lo siento" },
+    { en: "Excuse me", es: "Perdón" }, { en: "Sorry", es: "Lo siento" },
   ],
   "Numbers": [
     { en: "One", es: "Uno" }, { en: "Two", es: "Dos" }, { en: "Three", es: "Tres" },
@@ -32,11 +32,11 @@ const VOCAB = {
   "Food": [
     { en: "Apple", es: "Manzana" }, { en: "Bread", es: "Pan" }, { en: "Water", es: "Agua" },
     { en: "Milk", es: "Leche" }, { en: "Chicken", es: "Pollo" }, { en: "Rice", es: "Arroz" },
-    { en: "Fish", es: "Pescado" }, { en: "Egg", es: "Huevo" }, { en: "Cheese", es: "Queso" }, { en: "Coffee", es: "Café" },
+    { en: "Fish (food)", es: "Pescado" }, { en: "Egg", es: "Huevo" }, { en: "Cheese", es: "Queso" }, { en: "Coffee", es: "Café" },
   ],
   "Animals": [
     { en: "Dog", es: "Perro" }, { en: "Cat", es: "Gato" }, { en: "Bird", es: "Pájaro" },
-    { en: "Horse", es: "Caballo" }, { en: "Fish", es: "Pez" }, { en: "Rabbit", es: "Conejo" },
+    { en: "Horse", es: "Caballo" }, { en: "Fish (animal)", es: "Pez" }, { en: "Rabbit", es: "Conejo" },
     { en: "Lion", es: "León" }, { en: "Tiger", es: "Tigre" }, { en: "Bear", es: "Oso" }, { en: "Elephant", es: "Elefante" },
   ],
 };
