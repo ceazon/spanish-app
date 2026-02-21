@@ -216,6 +216,71 @@ function buildApprovedVocabMap() {
 const APPROVED_VOCAB_MAP = buildApprovedVocabMap();
 const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
 const APP_COMMIT = typeof __APP_COMMIT__ !== "undefined" ? __APP_COMMIT__ : "unknown";
+const ADMIN_PASSWORD = (import.meta.env.VITE_ADMIN_PASSWORD || "").trim();
+
+function loadAllUsersFromLocalStorage() {
+  if (typeof localStorage === "undefined") return [];
+  const users = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    if (!key || !key.startsWith("user:")) continue;
+    try {
+      const raw = localStorage.getItem(key);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (parsed?.username) users.push(parsed);
+    } catch {}
+  }
+  return users;
+}
+
+function summarizeAdminStats(users = []) {
+  const now = Date.now();
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+  const monthAgo = now - 30 * 24 * 60 * 60 * 1000;
+
+  const totalUsers = users.length;
+  const newThisWeek = users.filter((u) => {
+    const joined = Date.parse(u?.joined || "");
+    return Number.isFinite(joined) && joined >= weekAgo;
+  }).length;
+
+  const weeklyActiveUsers = users.filter((u) => {
+    const last = Date.parse(u?.lastLogin || "");
+    return Number.isFinite(last) && last >= weekAgo;
+  }).length;
+
+  const monthlyActiveUsers = users.filter((u) => {
+    const last = Date.parse(u?.lastLogin || "");
+    return Number.isFinite(last) && last >= monthAgo;
+  }).length;
+
+  const totalLessons = users.reduce((sum, u) => sum + (Array.isArray(u?.history) ? u.history.length : 0), 0);
+  const totalPoints = users.reduce((sum, u) => sum + (Number(u?.points) || 0), 0);
+  const totalActiveMinutes = Math.round(users.reduce((sum, u) => sum + (Array.isArray(u?.history) ? u.history.reduce((s, h) => s + (Number(h?.meta?.durationSec) || 0), 0) : 0), 0) / 60);
+
+  const lessonMix = {};
+  users.forEach((u) => {
+    (Array.isArray(u?.history) ? u.history : []).forEach((entry) => {
+      const key = entry?.type || entry?.category || "Unknown";
+      lessonMix[key] = (lessonMix[key] || 0) + 1;
+    });
+  });
+
+  const topLessons = Object.entries(lessonMix)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6);
+
+  return {
+    totalUsers,
+    newThisWeek,
+    weeklyActiveUsers,
+    monthlyActiveUsers,
+    totalLessons,
+    totalPoints,
+    totalActiveMinutes,
+    topLessons,
+  };
+}
 
 function estimateWordDifficulty(item = {}) {
   if (Number.isFinite(Number(item?.difficulty))) {
@@ -1775,7 +1840,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
+function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenAdmin }) {
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -1796,7 +1861,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
         <div><div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div><h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{user.displayName}</h1></div>
-        <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+        <div style={{ display:"flex", gap:8 }}>
+          <button onClick={onOpenAdmin} style={{ padding:"8px 14px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(124,58,237,0.2)", color:"#c4b5fd", fontFamily:"'Outfit', sans-serif", border:"1px solid rgba(124,58,237,0.35)" }}>Admin</button>
+          <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+        </div>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, marginBottom:24 }}>
         {[{label:"Total Points",value:user.points,icon:"⚡",color:"#f59e0b"},{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"},{label:"Lessons",value:user.history.length,icon:"📚",color:"#a78bfa"}].map(s=>(
@@ -2033,6 +2101,106 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   );
 }
 
+function AdminScreen({ onBack }) {
+  const [password, setPassword] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [err, setErr] = useState("");
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (!unlocked) return;
+    setUsers(loadAllUsersFromLocalStorage());
+  }, [unlocked]);
+
+  const stats = useMemo(() => summarizeAdminStats(users), [users]);
+
+  function unlock() {
+    if (!ADMIN_PASSWORD) {
+      setErr("Admin password is not configured. Set VITE_ADMIN_PASSWORD in Vercel env vars.");
+      return;
+    }
+    if (password !== ADMIN_PASSWORD) {
+      setErr("Incorrect admin password.");
+      return;
+    }
+    setErr("");
+    setUnlocked(true);
+  }
+
+  if (!unlocked) {
+    return (
+      <div style={{ maxWidth:520, margin:"0 auto", padding:"40px 20px" }}>
+        <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", marginBottom:24 }}>← Back</button>
+        <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:18, padding:"24px" }}>
+          <div style={{ color:"#fff", fontSize:24, fontWeight:800, marginBottom:6 }}>Admin Login</div>
+          <div style={{ color:"#9ca3af", fontSize:13, marginBottom:16 }}>Enter the admin password to access reports.</div>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && unlock()}
+            placeholder="Admin password"
+            style={{ width:"100%", padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"#fff", marginBottom:12 }}
+          />
+          <PrimaryBtn onClick={unlock}>Unlock Admin</PrimaryBtn>
+          {err && <div style={{ color:"#fca5a5", fontSize:12, marginTop:10 }}>{err}</div>}
+        </div>
+      </div>
+    );
+  }
+
+  const cards = [
+    { label: "Registered Users", value: stats.totalUsers, icon: "👥" },
+    { label: "New This Week", value: stats.newThisWeek, icon: "🆕" },
+    { label: "WAU", value: stats.weeklyActiveUsers, icon: "📈" },
+    { label: "MAU", value: stats.monthlyActiveUsers, icon: "📊" },
+    { label: "Total Lessons", value: stats.totalLessons, icon: "📚" },
+    { label: "Total Active Minutes", value: stats.totalActiveMinutes, icon: "⏱️" },
+  ];
+
+  return (
+    <div style={{ maxWidth:900, margin:"0 auto", padding:"26px 20px 60px" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:18 }}>
+        <div>
+          <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>ADMIN</div>
+          <h2 style={{ color:"#fff", margin:"4px 0 0", fontSize:28 }}>Usage Dashboard</h2>
+        </div>
+        <button onClick={onBack} style={{ padding:"8px 14px", borderRadius:8, background:"rgba(255,255,255,0.06)", color:"#9ca3af" }}>← Back</button>
+      </div>
+
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:20 }}>
+        {cards.map((c) => (
+          <div key={c.label} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"14px" }}>
+            <div style={{ fontSize:20 }}>{c.icon}</div>
+            <div style={{ color:"#9ca3af", fontSize:11, marginTop:4 }}>{c.label}</div>
+            <div style={{ color:"#fff", fontSize:28, fontWeight:800 }}>{c.value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px" }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Most Played Modules</div>
+        {stats.topLessons.length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No lesson history yet.</div>
+        ) : (
+          <div style={{ display:"grid", gap:8 }}>
+            {stats.topLessons.map(([name, count]) => (
+              <div key={name} style={{ display:"flex", justifyContent:"space-between", color:"#d1d5db", fontSize:13 }}>
+                <span>{name}</span>
+                <span style={{ color:"#a78bfa" }}>{count}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ color:"#6b7280", fontSize:11, marginTop:12 }}>
+        Note: current admin metrics are based on user data available in this app storage.
+      </div>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // APP ROOT
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2134,7 +2302,8 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onOpenAdmin={()=>setScreen("admin")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="admin"&&<AdminScreen onBack={()=>setScreen("dashboard")} />}
       {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
