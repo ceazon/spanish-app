@@ -118,8 +118,9 @@ export function FlashcardLesson({ words, onComplete }) {
   );
 }
 
-export function WordMatchLesson({ words, onComplete }) {
-  const pool = words.slice(0,6);
+export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
+  const targetPairs = Math.max(4, Math.min(10, Math.round(3 + difficulty)));
+  const pool = words.slice(0, Math.min(targetPairs, words.length));
   const [left] = useState(() => shuffle(pool)); const [right] = useState(() => shuffle(pool));
   const [selL, setSelL] = useState(null); const [selR, setSelR] = useState(null);
   const [matched, setMatched] = useState([]); const [wrong, setWrong] = useState([]);

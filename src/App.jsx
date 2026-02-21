@@ -1589,7 +1589,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   );
   const lessonRegistry = {
     "Flashcards": () => <FlashcardLesson words={wordsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, wordsForLesson); done(pts,correct,total); }} />,
-    "Word Match": () => <WordMatchLesson words={wordsForLesson} onComplete={done} />,
+    "Word Match": () => <WordMatchLesson words={wordsForLesson} difficulty={difficulty} onComplete={done} />,
     "Fill in the Blank": () => <FillBlankLesson onComplete={done} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
