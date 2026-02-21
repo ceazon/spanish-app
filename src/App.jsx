@@ -186,6 +186,7 @@ const CATEGORIES = Object.keys(VOCAB);
 const FLASHCARD_HISTORY_KEY = "spanish_app_flashcard_recent_v1";
 const FILLBLANK_HISTORY_KEY = "spanish_app_fillblank_recent_v1";
 const SCRAMBLE_HISTORY_KEY = "spanish_app_scramble_recent_v1";
+const LISTEN_HISTORY_KEY = "spanish_app_listen_recent_v1";
 
 function estimateWordDifficulty(item = {}) {
   const es = (item.es || "").trim();
@@ -452,6 +453,93 @@ function selectAdaptiveScrambles(pool = [], { difficulty = 1, target = 6, userKe
   ];
 
   const fallback = scored.filter((s) => !chosen.find((c) => c.correct === s.correct));
+  while (chosen.length < Math.min(target, scored.length) && fallback.length) {
+    chosen.push(fallback.shift());
+  }
+
+  return shuffle(chosen.map(({ _diff, _score, ...s }) => s));
+}
+
+function estimateListenDifficulty(item = {}) {
+  const es = (item.es || "").trim();
+  const tokens = es.split(/\s+/).filter(Boolean);
+  const letters = es.replace(/[^\p{L}]/gu, "");
+  const hasPunctuation = /[¿?¡!,.;:]/.test(es);
+
+  let score = 1;
+  if (tokens.length >= 5) score += 1;
+  if (tokens.length >= 8) score += 1;
+  if (letters.length >= 24) score += 1;
+  if (hasPunctuation) score += 0.5;
+
+  return Math.max(1, Math.min(5, Math.round(score)));
+}
+
+function readRecentListen(userKey, category) {
+  try {
+    const raw = localStorage.getItem(LISTEN_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    return Array.isArray(data?.[userKey]?.[category]) ? data[userKey][category] : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeRecentListen(userKey, category, items = []) {
+  try {
+    const raw = localStorage.getItem(LISTEN_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    const userData = data[userKey] || {};
+    const prior = Array.isArray(userData[category]) ? userData[category] : [];
+    const next = [...items.map((s) => s.es), ...prior]
+      .filter(Boolean)
+      .filter((v, i, arr) => arr.indexOf(v) === i)
+      .slice(0, 180);
+    data[userKey] = { ...userData, [category]: next };
+    localStorage.setItem(LISTEN_HISTORY_KEY, JSON.stringify(data));
+  } catch {
+    // ignore storage failures
+  }
+}
+
+function selectAdaptiveListenSentences(pool = [], { difficulty = 1, target = 6, userKey = "guest", category = "Transcription" } = {}) {
+  const unique = Object.values(
+    (pool || []).reduce((acc, s) => {
+      if (s?.es) acc[s.es] = s;
+      return acc;
+    }, {}),
+  );
+
+  if (!unique.length) return [];
+
+  const recent = readRecentListen(userKey, category);
+  const mix = targetMixForDifficulty(difficulty);
+
+  const scored = unique
+    .map((s) => {
+      const diff = estimateListenDifficulty(s);
+      const recencyIdx = recent.indexOf(s.es);
+      const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0, 1 - recencyIdx / Math.max(1, recent.length));
+      const randomBoost = Math.random() * 0.25;
+      return { ...s, _diff: diff, _score: noveltyBoost + randomBoost };
+    })
+    .sort((a, b) => b._score - a._score);
+
+  const easy = scored.filter((s) => s._diff <= 2);
+  const medium = scored.filter((s) => s._diff === 3);
+  const hard = scored.filter((s) => s._diff >= 4);
+
+  const wantEasy = Math.max(1, Math.round(target * mix.easy));
+  const wantMedium = Math.max(1, Math.round(target * mix.medium));
+  const wantHard = Math.max(0, target - wantEasy - wantMedium);
+
+  const chosen = [
+    ...easy.slice(0, wantEasy),
+    ...medium.slice(0, wantMedium),
+    ...hard.slice(0, wantHard),
+  ];
+
+  const fallback = scored.filter((s) => !chosen.find((c) => c.es === s.es));
   while (chosen.length < Math.min(target, scored.length) && fallback.length) {
     chosen.push(fallback.shift());
   }
@@ -1742,6 +1830,14 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   ), [fillBlankSentences, difficulty, sentenceTarget, userKey, category]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
+  const transcriptionForLesson = useMemo(() => (
+    selectAdaptiveListenSentences(listenSentences, {
+      difficulty,
+      target: Math.max(5, 3 + difficulty),
+      userKey,
+      category: "Transcription",
+    })
+  ), [listenSentences, difficulty, userKey]);
   const scenariosForLesson = shuffle(scenariosData).slice(0, Math.max(3, Math.min(6, 2 + difficulty)));
   const scenesForLesson = shuffle(scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
   const scrambleForLesson = useMemo(() => (
@@ -1785,7 +1881,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
     "Sentence Scramble": () => <SentenceScrambleLesson onComplete={(pts,correct,total) => { writeRecentScrambles(userKey, "Sentence Scramble", scrambleForLesson); done(pts,correct,total); }} scrambleSentences={scrambleForLesson} />,
-    "Transcription": () => <TranscriptionLesson onComplete={done} listenSentences={listenForLesson} />,
+    "Transcription": () => <TranscriptionLesson onComplete={(pts,correct,total) => { writeRecentListen(userKey, "Transcription", transcriptionForLesson); done(pts,correct,total); }} listenSentences={transcriptionForLesson} />,
     "Audio Shadowing": () => <AudioShadowingLesson onComplete={done} listenSentences={listenForLesson} />,
     "Pronunciation Coach": () => <PronunciationCoachLesson onComplete={done} listenSentences={listenForLesson} />,
     "Scenario Builder": () => <ScenarioBuilderLesson onComplete={done} scenariosData={scenariosForLesson} />,
