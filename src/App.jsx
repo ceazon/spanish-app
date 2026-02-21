@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
+import canonicalVocab from "./content/canonical-vocab.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
@@ -182,7 +183,7 @@ const PICTURE_SCENES = [
   { emoji: "👦 ⚽ 🏟️", description: "A boy playing soccer in a stadium", prompt: "Un niño juega al fútbol en un estadio." },
 ];
 
-const CATEGORIES = Object.keys(VOCAB);
+const CATEGORIES = Object.keys(canonicalVocab?.vocab || VOCAB);
 const FLASHCARD_HISTORY_KEY = "spanish_app_flashcard_recent_v1";
 const FILLBLANK_HISTORY_KEY = "spanish_app_fillblank_recent_v1";
 const SCRAMBLE_HISTORY_KEY = "spanish_app_scramble_recent_v1";
@@ -190,23 +191,35 @@ const LISTEN_HISTORY_KEY = "spanish_app_listen_recent_v1";
 
 function buildCanonicalTranslationMap() {
   const out = {};
-  const sources = [starterPack, { vocab: VOCAB }];
-  for (const src of sources) {
-    for (const [category, items] of Object.entries(src?.vocab || {})) {
-      for (const item of items || []) {
-        const enKey = normalizeSimple(item.en);
-        const categoryKey = `${category}::${enKey}`;
-        out[categoryKey] = item.es;
-        if (!out[enKey]) out[enKey] = item.es;
-      }
+  for (const [category, items] of Object.entries(canonicalVocab?.vocab || {})) {
+    for (const item of items || []) {
+      if (!item?.approved) continue;
+      const enKey = normalizeSimple(item.en);
+      const categoryKey = `${category}::${enKey}`;
+      out[categoryKey] = item.es;
+      if (!out[enKey]) out[enKey] = item.es;
     }
   }
   return out;
 }
 
+function buildApprovedVocabMap() {
+  const out = {};
+  for (const [category, items] of Object.entries(canonicalVocab?.vocab || {})) {
+    out[category] = (items || [])
+      .filter((item) => item?.approved && item?.en && item?.es)
+      .map(({ en, es, difficulty }) => ({ en, es, difficulty: Number(difficulty) || undefined }));
+  }
+  return out;
+}
+
+const APPROVED_VOCAB_MAP = buildApprovedVocabMap();
 const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
 
 function estimateWordDifficulty(item = {}) {
+  if (Number.isFinite(Number(item?.difficulty))) {
+    return Math.max(1, Math.min(5, Number(item.difficulty)));
+  }
   const es = (item.es || "").trim();
   if (!es) return 1;
   const tokens = es.split(/\s+/).filter(Boolean);
@@ -281,7 +294,7 @@ function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userK
   );
 
   if (!unique.length) {
-    if (strictCategory) return (VOCAB[category] || []).slice(0, target);
+    if (strictCategory) return (APPROVED_VOCAB_MAP[category] || []).slice(0, target);
     return [];
   }
 
@@ -1898,9 +1911,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
 function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
   const [category, setCategory] = useState(NO_CATEGORY.has(type)?type:null);
   const [words, setWords] = useState([]);
-  const rawVocabMap = contentPack?.vocab || VOCAB;
-  const safePack = useMemo(() => validateAndSanitizeContentPack({ vocab: rawVocabMap }), [rawVocabMap]);
-  const vocabMap = safePack.pack?.vocab || rawVocabMap;
+  const vocabMap = APPROVED_VOCAB_MAP;
   const categories = Object.keys(vocabMap);
   const fillBlankSentences = contentPack?.sentences || SENTENCES;
   const verbs = contentPack?.verbs || VERBS;

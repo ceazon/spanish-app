@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "vocab": {
+    "Greetings": [
+      { "en": "Hello", "es": "Hola", "difficulty": 1, "approved": true },
+      { "en": "Goodbye", "es": "Adiós", "difficulty": 1, "approved": true },
+      { "en": "Good morning", "es": "Buenos días", "difficulty": 1, "approved": true },
+      { "en": "Good night", "es": "Buenas noches", "difficulty": 1, "approved": true },
+      { "en": "Thank you", "es": "Gracias", "difficulty": 1, "approved": true },
+      { "en": "Please", "es": "Por favor", "difficulty": 1, "approved": true },
+      { "en": "Yes", "es": "Sí", "difficulty": 1, "approved": true },
+      { "en": "No", "es": "No", "difficulty": 1, "approved": true },
+      { "en": "Excuse me", "es": "Perdón", "difficulty": 1, "approved": true },
+      { "en": "Sorry", "es": "Lo siento", "difficulty": 2, "approved": true }
+    ],
+    "Numbers": [
+      { "en": "One", "es": "Uno", "difficulty": 1, "approved": true },
+      { "en": "Two", "es": "Dos", "difficulty": 1, "approved": true },
+      { "en": "Three", "es": "Tres", "difficulty": 1, "approved": true },
+      { "en": "Four", "es": "Cuatro", "difficulty": 1, "approved": true },
+      { "en": "Five", "es": "Cinco", "difficulty": 1, "approved": true },
+      { "en": "Six", "es": "Seis", "difficulty": 1, "approved": true },
+      { "en": "Seven", "es": "Siete", "difficulty": 1, "approved": true },
+      { "en": "Eight", "es": "Ocho", "difficulty": 1, "approved": true },
+      { "en": "Nine", "es": "Nueve", "difficulty": 1, "approved": true },
+      { "en": "Ten", "es": "Diez", "difficulty": 1, "approved": true }
+    ],
+    "Colors": [
+      { "en": "Red", "es": "Rojo", "difficulty": 1, "approved": true },
+      { "en": "Blue", "es": "Azul", "difficulty": 1, "approved": true },
+      { "en": "Green", "es": "Verde", "difficulty": 1, "approved": true },
+      { "en": "Yellow", "es": "Amarillo", "difficulty": 2, "approved": true },
+      { "en": "Black", "es": "Negro", "difficulty": 1, "approved": true },
+      { "en": "White", "es": "Blanco", "difficulty": 1, "approved": true },
+      { "en": "Orange", "es": "Naranja", "difficulty": 2, "approved": true },
+      { "en": "Purple", "es": "Morado", "difficulty": 2, "approved": true },
+      { "en": "Pink", "es": "Rosa", "difficulty": 1, "approved": true },
+      { "en": "Brown", "es": "Marrón", "difficulty": 2, "approved": true }
+    ],
+    "Food": [
+      { "en": "Apple", "es": "Manzana", "difficulty": 1, "approved": true },
+      { "en": "Bread", "es": "Pan", "difficulty": 1, "approved": true },
+      { "en": "Water", "es": "Agua", "difficulty": 1, "approved": true },
+      { "en": "Milk", "es": "Leche", "difficulty": 1, "approved": true },
+      { "en": "Chicken", "es": "Pollo", "difficulty": 1, "approved": true },
+      { "en": "Rice", "es": "Arroz", "difficulty": 1, "approved": true },
+      { "en": "Fish (food)", "es": "Pescado", "difficulty": 2, "approved": true },
+      { "en": "Egg", "es": "Huevo", "difficulty": 1, "approved": true },
+      { "en": "Cheese", "es": "Queso", "difficulty": 1, "approved": true },
+      { "en": "Coffee", "es": "Café", "difficulty": 1, "approved": true }
+    ],
+    "Animals": [
+      { "en": "Dog", "es": "Perro", "difficulty": 1, "approved": true },
+      { "en": "Cat", "es": "Gato", "difficulty": 1, "approved": true },
+      { "en": "Bird", "es": "Pájaro", "difficulty": 2, "approved": true },
+      { "en": "Horse", "es": "Caballo", "difficulty": 2, "approved": true },
+      { "en": "Fish (animal)", "es": "Pez", "difficulty": 2, "approved": true },
+      { "en": "Rabbit", "es": "Conejo", "difficulty": 2, "approved": true },
+      { "en": "Lion", "es": "León", "difficulty": 2, "approved": true },
+      { "en": "Tiger", "es": "Tigre", "difficulty": 2, "approved": true },
+      { "en": "Bear", "es": "Oso", "difficulty": 1, "approved": true },
+      { "en": "Elephant", "es": "Elefante", "difficulty": 3, "approved": true }
+    ]
+  }
+}
