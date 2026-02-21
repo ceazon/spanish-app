@@ -833,8 +833,8 @@ function AuthScreen({ onLogin }) {
       <div style={{ background:"rgba(255,255,255,0.04)", backdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:24, padding:"48px 40px", width:400 }}>
         <div style={{ textAlign:"center", marginBottom:40 }}>
           <div style={{ fontSize:48, marginBottom:8, animation:"float 3s ease-in-out infinite" }}>🇪🇸</div>
-          <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28, fontWeight:900, lineHeight:1.1 }}>Chad Enseña<br/>Español</h1>
-          <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>APRENDE ESPAÑOL CON CHAD</p>
+          <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
+          <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
         </div>
         <div style={{ display:"flex", background:"rgba(255,255,255,0.06)", borderRadius:12, padding:4, marginBottom:28 }}>
           {["login","register"].map(m => <button key={m} onClick={() => setMode(m)} style={{ flex:1, padding:"10px 0", borderRadius:9, fontSize:13, fontWeight:600, fontFamily:"'Outfit', sans-serif", transition:"all 0.2s", background:mode===m?"#7c3aed":"transparent", color:mode===m?"#fff":"#9ca3af" }}>{m.charAt(0).toUpperCase()+m.slice(1)}</button>)}
