@@ -61,3 +61,10 @@ export async function getApprovedSet() {
   const out = await redis.smembers("blog:approved");
   return Array.isArray(out) ? out.map(String) : [];
 }
+
+export async function listApprovedPosts(limit = 20) {
+  const drafts = await listDraftPosts(limit);
+  const approved = await getApprovedSet();
+  const approvedSet = new Set(approved);
+  return drafts.filter((d) => approvedSet.has(d.slug));
+}

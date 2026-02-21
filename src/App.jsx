@@ -2570,6 +2570,53 @@ function StorySummaryScreen({ summary, onBack }) {
   );
 }
 
+function StudentBlogPage() {
+  const [posts, setPosts] = useState([]);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+    fetch("/api/blog/approved")
+      .then((r) => r.json())
+      .then((data) => {
+        if (!mounted) return;
+        if (!data?.ok) throw new Error(data?.error || "Failed to load blog posts");
+        setPosts(Array.isArray(data.posts) ? data.posts : []);
+      })
+      .catch((e) => {
+        if (mounted) setErr(e?.message || "Failed to load blog posts");
+      });
+    return () => { mounted = false; };
+  }, []);
+
+  return (
+    <div style={{ maxWidth:860, margin:"0 auto", padding:"30px 20px 70px" }}>
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14 }}>
+        <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
+        <div>
+          <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>CHADLINGO</div>
+          <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Synthetic Student Blog</h1>
+          <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from our automated Spanish student.</div>
+        </div>
+      </div>
+      {err && <div style={{ color:"#fca5a5", fontSize:13, marginBottom:12 }}>{err}</div>}
+      {posts.length === 0 ? (
+        <div style={{ color:"#9ca3af", fontSize:14 }}>No approved posts yet.</div>
+      ) : (
+        <div style={{ display:"grid", gap:12 }}>
+          {posts.map((p) => (
+            <div key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"14px" }}>
+              <div style={{ color:"#fff", fontWeight:800, marginBottom:6 }}>{p.name}</div>
+              <div style={{ color:"#cbd5e1", fontSize:13, whiteSpace:"pre-wrap", marginBottom:8 }}>{p.excerpt || "Open post to read."}</div>
+              <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:13 }}>Read full post</a>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 async function trackAnalyticsEvent(payload) {
   try {
     await fetch("/api/analytics/event", {
@@ -2759,6 +2806,9 @@ export default function App() {
     }
 
     setLastResult({pts,correct,total});setScreen("result");
+  }
+  if (typeof window !== "undefined" && window.location.pathname === "/student-blog") {
+    return <StudentBlogPage />;
   }
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
   return (
