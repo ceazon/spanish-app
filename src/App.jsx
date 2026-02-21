@@ -184,6 +184,7 @@ const PICTURE_SCENES = [
 
 const CATEGORIES = Object.keys(VOCAB);
 const FLASHCARD_HISTORY_KEY = "spanish_app_flashcard_recent_v1";
+const FILLBLANK_HISTORY_KEY = "spanish_app_fillblank_recent_v1";
 
 function estimateWordDifficulty(item = {}) {
   const es = (item.es || "").trim();
@@ -280,6 +281,94 @@ function selectAdaptiveFlashcards(pool = [], { difficulty = 1, target = 8, userK
   }
 
   return shuffle(chosen.map(({ _diff, _score, ...w }) => w));
+}
+
+function estimateFillBlankDifficulty(item = {}) {
+  const answer = (item.answer || "").trim();
+  const answerTokens = answer.split(/\s+/).filter(Boolean);
+  const answerLetters = answer.replace(/[^\p{L}]/gu, "");
+  const templateTokens = (item.template || "").split(/\s+/).filter(Boolean).length;
+  const hasAccent = /[áéíóúñü]/i.test(answer);
+
+  let score = 1;
+  if (answerTokens.length >= 2) score += 1;
+  if (answerLetters.length >= 7) score += 1;
+  if (templateTokens >= 7) score += 1;
+  if (hasAccent) score += 0.5;
+
+  return Math.max(1, Math.min(5, Math.round(score)));
+}
+
+function readRecentFillBlanks(userKey, category) {
+  try {
+    const raw = localStorage.getItem(FILLBLANK_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    return Array.isArray(data?.[userKey]?.[category]) ? data[userKey][category] : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeRecentFillBlanks(userKey, category, sentences = []) {
+  try {
+    const raw = localStorage.getItem(FILLBLANK_HISTORY_KEY);
+    const data = raw ? JSON.parse(raw) : {};
+    const userData = data[userKey] || {};
+    const prior = Array.isArray(userData[category]) ? userData[category] : [];
+    const next = [...sentences.map((s) => s.template), ...prior]
+      .filter(Boolean)
+      .filter((v, i, arr) => arr.indexOf(v) === i)
+      .slice(0, 180);
+    data[userKey] = { ...userData, [category]: next };
+    localStorage.setItem(FILLBLANK_HISTORY_KEY, JSON.stringify(data));
+  } catch {
+    // ignore storage failures
+  }
+}
+
+function selectAdaptiveFillBlanks(pool = [], { difficulty = 1, target = 6, userKey = "guest", category = "General" } = {}) {
+  const unique = Object.values(
+    (pool || []).reduce((acc, s) => {
+      if (s?.template) acc[s.template] = s;
+      return acc;
+    }, {}),
+  );
+
+  if (!unique.length) return [];
+
+  const recent = readRecentFillBlanks(userKey, category);
+  const mix = targetMixForDifficulty(difficulty);
+
+  const scored = unique
+    .map((s) => {
+      const diff = estimateFillBlankDifficulty(s);
+      const recencyIdx = recent.indexOf(s.template);
+      const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0, 1 - recencyIdx / Math.max(1, recent.length));
+      const randomBoost = Math.random() * 0.3;
+      return { ...s, _diff: diff, _score: noveltyBoost + randomBoost };
+    })
+    .sort((a, b) => b._score - a._score);
+
+  const easy = scored.filter((s) => s._diff <= 2);
+  const medium = scored.filter((s) => s._diff === 3);
+  const hard = scored.filter((s) => s._diff >= 4);
+
+  const wantEasy = Math.max(1, Math.round(target * mix.easy));
+  const wantMedium = Math.max(1, Math.round(target * mix.medium));
+  const wantHard = Math.max(0, target - wantEasy - wantMedium);
+
+  const chosen = [
+    ...easy.slice(0, wantEasy),
+    ...medium.slice(0, wantMedium),
+    ...hard.slice(0, wantHard),
+  ];
+
+  const fallback = scored.filter((s) => !chosen.find((c) => c.template === s.template));
+  while (chosen.length < Math.min(target, scored.length) && fallback.length) {
+    chosen.push(fallback.shift());
+  }
+
+  return shuffle(chosen.map(({ _diff, _score, ...s }) => s));
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1555,7 +1644,14 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       category: category || type,
     })
   ), [words, difficulty, vocabTarget, userKey, category, type]);
-  const fillForLesson = shuffle(fillBlankSentences).slice(0, Math.max(5, sentenceTarget));
+  const fillForLesson = useMemo(() => (
+    selectAdaptiveFillBlanks(fillBlankSentences, {
+      difficulty,
+      target: Math.max(5, sentenceTarget),
+      userKey,
+      category: category || "General",
+    })
+  ), [fillBlankSentences, difficulty, sentenceTarget, userKey, category]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const scenariosForLesson = shuffle(scenariosData).slice(0, Math.max(3, Math.min(6, 2 + difficulty)));
@@ -1590,7 +1686,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const lessonRegistry = {
     "Flashcards": () => <FlashcardLesson words={wordsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, wordsForLesson); done(pts,correct,total); }} />,
     "Word Match": () => <WordMatchLesson words={wordsForLesson} difficulty={difficulty} onComplete={done} />,
-    "Fill in the Blank": () => <FillBlankLesson onComplete={done} sentences={fillForLesson} />,
+    "Fill in the Blank": () => <FillBlankLesson onComplete={(pts,correct,total) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total); }} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
     "Sentence Scramble": () => <SentenceScrambleLesson onComplete={done} scrambleSentences={scrambleForLesson} />,
