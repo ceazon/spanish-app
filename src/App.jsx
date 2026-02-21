@@ -224,6 +224,24 @@ const MASCOT_ASSETS = {
   streak: "/mascot/chadlingo-streak.png",
 };
 
+const STORY_CHALLENGES = [
+  "Flashcards",
+  "Word Match",
+  "Fill in the Blank",
+  "Sentence Scramble",
+  "Transcription",
+  "Scenario Builder",
+  "Placement Test",
+];
+
+function buildStoryPlan(minutes = 10, aiStatus = { anyAvailable: true }) {
+  const targetCount = Math.max(3, Math.min(12, Math.round((Number(minutes) || 10) / 2)));
+  const pool = STORY_CHALLENGES.filter((type) => !(AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable));
+  const plan = [];
+  for (let i = 0; i < targetCount; i += 1) plan.push(pool[i % pool.length]);
+  return plan;
+}
+
 function MascotSpeechBubble({ text, tone = "default", style = {} }) {
   const toneStyles = {
     default: { bg: "rgba(124,58,237,0.18)", border: "rgba(124,58,237,0.38)", color: "#ddd6fe" },
@@ -862,6 +880,10 @@ function AuthScreen({ onLogin }) {
           <MascotSpeechBubble text={mode === "login" ? "¡Hola! Ready for today’s Spanish win?" : "Let’s build your streak — create your account!"} tone="default" style={{ margin:"0 auto 10px", maxWidth:300 }} />
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
           <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
+          <div style={{ marginTop:12, background:"linear-gradient(135deg, rgba(124,58,237,0.26), rgba(6,182,212,0.2))", border:"1px solid rgba(167,139,250,0.45)", borderRadius:12, padding:"10px 12px" }}>
+            <div style={{ color:"#fff", fontSize:13, fontWeight:800 }}>🎮 Hop into Story Mode</div>
+            <div style={{ color:"#c4b5fd", fontSize:11, marginTop:2 }}>Sign in and take on a timed challenge run.</div>
+          </div>
         </div>
         <div style={{ display:"flex", background:"rgba(255,255,255,0.06)", borderRadius:12, padding:4, marginBottom:28 }}>
           {["login","register"].map(m => <button key={m} onClick={() => setMode(m)} style={{ flex:1, padding:"10px 0", borderRadius:9, fontSize:13, fontWeight:600, fontFamily:"'Outfit', sans-serif", transition:"all 0.2s", background:mode===m?"#7c3aed":"transparent", color:mode===m?"#fff":"#9ca3af" }}>{m.charAt(0).toUpperCase()+m.slice(1)}</button>)}
@@ -1869,7 +1891,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
+function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode }) {
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -1899,6 +1921,16 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
           <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+        </div>
+      </div>
+      <div style={{ background:"linear-gradient(140deg, rgba(124,58,237,0.22), rgba(6,182,212,0.16))", border:"1px solid rgba(124,58,237,0.4)", borderRadius:18, padding:"16px", marginBottom:16 }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
+          <div>
+            <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2 }}>FEATURED MODE</div>
+            <div style={{ color:"#fff", fontSize:24, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>🎮 Hop into Story Mode</div>
+            <div style={{ color:"#ddd6fe", fontSize:13, marginTop:4 }}>Take on a timed challenge run and finish with a mission report.</div>
+          </div>
+          <PrimaryBtn onClick={onOpenStoryMode} style={{ whiteSpace:"nowrap" }}>Take on the Challenge</PrimaryBtn>
         </div>
       </div>
       <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:16, maxWidth:430 }} />
@@ -2325,6 +2357,60 @@ function AdminScreen({ onBack }) {
   );
 }
 
+function StoryModeSetup({ aiStatus, onBack, onStart }) {
+  const [minutes, setMinutes] = useState(10);
+  const durations = [5, 10, 15, 20];
+
+  return (
+    <div style={{ maxWidth:760, margin:"0 auto", padding:"28px 20px 60px" }}>
+      <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", marginBottom:20 }}>← Back</button>
+      <div style={{ background:"linear-gradient(140deg, rgba(124,58,237,0.23), rgba(6,182,212,0.15))", border:"1px solid rgba(124,58,237,0.38)", borderRadius:22, padding:"22px" }}>
+        <div style={{ display:"flex", gap:16, alignItems:"center", marginBottom:12 }}>
+          <img src={MASCOT_ASSETS.success} alt="Story mode mascot" style={{ width:120, height:120, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
+          <div>
+            <div style={{ color:"#d8b4fe", fontSize:12, letterSpacing:2 }}>STORY MODE</div>
+            <h2 style={{ color:"#fff", margin:"4px 0 6px", fontSize:32, fontFamily:"'Playfair Display', serif" }}>Take on the Challenge</h2>
+            <div style={{ color:"#ddd6fe", fontSize:13 }}>Timed adventure run with mixed Spanish challenges and a final mission report.</div>
+          </div>
+        </div>
+        <div style={{ color:"#9ca3af", fontSize:12, marginBottom:10 }}>Choose your session length</div>
+        <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:16 }}>
+          {durations.map((d) => (
+            <button key={d} onClick={() => setMinutes(d)} style={{ padding:"10px 14px", borderRadius:10, border:`1px solid ${minutes===d?"#7c3aed":"rgba(255,255,255,0.12)"}`, background:minutes===d?"rgba(124,58,237,0.24)":"rgba(255,255,255,0.05)", color:minutes===d?"#e9d5ff":"#d1d5db", fontWeight:700 }}>
+              {d} min
+            </button>
+          ))}
+        </div>
+        {!aiStatus?.anyAvailable && <div style={{ color:"#fca5a5", fontSize:12, marginBottom:12 }}>AI modules are currently unavailable; story run will use non-AI challenges.</div>}
+        <PrimaryBtn onClick={() => onStart(minutes)}>🚀 Start Story Mode</PrimaryBtn>
+      </div>
+    </div>
+  );
+}
+
+function StorySummaryScreen({ summary, onBack }) {
+  if (!summary) return null;
+  const accuracy = summary.totalQuestions ? Math.round((summary.totalCorrect / summary.totalQuestions) * 100) : 0;
+  return (
+    <div style={{ maxWidth:760, margin:"0 auto", padding:"28px 20px 60px" }}>
+      <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:20, padding:"24px" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:14, marginBottom:10 }}>
+          <img src={MASCOT_ASSETS.success} alt="Story complete mascot" style={{ width:120, height:120, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
+          <div>
+            <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>MISSION COMPLETE</div>
+            <h2 style={{ color:"#fff", margin:"6px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Story Session Report</h2>
+          </div>
+        </div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:10, marginTop:12 }}>
+          {[{k:"Challenges",v:summary.completed},{k:"Points",v:summary.points},{k:"Accuracy",v:`${accuracy}%`},{k:"Duration",v:`${summary.minutes}m`}].map((s)=><div key={s.k} style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:12, padding:"12px" }}><div style={{ color:"#9ca3af", fontSize:11 }}>{s.k}</div><div style={{ color:"#fff", fontWeight:800, fontSize:22 }}>{s.v}</div></div>)}
+        </div>
+        <MascotSpeechBubble text={accuracy >= 80 ? "Elite run. You dominated Story Mode 🔥" : "Solid progress — jump back in and beat your score."} tone={accuracy >= 80 ? "success" : "default"} style={{ marginTop:14, maxWidth:420 }} />
+        <PrimaryBtn onClick={onBack} style={{ marginTop:14 }}>Back to Dashboard</PrimaryBtn>
+      </div>
+    </div>
+  );
+}
+
 async function trackAnalyticsEvent(payload) {
   try {
     await fetch("/api/analytics/event", {
@@ -2344,6 +2430,8 @@ export default function App() {
   const [lessonType, setLessonType] = useState(null); const [lastResult, setLastResult] = useState(null); const [toast, setToast] = useState(null);
   const [contentPack, setContentPack] = useState(starterPack);
   const [aiStatus, setAiStatus] = useState({ anyAvailable: true, providers: {}, checkedAt: null });
+  const [storyMode, setStoryMode] = useState(null);
+  const [storySummary, setStorySummary] = useState(null);
 
   useEffect(() => {
     async function loadPack() {
@@ -2420,6 +2508,29 @@ export default function App() {
       lessons: Array.isArray(updated.history) ? updated.history.length : 0,
     });
   }
+  function startStoryMode(minutes = 10) {
+    const plan = buildStoryPlan(minutes, aiStatus);
+    const first = plan[0];
+    if (!first) {
+      showToast("No Story Mode challenges available right now", "error");
+      return;
+    }
+    const now = Date.now();
+    setStorySummary(null);
+    setStoryMode({
+      active: true,
+      minutes,
+      plan,
+      index: 0,
+      startedAt: now,
+      endAt: now + minutes * 60 * 1000,
+      results: [],
+    });
+    setLessonType(first);
+    setScreen("lesson");
+    showToast(`Story Mode started: ${minutes} min`);
+  }
+
   async function handleLessonComplete(pts,correct,total,category,meta) {
     const difficulty = getAdaptiveDifficulty(user?.profile || {}, lessonType);
     const entry={date:new Date().toISOString(),points:pts,correct,total,category,type:lessonType,meta:{...(meta||{}), difficulty}};
@@ -2451,6 +2562,38 @@ export default function App() {
       durationSec: Number(meta?.durationSec) || 0,
       earnedPoints: Number(pts) || 0,
     });
+
+    if (storyMode?.active) {
+      const now = Date.now();
+      const nextResults = [...(storyMode.results || []), { type: lessonType, pts, correct, total }];
+      const nextIndex = (storyMode.index || 0) + 1;
+      const timedOut = now >= storyMode.endAt;
+      const finishedPlan = nextIndex >= (storyMode.plan?.length || 0);
+
+      if (timedOut || finishedPlan) {
+        const totalPoints = nextResults.reduce((s, r) => s + (Number(r.pts) || 0), 0);
+        const totalCorrect = nextResults.reduce((s, r) => s + (Number(r.correct) || 0), 0);
+        const totalQuestions = nextResults.reduce((s, r) => s + (Number(r.total) || 0), 0);
+        setStorySummary({
+          minutes: storyMode.minutes,
+          completed: nextResults.length,
+          points: totalPoints,
+          totalCorrect,
+          totalQuestions,
+        });
+        setStoryMode(null);
+        setScreen("story-summary");
+        return;
+      }
+
+      const nextType = storyMode.plan[nextIndex];
+      setStoryMode({ ...storyMode, index: nextIndex, results: nextResults });
+      setLessonType(nextType);
+      showToast(`Next challenge: ${nextType}`);
+      setScreen("lesson");
+      return;
+    }
+
     setLastResult({pts,correct,total});setScreen("result");
   }
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
@@ -2458,10 +2601,13 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
+      {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
-      {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>setScreen("dashboard")} contentPack={contentPack} user={user}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
+      {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
       </div>
