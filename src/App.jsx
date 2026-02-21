@@ -217,6 +217,13 @@ const APPROVED_VOCAB_MAP = buildApprovedVocabMap();
 const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
 const APP_COMMIT = typeof __APP_COMMIT__ !== "undefined" ? __APP_COMMIT__ : "unknown";
 
+const MASCOT_ASSETS = {
+  base: "/mascot/chadlingo-default.png",
+  success: "/mascot/chadlingo-success.png",
+  progress: "/mascot/chadlingo-progress.png",
+  streak: "/mascot/chadlingo-streak.png",
+};
+
 function loadAllUsersFromLocalStorage() {
   if (typeof localStorage === "undefined") return [];
   const users = [];
@@ -832,7 +839,12 @@ function AuthScreen({ onLogin }) {
       <div style={{ position:"fixed", bottom:"-10%", right:"-10%", width:500, height:500, borderRadius:"50%", background:"radial-gradient(#f59e0b22, transparent 70%)", pointerEvents:"none" }} />
       <div style={{ background:"rgba(255,255,255,0.04)", backdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:24, padding:"48px 40px", width:400 }}>
         <div style={{ textAlign:"center", marginBottom:40 }}>
-          <div style={{ fontSize:48, marginBottom:8, animation:"float 3s ease-in-out infinite" }}>🇪🇸</div>
+          <img
+            src={MASCOT_ASSETS.base}
+            alt="Chadlingo mascot"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+            style={{ width:112, height:112, objectFit:"contain", marginBottom:10, filter:"drop-shadow(0 10px 20px rgba(124,58,237,0.35))" }}
+          />
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
           <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
         </div>
@@ -1781,9 +1793,10 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
 
 function ResultScreen({ points, correct, total, onBack }) {
   const pct=Math.round(correct/total*100);
+  const mascot = pct >= 80 ? MASCOT_ASSETS.success : pct >= 50 ? MASCOT_ASSETS.progress : MASCOT_ASSETS.base;
   return (
     <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:20, padding:"20px 0" }}>
-      <div style={{ fontSize:64 }}>{pct>=80?"🏆":pct>=50?"⭐":"💪"}</div>
+      <img src={mascot} alt="Chadlingo mascot feedback" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:140, height:140, objectFit:"contain" }} />
       <h2 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{pct>=80?"¡Excelente!":pct>=50?"¡Bien hecho!":"Keep Practicing!"}</h2>
       <div style={{ background:"rgba(124,58,237,0.15)", border:"1px solid #7c3aed44", borderRadius:16, padding:"24px 40px", textAlign:"center" }}>
         <div style={{ color:"#a78bfa", fontSize:13, letterSpacing:2, marginBottom:8 }}>POINTS EARNED</div>
@@ -1860,7 +1873,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
         <div><div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div><h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{user.displayName}</h1></div>
-        <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+          <img src={MASCOT_ASSETS.base} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:56, height:56, objectFit:"contain", borderRadius:12, background:"rgba(124,58,237,0.12)", padding:4 }} />
+          <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+        </div>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, marginBottom:24 }}>
         {[{label:"Total Points",value:user.points,icon:"⚡",color:"#f59e0b"},{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"},{label:"Lessons",value:user.history.length,icon:"📚",color:"#a78bfa"}].map(s=>(
