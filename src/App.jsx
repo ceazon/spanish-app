@@ -2104,6 +2104,7 @@ function AdminScreen({ onBack }) {
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
+  const [health, setHealth] = useState(null);
 
   async function unlock() {
     setLoading(true);
@@ -2134,21 +2135,33 @@ function AdminScreen({ onBack }) {
     async function loadAdminData() {
       try {
         const headers = { "x-admin-password": token };
-        const [statsRes, usersRes] = await Promise.all([
+        const [statsReq, usersReq, healthReq] = await Promise.allSettled([
           fetch("/api/admin/stats", { headers }),
           fetch("/api/admin/users", { headers }),
+          fetch("/api/admin/health", { headers }),
         ]);
 
-        if (!statsRes.ok || !usersRes.ok) {
-          const details = await statsRes.json().catch(() => ({}));
-          throw new Error(details?.error || "Admin fetch failed");
+        if (!mounted) return;
+
+        if (healthReq.status === "fulfilled") {
+          const healthData = await healthReq.value.json().catch(() => ({}));
+          setHealth(healthData?.health || null);
         }
 
-        const statsData = await statsRes.json();
-        const usersData = await usersRes.json();
-        if (!mounted) return;
-        setStats(statsData?.stats || null);
-        setUsers(Array.isArray(usersData?.users) ? usersData.users : []);
+        if (statsReq.status === "fulfilled" && statsReq.value.ok) {
+          const statsData = await statsReq.value.json();
+          setStats(statsData?.stats || null);
+        }
+
+        if (usersReq.status === "fulfilled" && usersReq.value.ok) {
+          const usersData = await usersReq.value.json();
+          setUsers(Array.isArray(usersData?.users) ? usersData.users : []);
+        }
+
+        if (!(statsReq.status === "fulfilled" && statsReq.value.ok)) {
+          const details = statsReq.status === "fulfilled" ? await statsReq.value.json().catch(() => ({})) : {};
+          setErr(details?.error || "Admin stats unavailable.");
+        }
       } catch (e) {
         if (mounted) setErr(e?.message || "Failed to load admin stats.");
       }
@@ -2195,6 +2208,19 @@ function AdminScreen({ onBack }) {
       </div>
 
       {err && <div style={{ color:"#fca5a5", fontSize:12, marginBottom:12 }}>{err}</div>}
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"12px 16px", marginBottom:14 }}>
+        <div style={{ color:"#e5e7eb", fontSize:14, fontWeight:700, marginBottom:6 }}>Admin Health</div>
+        <div style={{ color: health?.configured ? "#86efac" : "#fca5a5", fontSize:12 }}>
+          Redis/KV: {health?.configured ? "Connected" : "Not configured"}
+        </div>
+        <div style={{ color:"#9ca3af", fontSize:12, marginTop:4 }}>
+          Last event: {health?.lastEventAt ? new Date(health.lastEventAt).toLocaleString() : "—"}
+        </div>
+        <div style={{ color:"#9ca3af", fontSize:12 }}>
+          Total tracked events: {health?.totalEvents ?? "—"}
+        </div>
+      </div>
 
       <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:20 }}>
         {cards.map((c) => (

@@ -26,6 +26,10 @@ function toNumber(v) {
   return Number.isFinite(n) ? n : 0;
 }
 
+export function isAnalyticsConfigured() {
+  return !!redis;
+}
+
 async function ensureConfigured() {
   if (!redis) throw new Error("Redis/KV not configured. Add KV_REST_API_URL + KV_REST_API_TOKEN in Vercel.");
 }
@@ -39,6 +43,8 @@ export async function trackEvent(payload = {}) {
   const nowIso = new Date().toISOString();
   const day = dayStamp();
   const userKey = `analytics:user:${username}`;
+  await redis.incrby("analytics:totals:events", 1);
+  await redis.set("analytics:lastEventAt", nowIso);
   const activeSetKey = `analytics:active:${day}`;
   const registrationSetKey = `analytics:registrations:${day}`;
 
@@ -152,4 +158,27 @@ export async function getUsers(limit = 200) {
   );
 
   return users.sort((a, b) => Date.parse(b?.joined || "") - Date.parse(a?.joined || ""));
+}
+
+export async function getHealth() {
+  if (!isAnalyticsConfigured()) {
+    return {
+      configured: false,
+      status: "missing_config",
+      lastEventAt: null,
+      totalEvents: 0,
+    };
+  }
+
+  const [lastEventAt, totalEvents] = await Promise.all([
+    redis.get("analytics:lastEventAt"),
+    redis.get("analytics:totals:events"),
+  ]);
+
+  return {
+    configured: true,
+    status: "ok",
+    lastEventAt: lastEventAt || null,
+    totalEvents: toNumber(totalEvents),
+  };
 }
