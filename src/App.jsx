@@ -2003,7 +2003,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const lessonRegistry = {
     "Flashcards": () => <FlashcardLesson words={flashcardsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, flashcardsForLesson); done(pts,correct,total); }} />,
     "Word Match": () => <WordMatchLesson words={wordsForLesson} difficulty={difficulty} onComplete={done} />,
-    "Fill in the Blank": () => <FillBlankLesson onComplete={(pts,correct,total) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total); }} sentences={fillForLesson} />,
+    "Fill in the Blank": () => <FillBlankLesson difficulty={difficulty} onComplete={(pts,correct,total) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total); }} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
     "Sentence Scramble": () => <SentenceScrambleLesson onComplete={(pts,correct,total) => { writeRecentScrambles(userKey, "Sentence Scramble", scrambleForLesson); done(pts,correct,total); }} scrambleSentences={scrambleForLesson} />,

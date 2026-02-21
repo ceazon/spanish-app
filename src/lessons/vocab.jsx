@@ -119,7 +119,7 @@ export function FlashcardLesson({ words, onComplete }) {
 }
 
 export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
-  const targetPairs = Math.max(4, Math.min(10, Math.round(3 + difficulty)));
+  const targetPairs = Math.max(4, Math.min(12, Math.round(3 + difficulty * 1.4)));
   const pool = words.slice(0, Math.min(targetPairs, words.length));
   const [left] = useState(() => shuffle(pool)); const [right] = useState(() => shuffle(pool));
   const [selL, setSelL] = useState(null); const [selR, setSelR] = useState(null);
@@ -129,7 +129,11 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
     if (selL && selR) {
       if (selL.es === selR.es) {
         const nm = [...matched, selL.en]; setMatched(nm); setSelL(null); setSelR(null);
-        if (nm.length === pool.length) onComplete(Math.max(0, pool.length*15-errors*5), pool.length, pool.length);
+        if (nm.length === pool.length) {
+          const basePerPair = 10 + Math.round(difficulty * 2);
+          const penalty = 4 + Math.round(difficulty);
+          onComplete(Math.max(0, pool.length * basePerPair - errors * penalty), pool.length, pool.length);
+        }
       } else { setWrong([selL.en, selR.en]); setErrors(e => e+1); setTimeout(() => { setWrong([]); setSelL(null); setSelR(null); }, 800); }
     }
   }, [selL, selR]);
@@ -157,15 +161,24 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
   );
 }
 
-export function FillBlankLesson({ onComplete, sentences = [] }) {
-  const [items] = useState(() => shuffle(sentences).slice(0,5));
+export function FillBlankLesson({ onComplete, sentences = [], difficulty = 1 }) {
+  const target = Math.max(5, Math.min(10, 4 + Number(difficulty || 1)));
+  const [items] = useState(() => shuffle(sentences).slice(0, Math.min(target, sentences.length)));
   const [idx, setIdx] = useState(0); const [input, setInput] = useState(""); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
   function check() {
-    if (!input.trim()) return;
+    if (!items.length || !input.trim()) return;
     const ok = input.trim().toLowerCase() === items[idx].answer.toLowerCase();
     setFeedback(ok?"correct":"incorrect");
     const ns = ok?score+1:score; if(ok) setScore(ns);
-    setTimeout(() => { if(idx+1>=items.length) onComplete(ns*20,ns,items.length); else { setFeedback(null); setInput(""); setIdx(i=>i+1); } }, 1200);
+    setTimeout(() => {
+      if(idx+1>=items.length) {
+        const perCorrect = 14 + Math.round((Number(difficulty || 1) - 1) * 1.5);
+        onComplete(ns * perCorrect, ns, items.length);
+      } else { setFeedback(null); setInput(""); setIdx(i=>i+1); }
+    }, 1200);
+  }
+  if (!items.length) {
+    return <div style={{ color:"#9ca3af", textAlign:"center" }}>No sentence items available yet.</div>;
   }
   const s=items[idx]; const parts=s.template.split("___");
   return (
