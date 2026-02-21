@@ -2205,8 +2205,8 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
           {isFlashcards ? (
             <div style={{ display:"flex", alignItems:"center", gap:8, justifyContent:"flex-end" }}>
               <span style={{ color:"#9ca3af", fontSize:11 }}>Category</span>
-              <select value={category || ""} onChange={(e) => pickCategory(e.target.value)} style={{ padding:"6px 8px", borderRadius:8, background:"rgba(255,255,255,0.08)", border:"1px solid rgba(255,255,255,0.14)", color:"#fff", fontSize:12 }}>
-                {categories.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+              <select value={category || ""} onChange={(e) => pickCategory(e.target.value)} style={{ padding:"6px 8px", borderRadius:8, background:"#1f1638", border:"1px solid rgba(255,255,255,0.14)", color:"#fff", fontSize:12, appearance:"none" }}>
+                {categories.map((cat) => <option key={cat} value={cat} style={{ backgroundColor:"#1f1638", color:"#f3f4f6" }}>{cat}</option>)}
               </select>
             </div>
           ) : (
