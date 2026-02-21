@@ -553,15 +553,18 @@ function normalizeSimple(text = "") {
   return String(text).toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").trim();
 }
 
-function buildStarterVocabMap(pack) {
-  const map = {};
+function buildStarterVocabMaps(pack) {
+  const byCategory = {};
+  const byEnglish = {};
   for (const [category, items] of Object.entries(pack?.vocab || {})) {
     for (const item of items || []) {
-      const key = `${category}::${normalizeSimple(item.en)}`;
-      map[key] = item.es;
+      const enKey = normalizeSimple(item.en);
+      const categoryKey = `${category}::${enKey}`;
+      byCategory[categoryKey] = item.es;
+      if (!byEnglish[enKey]) byEnglish[enKey] = item.es;
     }
   }
-  return map;
+  return { byCategory, byEnglish };
 }
 
 function looksSuspiciousSpanish(en, es) {
@@ -574,7 +577,7 @@ function looksSuspiciousSpanish(en, es) {
 }
 
 function validateAndSanitizeContentPack(pack) {
-  const starterMap = buildStarterVocabMap(starterPack);
+  const starterMaps = buildStarterVocabMaps(starterPack);
   const cloned = JSON.parse(JSON.stringify(pack || {}));
   const issues = [];
 
@@ -584,12 +587,17 @@ function validateAndSanitizeContentPack(pack) {
       cloned.vocab[category] = items.map((item) => {
         const en = item?.en || "";
         const es = item?.es || "";
-        const fallbackKey = `${category}::${normalizeSimple(en)}`;
-        const fallback = starterMap[fallbackKey];
+        const enKey = normalizeSimple(en);
+        const categoryKey = `${category}::${enKey}`;
+        const fallback = starterMaps.byCategory[categoryKey] || starterMaps.byEnglish[enKey] || null;
 
         if (looksSuspiciousSpanish(en, es) && fallback) {
           issues.push(`${category}: "${en}" had suspicious Spanish "${es}" → replaced with "${fallback}"`);
           return { ...item, es: fallback };
+        }
+
+        if (looksSuspiciousSpanish(en, es) && !fallback) {
+          issues.push(`${category}: "${en}" has suspicious Spanish "${es}" and no trusted fallback`);
         }
 
         if (!en || !es) {
@@ -1855,7 +1863,9 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus }) {
 function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
   const [category, setCategory] = useState(NO_CATEGORY.has(type)?type:null);
   const [words, setWords] = useState([]);
-  const vocabMap = contentPack?.vocab || VOCAB;
+  const rawVocabMap = contentPack?.vocab || VOCAB;
+  const safePack = useMemo(() => validateAndSanitizeContentPack({ vocab: rawVocabMap }), [rawVocabMap]);
+  const vocabMap = safePack.pack?.vocab || rawVocabMap;
   const categories = Object.keys(vocabMap);
   const fillBlankSentences = contentPack?.sentences || SENTENCES;
   const verbs = contentPack?.verbs || VERBS;
