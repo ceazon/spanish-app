@@ -11,7 +11,7 @@ function norm(s = '') {
 }
 
 test('canonical vocab entries are approved and not identity translations', () => {
-  const allowedIdentity = new Set(['no']);
+  const allowedIdentity = new Set(['no','banana','mango','taxi','hotel','internet','hospital']);
   for (const [category, items] of Object.entries(canonical.vocab || {})) {
     for (const item of items || []) {
       assert.equal(item.approved, true, `${category} -> ${item.en} must be approved`);
@@ -22,6 +22,12 @@ test('canonical vocab entries are approved and not identity translations', () =>
       }
     }
   }
+});
+
+test('approved deck has substantial seeded volume', () => {
+  let count = 0;
+  for (const items of Object.values(canonical.vocab || {})) count += (items || []).length;
+  assert.ok(count >= 200, `approved deck too small: ${count}`);
 });
 
 test('critical starter translations are correct', () => {

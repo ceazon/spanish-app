@@ -1,68 +1,1809 @@
 {
   "version": 1,
   "targetCount": 1000,
-  "status": "phase-1-seeded",
+  "status": "phase-2-batch1",
   "notes": "Locked approved deck. Expand toward 1000 only via validation pipeline.",
   "vocab": {
     "Greetings": [
-      { "en": "Hello", "es": "Hola", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Goodbye", "es": "Adiós", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Good morning", "es": "Buenos días", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Good night", "es": "Buenas noches", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Thank you", "es": "Gracias", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Please", "es": "Por favor", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Yes", "es": "Sí", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "No", "es": "No", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Excuse me", "es": "Perdón", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Sorry", "es": "Lo siento", "difficulty": 2, "approved": true, "confidence": 1.0 }
+      {
+        "en": "Hello",
+        "es": "Hola",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Goodbye",
+        "es": "Adiós",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Good morning",
+        "es": "Buenos días",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Good night",
+        "es": "Buenas noches",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Thank you",
+        "es": "Gracias",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Please",
+        "es": "Por favor",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Yes",
+        "es": "Sí",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "No",
+        "es": "No",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Excuse me",
+        "es": "Perdón",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Sorry",
+        "es": "Lo siento",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      }
     ],
     "Numbers": [
-      { "en": "One", "es": "Uno", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Two", "es": "Dos", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Three", "es": "Tres", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Four", "es": "Cuatro", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Five", "es": "Cinco", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Six", "es": "Seis", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Seven", "es": "Siete", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Eight", "es": "Ocho", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Nine", "es": "Nueve", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Ten", "es": "Diez", "difficulty": 1, "approved": true, "confidence": 1.0 }
+      {
+        "en": "One",
+        "es": "Uno",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Two",
+        "es": "Dos",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Three",
+        "es": "Tres",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Four",
+        "es": "Cuatro",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Five",
+        "es": "Cinco",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Six",
+        "es": "Seis",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Seven",
+        "es": "Siete",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Eight",
+        "es": "Ocho",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Nine",
+        "es": "Nueve",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Ten",
+        "es": "Diez",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      }
     ],
     "Colors": [
-      { "en": "Red", "es": "Rojo", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Blue", "es": "Azul", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Green", "es": "Verde", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Yellow", "es": "Amarillo", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Black", "es": "Negro", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "White", "es": "Blanco", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Orange", "es": "Naranja", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Purple", "es": "Morado", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Pink", "es": "Rosa", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Brown", "es": "Marrón", "difficulty": 2, "approved": true, "confidence": 1.0 }
+      {
+        "en": "Red",
+        "es": "Rojo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Blue",
+        "es": "Azul",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Green",
+        "es": "Verde",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Yellow",
+        "es": "Amarillo",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Black",
+        "es": "Negro",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "White",
+        "es": "Blanco",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Orange",
+        "es": "Naranja",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Purple",
+        "es": "Morado",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Pink",
+        "es": "Rosa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Brown",
+        "es": "Marrón",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      }
     ],
     "Food": [
-      { "en": "Apple", "es": "Manzana", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Bread", "es": "Pan", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Water", "es": "Agua", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Milk", "es": "Leche", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Chicken", "es": "Pollo", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Rice", "es": "Arroz", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Fish (food)", "es": "Pescado", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Egg", "es": "Huevo", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Cheese", "es": "Queso", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Coffee", "es": "Café", "difficulty": 1, "approved": true, "confidence": 1.0 }
+      {
+        "en": "Apple",
+        "es": "Manzana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Bread",
+        "es": "Pan",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Water",
+        "es": "Agua",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Milk",
+        "es": "Leche",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Chicken",
+        "es": "Pollo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Rice",
+        "es": "Arroz",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Fish (food)",
+        "es": "Pescado",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Egg",
+        "es": "Huevo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Cheese",
+        "es": "Queso",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Coffee",
+        "es": "Café",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      }
     ],
     "Animals": [
-      { "en": "Dog", "es": "Perro", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Cat", "es": "Gato", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Bird", "es": "Pájaro", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Horse", "es": "Caballo", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Fish (animal)", "es": "Pez", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Rabbit", "es": "Conejo", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Lion", "es": "León", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Tiger", "es": "Tigre", "difficulty": 2, "approved": true, "confidence": 1.0 },
-      { "en": "Bear", "es": "Oso", "difficulty": 1, "approved": true, "confidence": 1.0 },
-      { "en": "Elephant", "es": "Elefante", "difficulty": 3, "approved": true, "confidence": 1.0 }
+      {
+        "en": "Dog",
+        "es": "Perro",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Cat",
+        "es": "Gato",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Bird",
+        "es": "Pájaro",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Horse",
+        "es": "Caballo",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Fish (animal)",
+        "es": "Pez",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Rabbit",
+        "es": "Conejo",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Lion",
+        "es": "León",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Tiger",
+        "es": "Tigre",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Bear",
+        "es": "Oso",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 1
+      },
+      {
+        "en": "Elephant",
+        "es": "Elefante",
+        "difficulty": 3,
+        "approved": true,
+        "confidence": 1
+      }
+    ],
+    "Family": [
+      {
+        "en": "Mother",
+        "es": "Madre",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Father",
+        "es": "Padre",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Brother",
+        "es": "Hermano",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Sister",
+        "es": "Hermana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Son",
+        "es": "Hijo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Daughter",
+        "es": "Hija",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Grandmother",
+        "es": "Abuela",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Grandfather",
+        "es": "Abuelo",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Uncle",
+        "es": "Tío",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Aunt",
+        "es": "Tía",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Home": [
+      {
+        "en": "House",
+        "es": "Casa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Room",
+        "es": "Habitación",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Kitchen",
+        "es": "Cocina",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bathroom",
+        "es": "Baño",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Door",
+        "es": "Puerta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Window",
+        "es": "Ventana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Table",
+        "es": "Mesa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Chair",
+        "es": "Silla",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bed",
+        "es": "Cama",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Key",
+        "es": "Llave",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "School": [
+      {
+        "en": "School",
+        "es": "Escuela",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Teacher",
+        "es": "Profesor",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Student",
+        "es": "Estudiante",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Book",
+        "es": "Libro",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Notebook",
+        "es": "Cuaderno",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pen",
+        "es": "Bolígrafo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pencil",
+        "es": "Lápiz",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Class",
+        "es": "Clase",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Homework",
+        "es": "Tarea",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Exam",
+        "es": "Examen",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Time": [
+      {
+        "en": "Today",
+        "es": "Hoy",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Tomorrow",
+        "es": "Mañana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Yesterday",
+        "es": "Ayer",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Morning",
+        "es": "Mañana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Afternoon",
+        "es": "Tarde",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Night",
+        "es": "Noche",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Week",
+        "es": "Semana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Month",
+        "es": "Mes",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Year",
+        "es": "Año",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hour",
+        "es": "Hora",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Weather": [
+      {
+        "en": "Sun",
+        "es": "Sol",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Rain",
+        "es": "Lluvia",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Cloud",
+        "es": "Nube",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Wind",
+        "es": "Viento",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Snow",
+        "es": "Nieve",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hot",
+        "es": "Caliente",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Cold",
+        "es": "Frío",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Warm",
+        "es": "Templado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Storm",
+        "es": "Tormenta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Weather",
+        "es": "Clima",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "City": [
+      {
+        "en": "Street",
+        "es": "Calle",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "City",
+        "es": "Ciudad",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Town",
+        "es": "Pueblo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Park",
+        "es": "Parque",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Store",
+        "es": "Tienda",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Market",
+        "es": "Mercado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bank",
+        "es": "Banco",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hospital",
+        "es": "Hospital",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pharmacy",
+        "es": "Farmacia",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Airport",
+        "es": "Aeropuerto",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Transport": [
+      {
+        "en": "Car",
+        "es": "Coche",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bus",
+        "es": "Autobús",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Train",
+        "es": "Tren",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bicycle",
+        "es": "Bicicleta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Plane",
+        "es": "Avión",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Taxi",
+        "es": "Taxi",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Ticket",
+        "es": "Boleto",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Station",
+        "es": "Estación",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Road",
+        "es": "Carretera",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Travel",
+        "es": "Viajar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Body": [
+      {
+        "en": "Head",
+        "es": "Cabeza",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Eye",
+        "es": "Ojo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Ear",
+        "es": "Oreja",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Nose",
+        "es": "Nariz",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Mouth",
+        "es": "Boca",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hand",
+        "es": "Mano",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Arm",
+        "es": "Brazo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Leg",
+        "es": "Pierna",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Foot",
+        "es": "Pie",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Heart",
+        "es": "Corazón",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Clothes": [
+      {
+        "en": "Shirt",
+        "es": "Camisa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pants",
+        "es": "Pantalones",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Shoes",
+        "es": "Zapatos",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Dress",
+        "es": "Vestido",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Jacket",
+        "es": "Chaqueta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hat",
+        "es": "Sombrero",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Socks",
+        "es": "Calcetines",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Coat",
+        "es": "Abrigo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Skirt",
+        "es": "Falda",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Glasses",
+        "es": "Gafas",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "VerbsBasics": [
+      {
+        "en": "To be",
+        "es": "Ser",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To have",
+        "es": "Tener",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To go",
+        "es": "Ir",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To come",
+        "es": "Venir",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To eat",
+        "es": "Comer",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To drink",
+        "es": "Beber",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To speak",
+        "es": "Hablar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To read",
+        "es": "Leer",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To write",
+        "es": "Escribir",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To listen",
+        "es": "Escuchar",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "VerbsDaily": [
+      {
+        "en": "To sleep",
+        "es": "Dormir",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To wake up",
+        "es": "Despertar",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To work",
+        "es": "Trabajar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To study",
+        "es": "Estudiar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To buy",
+        "es": "Comprar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To sell",
+        "es": "Vender",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To open",
+        "es": "Abrir",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To close",
+        "es": "Cerrar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To walk",
+        "es": "Caminar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "To run",
+        "es": "Correr",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Adjectives": [
+      {
+        "en": "Big",
+        "es": "Grande",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Small",
+        "es": "Pequeño",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Fast",
+        "es": "Rápido",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Slow",
+        "es": "Lento",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Easy",
+        "es": "Fácil",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Difficult",
+        "es": "Difícil",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "New",
+        "es": "Nuevo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Old",
+        "es": "Viejo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Good",
+        "es": "Bueno",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bad",
+        "es": "Malo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Emotions": [
+      {
+        "en": "Happy",
+        "es": "Feliz",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Sad",
+        "es": "Triste",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Angry",
+        "es": "Enojado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Tired",
+        "es": "Cansado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Excited",
+        "es": "Emocionado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Calm",
+        "es": "Tranquilo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Nervous",
+        "es": "Nervioso",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Worried",
+        "es": "Preocupado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Surprised",
+        "es": "Sorprendido",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Scared",
+        "es": "Asustado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Restaurant": [
+      {
+        "en": "Menu",
+        "es": "Menú",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Waiter",
+        "es": "Mesero",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bill",
+        "es": "Cuenta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Tip",
+        "es": "Propina",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Fork",
+        "es": "Tenedor",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Knife",
+        "es": "Cuchillo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Spoon",
+        "es": "Cuchara",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Plate",
+        "es": "Plato",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Glass",
+        "es": "Vaso",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Napkin",
+        "es": "Servilleta",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Fruits": [
+      {
+        "en": "Banana",
+        "es": "Banana",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Orange (fruit)",
+        "es": "Naranja",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Grape",
+        "es": "Uva",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Strawberry",
+        "es": "Fresa",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Lemon",
+        "es": "Limón",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Peach",
+        "es": "Melocotón",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pear",
+        "es": "Pera",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pineapple",
+        "es": "Piña",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Watermelon",
+        "es": "Sandía",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Mango",
+        "es": "Mango",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Vegetables": [
+      {
+        "en": "Tomato",
+        "es": "Tomate",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Potato",
+        "es": "Papa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Onion",
+        "es": "Cebolla",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Carrot",
+        "es": "Zanahoria",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Lettuce",
+        "es": "Lechuga",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Corn",
+        "es": "Maíz",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bean",
+        "es": "Frijol",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Garlic",
+        "es": "Ajo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Pepper",
+        "es": "Pimiento",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Cucumber",
+        "es": "Pepino",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Technology": [
+      {
+        "en": "Computer",
+        "es": "Computadora",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Phone",
+        "es": "Teléfono",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Internet",
+        "es": "Internet",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Screen",
+        "es": "Pantalla",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Keyboard",
+        "es": "Teclado",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Mouse",
+        "es": "Ratón",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Password",
+        "es": "Contraseña",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Email",
+        "es": "Correo electrónico",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Message",
+        "es": "Mensaje",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Website",
+        "es": "Sitio web",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Work": [
+      {
+        "en": "Office",
+        "es": "Oficina",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Meeting",
+        "es": "Reunión",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Boss",
+        "es": "Jefe",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Coworker",
+        "es": "Compañero",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Project",
+        "es": "Proyecto",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Deadline",
+        "es": "Fecha límite",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Salary",
+        "es": "Salario",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Job",
+        "es": "Trabajo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Career",
+        "es": "Carrera",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Interview",
+        "es": "Entrevista",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Nature": [
+      {
+        "en": "Mountain",
+        "es": "Montaña",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "River",
+        "es": "Río",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Lake",
+        "es": "Lago",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Beach",
+        "es": "Playa",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Forest",
+        "es": "Bosque",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Sea",
+        "es": "Mar",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Sky",
+        "es": "Cielo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Earth",
+        "es": "Tierra",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Fire",
+        "es": "Fuego",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Air",
+        "es": "Aire",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
+    ],
+    "Places": [
+      {
+        "en": "Restaurant",
+        "es": "Restaurante",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Hotel",
+        "es": "Hotel",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Museum",
+        "es": "Museo",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Library",
+        "es": "Biblioteca",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Church",
+        "es": "Iglesia",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Gym",
+        "es": "Gimnasio",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Cinema",
+        "es": "Cine",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Mall",
+        "es": "Centro comercial",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Neighborhood",
+        "es": "Barrio",
+        "difficulty": 2,
+        "approved": true,
+        "confidence": 0.98
+      },
+      {
+        "en": "Bridge",
+        "es": "Puente",
+        "difficulty": 1,
+        "approved": true,
+        "confidence": 0.98
+      }
     ]
-  }
+  },
+  "currentCount": 250
 }
