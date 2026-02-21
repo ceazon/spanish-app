@@ -11,11 +11,15 @@ export function FlashcardLesson({ words, onComplete }) {
   const [micText, setMicText] = useState("");
   const [micScore, setMicScore] = useState(null);
   const [micError, setMicError] = useState(null);
+  const [answerMode, setAnswerMode] = useState("speak");
+  const [typedText, setTypedText] = useState("");
+  const [typedScore, setTypedScore] = useState(null);
   const [showHint, setShowHint] = useState(false);
   const [hintUsed, setHintUsed] = useState(false);
 
   const card = words[idx];
-  const spanishTarget = card.es;
+  const targetWord = dir === "en→es" ? card.es : card.en;
+  const targetLabel = dir === "en→es" ? "Spanish" : "English";
 
   function normalize(text) {
     return text.toLowerCase().replace(/[¿¡.,!?]/g, "").trim();
@@ -30,7 +34,7 @@ export function FlashcardLesson({ words, onComplete }) {
   }
 
   function speakTarget() {
-    speak(spanishTarget, 0.85);
+    speak(targetWord, dir === "en→es" ? 0.85 : 0.95);
   }
 
   function recordAndCheck() {
@@ -41,14 +45,14 @@ export function FlashcardLesson({ words, onComplete }) {
       return;
     }
     const rec = new SR();
-    rec.lang = "es-ES";
+    rec.lang = dir === "en→es" ? "es-ES" : "en-US";
     rec.interimResults = false;
     rec.maxAlternatives = 1;
     setMicListening(true);
     rec.onresult = (e) => {
       const transcript = e.results?.[0]?.[0]?.transcript || "";
       setMicText(transcript);
-      setMicScore(calcScore(transcript, spanishTarget));
+      setMicScore(calcScore(transcript, targetWord));
       setMicListening(false);
     };
     rec.onerror = () => { setMicListening(false); setMicError("Mic capture failed. Try again."); };
@@ -56,8 +60,14 @@ export function FlashcardLesson({ words, onComplete }) {
     rec.start();
   }
 
+  function checkTypedAnswer() {
+    if (!typedText.trim()) return;
+    setTypedScore(calcScore(typedText, targetWord));
+  }
+
   function nextCard() {
-    const base = micScore === null ? 0 : Math.round(micScore / 5); // 0-20 points
+    const bestScore = Math.max(micScore ?? 0, typedScore ?? 0);
+    const base = bestScore === 0 ? 0 : Math.round(bestScore / 5); // 0-20 points
     const earned = hintUsed ? Math.round(base * 0.7) : base;
     const newScores = [...scores, earned];
     setScores(newScores);
@@ -70,6 +80,8 @@ export function FlashcardLesson({ words, onComplete }) {
       setMicText("");
       setMicScore(null);
       setMicError(null);
+      setTypedText("");
+      setTypedScore(null);
       setShowHint(false);
       setHintUsed(false);
       setTimeout(() => setIdx(idx + 1), 100);
@@ -80,7 +92,7 @@ export function FlashcardLesson({ words, onComplete }) {
     <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:24 }}>
       <div style={{ display:"flex", gap:12, alignItems:"center" }}>
         <span style={{ color:"#9ca3af", fontSize:13 }}>Direction:</span>
-        {["en→es","es→en"].map(d => <button key={d} onClick={() => { setDir(d); setFlipped(false); setMicScore(null); setMicText(""); setMicError(null); setShowHint(false); setHintUsed(false); }} style={{ padding:"6px 14px", borderRadius:8, fontSize:12, fontWeight:600, background:dir===d?"#7c3aed":"rgba(255,255,255,0.06)", color:dir===d?"#fff":"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>{d}</button>)}
+        {["en→es", "es→en"].map(d => <button key={d} onClick={() => { setDir(d); setFlipped(false); setMicScore(null); setMicText(""); setMicError(null); setTypedText(""); setTypedScore(null); setShowHint(false); setHintUsed(false); }} style={{ padding:"6px 14px", borderRadius:8, fontSize:12, fontWeight:600, background:dir===d?"#7c3aed":"rgba(255,255,255,0.06)", color:dir===d?"#fff":"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>{d}</button>)}
       </div>
       <ProgressBar current={idx+1} total={words.length} />
       <div onClick={() => setFlipped(!flipped)} style={{ width:320, height:200, perspective:1000, cursor:"pointer" }}>
@@ -95,24 +107,46 @@ export function FlashcardLesson({ words, onComplete }) {
         </div>
       </div>
       <div style={{ width:"100%", maxWidth:420, display:"flex", flexDirection:"column", gap:10 }}>
-        {!flipped && <div style={{ color:"#a78bfa", fontSize:12 }}>Try pronunciation before flipping the card.</div>}
+        {!flipped && <div style={{ color:"#a78bfa", fontSize:12 }}>Choose how you want to answer: speak or type.</div>}
         <div style={{ display:"flex", gap:10 }}>
-          <button onClick={speakTarget} style={{ flex:1, padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#e5e7eb", fontWeight:700 }}>🔊 Hear Spanish</button>
+          <button onClick={speakTarget} style={{ flex:1, padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#e5e7eb", fontWeight:700 }}>🔊 Hear {targetLabel}</button>
           <button onClick={() => { setShowHint(v => !v); setHintUsed(true); }} style={{ flex:1, padding:"12px 14px", borderRadius:10, background:"rgba(245,158,11,0.12)", border:"1px solid rgba(245,158,11,0.35)", color:"#fbbf24", fontWeight:700 }}>
             {showHint ? "🙈 Hide hint" : "💡 Show hint (-30%)"}
           </button>
         </div>
-        {showHint && <div style={{ color:"#fbbf24", fontSize:13 }}>Hint word: <strong>{spanishTarget}</strong></div>}
+        {showHint && <div style={{ color:"#fbbf24", fontSize:13 }}>Hint word: <strong>{targetWord}</strong></div>}
 
-        <PrimaryBtn onClick={recordAndCheck} disabled={micListening}>{micListening ? "Listening..." : "🎙️ Pronounce & check"}</PrimaryBtn>
-        {micError && <div style={{ color:"#f87171", fontSize:12 }}>{micError}</div>}
-        {micText && <div style={{ color:"#9ca3af", fontSize:12 }}>Heard: <span style={{ color:"#e5e7eb" }}>{micText}</span></div>}
-        {micScore !== null && (
-          <div style={{ color: micScore >= 70 ? "#4ade80" : "#fbbf24", fontSize:13, fontWeight:700 }}>
-            Pronunciation score: {micScore}% {micScore >= 70 ? "✓" : "(keep practicing)"} {hintUsed ? "• hint penalty active" : ""}
-          </div>
+        <div style={{ display:"flex", gap:8 }}>
+          <button onClick={() => { setAnswerMode("speak"); setTypedScore(null); }} style={{ flex:1, padding:"8px 10px", borderRadius:8, background:answerMode==="speak"?"#7c3aed":"rgba(255,255,255,0.06)", color:answerMode==="speak"?"#fff":"#9ca3af", fontWeight:700 }}>🎙️ Speak</button>
+          <button onClick={() => { setAnswerMode("type"); setMicScore(null); setMicText(""); setMicError(null); }} style={{ flex:1, padding:"8px 10px", borderRadius:8, background:answerMode==="type"?"#7c3aed":"rgba(255,255,255,0.06)", color:answerMode==="type"?"#fff":"#9ca3af", fontWeight:700 }}>⌨️ Type</button>
+        </div>
+
+        {answerMode === "speak" ? (
+          <>
+            <PrimaryBtn onClick={recordAndCheck} disabled={micListening}>{micListening ? "Listening..." : `🎙️ Pronounce & check`}</PrimaryBtn>
+            {micError && <div style={{ color:"#f87171", fontSize:12 }}>{micError}</div>}
+            {micText && <div style={{ color:"#9ca3af", fontSize:12 }}>Heard: <span style={{ color:"#e5e7eb" }}>{micText}</span></div>}
+            {micScore !== null && (
+              <div style={{ color: micScore >= 70 ? "#4ade80" : "#fbbf24", fontSize:13, fontWeight:700 }}>
+                Pronunciation score: {micScore}% {micScore >= 70 ? "✓" : "(keep practicing)"} {hintUsed ? "• hint penalty active" : ""}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div style={{ display:"flex", gap:8 }}>
+              <input value={typedText} onChange={(e)=>setTypedText(e.target.value)} onKeyDown={(e)=>e.key==="Enter"&&checkTypedAnswer()} placeholder={`Type the ${targetLabel} word`} style={{ flex:1, padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"#fff" }} />
+              <PrimaryBtn onClick={checkTypedAnswer}>Check</PrimaryBtn>
+            </div>
+            {typedScore !== null && (
+              <div style={{ color: typedScore >= 70 ? "#4ade80" : "#fbbf24", fontSize:13, fontWeight:700 }}>
+                Typing score: {typedScore}% {typedScore >= 70 ? "✓" : "(keep practicing)"} {hintUsed ? "• hint penalty active" : ""}
+              </div>
+            )}
+          </>
         )}
-        <PrimaryBtn onClick={nextCard} disabled={micScore === null && !micError}>Next card →</PrimaryBtn>
+
+        <PrimaryBtn onClick={nextCard} disabled={micScore === null && typedScore === null && !micError}>Next card →</PrimaryBtn>
       </div>
     </div>
   );

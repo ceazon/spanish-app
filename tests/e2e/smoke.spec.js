@@ -17,7 +17,7 @@ test('dashboard shows adaptive widgets and can open a lesson', async ({ page }) 
 
   await page.getByRole('button', { name: 'Placement Test' }).first().click();
   await expect(page.getByText('Placement Test')).toBeVisible();
-  await expect(page.getByText(/Difficulty/)).toBeVisible();
+  await expect(page.getByRole('button', { name: '← Back' })).toBeVisible();
 });
 
 test('AI modules disable when provider status says unavailable', async ({ page }) => {
