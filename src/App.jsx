@@ -216,7 +216,6 @@ function buildApprovedVocabMap() {
 const APPROVED_VOCAB_MAP = buildApprovedVocabMap();
 const CANONICAL_TRANSLATION_MAP = buildCanonicalTranslationMap();
 const APP_COMMIT = typeof __APP_COMMIT__ !== "undefined" ? __APP_COMMIT__ : "unknown";
-const ADMIN_PASSWORD = (import.meta.env.VITE_ADMIN_PASSWORD || "").trim();
 
 function loadAllUsersFromLocalStorage() {
   if (typeof localStorage === "undefined") return [];
@@ -2100,46 +2099,76 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
 function AdminScreen({ onBack }) {
   const [password, setPassword] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
+  const [token, setToken] = useState("");
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    if (!unlocked) return;
-    setUsers(loadAllUsersFromLocalStorage());
-  }, [unlocked]);
-
-  const stats = useMemo(() => summarizeAdminStats(users), [users]);
-
-  function unlock() {
-    if (!ADMIN_PASSWORD) {
-      setErr("Admin password is not configured. Set VITE_ADMIN_PASSWORD in Vercel env vars.");
-      return;
-    }
-    if (password !== ADMIN_PASSWORD) {
-      setErr("Incorrect admin password.");
-      return;
-    }
+  async function unlock() {
+    setLoading(true);
     setErr("");
-    setUnlocked(true);
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        setErr(data?.error || "Invalid admin password.");
+        setLoading(false);
+        return;
+      }
+      setToken(password);
+    } catch {
+      setErr("Unable to verify admin login.");
+    }
+    setLoading(false);
   }
 
-  if (!unlocked) {
+  useEffect(() => {
+    if (!token) return;
+    let mounted = true;
+
+    async function loadAdminData() {
+      try {
+        const headers = { "x-admin-password": token };
+        const [statsRes, usersRes] = await Promise.all([
+          fetch("/api/admin/stats", { headers }),
+          fetch("/api/admin/users", { headers }),
+        ]);
+
+        if (!statsRes.ok || !usersRes.ok) {
+          const details = await statsRes.json().catch(() => ({}));
+          throw new Error(details?.error || "Admin fetch failed");
+        }
+
+        const statsData = await statsRes.json();
+        const usersData = await usersRes.json();
+        if (!mounted) return;
+        setStats(statsData?.stats || null);
+        setUsers(Array.isArray(usersData?.users) ? usersData.users : []);
+      } catch (e) {
+        if (mounted) setErr(e?.message || "Failed to load admin stats.");
+      }
+    }
+
+    loadAdminData();
+    return () => {
+      mounted = false;
+    };
+  }, [token]);
+
+  if (!token) {
     return (
       <div style={{ maxWidth:520, margin:"0 auto", padding:"40px 20px" }}>
         <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", marginBottom:24 }}>← Back</button>
         <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:18, padding:"24px" }}>
           <div style={{ color:"#fff", fontSize:24, fontWeight:800, marginBottom:6 }}>Admin Login</div>
           <div style={{ color:"#9ca3af", fontSize:13, marginBottom:16 }}>Enter the admin password to access reports.</div>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && unlock()}
-            placeholder="Admin password"
-            style={{ width:"100%", padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"#fff", marginBottom:12 }}
-          />
-          <PrimaryBtn onClick={unlock}>Unlock Admin</PrimaryBtn>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && unlock()} placeholder="Admin password" style={{ width:"100%", padding:"12px 14px", borderRadius:10, background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", color:"#fff", marginBottom:12 }} />
+          <PrimaryBtn onClick={unlock} disabled={loading}>{loading ? "Checking..." : "Unlock Admin"}</PrimaryBtn>
           {err && <div style={{ color:"#fca5a5", fontSize:12, marginTop:10 }}>{err}</div>}
         </div>
       </div>
@@ -2147,12 +2176,12 @@ function AdminScreen({ onBack }) {
   }
 
   const cards = [
-    { label: "Registered Users", value: stats.totalUsers, icon: "👥" },
-    { label: "New This Week", value: stats.newThisWeek, icon: "🆕" },
-    { label: "WAU", value: stats.weeklyActiveUsers, icon: "📈" },
-    { label: "MAU", value: stats.monthlyActiveUsers, icon: "📊" },
-    { label: "Total Lessons", value: stats.totalLessons, icon: "📚" },
-    { label: "Total Active Minutes", value: stats.totalActiveMinutes, icon: "⏱️" },
+    { label: "Registered Users", value: stats?.totalUsers ?? "—", icon: "👥" },
+    { label: "New This Week", value: stats?.newThisWeek ?? "—", icon: "🆕" },
+    { label: "WAU", value: stats?.weeklyActiveUsers ?? "—", icon: "📈" },
+    { label: "MAU", value: stats?.monthlyActiveUsers ?? "—", icon: "📊" },
+    { label: "Total Lessons", value: stats?.totalLessons ?? "—", icon: "📚" },
+    { label: "Total Active Minutes", value: stats?.totalActiveMinutes ?? "—", icon: "⏱️" },
   ];
 
   return (
@@ -2164,6 +2193,8 @@ function AdminScreen({ onBack }) {
         </div>
         <button onClick={onBack} style={{ padding:"8px 14px", borderRadius:8, background:"rgba(255,255,255,0.06)", color:"#9ca3af" }}>← Back</button>
       </div>
+
+      {err && <div style={{ color:"#fca5a5", fontSize:12, marginBottom:12 }}>{err}</div>}
 
       <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:20 }}>
         {cards.map((c) => (
@@ -2177,11 +2208,11 @@ function AdminScreen({ onBack }) {
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Most Played Modules</div>
-        {stats.topLessons.length === 0 ? (
+        {(stats?.topLessons || []).length === 0 ? (
           <div style={{ color:"#9ca3af", fontSize:13 }}>No lesson history yet.</div>
         ) : (
           <div style={{ display:"grid", gap:8 }}>
-            {stats.topLessons.map(([name, count]) => (
+            {(stats?.topLessons || []).map(([name, count]) => (
               <div key={name} style={{ display:"flex", justifyContent:"space-between", color:"#d1d5db", fontSize:13 }}>
                 <span>{name}</span>
                 <span style={{ color:"#a78bfa" }}>{count}</span>
@@ -2194,7 +2225,7 @@ function AdminScreen({ onBack }) {
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px" }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Registered Users</div>
         {users.length === 0 ? (
-          <div style={{ color:"#9ca3af", fontSize:13 }}>No users found in storage.</div>
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No users tracked yet.</div>
         ) : (
           <div style={{ overflowX:"auto" }}>
             <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
@@ -2209,30 +2240,33 @@ function AdminScreen({ onBack }) {
                 </tr>
               </thead>
               <tbody>
-                {users
-                  .slice()
-                  .sort((a, b) => Date.parse(b?.joined || "") - Date.parse(a?.joined || ""))
-                  .map((u) => (
-                    <tr key={u.username} style={{ borderTop:"1px solid rgba(255,255,255,0.06)", color:"#d1d5db" }}>
-                      <td style={{ padding:"8px 6px" }}>{u.username}</td>
-                      <td style={{ padding:"8px 6px" }}>{u.displayName || "—"}</td>
-                      <td style={{ padding:"8px 6px" }}>{u.joined ? new Date(u.joined).toLocaleDateString() : "—"}</td>
-                      <td style={{ padding:"8px 6px" }}>{u.lastLogin ? new Date(u.lastLogin).toLocaleString() : "—"}</td>
-                      <td style={{ padding:"8px 6px" }}>{u.points || 0}</td>
-                      <td style={{ padding:"8px 6px" }}>{Array.isArray(u.history) ? u.history.length : 0}</td>
-                    </tr>
-                  ))}
+                {users.map((u) => (
+                  <tr key={u.username} style={{ borderTop:"1px solid rgba(255,255,255,0.06)", color:"#d1d5db" }}>
+                    <td style={{ padding:"8px 6px" }}>{u.username}</td>
+                    <td style={{ padding:"8px 6px" }}>{u.displayName || "—"}</td>
+                    <td style={{ padding:"8px 6px" }}>{u.joined ? new Date(u.joined).toLocaleDateString() : "—"}</td>
+                    <td style={{ padding:"8px 6px" }}>{u.lastLogin ? new Date(u.lastLogin).toLocaleString() : "—"}</td>
+                    <td style={{ padding:"8px 6px" }}>{u.points || 0}</td>
+                    <td style={{ padding:"8px 6px" }}>{u.lessons || 0}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         )}
       </div>
-
-      <div style={{ color:"#6b7280", fontSize:11, marginTop:12 }}>
-        Note: current admin metrics are based on user data available in this app storage.
-      </div>
     </div>
   );
+}
+
+async function trackAnalyticsEvent(payload) {
+  try {
+    await fetch("/api/analytics/event", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload || {}),
+    });
+  } catch {}
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2308,7 +2342,17 @@ export default function App() {
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
     const updated={...u,lastLogin:new Date().toISOString(),streak};
     const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
+    const isNewRegistration = !u.lastLogin;
     setUser(updated);saveUser(updated);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
+    trackAnalyticsEvent({
+      eventType: isNewRegistration ? "register" : "login",
+      username: updated.username,
+      displayName: updated.displayName,
+      joined: updated.joined,
+      lastLogin: updated.lastLogin,
+      points: updated.points || 0,
+      lessons: Array.isArray(updated.history) ? updated.history.length : 0,
+    });
   }
   async function handleLessonComplete(pts,correct,total,category,meta) {
     const difficulty = getAdaptiveDifficulty(user?.profile || {}, lessonType);
@@ -2330,7 +2374,18 @@ export default function App() {
     }
 
     const updated={...user,points:user.points+pts,history:[...user.history,entry],profile:profileUpdate};
-    setUser(updated);await saveUser(updated);setLastResult({pts,correct,total});setScreen("result");
+    setUser(updated);await saveUser(updated);
+    trackAnalyticsEvent({
+      eventType: "lesson_complete",
+      username: updated.username,
+      displayName: updated.displayName,
+      points: updated.points || 0,
+      lessons: Array.isArray(updated.history) ? updated.history.length : 0,
+      lessonType,
+      durationSec: Number(meta?.durationSec) || 0,
+      earnedPoints: Number(pts) || 0,
+    });
+    setLastResult({pts,correct,total});setScreen("result");
   }
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
   return (

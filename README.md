@@ -58,6 +58,21 @@ If Google shows `401: invalid_client`:
 
 See `RELEASE_CHECKLIST.md` for public-hosting readiness.
 
+## Admin analytics (production)
+
+Admin now runs through server APIs + Redis/KV-backed analytics.
+
+Required Vercel env vars:
+
+- `ADMIN_PASSWORD` (server-only admin gate)
+- `KV_REST_API_URL` and `KV_REST_API_TOKEN` (or Upstash Redis REST equivalents)
+
+Access admin at:
+
+- `/admin` (e.g. `https://chadlingo.com/admin`)
+
+The app sends analytics events to `/api/analytics/event` for register/login/lesson completion.
+
 ## Automated testing
 
 ```bash
