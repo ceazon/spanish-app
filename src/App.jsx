@@ -2074,12 +2074,12 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
-  const needsCategory = !NO_CATEGORY.has(type);
-  const [category, setCategory] = useState(NO_CATEGORY.has(type)?type:null);
+  const SELECTOR_MODULES = new Set(["Scenario Builder", "Image Labeling", "Picture Description"]);
+  const needsCategory = !NO_CATEGORY.has(type) || SELECTOR_MODULES.has(type);
+  const [category, setCategory] = useState(NO_CATEGORY.has(type) ? null : type);
   const [words, setWords] = useState([]);
   const vocabMap = APPROVED_VOCAB_MAP;
   const categories = Object.keys(vocabMap);
-  const categoryOptions = type === "Fill in the Blank" ? [...categories, "General"] : categories;
   const fillBlankSentences = contentPack?.sentences || SENTENCES;
   const verbs = contentPack?.verbs || VERBS;
   const listenSentences = contentPack?.listenSentences || LISTEN_SENTENCES;
@@ -2089,6 +2089,19 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const chatTopics = contentPack?.chatTopics || CHAT_TOPICS;
   const pictureScenes = contentPack?.pictureScenes || PICTURE_SCENES;
   const userKey = user?.username || "guest";
+
+  const scenarioOptions = scenariosData.map((s) => s.setting);
+  const sceneOptions = scenes.map((s) => s.name);
+  const pictureOptions = pictureScenes.map((s, i) => `${s.emoji} Scene ${i + 1}`);
+  const categoryOptions = type === "Fill in the Blank"
+    ? [...categories, "General"]
+    : type === "Scenario Builder"
+      ? scenarioOptions
+      : type === "Image Labeling"
+        ? sceneOptions
+        : type === "Picture Description"
+          ? pictureOptions
+          : categories;
 
   const vocabTarget = Math.min(12, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
@@ -2127,8 +2140,20 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       category: "Transcription",
     })
   ), [listenSentences, difficulty, userKey]);
-  const scenariosForLesson = shuffle(scenariosData).slice(0, Math.max(3, Math.min(6, 2 + difficulty)));
-  const scenesForLesson = shuffle(scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+  const selectedScenarioPool = type === "Scenario Builder" && category
+    ? scenariosData.filter((s) => s.setting === category)
+    : scenariosData;
+  const scenariosForLesson = shuffle(selectedScenarioPool.length ? selectedScenarioPool : scenariosData).slice(0, Math.max(1, Math.min(6, 2 + difficulty)));
+
+  const selectedScenePool = type === "Image Labeling" && category
+    ? scenes.filter((s) => s.name === category)
+    : scenes;
+  const scenesForLesson = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+
+  const selectedPicturePool = type === "Picture Description" && category
+    ? pictureScenes.filter((s, i) => `${s.emoji} Scene ${i + 1}` === category)
+    : pictureScenes;
+  const pictureForLesson = shuffle(selectedPicturePool.length ? selectedPicturePool : pictureScenes).slice(0, 4);
   const scrambleForLesson = useMemo(() => (
     selectAdaptiveScrambles(scrambleSentences, {
       difficulty,
@@ -2141,6 +2166,10 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     if (cat === "General") {
       setCategory("General");
       setWords([]);
+      return;
+    }
+    if (type === "Scenario Builder" || type === "Image Labeling" || type === "Picture Description") {
+      setCategory(cat);
       return;
     }
     setCategory(cat);
@@ -2198,7 +2227,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Scenario Builder": () => <ScenarioBuilderLesson onComplete={done} scenariosData={scenariosForLesson} />,
     "Chat Partner": () => <ChatPartnerLesson onBack={onBack} onComplete={done} chatTopics={chatTopics} />,
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
-    "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureScenes} />,
+    "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
   };
   const lessonNode = lessonRegistry[type] ? lessonRegistry[type]() : null;
