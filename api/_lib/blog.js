@@ -75,8 +75,10 @@ async function listDraftPostsFromGithub(limit = 20) {
   const posts = await Promise.all(
     mdFiles.map(async (f) => {
       let excerpt = "";
+      let content = "";
       try {
         const txt = await fetchGithubText(f.download_url);
+        content = txt;
         excerpt = txt.split("\n").slice(0, 6).join("\n").slice(0, 360);
       } catch {}
 
@@ -90,6 +92,7 @@ async function listDraftPostsFromGithub(limit = 20) {
         htmlUrl: f.html_url,
         downloadUrl: f.download_url,
         excerpt,
+        content,
         meta,
       };
     }),
@@ -111,6 +114,7 @@ async function listDraftPostsFromLocal(limit = 20) {
     mdFiles.map(async (name) => {
       const abs = path.join(draftsAbs, name);
       const txt = await fs.readFile(abs, "utf8").catch(() => "");
+      const content = txt;
       const excerpt = txt.split("\n").slice(0, 6).join("\n").slice(0, 360);
       const relPath = `${DEFAULT_PATH}/${name}`;
       const slug = String(name).replace(/\.md$/i, "");
@@ -122,6 +126,7 @@ async function listDraftPostsFromLocal(limit = 20) {
         htmlUrl: null,
         downloadUrl: null,
         excerpt,
+        content,
         meta,
       };
     }),

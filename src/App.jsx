@@ -2596,42 +2596,97 @@ function StudentBlogPage() {
       .catch((e) => {
         if (mounted) setErr(e?.message || "Failed to load blog posts");
       });
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
+  function cleanMd(line) {
+    return String(line || "").replace(/\*\*/g, "").trim();
+  }
+
+  function renderPostBody(content) {
+    const lines = String(content || "").split("\n");
+    const out = [];
+    let list = [];
+
+    const flushList = (keySeed) => {
+      if (!list.length) return;
+      out.push(
+        <ul key={`ul-${keySeed}`} style={{ margin:"6px 0 12px 18px", color:"#d1d5db", lineHeight:1.6 }}>
+          {list.map((item, i) => (
+            <li key={`${keySeed}-${i}`}>{cleanMd(item)}</li>
+          ))}
+        </ul>,
+      );
+      list = [];
+    };
+
+    lines.forEach((raw, idx) => {
+      const line = raw.trim();
+      if (!line) {
+        flushList(idx);
+        return;
+      }
+      if (line.startsWith("- ")) {
+        list.push(line.slice(2));
+        return;
+      }
+
+      flushList(idx);
+
+      if (line.startsWith("# ")) {
+        out.push(<h3 key={`h1-${idx}`} style={{ color:"#fff", margin:"2px 0 10px", fontSize:24, fontFamily:"'Playfair Display', serif" }}>{cleanMd(line.slice(2))}</h3>);
+        return;
+      }
+      if (line.startsWith("## ")) {
+        out.push(<h4 key={`h2-${idx}`} style={{ color:"#e5e7eb", margin:"12px 0 8px", fontSize:16, fontWeight:700 }}>{cleanMd(line.slice(3))}</h4>);
+        return;
+      }
+      out.push(<p key={`p-${idx}`} style={{ color:"#d1d5db", margin:"0 0 8px", lineHeight:1.65 }}>{cleanMd(line)}</p>);
+    });
+
+    flushList("end");
+    return out;
+  }
+
   return (
-    <div style={{ maxWidth:860, margin:"0 auto", padding:"30px 20px 70px" }}>
-      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14 }}>
-        <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
-        <div>
-          <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>CHADLINGO</div>
-          <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Chadlingo Student Blog</h1>
-          <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from Diego and María.</div>
+    <div style={{ minHeight:"100vh", background:"#0f0a1e", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb", fontFamily:"'Outfit', sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap'); *{box-sizing:border-box}`}</style>
+      <div style={{ maxWidth:900, margin:"0 auto", padding:"30px 20px 70px" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
+          <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
+          <div>
+            <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>CHADLINGO</div>
+            <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Chadlingo Student Blog</h1>
+            <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from Diego and María.</div>
+          </div>
         </div>
+
+        {err && <div style={{ color:"#fca5a5", fontSize:13, marginBottom:12 }}>{err}</div>}
+        {posts.length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:14 }}>No approved posts yet.</div>
+        ) : (
+          <div style={{ display:"grid", gap:14 }}>
+            {posts.map((p) => {
+              const when = p?.meta?.startedAt ? new Date(p.meta.startedAt).toLocaleString() : "Unknown time";
+              const student = p?.meta?.studentName || "Student";
+              const score = Number(p?.meta?.score) || 0;
+              const body = p?.content || p?.excerpt || "";
+              return (
+                <article key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"16px 18px" }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap", marginBottom:8 }}>
+                    <div style={{ color:"#fff", fontWeight:800 }}>{student}</div>
+                    <div style={{ color:"#a78bfa", fontSize:12 }}>{when}</div>
+                  </div>
+                  <div style={{ color:"#e2e8f0", fontSize:12, marginBottom:8 }}>Score: <span style={{ color:"#f59e0b", fontWeight:700 }}>{score}</span></div>
+                  <div>{renderPostBody(body)}</div>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {err && <div style={{ color:"#fca5a5", fontSize:13, marginBottom:12 }}>{err}</div>}
-      {posts.length === 0 ? (
-        <div style={{ color:"#9ca3af", fontSize:14 }}>No approved posts yet.</div>
-      ) : (
-        <div style={{ display:"grid", gap:12 }}>
-          {posts.map((p) => {
-            const when = p?.meta?.startedAt ? new Date(p.meta.startedAt).toLocaleString() : "Unknown time";
-            const student = p?.meta?.studentName || "Student";
-            const score = Number(p?.meta?.score) || 0;
-            return (
-              <div key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"14px" }}>
-                <div style={{ display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap", marginBottom:6 }}>
-                  <div style={{ color:"#fff", fontWeight:800 }}>{student}</div>
-                  <div style={{ color:"#a78bfa", fontSize:12 }}>{when}</div>
-                </div>
-                <div style={{ color:"#e2e8f0", fontSize:12, marginBottom:6 }}>Score: <span style={{ color:"#f59e0b", fontWeight:700 }}>{score}</span></div>
-                <div style={{ color:"#cbd5e1", fontSize:13, whiteSpace:"pre-wrap", marginBottom:8 }}>{p.excerpt || "Open post to read."}</div>
-                {p.htmlUrl ? <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:13 }}>Read full post</a> : null}
-              </div>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 }
