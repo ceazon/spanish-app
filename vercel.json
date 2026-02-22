@@ -4,6 +4,7 @@
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/admin", "destination": "/" },
-    { "source": "/student-blog", "destination": "/" }
+    { "source": "/student-blog", "destination": "/" },
+    { "source": "/blog", "destination": "/" }
   ]
 }
