@@ -31,6 +31,48 @@ const STUDENT_PERSONAS = [
 
 const PRACTICE_MODULES = ["Word Match", "Flashcards", "Fill in the Blank", "Sentence Scramble", "Transcription", "Scenario Builder"];
 const STORY_DURATIONS = ["5 min", "15 min"];
+const KNOWN_TRANSLATIONS = {
+  hello: "hola",
+  goodbye: "adiós",
+  "good morning": "buenos días",
+  "good night": "buenas noches",
+  "thank you": "gracias",
+  please: "por favor",
+  yes: "sí",
+  no: "no",
+  "excuse me": "perdón",
+  sorry: "lo siento",
+  one: "uno",
+  two: "dos",
+  three: "tres",
+  four: "cuatro",
+  five: "cinco",
+  six: "seis",
+  seven: "siete",
+  eight: "ocho",
+  nine: "nueve",
+  ten: "diez",
+  red: "rojo",
+  blue: "azul",
+  green: "verde",
+  yellow: "amarillo",
+  black: "negro",
+  white: "blanco",
+  orange: "naranja",
+  purple: "morado",
+  pink: "rosa",
+  brown: "marrón",
+  apple: "manzana",
+  bread: "pan",
+  water: "agua",
+  milk: "leche",
+  chicken: "pollo",
+  rice: "arroz",
+  "fish (food)": "pescado",
+  egg: "huevo",
+  cheese: "queso",
+  coffee: "café",
+};
 
 const outRoot = path.resolve(process.cwd(), "blog");
 const draftDir = path.join(outRoot, "drafts");
@@ -56,6 +98,14 @@ function sample(arr, count) {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy.slice(0, Math.max(0, Math.min(count, copy.length)));
+}
+
+function normalizeText(v) {
+  return String(v || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
 
 async function ensureDirs() {
@@ -106,8 +156,62 @@ async function gotoAnyBaseUrl(page, notes) {
 }
 
 async function returnToDashboard(page) {
-  await page.getByRole("button", { name: "← Back" }).click({ timeout: 10000 });
+  const backBtn = page.getByRole("button", { name: "← Back" });
+  const dashboardBtn = page.getByRole("button", { name: "Back to Dashboard" });
+
+  if (await backBtn.isVisible().catch(() => false)) {
+    await backBtn.click({ timeout: 10000 });
+  } else if (await dashboardBtn.isVisible().catch(() => false)) {
+    await dashboardBtn.click({ timeout: 10000 });
+  }
+
   await page.getByText("Adaptive Path", { exact: true }).waitFor({ timeout: 10000 });
+}
+
+async function completeWordMatchForPoints(page) {
+  await page.getByText("Match English", { exact: false }).waitFor({ timeout: 10000 });
+
+  const availableCategories = await page.locator("select option").allTextContents().catch(() => []);
+  const preferred = ["Numbers", "Greetings", "Colors", "Food"];
+  const targetCategory = preferred.find((c) => availableCategories.some((opt) => normalizeText(opt) === normalizeText(c)));
+  if (targetCategory) {
+    await page.locator("select").first().selectOption({ label: targetCategory }).catch(() => {});
+    await page.waitForTimeout(350);
+  }
+
+  const pairs = await page.evaluate((known) => {
+    const norm = (v) =>
+      String(v || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+    const headings = [...document.querySelectorAll("div")];
+    const enHead = headings.find((d) => norm(d.textContent) === "english");
+    const esHead = headings.find((d) => norm(d.textContent) === "espanol");
+    const enCol = enHead?.parentElement;
+    const esCol = esHead?.parentElement;
+
+    const left = [...(enCol?.querySelectorAll("button") || [])].map((b) => (b.textContent || "").trim()).filter(Boolean);
+    const right = [...(esCol?.querySelectorAll("button") || [])].map((b) => (b.textContent || "").trim()).filter(Boolean);
+    const rightNorm = new Set(right.map(norm));
+
+    return left
+      .map((en) => {
+        const mapped = known[norm(en)] || null;
+        return mapped && rightNorm.has(norm(mapped)) ? { en, es: mapped } : null;
+      })
+      .filter(Boolean);
+  }, KNOWN_TRANSLATIONS);
+
+  for (const pair of pairs) {
+    await page.getByRole("button", { name: pair.en, exact: true }).click({ timeout: 5000 });
+    await page.getByRole("button", { name: pair.es, exact: false }).first().click({ timeout: 5000 });
+    await page.waitForTimeout(120);
+  }
+
+  await page.getByRole("button", { name: "Back to Dashboard" }).waitFor({ timeout: 15000 });
 }
 
 function choosePersona() {
@@ -161,7 +265,11 @@ async function runSession() {
     blogHighlights.push(`I started Story Mode (${chosenDuration}) and got ${lessonHeader}.`);
     await returnToDashboard(page);
 
-    const dailyModules = sample(PRACTICE_MODULES, Math.floor(Math.random() * 3) + 1);
+    const extraModules = sample(
+      PRACTICE_MODULES.filter((m) => m !== "Word Match"),
+      Math.floor(Math.random() * 2) + 1,
+    );
+    const dailyModules = ["Word Match", ...extraModules];
 
     for (const moduleName of dailyModules) {
       try {
@@ -169,19 +277,20 @@ async function runSession() {
         await page.waitForTimeout(1200);
 
         if (moduleName === "Word Match") {
+          await completeWordMatchForPoints(page);
           const categoryText = await page.locator("select").first().inputValue().catch(() => null);
           blogHighlights.push(
             categoryText
-              ? `I practiced ${moduleName} and focused on the ${categoryText} set.`
-              : `I practiced ${moduleName} for quick vocab reps.`,
+              ? `I completed a full ${moduleName} round in the ${categoryText} set.`
+              : `I completed a full ${moduleName} round for quick vocab reps.`,
           );
         } else {
           blogHighlights.push(`I spent some time in ${moduleName} and it kept me on my toes.`);
+          await returnToDashboard(page);
         }
-
-        await returnToDashboard(page);
       } catch (moduleError) {
         notes.push(`Module skipped (${moduleName}): ${moduleError?.message || moduleError}`);
+        await returnToDashboard(page).catch(() => {});
       }
     }
   

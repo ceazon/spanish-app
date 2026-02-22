@@ -1,22 +1,22 @@
 {
-  "startedAt": "2026-02-22T22:46:32.305Z",
-  "endedAt": "2026-02-22T22:47:07.819Z",
+  "startedAt": "2026-02-22T22:53:29.300Z",
+  "endedAt": "2026-02-22T22:54:44.703Z",
   "baseUrl": "https://chadlingo.com",
-  "username": "maria_392305",
+  "username": "maria_809301",
   "studentName": "María",
   "status": "ok",
   "notes": [
     "Opened site successfully: https://chadlingo.com",
-    "Snapshot score: 0 points across 0 lessons."
+    "Module skipped (Scenario Builder): locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Scenario Builder' }).first()\u001b[22m\n",
+    "Snapshot score: 48 points across 1 lessons."
   ],
   "blogHighlights": [
     "I created my account and jumped into the dashboard right away.",
-    "I started Story Mode (5 min) and got a challenge.",
-    "I spent some time in Scenario Builder and it kept me on my toes.",
-    "I spent some time in Transcription and it kept me on my toes.",
-    "I spent some time in Fill in the Blank and it kept me on my toes."
+    "I started Story Mode (15 min) and got a challenge.",
+    "I completed a full Word Match round for quick vocab reps.",
+    "I spent some time in Sentence Scramble and it kept me on my toes."
   ],
-  "score": 0,
-  "lessonsCompleted": 0,
+  "score": 48,
+  "lessonsCompleted": 1,
   "error": null
 }
