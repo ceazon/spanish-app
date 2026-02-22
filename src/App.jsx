@@ -2271,6 +2271,8 @@ function AdminScreen({ onBack }) {
   const [users, setUsers] = useState([]);
   const [health, setHealth] = useState(null);
   const [blogPosts, setBlogPosts] = useState([]);
+  const [blogSource, setBlogSource] = useState("github");
+  const [blogWarning, setBlogWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
 
   async function unlock() {
@@ -2329,6 +2331,12 @@ function AdminScreen({ onBack }) {
         if (blogReq.status === "fulfilled" && blogReq.value.ok) {
           const blogData = await blogReq.value.json();
           setBlogPosts(Array.isArray(blogData?.posts) ? blogData.posts : []);
+          setBlogSource(blogData?.source || "github");
+          setBlogWarning(blogData?.warning || "");
+        } else {
+          setBlogPosts([]);
+          setBlogSource("github");
+          setBlogWarning("Unable to load blog drafts from API.");
         }
 
         if (!(statsReq.status === "fulfilled" && statsReq.value.ok)) {
@@ -2441,6 +2449,8 @@ function AdminScreen({ onBack }) {
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Student Blog Draft Approval</div>
+        <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Source: {blogSource === "local" ? "Local workspace drafts" : "GitHub repository drafts"}</div>
+        {blogWarning ? <div style={{ color:"#fbbf24", fontSize:12, marginBottom:8 }}>{blogWarning}</div> : null}
         {blogPosts.length === 0 ? (
           <div style={{ color:"#9ca3af", fontSize:13 }}>No draft posts found yet. Daily agent posts will appear here.</div>
         ) : (
@@ -2595,8 +2605,8 @@ function StudentBlogPage() {
         <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
         <div>
           <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>CHADLINGO</div>
-          <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Synthetic Student Blog</h1>
-          <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from our automated Spanish student.</div>
+          <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Chadlingo Student Blog</h1>
+          <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from Diego and María.</div>
         </div>
       </div>
       {err && <div style={{ color:"#fca5a5", fontSize:13, marginBottom:12 }}>{err}</div>}
@@ -2604,13 +2614,22 @@ function StudentBlogPage() {
         <div style={{ color:"#9ca3af", fontSize:14 }}>No approved posts yet.</div>
       ) : (
         <div style={{ display:"grid", gap:12 }}>
-          {posts.map((p) => (
-            <div key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"14px" }}>
-              <div style={{ color:"#fff", fontWeight:800, marginBottom:6 }}>{p.name}</div>
-              <div style={{ color:"#cbd5e1", fontSize:13, whiteSpace:"pre-wrap", marginBottom:8 }}>{p.excerpt || "Open post to read."}</div>
-              <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:13 }}>Read full post</a>
-            </div>
-          ))}
+          {posts.map((p) => {
+            const when = p?.meta?.startedAt ? new Date(p.meta.startedAt).toLocaleString() : "Unknown time";
+            const student = p?.meta?.studentName || "Student";
+            const score = Number(p?.meta?.score) || 0;
+            return (
+              <div key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"14px" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap", marginBottom:6 }}>
+                  <div style={{ color:"#fff", fontWeight:800 }}>{student}</div>
+                  <div style={{ color:"#a78bfa", fontSize:12 }}>{when}</div>
+                </div>
+                <div style={{ color:"#e2e8f0", fontSize:12, marginBottom:6 }}>Score: <span style={{ color:"#f59e0b", fontWeight:700 }}>{score}</span></div>
+                <div style={{ color:"#cbd5e1", fontSize:13, whiteSpace:"pre-wrap", marginBottom:8 }}>{p.excerpt || "Open post to read."}</div>
+                {p.htmlUrl ? <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:13 }}>Read full post</a> : null}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
@@ -2807,7 +2826,7 @@ export default function App() {
 
     setLastResult({pts,correct,total});setScreen("result");
   }
-  if (typeof window !== "undefined" && window.location.pathname === "/student-blog") {
+  if (typeof window !== "undefined" && ["/student-blog", "/blog"].includes(window.location.pathname)) {
     return <StudentBlogPage />;
   }
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;

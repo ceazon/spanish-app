@@ -1,0 +1,117 @@
+name: Synthetic Students Daily
+
+on:
+  schedule:
+    # Diego: 13:05 UTC daily
+    - cron: "5 13 * * *"
+    # Maria: 20:35 UTC daily (different time)
+    - cron: "35 20 * * *"
+  workflow_dispatch:
+    inputs:
+      persona:
+        description: "Optional persona override (diego|maria|etc)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  run-diego:
+    if: github.event_name == 'schedule' && github.event.schedule == '5 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run synthetic student (Diego)
+        env:
+          STUDENT_PERSONA: diego
+          STUDENT_AUTO_PUBLISH: "1"
+          STUDENT_BASE_URL: https://chadlingo.com
+        run: npm run student:run
+
+  run-maria:
+    if: github.event_name == 'schedule' && github.event.schedule == '35 20 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run synthetic student (Maria)
+        env:
+          STUDENT_PERSONA: maria
+          STUDENT_AUTO_PUBLISH: "1"
+          STUDENT_BASE_URL: https://chadlingo.com
+        run: npm run student:run
+
+  run-manual:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.persona != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run synthetic student (manual persona)
+        env:
+          STUDENT_PERSONA: ${{ github.event.inputs.persona }}
+          STUDENT_AUTO_PUBLISH: "1"
+          STUDENT_BASE_URL: https://chadlingo.com
+        run: npm run student:run
