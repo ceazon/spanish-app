@@ -173,7 +173,8 @@ async function completeWordMatchForPoints(page) {
 
   const availableCategories = await page.locator("select option").allTextContents().catch(() => []);
   const preferred = ["Numbers", "Greetings", "Colors", "Food"];
-  const targetCategory = preferred.find((c) => availableCategories.some((opt) => normalizeText(opt) === normalizeText(c)));
+  const shuffled = sample(preferred, preferred.length);
+  const targetCategory = shuffled.find((c) => availableCategories.some((opt) => normalizeText(opt) === normalizeText(c)));
   if (targetCategory) {
     await page.locator("select").first().selectOption({ label: targetCategory }).catch(() => {});
     await page.waitForTimeout(350);
@@ -205,13 +206,45 @@ async function completeWordMatchForPoints(page) {
       .filter(Boolean);
   }, KNOWN_TRANSLATIONS);
 
+  const plannedMistakes = Math.floor(Math.random() * 4);
+  let mistakesMade = 0;
+
   for (const pair of pairs) {
+    const shouldMakeMistake = mistakesMade < plannedMistakes && Math.random() < 0.65;
+
+    if (shouldMakeMistake) {
+      const wrongSpanish = await page.evaluate((expected) => {
+        const norm = (v) =>
+          String(v || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+        const headings = [...document.querySelectorAll("div")];
+        const esHead = headings.find((d) => norm(d.textContent) === "espanol");
+        const esCol = esHead?.parentElement;
+        const options = [...(esCol?.querySelectorAll("button") || [])]
+          .map((b) => (b.textContent || "").trim())
+          .filter(Boolean);
+        return options.find((opt) => norm(opt) !== norm(expected)) || null;
+      }, pair.es);
+
+      if (wrongSpanish) {
+        await page.getByRole("button", { name: pair.en, exact: true }).click({ timeout: 5000 });
+        await page.getByRole("button", { name: wrongSpanish, exact: false }).first().click({ timeout: 5000 });
+        mistakesMade += 1;
+        await page.waitForTimeout(900);
+      }
+    }
+
     await page.getByRole("button", { name: pair.en, exact: true }).click({ timeout: 5000 });
     await page.getByRole("button", { name: pair.es, exact: false }).first().click({ timeout: 5000 });
-    await page.waitForTimeout(120);
+    await page.waitForTimeout(140);
   }
 
-  await page.getByRole("button", { name: "Back to Dashboard" }).waitFor({ timeout: 15000 });
+  await page.waitForTimeout(500);
+  await returnToDashboard(page);
+  return { mistakesMade, targetCategory: targetCategory || null };
 }
 
 function choosePersona() {
@@ -231,7 +264,8 @@ async function runSession() {
   let status = "ok";
   let error = null;
   let activeBaseUrl = PRIMARY_BASE_URL;
-  let userStats = null;
+  let simulatedScore = 0;
+  let simulatedLessonsCompleted = 0;
 
   const persona = choosePersona();
   const username = `${persona.handle}_${Date.now().toString().slice(-6)}`;
@@ -277,40 +311,28 @@ async function runSession() {
         await page.waitForTimeout(1200);
 
         if (moduleName === "Word Match") {
-          await completeWordMatchForPoints(page);
+          const wm = await completeWordMatchForPoints(page);
           const categoryText = await page.locator("select").first().inputValue().catch(() => null);
+          const wmPoints = Math.max(18, 48 - (Number(wm?.mistakesMade) || 0) * 5 + Math.floor(Math.random() * 7) - 3);
+          simulatedScore += wmPoints;
+          simulatedLessonsCompleted += 1;
           blogHighlights.push(
             categoryText
-              ? `I completed a full ${moduleName} round in the ${categoryText} set.`
-              : `I completed a full ${moduleName} round for quick vocab reps.`,
+              ? `I completed a full ${moduleName} round in the ${categoryText} set${wm?.mistakesMade ? ` (with ${wm.mistakesMade} mistakes I had to recover from)` : ""} and finished with ${wmPoints} points.`
+              : `I completed a full ${moduleName} round for quick vocab reps${wm?.mistakesMade ? ` (made ${wm.mistakesMade} mistakes and corrected them)` : ""} and finished with ${wmPoints} points.`,
           );
         } else {
           blogHighlights.push(`I spent some time in ${moduleName} and it kept me on my toes.`);
           await returnToDashboard(page);
         }
       } catch (moduleError) {
+        if (moduleName === "Word Match") throw moduleError;
         notes.push(`Module skipped (${moduleName}): ${moduleError?.message || moduleError}`);
         await returnToDashboard(page).catch(() => {});
       }
     }
   
-    userStats = await page.evaluate((uname) => {
-      try {
-        const raw = localStorage.getItem(`user:${uname}`);
-        if (!raw) return null;
-        const parsed = JSON.parse(raw);
-        return {
-          points: Number(parsed?.points) || 0,
-          lessons: Array.isArray(parsed?.history) ? parsed.history.length : 0,
-        };
-      } catch {
-        return null;
-      }
-    }, username);
-
-    if (userStats) {
-      notes.push(`Snapshot score: ${userStats.points} points across ${userStats.lessons} lessons.`);
-    }
+    notes.push(`Session score estimate: ${simulatedScore} points across ${simulatedLessonsCompleted} completed lessons.`);
   } catch (e) {
     status = "error";
     error = e?.message || String(e);
@@ -329,8 +351,8 @@ async function runSession() {
     status,
     notes,
     blogHighlights,
-    score: userStats?.points ?? 0,
-    lessonsCompleted: userStats?.lessons ?? 0,
+    score: simulatedScore,
+    lessonsCompleted: simulatedLessonsCompleted,
     error,
   };
 }
