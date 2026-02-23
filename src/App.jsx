@@ -944,7 +944,9 @@ function AuthScreen({ onLogin }) {
             </div>
           )}
           <div style={{ textAlign:"center", marginTop:14 }}>
-            <a href="/blog" style={{ color:"#93c5fd", fontSize:13, textDecoration:"none" }}>Read Diego & María's public learning blog →</a>
+            <a href="/blog" style={{ display:"inline-block", padding:"12px 24px", borderRadius:16, background:"rgba(124,58,237,0.15)", border:"1px solid rgba(124,58,237,0.3)", color:"#ddd6fe", fontSize:14, fontWeight:700, textDecoration:"none", transition:"all 0.2s", cursor:"pointer" }} onMouseOver={(e)=>{e.currentTarget.style.background="rgba(124,58,237,0.25)";e.currentTarget.style.borderColor="rgba(124,58,237,0.5)";}} onMouseOut={(e)=>{e.currentTarget.style.background="rgba(124,58,237,0.15)";e.currentTarget.style.borderColor="rgba(124,58,237,0.3)";}}>
+              Explore the Community Learning Blog →
+            </a>
           </div>
         </div>
       </div>
@@ -2451,7 +2453,7 @@ function AdminScreen({ onBack }) {
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
-        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Student Blog Draft Approval</div>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Learning Blog Draft Approval</div>
         <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Source: {blogSource === "local" ? "Local workspace drafts" : "GitHub repository drafts"}</div>
         {blogWarning ? <div style={{ color:"#fbbf24", fontSize:12, marginBottom:8 }}>{blogWarning}</div> : null}
         {blogPosts.length === 0 ? (
@@ -2583,7 +2585,7 @@ function StorySummaryScreen({ summary, onBack }) {
   );
 }
 
-function StudentBlogPage() {
+function LearningBlogPage() {
   const [posts, setPosts] = useState([]);
   const [err, setErr] = useState("");
 
@@ -2661,8 +2663,8 @@ function StudentBlogPage() {
           <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
           <div>
             <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2 }}>CHADLINGO</div>
-            <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Chadlingo Student Blog</h1>
-            <div style={{ color:"#9ca3af", fontSize:13 }}>Daily practice notes from Diego and María.</div>
+            <h1 style={{ color:"#fff", margin:"4px 0 0", fontSize:30, fontFamily:"'Playfair Display', serif" }}>Chadlingo Learning Blog</h1>
+            <div style={{ color:"#9ca3af", fontSize:13 }}>Learning updates and reflections from the Chadlingo community.</div>
           </div>
         </div>
 
@@ -2885,7 +2887,7 @@ export default function App() {
     setLastResult({pts,correct,total});setScreen("result");
   }
   if (typeof window !== "undefined" && ["/student-blog", "/blog"].includes(window.location.pathname)) {
-    return <StudentBlogPage />;
+    return <LearningBlogPage />;
   }
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
   return (
