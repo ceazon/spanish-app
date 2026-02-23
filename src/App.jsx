@@ -2678,15 +2678,37 @@ function LearningBlogPage() {
               const student = p?.meta?.studentName || "Student";
               const score = Number(p?.meta?.score) || 0;
               const body = p?.content || p?.excerpt || "";
+              const excerpt = (p?.content || p?.excerpt || "")
+                .split("\n")
+                .filter(l => l.trim() && !l.startsWith("#") && !l.includes("Date & Time:") && !l.includes("Score:") && !l.includes("Lessons Completed:") && !l.includes("Mood:"))
+                .join(" ")
+                .replace(/\*\*/g, "")
+                .slice(0, 200) + "...";
+
               return (
-                <article key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"16px 18px" }}>
-                  <div style={{ display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap", marginBottom:8 }}>
-                    <div style={{ color:"#fff", fontWeight:800 }}>{student}</div>
-                    <div style={{ color:"#a78bfa", fontSize:12 }}>{when}</div>
+                <article key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:20, padding:"20px", position:"relative", transition:"transform 0.2s" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
+                    <div style={{ width:40, height:40, borderRadius:"50%", background:"linear-gradient(135deg, #7c3aed, #f59e0b)", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:800, color:"#fff", fontSize:16 }}>
+                      {student.charAt(0)}
+                    </div>
+                    <div>
+                      <div style={{ color:"#fff", fontWeight:700, fontSize:15 }}>{student}</div>
+                      <div style={{ color:"#9ca3af", fontSize:12 }}>{when}</div>
+                    </div>
+                    <div style={{ marginLeft:"auto", background:"rgba(245,158,11,0.1)", border:"1px solid rgba(245,158,11,0.2)", padding:"4px 10px", borderRadius:10, color:"#f59e0b", fontSize:12, fontWeight:700 }}>
+                      {score} pts
+                    </div>
                   </div>
-                  <div style={{ color:"#e2e8f0", fontSize:12, marginBottom:8 }}>Score: <span style={{ color:"#f59e0b", fontWeight:700 }}>{score}</span></div>
-                  <h3 style={{ color:"#fff", margin:"2px 0 10px", fontSize:18, fontFamily:"'Playfair Display', serif" }}>{p.name.replace(".md", "")}</h3>
-                  <p style={{ color:"#d1d5db", margin:"0", lineHeight:1.5, fontSize:14 }}>{p.excerpt}</p>
+                  
+                  <p style={{ color:"#e5e7eb", fontSize:15, lineHeight:1.6, margin:"0 0 14px", whiteSpace:"pre-wrap" }}>
+                    {excerpt}
+                  </p>
+
+                  <div style={{ display:"flex", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:12 }}>
+                    <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#a78bfa", fontSize:13, fontWeight:600, textDecoration:"none", display:"flex", alignItems:"center", gap:4 }}>
+                      View full diary entry ↗
+                    </a>
+                  </div>
                 </article>
               );
             })}
