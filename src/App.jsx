@@ -943,6 +943,9 @@ function AuthScreen({ onLogin }) {
               <div style={{ marginTop:4, opacity:0.9 }}>Make sure this origin is added under Google OAuth → Authorized JavaScript origins.</div>
             </div>
           )}
+          <div style={{ textAlign:"center", marginTop:14 }}>
+            <a href="/blog" style={{ color:"#93c5fd", fontSize:13, textDecoration:"none" }}>Read Diego & María's public learning blog →</a>
+          </div>
         </div>
       </div>
     </div>

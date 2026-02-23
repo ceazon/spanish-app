@@ -171,5 +171,12 @@ export async function listApprovedPosts(limit = 20) {
   const drafts = Array.isArray(draftResult) ? draftResult : draftResult.posts;
   const approved = await getApprovedSet();
   const approvedSet = new Set(approved);
-  return drafts.filter((d) => approvedSet.has(d.slug));
+
+  return drafts.filter((d) => {
+    if (!approvedSet.has(d.slug)) return false;
+    const student = String(d?.meta?.studentName || "").toLowerCase();
+    if (["diego", "maría", "maria"].includes(student)) return true;
+    // Hide legacy synthetic bot posts from public blog feed.
+    return false;
+  });
 }

@@ -357,16 +357,34 @@ async function runSession() {
   };
 }
 
+function buildPostTitle(report, date) {
+  const highlights = report.blogHighlights || [];
+  const topics = [];
+  if (highlights.some((h) => /story mode/i.test(h))) topics.push("Story Mode");
+  if (highlights.some((h) => /word match/i.test(h))) topics.push("Word Match");
+  const extra = highlights
+    .map((h) => {
+      const m = h.match(/spent some time in (.+?) and/i);
+      return m?.[1] || null;
+    })
+    .filter(Boolean)
+    .slice(0, 2);
+  topics.push(...extra);
+  const unique = [...new Set(topics)].slice(0, 3);
+  if (!unique.length) return `Today I practiced Spanish and kept my streak alive — ${date}`;
+  if (unique.length === 1) return `Today I focused on ${unique[0]} — ${date}`;
+  if (unique.length === 2) return `Today I worked through ${unique[0]} and ${unique[1]} — ${date}`;
+  return `Today I tackled ${unique[0]}, ${unique[1]}, and ${unique[2]} — ${date}`;
+}
+
 function toMarkdown(report) {
   const date = todayStamp();
   const mood = report.status === "ok" ? "Motivated and curious" : "A bit thrown off, but still trying";
   const highlights = (report.blogHighlights || []).map((n) => `- ${n}`).join("\n") || "- I checked in and did a short practice session.";
-  const sessionTime = report?.startedAt ? new Date(report.startedAt).toLocaleString("en-CA") : "Unknown";
+  const when = report?.startedAt ? new Date(report.startedAt).toLocaleString("en-CA") : "Unknown";
 
-  return `# ${report.studentName}'s Spanish Learning Diary — ${date}\n\n`
-    + `**Student:** ${report.studentName}  \n`
-    + `**Session Date:** ${date}  \n`
-    + `**Session Time:** ${sessionTime}  \n`
+  return `# ${buildPostTitle(report, date)}\n\n`
+    + `**Date & Time:** ${when}  \n`
     + `**Score:** ${Number(report?.score) || 0} points  \n`
     + `**Lessons Completed:** ${Number(report?.lessonsCompleted) || 0}  \n`
     + `**Mood:** ${mood}\n\n`
