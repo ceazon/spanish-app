@@ -1,0 +1,21 @@
+{
+  "startedAt": "2026-02-23T14:12:49.540Z",
+  "endedAt": "2026-02-23T14:13:55.746Z",
+  "baseUrl": "https://chadlingo.com",
+  "username": "diego_969541",
+  "studentName": "Diego",
+  "status": "ok",
+  "notes": [
+    "Opened site successfully: https://chadlingo.com",
+    "Session score estimate: 46 points across 1 completed lessons."
+  ],
+  "blogHighlights": [
+    "I jumped in fast and went straight to practice mode.",
+    "I hit Story Mode for 15 min and landed on a challenge.",
+    "I grinded Word Match and closed at 46 points.",
+    "After that I ran Scenario Builder to keep momentum up."
+  ],
+  "score": 46,
+  "lessonsCompleted": 1,
+  "error": null
+}
