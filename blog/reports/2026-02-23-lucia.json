@@ -1,21 +1,21 @@
 {
-  "startedAt": "2026-02-23T03:47:30.612Z",
-  "endedAt": "2026-02-23T03:48:36.816Z",
+  "startedAt": "2026-02-23T03:49:50.659Z",
+  "endedAt": "2026-02-23T03:50:56.714Z",
   "baseUrl": "https://chadlingo.com",
-  "username": "lucia_450612",
+  "username": "lucia_590659",
   "studentName": "Lucía",
   "status": "ok",
   "notes": [
     "Opened site successfully: https://chadlingo.com",
-    "Session score estimate: 45 points across 1 completed lessons."
+    "Session score estimate: 47 points across 1 completed lessons."
   ],
   "blogHighlights": [
     "I logged in and got right into practice.",
-    "I started Story Mode (5 min) and got a challenge.",
-    "I completed Word Match and got 45 points.",
-    "I spent time in Transcription."
+    "I started Story Mode (15 min) and got a challenge.",
+    "I completed Word Match and got 47 points.",
+    "I spent time in Scenario Builder."
   ],
-  "score": 45,
+  "score": 47,
   "lessonsCompleted": 1,
   "error": null
 }
