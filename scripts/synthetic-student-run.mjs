@@ -21,8 +21,38 @@ const BASE_URL_CANDIDATES = EXPLICIT_BASE_URL
     ].filter(Boolean);
 
 const STUDENT_PERSONAS = [
-  { name: "Diego", handle: "diego" },
-  { name: "María", handle: "maria" },
+  {
+    name: "Diego",
+    handle: "diego",
+    style: {
+      titlePrefix: "I pushed through",
+      intro: "I jumped in fast and went straight to practice mode.",
+      story: (duration, lesson) => `I hit Story Mode for ${duration} and landed on ${lesson}.`,
+      wordMatch: (category, mistakes, pts) => `I grinded ${category || "Word Match"}${mistakes ? `, made ${mistakes} mistakes,` : ""} and closed at ${pts} points.`,
+      module: (name) => `After that I ran ${name} to keep momentum up.`,
+      feltGood: ["The pace was great and I stayed in flow.", "Quick feedback made it easy to fix mistakes fast."],
+      feltTricky: ["I still want clearer next-step prompts between modules."],
+      goal: "Tomorrow I want to beat today’s score and tighten accuracy.",
+      moodOk: "Competitive and focused",
+      moodErr: "Frustrated but stubborn",
+    },
+  },
+  {
+    name: "María",
+    handle: "maria",
+    style: {
+      titlePrefix: "I explored",
+      intro: "I settled in and treated today like a mini language lab.",
+      story: (duration, lesson) => `I opened with a ${duration} Story Mode run and got ${lesson}.`,
+      wordMatch: (category, mistakes, pts) => `In ${category || "Word Match"}, I practiced carefully${mistakes ? ` (I corrected ${mistakes} slips)` : ""} and finished with ${pts} points.`,
+      module: (name) => `Then I spent time in ${name} and paid attention to phrasing and rhythm.`,
+      feltGood: ["The app still feels playful, which helps me stay consistent.", "I liked mixing structured drills with exploratory practice."],
+      feltTricky: ["Sometimes I want clearer transitions so I know what to do next instantly."],
+      goal: "Tomorrow I want to keep variety high and build confidence sentence by sentence.",
+      moodOk: "Curious and reflective",
+      moodErr: "A bit thrown off, still optimistic",
+    },
+  },
   { name: "Lucía", handle: "lucia" },
   { name: "Mateo", handle: "mateo" },
   { name: "Sofía", handle: "sofia" },
@@ -268,6 +298,7 @@ async function runSession() {
   let simulatedLessonsCompleted = 0;
 
   const persona = choosePersona();
+  const voice = getPersonaStyle(persona.name);
   const username = `${persona.handle}_${Date.now().toString().slice(-6)}`;
 
   try {
@@ -280,7 +311,7 @@ async function runSession() {
     await page.getByRole("button", { name: "Create Account →" }).click();
     await page.getByText("Adaptive Path", { exact: true }).waitFor({ timeout: 15000 });
 
-    blogHighlights.push("I created my account and jumped into the dashboard right away.");
+    blogHighlights.push(voice.intro);
 
     const chosenDuration = pick(STORY_DURATIONS);
     await page.getByRole("button", { name: "Take on the Challenge" }).click();
@@ -296,7 +327,7 @@ async function runSession() {
         .catch(() => "a challenge")
     ).trim();
 
-    blogHighlights.push(`I started Story Mode (${chosenDuration}) and got ${lessonHeader}.`);
+    blogHighlights.push(voice.story(chosenDuration, lessonHeader));
     await returnToDashboard(page);
 
     const extraModules = sample(
@@ -316,13 +347,10 @@ async function runSession() {
           const wmPoints = Math.max(18, 48 - (Number(wm?.mistakesMade) || 0) * 5 + Math.floor(Math.random() * 7) - 3);
           simulatedScore += wmPoints;
           simulatedLessonsCompleted += 1;
-          blogHighlights.push(
-            categoryText
-              ? `I completed a full ${moduleName} round in the ${categoryText} set${wm?.mistakesMade ? ` (with ${wm.mistakesMade} mistakes I had to recover from)` : ""} and finished with ${wmPoints} points.`
-              : `I completed a full ${moduleName} round for quick vocab reps${wm?.mistakesMade ? ` (made ${wm.mistakesMade} mistakes and corrected them)` : ""} and finished with ${wmPoints} points.`,
-          );
+          const label = categoryText ? `${moduleName} (${categoryText})` : moduleName;
+          blogHighlights.push(voice.wordMatch(label, Number(wm?.mistakesMade) || 0, wmPoints));
         } else {
-          blogHighlights.push(`I spent some time in ${moduleName} and it kept me on my toes.`);
+          blogHighlights.push(voice.module(moduleName));
           await returnToDashboard(page);
         }
       } catch (moduleError) {
@@ -357,29 +385,45 @@ async function runSession() {
   };
 }
 
+function getPersonaStyle(name) {
+  const p = STUDENT_PERSONAS.find((x) => x.name === name);
+  return p?.style || {
+    titlePrefix: "I practiced",
+    intro: "I logged in and got right into practice.",
+    story: (duration, lesson) => `I started Story Mode (${duration}) and got ${lesson}.`,
+    wordMatch: (category, mistakes, pts) => `I completed ${category || "Word Match"}${mistakes ? ` with ${mistakes} mistakes corrected` : ""} and got ${pts} points.`,
+    module: (name) => `I spent time in ${name}.`,
+    feltGood: ["The app felt smooth and motivating today."],
+    feltTricky: ["I want clearer guidance between modules."],
+    goal: "Keep the streak going with one deeper lesson tomorrow.",
+    moodOk: "Motivated",
+    moodErr: "Trying to stay positive",
+  };
+}
+
 function buildPostTitle(report, date) {
-  const highlights = report.blogHighlights || [];
+  const highlights = (report.blogHighlights || []).map((h) => String(h).toLowerCase());
   const topics = [];
-  if (highlights.some((h) => /story mode/i.test(h))) topics.push("Story Mode");
-  if (highlights.some((h) => /word match/i.test(h))) topics.push("Word Match");
-  const extra = highlights
-    .map((h) => {
-      const m = h.match(/spent some time in (.+?) and/i);
-      return m?.[1] || null;
-    })
-    .filter(Boolean)
-    .slice(0, 2);
-  topics.push(...extra);
+  if (highlights.some((h) => h.includes("story mode"))) topics.push("Story Mode");
+  if (highlights.some((h) => h.includes("word match"))) topics.push("Word Match");
+
+  const moduleNames = ["Flashcards", "Fill in the Blank", "Sentence Scramble", "Transcription", "Scenario Builder"];
+  for (const m of moduleNames) {
+    if (highlights.some((h) => h.includes(m.toLowerCase()))) topics.push(m);
+  }
+
   const unique = [...new Set(topics)].slice(0, 3);
-  if (!unique.length) return `Today I practiced Spanish and kept my streak alive — ${date}`;
-  if (unique.length === 1) return `Today I focused on ${unique[0]} — ${date}`;
-  if (unique.length === 2) return `Today I worked through ${unique[0]} and ${unique[1]} — ${date}`;
-  return `Today I tackled ${unique[0]}, ${unique[1]}, and ${unique[2]} — ${date}`;
+  const style = getPersonaStyle(report.studentName);
+  if (!unique.length) return `${style.titlePrefix} Spanish and stayed consistent — ${date}`;
+  if (unique.length === 1) return `${style.titlePrefix} ${unique[0]} today — ${date}`;
+  if (unique.length === 2) return `${style.titlePrefix} ${unique[0]} and ${unique[1]} — ${date}`;
+  return `${style.titlePrefix} ${unique[0]}, ${unique[1]}, and ${unique[2]} — ${date}`;
 }
 
 function toMarkdown(report) {
   const date = todayStamp();
-  const mood = report.status === "ok" ? "Motivated and curious" : "A bit thrown off, but still trying";
+  const voice = getPersonaStyle(report.studentName);
+  const mood = report.status === "ok" ? voice.moodOk : voice.moodErr;
   const highlights = (report.blogHighlights || []).map((n) => `- ${n}`).join("\n") || "- I checked in and did a short practice session.";
   const when = report?.startedAt ? new Date(report.startedAt).toLocaleString("en-CA") : "Unknown";
 
@@ -389,9 +433,9 @@ function toMarkdown(report) {
     + `**Lessons Completed:** ${Number(report?.lessonsCompleted) || 0}  \n`
     + `**Mood:** ${mood}\n\n`
     + `## What I worked on\n${highlights}\n\n`
-    + `## What felt good\n- The app feels fast and keeps me moving.\n- Story Mode helped me stay focused instead of overthinking.\n\n`
-    + `## What felt tricky\n- I still want clearer "what to do next" guidance between activities.\n\n`
-    + `## My goal for tomorrow\n- Keep the streak going and push one lesson a little deeper.\n`
+    + `## What felt good\n${voice.feltGood.map((x) => `- ${x}`).join("\n")}\n\n`
+    + `## What felt tricky\n${voice.feltTricky.map((x) => `- ${x}`).join("\n")}\n\n`
+    + `## My goal for tomorrow\n- ${voice.goal}\n`
     + (report.status === "error"
       ? `\n## What got in the way\n- I hit a technical issue partway through and had to stop early.\n`
       : "");
