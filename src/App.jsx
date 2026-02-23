@@ -2685,7 +2685,8 @@ function LearningBlogPage() {
                     <div style={{ color:"#a78bfa", fontSize:12 }}>{when}</div>
                   </div>
                   <div style={{ color:"#e2e8f0", fontSize:12, marginBottom:8 }}>Score: <span style={{ color:"#f59e0b", fontWeight:700 }}>{score}</span></div>
-                  <div>{renderPostBody(body)}</div>
+                  <h3 style={{ color:"#fff", margin:"2px 0 10px", fontSize:18, fontFamily:"'Playfair Display', serif" }}>{p.name.replace(".md", "")}</h3>
+                  <p style={{ color:"#d1d5db", margin:"0", lineHeight:1.5, fontSize:14 }}>{p.excerpt}</p>
                 </article>
               );
             })}
