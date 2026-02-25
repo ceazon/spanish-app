@@ -2588,6 +2588,7 @@ function StorySummaryScreen({ summary, onBack }) {
 function LearningBlogPage() {
   const [posts, setPosts] = useState([]);
   const [err, setErr] = useState("");
+  const [expandedSlug, setExpandedSlug] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -2700,14 +2701,18 @@ function LearningBlogPage() {
                     </div>
                   </div>
                   
-                  <p style={{ color:"#e5e7eb", fontSize:15, lineHeight:1.6, margin:"0 0 14px", whiteSpace:"pre-wrap" }}>
-                    {excerpt}
-                  </p>
+                  {expandedSlug === p.slug ? (
+                    <div style={{ marginBottom:14 }}>{renderPostBody(body)}</div>
+                  ) : (
+                    <p style={{ color:"#e5e7eb", fontSize:15, lineHeight:1.6, margin:"0 0 14px", whiteSpace:"pre-wrap" }}>
+                      {excerpt}
+                    </p>
+                  )}
 
                   <div style={{ display:"flex", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:12 }}>
-                    <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#a78bfa", fontSize:13, fontWeight:600, textDecoration:"none", display:"flex", alignItems:"center", gap:4 }}>
-                      View full diary entry ↗
-                    </a>
+                    <button onClick={() => setExpandedSlug(expandedSlug === p.slug ? null : p.slug)} style={{ color:"#a78bfa", fontSize:13, fontWeight:600, textDecoration:"none", display:"flex", alignItems:"center", gap:4, background:"none", border:"none", cursor:"pointer", padding:0 }}>
+                      {expandedSlug === p.slug ? "Collapse entry ↑" : "View full diary entry ↓"}
+                    </button>
                   </div>
                 </article>
               );
