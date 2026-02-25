@@ -166,6 +166,15 @@ const SCRAMBLE_SENTENCES = [
   { words: ["Nosotros", "vamos", "al", "mercado", "mañana"], correct: "Nosotros vamos al mercado mañana", hint: "We are going to the market tomorrow." },
   { words: ["El", "perro", "grande", "corre", "muy", "rápido"], correct: "El perro grande corre muy rápido", hint: "The big dog runs very fast." },
   { words: ["Tú", "tienes", "un", "libro", "interesante"], correct: "Tú tienes un libro interesante", hint: "You have an interesting book." },
+  { words: ["Mi", "hermano", "vive", "en", "una", "casa", "azul"], correct: "Mi hermano vive en una casa azul", hint: "My brother lives in a blue house." },
+  { words: ["Ustedes", "quieren", "comer", "pizza", "esta", "noche"], correct: "Ustedes quieren comer pizza esta noche", hint: "You all want to eat pizza tonight." },
+  { words: ["Yo", "estoy", "muy", "feliz", "hoy"], correct: "Yo estoy muy feliz hoy", hint: "I am very happy today." },
+  { words: ["Ella", "lee", "el", "periódico", "cada", "mañana"], correct: "Ella lee el periódico cada mañana", hint: "She reads the newspaper every morning." },
+  { words: ["Nosotros", "bebemos", "agua", "fría"], correct: "Nosotros bebemos agua fría", hint: "We drink cold water." },
+  { words: ["El", "sol", "brilla", "en", "el", "cielo"], correct: "El sol brilla en el cielo", hint: "The sun shines in the sky." },
+  { words: ["Tengo", "que", "estudiar", "para", "el", "examen"], correct: "Tengo que estudiar para el examen", hint: "I have to study for the exam." },
+  { words: ["¿Dónde", "está", "mi", "teléfono", "móvil?"], correct: "¿Dónde está mi teléfono móvil?", hint: "Where is my mobile phone?" },
+  { words: ["Me", "gusta", "escuchar", "música", "clásica"], correct: "Me gusta escuchar música clásica", hint: "I like listening to classical music." },
 ];
 
 const CHAT_TOPICS = [
