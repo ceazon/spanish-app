@@ -4,97 +4,69 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { loadProfile, saveProfile } from '../services/storage';
 import { getWordsForSession, getSentencesForSession } from '../services/contentResolver';
 import { updateProfileAfterSession } from '../services/progression';
-
-// Import the actual lesson components
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from './vocab';
 
-// A simple loading/placeholder component
-const LoadingSpinner = () => <div style={{ color: "#a78bfa" }}>Loading your personalized lesson...</div>;
+const LoadingSpinner = () => <div style={{ color: "#a78bfa", textAlign: 'center' }}>Loading your personalized lesson...</div>;
 
 export function DynamicLessonHost({ lessonType, onSessionComplete }) {
   const [profile, setProfile] = useState(null);
-  const [sessionWords, setSessionWords] = useState([]);
-  const [sessionSentences, setSessionSentences] = useState([]);
+  const [sessionContent, setSessionContent] = useState({ words: [], sentences: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Load profile and fetch content when the component mounts
   useEffect(() => {
     async function setupSession() {
       try {
         setIsLoading(true);
         const userProfile = loadProfile();
-        if (!userProfile) {
-          throw new Error("Could not load user profile.");
-        }
         setProfile(userProfile);
 
-        // Fetch dynamic content based on the profile
-        const words = getWordsForSession(userProfile, 20); // Get 20 words for the session
-        setSessionWords(words);
-        
-        // If the lesson type needs sentences, fetch them
-        if (lessonType === 'fill-in-the-blank') {
-          const sentences = await getSentencesForSession(userProfile, words, 10);
-          setSessionSentences(sentences);
+        const words = getWordsForSession(userProfile, 20);
+        let sentences = [];
+        if (lessonType === 'fill-in-the-blank') { // This logic can be expanded
+          sentences = await getSentencesForSession(userProfile, words, 10);
         }
-
+        setSessionContent({ words, sentences });
       } catch (e) {
         setError(e.message);
-        console.error("Session setup failed:", e);
       } finally {
         setIsLoading(false);
       }
     }
-
     setupSession();
   }, [lessonType]);
 
-  // This function will be passed to the lesson components
-  const handleLessonComplete = useCallback((sessionResults) => {
+  const handleLessonComplete = useCallback((results) => { // results is now an array of {id, cefr, correct}
     if (!profile) return;
-
-    // Update the profile with the results of the session
-    const updatedProfile = updateProfileAfterSession(profile, sessionResults);
-    
-    // Save the new profile to storage
+    const updatedProfile = updateProfileAfterSession(profile, results);
     saveProfile(updatedProfile);
-
-    // Update the state and notify the parent component
-    setProfile(updatedProfile);
     if (onSessionComplete) {
       onSessionComplete(updatedProfile);
     }
-
-    console.log("Session complete! Profile updated.", updatedProfile);
   }, [profile, onSessionComplete]);
 
-  // Render the correct lesson component based on the prop
-  const renderLesson = () => {
-    switch (lessonType) {
-      case 'flashcard':
-        return <FlashcardLesson words={sessionWords} onComplete={handleLessonComplete} />;
-      case 'word-match':
-        return <WordMatchLesson words={sessionWords} onComplete={handleLessonComplete} />;
-      case 'fill-in-the-blank':
-        return <FillBlankLesson sentences={sessionSentences} onComplete={handleLessonComplete} />;
-      default:
-        return <div style={{color: 'red'}}>Error: Unknown lesson type "{lessonType}"</div>;
-    }
+  // Simplified onComplete wrapper for older components
+  const simpleOnComplete = (points, correct, total) => {
+    // This is a rough translation; the new system needs per-word results.
+    // We'll pass a placeholder. This needs to be refactored in vocab.jsx.
+    const mockResults = sessionContent.words.slice(0, total).map((word, i) => ({
+      ...word,
+      correct: i < correct
+    }));
+    handleLessonComplete(mockResults);
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
 
-  if (error) {
-    return <div style={{color: 'red'}}>Error: {error}</div>;
+  switch (lessonType) {
+    case 'flashcard':
+      return <FlashcardLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
+    case 'word-match':
+      return <WordMatchLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
+    case 'fill-in-the-blank':
+      return <FillBlankLesson sentences={sessionContent.sentences} onComplete={simpleOnComplete} />;
+    default:
+      return <div style={{ color: 'red' }}>Error: Unknown lesson type "{lessonType}"</div>;
   }
-
-  return (
-    <div>
-      {/* This component now handles all the data logic */}
-      {renderLesson()}
-    </div>
-  );
 }

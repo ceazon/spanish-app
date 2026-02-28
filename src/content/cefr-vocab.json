@@ -1,0 +1,6327 @@
+{
+  "version": 1,
+  "generatedAt": "2026-02-25T20:19:15.119Z",
+  "counts": {
+    "A1": 351,
+    "A2": 438,
+    "B1": 0,
+    "B2": 0,
+    "C1": 0,
+    "C2": 0
+  },
+  "total": 789,
+  "vocab": [
+    {
+      "id": "hola",
+      "es": "hola",
+      "en": "hello",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Greetings"
+    },
+    {
+      "id": "adios",
+      "es": "adiós",
+      "en": "goodbye",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Greetings"
+    },
+    {
+      "id": "buenos-dias",
+      "es": "buenos días",
+      "en": "good morning",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Greetings"
+    },
+    {
+      "id": "buenas-tardes",
+      "es": "buenas tardes",
+      "en": "good afternoon",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Greetings"
+    },
+    {
+      "id": "buenas-noches",
+      "es": "buenas noches",
+      "en": "good evening; good night",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Greetings"
+    },
+    {
+      "id": "por-favor",
+      "es": "por favor",
+      "en": "please",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "gracias",
+      "es": "gracias",
+      "en": "thank you",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Communication"
+    },
+    {
+      "id": "de-nada",
+      "es": "de nada",
+      "en": "you're welcome",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "perdon",
+      "es": "perdón",
+      "en": "sorry; pardon",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Communication"
+    },
+    {
+      "id": "lo-siento",
+      "es": "lo siento",
+      "en": "I'm sorry",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "con-permiso",
+      "es": "con permiso",
+      "en": "excuse me",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "bienvenido",
+      "es": "bienvenido",
+      "en": "welcome",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Greetings"
+    },
+    {
+      "id": "si",
+      "es": "sí",
+      "en": "yes",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Communication"
+    },
+    {
+      "id": "no",
+      "es": "no",
+      "en": "no",
+      "cefr": "A1",
+      "pos": "interjection",
+      "topic": "Communication"
+    },
+    {
+      "id": "nombre",
+      "es": "nombre",
+      "en": "first name; name",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "apellido",
+      "es": "apellido",
+      "en": "surname; last name",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "edad",
+      "es": "edad",
+      "en": "age",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "ano",
+      "es": "año",
+      "en": "year",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "pais",
+      "es": "país",
+      "en": "country",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "ciudad",
+      "es": "ciudad",
+      "en": "city",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "nacionalidad",
+      "es": "nacionalidad",
+      "en": "nationality",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "idioma",
+      "es": "idioma",
+      "en": "language",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "lengua",
+      "es": "lengua",
+      "en": "language; tongue",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "persona",
+      "es": "persona",
+      "en": "person",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "gente",
+      "es": "gente",
+      "en": "people",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "hombre",
+      "es": "hombre",
+      "en": "man",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "mujer",
+      "es": "mujer",
+      "en": "woman",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "nino",
+      "es": "niño",
+      "en": "boy; child",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "nina",
+      "es": "niña",
+      "en": "girl; child",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "chico",
+      "es": "chico",
+      "en": "boy; young man",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "chica",
+      "es": "chica",
+      "en": "girl",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "ser",
+      "es": "ser",
+      "en": "to be",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "estar",
+      "es": "estar",
+      "en": "to be",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "tener",
+      "es": "tener",
+      "en": "to have",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "hacer",
+      "es": "hacer",
+      "en": "to do, to make",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "ir",
+      "es": "ir",
+      "en": "to go",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "venir",
+      "es": "venir",
+      "en": "to come",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "querer",
+      "es": "querer",
+      "en": "to want",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "poder",
+      "es": "poder",
+      "en": "can, to be able to",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "saber",
+      "es": "saber",
+      "en": "to know",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "deber",
+      "es": "deber",
+      "en": "must, should, to owe",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "hablar",
+      "es": "hablar",
+      "en": "to speak",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "comer",
+      "es": "comer",
+      "en": "to eat",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "beber",
+      "es": "beber",
+      "en": "to drink",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "vivir",
+      "es": "vivir",
+      "en": "to live",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "trabajar",
+      "es": "trabajar",
+      "en": "to work",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "estudiar",
+      "es": "estudiar",
+      "en": "to study",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "leer",
+      "es": "leer",
+      "en": "to read",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "escribir",
+      "es": "escribir",
+      "en": "to write",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "escuchar",
+      "es": "escuchar",
+      "en": "to listen",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "ver",
+      "es": "ver",
+      "en": "to see",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "dormir",
+      "es": "dormir",
+      "en": "to sleep",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "abrir",
+      "es": "abrir",
+      "en": "to open",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "cerrar",
+      "es": "cerrar",
+      "en": "to close",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "comprar",
+      "es": "comprar",
+      "en": "to buy",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "llegar",
+      "es": "llegar",
+      "en": "to arrive",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "salir",
+      "es": "salir",
+      "en": "to go out, to leave",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "entrar",
+      "es": "entrar",
+      "en": "to enter",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "llamar",
+      "es": "llamar",
+      "en": "to call",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "dar",
+      "es": "dar",
+      "en": "to give",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "poner",
+      "es": "poner",
+      "en": "to put",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "decir",
+      "es": "decir",
+      "en": "to say",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "pensar",
+      "es": "pensar",
+      "en": "to think",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "conocer",
+      "es": "conocer",
+      "en": "to know",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "necesitar",
+      "es": "necesitar",
+      "en": "to need",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "gustar",
+      "es": "gustar",
+      "en": "to like",
+      "cefr": "A1",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "uno",
+      "es": "uno",
+      "en": "one",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "dos",
+      "es": "dos",
+      "en": "two",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "tres",
+      "es": "tres",
+      "en": "three",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "cuatro",
+      "es": "cuatro",
+      "en": "four",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "cinco",
+      "es": "cinco",
+      "en": "five",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "seis",
+      "es": "seis",
+      "en": "six",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "siete",
+      "es": "siete",
+      "en": "seven",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "ocho",
+      "es": "ocho",
+      "en": "eight",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "nueve",
+      "es": "nueve",
+      "en": "nine",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "diez",
+      "es": "diez",
+      "en": "ten",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "once",
+      "es": "once",
+      "en": "eleven",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "doce",
+      "es": "doce",
+      "en": "twelve",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "veinte",
+      "es": "veinte",
+      "en": "twenty",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "treinta",
+      "es": "treinta",
+      "en": "thirty",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "cien",
+      "es": "cien",
+      "en": "one hundred",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "mil",
+      "es": "mil",
+      "en": "one thousand",
+      "cefr": "A1",
+      "pos": "numeral",
+      "topic": "Numbers"
+    },
+    {
+      "id": "primero",
+      "es": "primero",
+      "en": "first",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Numbers"
+    },
+    {
+      "id": "segundo",
+      "es": "segundo",
+      "en": "second",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Numbers"
+    },
+    {
+      "id": "tercero",
+      "es": "tercero",
+      "en": "third",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Numbers"
+    },
+    {
+      "id": "lunes",
+      "es": "lunes",
+      "en": "Monday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "martes",
+      "es": "martes",
+      "en": "Tuesday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "miercoles",
+      "es": "miércoles",
+      "en": "Wednesday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "jueves",
+      "es": "jueves",
+      "en": "Thursday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "viernes",
+      "es": "viernes",
+      "en": "Friday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "sabado",
+      "es": "sábado",
+      "en": "Saturday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "domingo",
+      "es": "domingo",
+      "en": "Sunday",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "dia",
+      "es": "día",
+      "en": "day",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "semana",
+      "es": "semana",
+      "en": "week",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "mes",
+      "es": "mes",
+      "en": "month",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "hoy",
+      "es": "hoy",
+      "en": "today",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Time"
+    },
+    {
+      "id": "manana",
+      "es": "mañana",
+      "en": "tomorrow",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Time"
+    },
+    {
+      "id": "ayer",
+      "es": "ayer",
+      "en": "yesterday",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Time"
+    },
+    {
+      "id": "ahora",
+      "es": "ahora",
+      "en": "now",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Time"
+    },
+    {
+      "id": "siempre",
+      "es": "siempre",
+      "en": "always",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "nunca",
+      "es": "nunca",
+      "en": "never",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "a-veces",
+      "es": "a veces",
+      "en": "sometimes",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "tambien",
+      "es": "también",
+      "en": "also",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "hora",
+      "es": "hora",
+      "en": "hour",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "minuto",
+      "es": "minuto",
+      "en": "minute",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "tarde",
+      "es": "tarde",
+      "en": "afternoon",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "noche",
+      "es": "noche",
+      "en": "night",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "tiempo",
+      "es": "tiempo",
+      "en": "time",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "fecha",
+      "es": "fecha",
+      "en": "date",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "enero",
+      "es": "enero",
+      "en": "January",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "febrero",
+      "es": "febrero",
+      "en": "February",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "marzo",
+      "es": "marzo",
+      "en": "March",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "abril",
+      "es": "abril",
+      "en": "April",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "mayo",
+      "es": "mayo",
+      "en": "May",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "junio",
+      "es": "junio",
+      "en": "June",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "julio",
+      "es": "julio",
+      "en": "July",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "agosto",
+      "es": "agosto",
+      "en": "August",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "septiembre",
+      "es": "septiembre",
+      "en": "September",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "octubre",
+      "es": "octubre",
+      "en": "October",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "noviembre",
+      "es": "noviembre",
+      "en": "November",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "diciembre",
+      "es": "diciembre",
+      "en": "December",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "primavera",
+      "es": "primavera",
+      "en": "spring",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "verano",
+      "es": "verano",
+      "en": "summer",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "otono",
+      "es": "otoño",
+      "en": "autumn",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "invierno",
+      "es": "invierno",
+      "en": "winter",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "madre",
+      "es": "madre",
+      "en": "mother",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "padre",
+      "es": "padre",
+      "en": "father",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "hermano",
+      "es": "hermano",
+      "en": "brother",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "hermana",
+      "es": "hermana",
+      "en": "sister",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "hijo",
+      "es": "hijo",
+      "en": "son",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "hija",
+      "es": "hija",
+      "en": "daughter",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "abuelo",
+      "es": "abuelo",
+      "en": "grandfather",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "abuela",
+      "es": "abuela",
+      "en": "grandmother",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "tio",
+      "es": "tío",
+      "en": "uncle",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "tia",
+      "es": "tía",
+      "en": "aunt",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "primo",
+      "es": "primo",
+      "en": "cousin",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "prima",
+      "es": "prima",
+      "en": "cousin",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "esposo",
+      "es": "esposo",
+      "en": "husband",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "esposa",
+      "es": "esposa",
+      "en": "wife",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "familia",
+      "es": "familia",
+      "en": "family",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Family"
+    },
+    {
+      "id": "amigo",
+      "es": "amigo",
+      "en": "friend",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "amiga",
+      "es": "amiga",
+      "en": "friend",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "novio",
+      "es": "novio",
+      "en": "boyfriend",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "novia",
+      "es": "novia",
+      "en": "girlfriend",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "vecino",
+      "es": "vecino",
+      "en": "neighbor",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "cabeza",
+      "es": "cabeza",
+      "en": "head",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "cara",
+      "es": "cara",
+      "en": "face",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "ojo",
+      "es": "ojo",
+      "en": "eye",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "nariz",
+      "es": "nariz",
+      "en": "nose",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "boca",
+      "es": "boca",
+      "en": "mouth",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "oreja",
+      "es": "oreja",
+      "en": "ear",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "pelo",
+      "es": "pelo",
+      "en": "hair",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "cuello",
+      "es": "cuello",
+      "en": "neck",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "hombro",
+      "es": "hombro",
+      "en": "shoulder",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "brazo",
+      "es": "brazo",
+      "en": "arm",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "mano",
+      "es": "mano",
+      "en": "hand",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "dedo",
+      "es": "dedo",
+      "en": "finger",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "pierna",
+      "es": "pierna",
+      "en": "leg",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "pie",
+      "es": "pie",
+      "en": "foot",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "cuerpo",
+      "es": "cuerpo",
+      "en": "body",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "corazon",
+      "es": "corazón",
+      "en": "heart",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "espalda",
+      "es": "espalda",
+      "en": "back",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "estomago",
+      "es": "estómago",
+      "en": "stomach",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "casa",
+      "es": "casa",
+      "en": "house",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "apartamento",
+      "es": "apartamento",
+      "en": "apartment",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "habitacion",
+      "es": "habitación",
+      "en": "room",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "dormitorio",
+      "es": "dormitorio",
+      "en": "bedroom",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "sala",
+      "es": "sala",
+      "en": "living room",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "cocina",
+      "es": "cocina",
+      "en": "kitchen",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "bano",
+      "es": "baño",
+      "en": "bathroom",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "jardin",
+      "es": "jardín",
+      "en": "garden",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "puerta",
+      "es": "puerta",
+      "en": "door",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "ventana",
+      "es": "ventana",
+      "en": "window",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "mesa",
+      "es": "mesa",
+      "en": "table",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "silla",
+      "es": "silla",
+      "en": "chair",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "cama",
+      "es": "cama",
+      "en": "bed",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "sofa",
+      "es": "sofá",
+      "en": "sofa",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "armario",
+      "es": "armario",
+      "en": "wardrobe",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "nevera",
+      "es": "nevera",
+      "en": "refrigerator",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "lampara",
+      "es": "lámpara",
+      "en": "lamp",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "pared",
+      "es": "pared",
+      "en": "wall",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "suelo",
+      "es": "suelo",
+      "en": "floor",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "agua",
+      "es": "agua",
+      "en": "water",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "leche",
+      "es": "leche",
+      "en": "milk",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "cafe",
+      "es": "café",
+      "en": "coffee",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "te",
+      "es": "té",
+      "en": "tea",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "zumo",
+      "es": "zumo",
+      "en": "juice",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "pan",
+      "es": "pan",
+      "en": "bread",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "arroz",
+      "es": "arroz",
+      "en": "rice",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "pasta",
+      "es": "pasta",
+      "en": "pasta",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "ensalada",
+      "es": "ensalada",
+      "en": "salad",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "sopa",
+      "es": "sopa",
+      "en": "soup",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "carne",
+      "es": "carne",
+      "en": "meat",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "pollo",
+      "es": "pollo",
+      "en": "chicken",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "pescado",
+      "es": "pescado",
+      "en": "fish",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "huevo",
+      "es": "huevo",
+      "en": "egg",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "queso",
+      "es": "queso",
+      "en": "cheese",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "fruta",
+      "es": "fruta",
+      "en": "fruit",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "verdura",
+      "es": "verdura",
+      "en": "vegetable",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "manzana",
+      "es": "manzana",
+      "en": "apple",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "naranja",
+      "es": "naranja",
+      "en": "orange",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "platano",
+      "es": "plátano",
+      "en": "banana",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "tomate",
+      "es": "tomate",
+      "en": "tomato",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "patata",
+      "es": "patata",
+      "en": "potato",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "zanahoria",
+      "es": "zanahoria",
+      "en": "carrot",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "azucar",
+      "es": "azúcar",
+      "en": "sugar",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "sal",
+      "es": "sal",
+      "en": "salt",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "aceite",
+      "es": "aceite",
+      "en": "oil",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "desayuno",
+      "es": "desayuno",
+      "en": "breakfast",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "comida",
+      "es": "comida",
+      "en": "meal",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "cena",
+      "es": "cena",
+      "en": "dinner",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "ropa",
+      "es": "ropa",
+      "en": "clothes",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "camisa",
+      "es": "camisa",
+      "en": "shirt",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "pantalon",
+      "es": "pantalón",
+      "en": "trousers",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "falda",
+      "es": "falda",
+      "en": "skirt",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "vestido",
+      "es": "vestido",
+      "en": "dress",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "zapatos",
+      "es": "zapatos",
+      "en": "shoes",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "calcetines",
+      "es": "calcetines",
+      "en": "socks",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "abrigo",
+      "es": "abrigo",
+      "en": "coat",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "chaqueta",
+      "es": "chaqueta",
+      "en": "jacket",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "jersey",
+      "es": "jersey",
+      "en": "jumper",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "sombrero",
+      "es": "sombrero",
+      "en": "hat",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "bolso",
+      "es": "bolso",
+      "en": "bag",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "gafas",
+      "es": "gafas",
+      "en": "glasses",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "perro",
+      "es": "perro",
+      "en": "dog",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "gato",
+      "es": "gato",
+      "en": "cat",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "pajaro",
+      "es": "pájaro",
+      "en": "bird",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "pez",
+      "es": "pez",
+      "en": "fish",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "caballo",
+      "es": "caballo",
+      "en": "horse",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "vaca",
+      "es": "vaca",
+      "en": "cow",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "cerdo",
+      "es": "cerdo",
+      "en": "pig",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "conejo",
+      "es": "conejo",
+      "en": "rabbit",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "oso",
+      "es": "oso",
+      "en": "bear",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "leon",
+      "es": "león",
+      "en": "lion",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "elefante",
+      "es": "elefante",
+      "en": "elephant",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Animals"
+    },
+    {
+      "id": "coche",
+      "es": "coche",
+      "en": "car",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "autobus",
+      "es": "autobús",
+      "en": "bus",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "tren",
+      "es": "tren",
+      "en": "train",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "taxi",
+      "es": "taxi",
+      "en": "taxi",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "avion",
+      "es": "avión",
+      "en": "plane",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "bicicleta",
+      "es": "bicicleta",
+      "en": "bicycle",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "viaje",
+      "es": "viaje",
+      "en": "trip",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "billete",
+      "es": "billete",
+      "en": "ticket",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "maleta",
+      "es": "maleta",
+      "en": "suitcase",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "sol",
+      "es": "sol",
+      "en": "sun",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "lluvia",
+      "es": "lluvia",
+      "en": "rain",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "viento",
+      "es": "viento",
+      "en": "wind",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "nieve",
+      "es": "nieve",
+      "en": "snow",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "nube",
+      "es": "nube",
+      "en": "cloud",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "calor",
+      "es": "calor",
+      "en": "heat",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "frio",
+      "es": "frío",
+      "en": "cold",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "temperatura",
+      "es": "temperatura",
+      "en": "temperature",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Weather"
+    },
+    {
+      "id": "calle",
+      "es": "calle",
+      "en": "street",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "plaza",
+      "es": "plaza",
+      "en": "square",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "parque",
+      "es": "parque",
+      "en": "park",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "tienda",
+      "es": "tienda",
+      "en": "shop",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "mercado",
+      "es": "mercado",
+      "en": "market",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "supermercado",
+      "es": "supermercado",
+      "en": "supermarket",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "banco",
+      "es": "banco",
+      "en": "bank",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "hospital",
+      "es": "hospital",
+      "en": "hospital",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "farmacia",
+      "es": "farmacia",
+      "en": "pharmacy",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "escuela",
+      "es": "escuela",
+      "en": "school",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "colegio",
+      "es": "colegio",
+      "en": "school",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "universidad",
+      "es": "universidad",
+      "en": "university",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "hotel",
+      "es": "hotel",
+      "en": "hotel",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "restaurante",
+      "es": "restaurante",
+      "en": "restaurant",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "bar",
+      "es": "bar",
+      "en": "bar",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "aeropuerto",
+      "es": "aeropuerto",
+      "en": "airport",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "estacion",
+      "es": "estación",
+      "en": "station",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "iglesia",
+      "es": "iglesia",
+      "en": "church",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "museo",
+      "es": "museo",
+      "en": "museum",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "playa",
+      "es": "playa",
+      "en": "beach",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "montana",
+      "es": "montaña",
+      "en": "mountain",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "rio",
+      "es": "río",
+      "en": "river",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "mar",
+      "es": "mar",
+      "en": "sea",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "grande",
+      "es": "grande",
+      "en": "big",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "pequeno",
+      "es": "pequeño",
+      "en": "small",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "alto",
+      "es": "alto",
+      "en": "tall",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "bajo",
+      "es": "bajo",
+      "en": "short",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "largo",
+      "es": "largo",
+      "en": "long",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "corto",
+      "es": "corto",
+      "en": "short",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "nuevo",
+      "es": "nuevo",
+      "en": "new",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "viejo",
+      "es": "viejo",
+      "en": "old",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "joven",
+      "es": "joven",
+      "en": "young",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "bueno",
+      "es": "bueno",
+      "en": "good",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "malo",
+      "es": "malo",
+      "en": "bad",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "bonito",
+      "es": "bonito",
+      "en": "pretty",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "facil",
+      "es": "fácil",
+      "en": "easy",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "dificil",
+      "es": "difícil",
+      "en": "difficult",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "interesante",
+      "es": "interesante",
+      "en": "interesting",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "aburrido",
+      "es": "aburrido",
+      "en": "boring",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "importante",
+      "es": "importante",
+      "en": "important",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "diferente",
+      "es": "diferente",
+      "en": "different",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "mismo",
+      "es": "mismo",
+      "en": "same",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "otro",
+      "es": "otro",
+      "en": "other",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "mucho",
+      "es": "mucho",
+      "en": "much",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "poco",
+      "es": "poco",
+      "en": "little",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "muy",
+      "es": "muy",
+      "en": "very",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "mas",
+      "es": "más",
+      "en": "more",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "menos",
+      "es": "menos",
+      "en": "less",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "bastante",
+      "es": "bastante",
+      "en": "enough",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Adverbs"
+    },
+    {
+      "id": "todo",
+      "es": "todo",
+      "en": "all",
+      "cefr": "A1",
+      "pos": "pronoun",
+      "topic": "Other"
+    },
+    {
+      "id": "que",
+      "es": "qué",
+      "en": "what",
+      "cefr": "A1",
+      "pos": "pronoun",
+      "topic": "Communication"
+    },
+    {
+      "id": "quien",
+      "es": "quién",
+      "en": "who",
+      "cefr": "A1",
+      "pos": "pronoun",
+      "topic": "Communication"
+    },
+    {
+      "id": "donde",
+      "es": "dónde",
+      "en": "where",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Communication"
+    },
+    {
+      "id": "cuando",
+      "es": "cuándo",
+      "en": "when",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Time"
+    },
+    {
+      "id": "como",
+      "es": "cómo",
+      "en": "how",
+      "cefr": "A1",
+      "pos": "adverb",
+      "topic": "Communication"
+    },
+    {
+      "id": "cuanto",
+      "es": "cuánto",
+      "en": "how much",
+      "cefr": "A1",
+      "pos": "pronoun",
+      "topic": "Communication"
+    },
+    {
+      "id": "por-que",
+      "es": "por qué",
+      "en": "why",
+      "cefr": "A1",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "cual",
+      "es": "cuál",
+      "en": "which",
+      "cefr": "A1",
+      "pos": "pronoun",
+      "topic": "Communication"
+    },
+    {
+      "id": "numero",
+      "es": "número",
+      "en": "number",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Numbers"
+    },
+    {
+      "id": "direccion",
+      "es": "dirección",
+      "en": "address",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "telefono",
+      "es": "teléfono",
+      "en": "telephone",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "precio",
+      "es": "precio",
+      "en": "price",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "dinero",
+      "es": "dinero",
+      "en": "money",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "euro",
+      "es": "euro",
+      "en": "euro",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "libro",
+      "es": "libro",
+      "en": "book",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "palabra",
+      "es": "palabra",
+      "en": "word",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "pregunta",
+      "es": "pregunta",
+      "en": "question",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "respuesta",
+      "es": "respuesta",
+      "en": "answer",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "clase",
+      "es": "clase",
+      "en": "class",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "profesor",
+      "es": "profesor",
+      "en": "teacher",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "alumno",
+      "es": "alumno",
+      "en": "student",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "examen",
+      "es": "examen",
+      "en": "exam",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "nota",
+      "es": "nota",
+      "en": "grade",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "deporte",
+      "es": "deporte",
+      "en": "sport",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "futbol",
+      "es": "fútbol",
+      "en": "football",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "musica",
+      "es": "música",
+      "en": "music",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "pelicula",
+      "es": "película",
+      "en": "film",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "color",
+      "es": "color",
+      "en": "color",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "rojo",
+      "es": "rojo",
+      "en": "red",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "azul",
+      "es": "azul",
+      "en": "blue",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "verde",
+      "es": "verde",
+      "en": "green",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "amarillo",
+      "es": "amarillo",
+      "en": "yellow",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "negro",
+      "es": "negro",
+      "en": "black",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "blanco",
+      "es": "blanco",
+      "en": "white",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "naranja",
+      "es": "naranja",
+      "en": "orange",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "morado",
+      "es": "morado",
+      "en": "purple",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "rosa",
+      "es": "rosa",
+      "en": "pink",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "marron",
+      "es": "marrón",
+      "en": "brown",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "gris",
+      "es": "gris",
+      "en": "gray",
+      "cefr": "A1",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "pasaporte",
+      "es": "pasaporte",
+      "en": "passport",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "nombre",
+      "es": "nombre",
+      "en": "name",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "informacion",
+      "es": "información",
+      "en": "information",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "problema",
+      "es": "problema",
+      "en": "problem",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "cosa",
+      "es": "cosa",
+      "en": "thing",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "lugar",
+      "es": "lugar",
+      "en": "place",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "parte",
+      "es": "parte",
+      "en": "part",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "manera",
+      "es": "manera",
+      "en": "way",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "vez",
+      "es": "vez",
+      "en": "time",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "ayuda",
+      "es": "ayuda",
+      "en": "help",
+      "cefr": "A1",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "medico",
+      "es": "médico",
+      "en": "doctor",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "enfermedad",
+      "es": "enfermedad",
+      "en": "illness",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "dolor",
+      "es": "dolor",
+      "en": "pain",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "fiebre",
+      "es": "fiebre",
+      "en": "fever",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "alergia",
+      "es": "alergia",
+      "en": "allergy",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "medicamento",
+      "es": "medicamento",
+      "en": "medicine",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "pastilla",
+      "es": "pastilla",
+      "en": "pill",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "receta",
+      "es": "receta",
+      "en": "prescription",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "salud",
+      "es": "salud",
+      "en": "health",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "gripe",
+      "es": "gripe",
+      "en": "flu",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "resfriado",
+      "es": "resfriado",
+      "en": "cold",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "herida",
+      "es": "herida",
+      "en": "wound",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "sangre",
+      "es": "sangre",
+      "en": "blood",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Body"
+    },
+    {
+      "id": "dentista",
+      "es": "dentista",
+      "en": "dentist",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "operacion",
+      "es": "operación",
+      "en": "operation",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "enfermero",
+      "es": "enfermero",
+      "en": "nurse",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Health"
+    },
+    {
+      "id": "trabajo",
+      "es": "trabajo",
+      "en": "work",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "empresa",
+      "es": "empresa",
+      "en": "company",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "oficina",
+      "es": "oficina",
+      "en": "office",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "jefe",
+      "es": "jefe",
+      "en": "boss",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "empleado",
+      "es": "empleado",
+      "en": "employee",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "companero",
+      "es": "compañero",
+      "en": "colleague",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "sueldo",
+      "es": "sueldo",
+      "en": "salary",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "contrato",
+      "es": "contrato",
+      "en": "contract",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "reunion",
+      "es": "reunión",
+      "en": "meeting",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "proyecto",
+      "es": "proyecto",
+      "en": "project",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "negocio",
+      "es": "negocio",
+      "en": "business",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "abogado",
+      "es": "abogado",
+      "en": "lawyer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "maestro",
+      "es": "maestro",
+      "en": "teacher",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "ingeniero",
+      "es": "ingeniero",
+      "en": "engineer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "cocinero",
+      "es": "cocinero",
+      "en": "cook",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "camarero",
+      "es": "camarero",
+      "en": "waiter",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "secretario",
+      "es": "secretario",
+      "en": "secretary",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "director",
+      "es": "director",
+      "en": "director",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "periodista",
+      "es": "periodista",
+      "en": "journalist",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "artista",
+      "es": "artista",
+      "en": "artist",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "musico",
+      "es": "músico",
+      "en": "musician",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "escritor",
+      "es": "escritor",
+      "en": "writer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "actor",
+      "es": "actor",
+      "en": "actor",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "deportista",
+      "es": "deportista",
+      "en": "athlete",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "policia",
+      "es": "policía",
+      "en": "police officer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "bombero",
+      "es": "bombero",
+      "en": "firefighter",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "conductor",
+      "es": "conductor",
+      "en": "driver",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "vendedor",
+      "es": "vendedor",
+      "en": "seller",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "caro",
+      "es": "caro",
+      "en": "expensive",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Shopping"
+    },
+    {
+      "id": "barato",
+      "es": "barato",
+      "en": "cheap",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Shopping"
+    },
+    {
+      "id": "gratis",
+      "es": "gratis",
+      "en": "free",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Shopping"
+    },
+    {
+      "id": "descuento",
+      "es": "descuento",
+      "en": "discount",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "oferta",
+      "es": "oferta",
+      "en": "offer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "recibo",
+      "es": "recibo",
+      "en": "receipt",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "tarjeta",
+      "es": "tarjeta",
+      "en": "card",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "efectivo",
+      "es": "efectivo",
+      "en": "cash",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "talla",
+      "es": "talla",
+      "en": "size",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "cambio",
+      "es": "cambio",
+      "en": "change",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "caja",
+      "es": "caja",
+      "en": "checkout",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "cliente",
+      "es": "cliente",
+      "en": "customer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "turismo",
+      "es": "turismo",
+      "en": "tourism",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "turista",
+      "es": "turista",
+      "en": "tourist",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "visita",
+      "es": "visita",
+      "en": "visit",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "excursion",
+      "es": "excursión",
+      "en": "excursion",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "ruta",
+      "es": "ruta",
+      "en": "route",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "mapa",
+      "es": "mapa",
+      "en": "map",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "guia",
+      "es": "guía",
+      "en": "guide",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "reserva",
+      "es": "reserva",
+      "en": "booking",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "recepcion",
+      "es": "recepción",
+      "en": "reception",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "llave",
+      "es": "llave",
+      "en": "key",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "ducha",
+      "es": "ducha",
+      "en": "shower",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "piscina",
+      "es": "piscina",
+      "en": "swimming pool",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "frontera",
+      "es": "frontera",
+      "en": "border",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "aduana",
+      "es": "aduana",
+      "en": "customs",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "visado",
+      "es": "visado",
+      "en": "visa",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "movil",
+      "es": "móvil",
+      "en": "mobile phone",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "ordenador",
+      "es": "ordenador",
+      "en": "computer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "pantalla",
+      "es": "pantalla",
+      "en": "screen",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "teclado",
+      "es": "teclado",
+      "en": "keyboard",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "internet",
+      "es": "internet",
+      "en": "internet",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "correo",
+      "es": "correo",
+      "en": "email",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "mensaje",
+      "es": "mensaje",
+      "en": "message",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "aplicacion",
+      "es": "aplicación",
+      "en": "application",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "pagina-web",
+      "es": "página web",
+      "en": "webpage",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Technology"
+    },
+    {
+      "id": "red",
+      "es": "red",
+      "en": "network",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "contrasena",
+      "es": "contraseña",
+      "en": "password",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "foto",
+      "es": "foto",
+      "en": "photo",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "video",
+      "es": "vídeo",
+      "en": "video",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Technology"
+    },
+    {
+      "id": "descargar",
+      "es": "descargar",
+      "en": "to download",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "enviar",
+      "es": "enviar",
+      "en": "to send",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "cultura",
+      "es": "cultura",
+      "en": "culture",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "arte",
+      "es": "arte",
+      "en": "art",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "concierto",
+      "es": "concierto",
+      "en": "concert",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "exposicion",
+      "es": "exposición",
+      "en": "exhibition",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "festival",
+      "es": "festival",
+      "en": "festival",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "fiesta",
+      "es": "fiesta",
+      "en": "party",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "celebracion",
+      "es": "celebración",
+      "en": "celebration",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "cumpleanos",
+      "es": "cumpleaños",
+      "en": "birthday",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "navidad",
+      "es": "Navidad",
+      "en": "Christmas",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "vacaciones",
+      "es": "vacaciones",
+      "en": "holidays",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "regalo",
+      "es": "regalo",
+      "en": "gift",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "cancion",
+      "es": "canción",
+      "en": "song",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "revista",
+      "es": "revista",
+      "en": "magazine",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "periodico",
+      "es": "periódico",
+      "en": "newspaper",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "novela",
+      "es": "novela",
+      "en": "novel",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "autor",
+      "es": "autor",
+      "en": "author",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "pintura",
+      "es": "pintura",
+      "en": "painting",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "baile",
+      "es": "baile",
+      "en": "dance",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "tenis",
+      "es": "tenis",
+      "en": "tennis",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "natacion",
+      "es": "natación",
+      "en": "swimming",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "atletismo",
+      "es": "atletismo",
+      "en": "athletics",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "gimnasio",
+      "es": "gimnasio",
+      "en": "gym",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "aprender",
+      "es": "aprender",
+      "en": "to learn",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Education"
+    },
+    {
+      "id": "ensenar",
+      "es": "enseñar",
+      "en": "to teach",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Education"
+    },
+    {
+      "id": "deberes",
+      "es": "deberes",
+      "en": "homework",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "carrera",
+      "es": "carrera",
+      "en": "degree",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "asignatura",
+      "es": "asignatura",
+      "en": "subject",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "historia",
+      "es": "historia",
+      "en": "history",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "matematicas",
+      "es": "matemáticas",
+      "en": "mathematics",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "ciencias",
+      "es": "ciencias",
+      "en": "sciences",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "geografia",
+      "es": "geografía",
+      "en": "geography",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "diccionario",
+      "es": "diccionario",
+      "en": "dictionary",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "cuaderno",
+      "es": "cuaderno",
+      "en": "notebook",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "biblioteca",
+      "es": "biblioteca",
+      "en": "library",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "menu",
+      "es": "menú",
+      "en": "menu",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "carta",
+      "es": "carta",
+      "en": "menu",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "plato",
+      "es": "plato",
+      "en": "dish",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "postre",
+      "es": "postre",
+      "en": "dessert",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "aperitivo",
+      "es": "aperitivo",
+      "en": "appetizer",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "merienda",
+      "es": "merienda",
+      "en": "snack",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "almuerzo",
+      "es": "almuerzo",
+      "en": "lunch",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "cocinar",
+      "es": "cocinar",
+      "en": "to cook",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "hervir",
+      "es": "hervir",
+      "en": "to boil",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "freir",
+      "es": "freír",
+      "en": "to fry",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Food"
+    },
+    {
+      "id": "hornear",
+      "es": "hornear",
+      "en": "to bake",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Food"
+    },
+    {
+      "id": "ingrediente",
+      "es": "ingrediente",
+      "en": "ingredient",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "picante",
+      "es": "picante",
+      "en": "spicy",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Food"
+    },
+    {
+      "id": "dulce",
+      "es": "dulce",
+      "en": "sweet",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Food"
+    },
+    {
+      "id": "salado",
+      "es": "salado",
+      "en": "salty",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Food"
+    },
+    {
+      "id": "sabor",
+      "es": "sabor",
+      "en": "flavor",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "hambre",
+      "es": "hambre",
+      "en": "hunger",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Food"
+    },
+    {
+      "id": "sed",
+      "es": "sed",
+      "en": "thirst",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Drink"
+    },
+    {
+      "id": "propina",
+      "es": "propina",
+      "en": "tip",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "cuenta",
+      "es": "cuenta",
+      "en": "bill",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "alegria",
+      "es": "alegría",
+      "en": "joy",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "tristeza",
+      "es": "tristeza",
+      "en": "sadness",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "miedo",
+      "es": "miedo",
+      "en": "fear",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "rabia",
+      "es": "rabia",
+      "en": "anger",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "sorpresa",
+      "es": "sorpresa",
+      "en": "surprise",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "amor",
+      "es": "amor",
+      "en": "love",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "odio",
+      "es": "odio",
+      "en": "hate",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "amistad",
+      "es": "amistad",
+      "en": "friendship",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "celos",
+      "es": "celos",
+      "en": "jealousy",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "orgullo",
+      "es": "orgullo",
+      "en": "pride",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "verguenza",
+      "es": "vergüenza",
+      "en": "shame",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "timido",
+      "es": "tímido",
+      "en": "shy",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "simpatico",
+      "es": "simpático",
+      "en": "nice",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "antipatico",
+      "es": "antipático",
+      "en": "unpleasant",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "generoso",
+      "es": "generoso",
+      "en": "generous",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "honesto",
+      "es": "honesto",
+      "en": "honest",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "paciente",
+      "es": "paciente",
+      "en": "patient",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "tranquilo",
+      "es": "tranquilo",
+      "en": "calm",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "nervioso",
+      "es": "nervioso",
+      "en": "nervous",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "preocupado",
+      "es": "preocupado",
+      "en": "worried",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Emotions"
+    },
+    {
+      "id": "contento",
+      "es": "contento",
+      "en": "happy",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Emotions"
+    },
+    {
+      "id": "deprimido",
+      "es": "deprimido",
+      "en": "depressed",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Emotions"
+    },
+    {
+      "id": "naturaleza",
+      "es": "naturaleza",
+      "en": "nature",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "medioambiente",
+      "es": "medioambiente",
+      "en": "environment",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "planeta",
+      "es": "planeta",
+      "en": "planet",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "tierra",
+      "es": "tierra",
+      "en": "earth",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "arbol",
+      "es": "árbol",
+      "en": "tree",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "flor",
+      "es": "flor",
+      "en": "flower",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "planta",
+      "es": "planta",
+      "en": "plant",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "hoja",
+      "es": "hoja",
+      "en": "leaf",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "piedra",
+      "es": "piedra",
+      "en": "stone",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "arena",
+      "es": "arena",
+      "en": "sand",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "cielo",
+      "es": "cielo",
+      "en": "sky",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "estrella",
+      "es": "estrella",
+      "en": "star",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "luna",
+      "es": "luna",
+      "en": "moon",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "oceano",
+      "es": "océano",
+      "en": "ocean",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "desierto",
+      "es": "desierto",
+      "en": "desert",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "selva",
+      "es": "selva",
+      "en": "jungle",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "campo",
+      "es": "campo",
+      "en": "countryside",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "costa",
+      "es": "costa",
+      "en": "coast",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "isla",
+      "es": "isla",
+      "en": "island",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Nature"
+    },
+    {
+      "id": "alquiler",
+      "es": "alquiler",
+      "en": "rent",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "propietario",
+      "es": "propietario",
+      "en": "owner",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "mueble",
+      "es": "mueble",
+      "en": "furniture",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "electricidad",
+      "es": "electricidad",
+      "en": "electricity",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "calefaccion",
+      "es": "calefacción",
+      "en": "heating",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "ascensor",
+      "es": "ascensor",
+      "en": "elevator",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "garaje",
+      "es": "garaje",
+      "en": "garage",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "terraza",
+      "es": "terraza",
+      "en": "terrace",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "balcon",
+      "es": "balcón",
+      "en": "balcony",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "pasillo",
+      "es": "pasillo",
+      "en": "hallway",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "escalera",
+      "es": "escalera",
+      "en": "staircase",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Home"
+    },
+    {
+      "id": "sociedad",
+      "es": "sociedad",
+      "en": "society",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "comunidad",
+      "es": "comunidad",
+      "en": "community",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "barrio",
+      "es": "barrio",
+      "en": "neighborhood",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "gobierno",
+      "es": "gobierno",
+      "en": "government",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "ley",
+      "es": "ley",
+      "en": "law",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "derecho",
+      "es": "derecho",
+      "en": "right",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "solucion",
+      "es": "solución",
+      "en": "solution",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "solidaridad",
+      "es": "solidaridad",
+      "en": "solidarity",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "igualdad",
+      "es": "igualdad",
+      "en": "equality",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "libertad",
+      "es": "libertad",
+      "en": "freedom",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "paz",
+      "es": "paz",
+      "en": "peace",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Society"
+    },
+    {
+      "id": "noticias",
+      "es": "noticias",
+      "en": "news",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Communication"
+    },
+    {
+      "id": "moderno",
+      "es": "moderno",
+      "en": "modern",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "antiguo",
+      "es": "antiguo",
+      "en": "ancient",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "clasico",
+      "es": "clásico",
+      "en": "classical",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "popular",
+      "es": "popular",
+      "en": "popular",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "famoso",
+      "es": "famoso",
+      "en": "famous",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "publico",
+      "es": "público",
+      "en": "public",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "privado",
+      "es": "privado",
+      "en": "private",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "nacional",
+      "es": "nacional",
+      "en": "national",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "internacional",
+      "es": "internacional",
+      "en": "international",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "local",
+      "es": "local",
+      "en": "local",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "extranjero",
+      "es": "extranjero",
+      "en": "foreign",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "especial",
+      "es": "especial",
+      "en": "special",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "normal",
+      "es": "normal",
+      "en": "normal",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "raro",
+      "es": "raro",
+      "en": "rare",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "posible",
+      "es": "posible",
+      "en": "possible",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "necesario",
+      "es": "necesario",
+      "en": "necessary",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "libre",
+      "es": "libre",
+      "en": "free",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "ocupado",
+      "es": "ocupado",
+      "en": "busy",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "abierto",
+      "es": "abierto",
+      "en": "open",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "cerrado",
+      "es": "cerrado",
+      "en": "closed",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "lleno",
+      "es": "lleno",
+      "en": "full",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "vacio",
+      "es": "vacío",
+      "en": "empty",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "limpio",
+      "es": "limpio",
+      "en": "clean",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "sucio",
+      "es": "sucio",
+      "en": "dirty",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "seguro",
+      "es": "seguro",
+      "en": "safe",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "peligroso",
+      "es": "peligroso",
+      "en": "dangerous",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "util",
+      "es": "útil",
+      "en": "useful",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "rapido",
+      "es": "rápido",
+      "en": "fast",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "lento",
+      "es": "lento",
+      "en": "slow",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "fuerte",
+      "es": "fuerte",
+      "en": "strong",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "debil",
+      "es": "débil",
+      "en": "weak",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "rico",
+      "es": "rico",
+      "en": "rich",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "pobre",
+      "es": "pobre",
+      "en": "poor",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "gordo",
+      "es": "gordo",
+      "en": "fat",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "delgado",
+      "es": "delgado",
+      "en": "thin",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "mayor",
+      "es": "mayor",
+      "en": "older",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "menor",
+      "es": "menor",
+      "en": "younger",
+      "cefr": "A2",
+      "pos": "adjective",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "verdad",
+      "es": "verdad",
+      "en": "truth",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "mentira",
+      "es": "mentira",
+      "en": "lie",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "idea",
+      "es": "idea",
+      "en": "idea",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "opinion",
+      "es": "opinión",
+      "en": "opinion",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "razon",
+      "es": "razón",
+      "en": "reason",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "ejemplo",
+      "es": "ejemplo",
+      "en": "example",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "tipo",
+      "es": "tipo",
+      "en": "type",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "grupo",
+      "es": "grupo",
+      "en": "group",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "equipo",
+      "es": "equipo",
+      "en": "team",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "resultado",
+      "es": "resultado",
+      "en": "result",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "plan",
+      "es": "plan",
+      "en": "plan",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "objetivo",
+      "es": "objetivo",
+      "en": "objective",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "oportunidad",
+      "es": "oportunidad",
+      "en": "opportunity",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Work"
+    },
+    {
+      "id": "experiencia",
+      "es": "experiencia",
+      "en": "experience",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "recuerdo",
+      "es": "recuerdo",
+      "en": "memory",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "sueno",
+      "es": "sueño",
+      "en": "dream",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Emotions"
+    },
+    {
+      "id": "futuro",
+      "es": "futuro",
+      "en": "future",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "pasado",
+      "es": "pasado",
+      "en": "past",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "presente",
+      "es": "presente",
+      "en": "present",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "cambio",
+      "es": "cambio",
+      "en": "change",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "inicio",
+      "es": "inicio",
+      "en": "beginning",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "final",
+      "es": "final",
+      "en": "end",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Time"
+    },
+    {
+      "id": "vuelta",
+      "es": "vuelta",
+      "en": "return",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Travel"
+    },
+    {
+      "id": "paso",
+      "es": "paso",
+      "en": "step",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Other"
+    },
+    {
+      "id": "camino",
+      "es": "camino",
+      "en": "path",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "nivel",
+      "es": "nivel",
+      "en": "level",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Education"
+    },
+    {
+      "id": "clase-social",
+      "es": "clase social",
+      "en": "social class",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Society"
+    },
+    {
+      "id": "estilo",
+      "es": "estilo",
+      "en": "style",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "moda",
+      "es": "moda",
+      "en": "fashion",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Clothes"
+    },
+    {
+      "id": "marca",
+      "es": "marca",
+      "en": "brand",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "tienda-de-ropa",
+      "es": "tienda de ropa",
+      "en": "clothing store",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Shopping"
+    },
+    {
+      "id": "centro-comercial",
+      "es": "centro comercial",
+      "en": "shopping centre",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Shopping"
+    },
+    {
+      "id": "quiosco",
+      "es": "quiosco",
+      "en": "kiosk",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "panaderia",
+      "es": "panadería",
+      "en": "bakery",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "carniceria",
+      "es": "carnicería",
+      "en": "butcher's shop",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "pescaderia",
+      "es": "pescadería",
+      "en": "fishmonger's",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "fruteria",
+      "es": "frutería",
+      "en": "fruit shop",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Shopping"
+    },
+    {
+      "id": "parada",
+      "es": "parada",
+      "en": "stop",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "anden",
+      "es": "andén",
+      "en": "platform",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "vuelo",
+      "es": "vuelo",
+      "en": "flight",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "llegada",
+      "es": "llegada",
+      "en": "arrival",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "salida",
+      "es": "salida",
+      "en": "departure",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "retraso",
+      "es": "retraso",
+      "en": "delay",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "trafico",
+      "es": "tráfico",
+      "en": "traffic",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "semaforo",
+      "es": "semáforo",
+      "en": "traffic light",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "cruce",
+      "es": "cruce",
+      "en": "crossing",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "gasolinera",
+      "es": "gasolinera",
+      "en": "petrol station",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "aparcamiento",
+      "es": "aparcamiento",
+      "en": "car park",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "carretera",
+      "es": "carretera",
+      "en": "road",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Transport"
+    },
+    {
+      "id": "puente",
+      "es": "puente",
+      "en": "bridge",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "tunel",
+      "es": "túnel",
+      "en": "tunnel",
+      "cefr": "A2",
+      "pos": "noun",
+      "topic": "Places"
+    },
+    {
+      "id": "llamar-por-telefono",
+      "es": "llamar por teléfono",
+      "en": "to telephone",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "contestar",
+      "es": "contestar",
+      "en": "to answer",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "dejar-un-mensaje",
+      "es": "dejar un mensaje",
+      "en": "to leave a message",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Communication"
+    },
+    {
+      "id": "charlar",
+      "es": "charlar",
+      "en": "to chat",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "discutir",
+      "es": "discutir",
+      "en": "to discuss",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "explicar",
+      "es": "explicar",
+      "en": "to explain",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "preguntar",
+      "es": "preguntar",
+      "en": "to ask",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "responder",
+      "es": "responder",
+      "en": "to reply",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "invitar",
+      "es": "invitar",
+      "en": "to invite",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "aceptar",
+      "es": "aceptar",
+      "en": "to accept",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "rechazar",
+      "es": "rechazar",
+      "en": "to reject",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "agradecer",
+      "es": "agradecer",
+      "en": "to thank",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "disculparse",
+      "es": "disculparse",
+      "en": "to apologize",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "saludar",
+      "es": "saludar",
+      "en": "to greet",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Greetings"
+    },
+    {
+      "id": "despedirse",
+      "es": "despedirse",
+      "en": "to say goodbye",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Greetings"
+    },
+    {
+      "id": "presentar",
+      "es": "presentar",
+      "en": "to introduce",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "recomendar",
+      "es": "recomendar",
+      "en": "to recommend",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "sugerir",
+      "es": "sugerir",
+      "en": "to suggest",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "reservar",
+      "es": "reservar",
+      "en": "to book",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Travel"
+    },
+    {
+      "id": "confirmar",
+      "es": "confirmar",
+      "en": "to confirm",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "cancelar",
+      "es": "cancelar",
+      "en": "to cancel",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "pagar",
+      "es": "pagar",
+      "en": "to pay",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Shopping"
+    },
+    {
+      "id": "cobrar",
+      "es": "cobrar",
+      "en": "to charge",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "gastar",
+      "es": "gastar",
+      "en": "to spend",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Shopping"
+    },
+    {
+      "id": "ahorrar",
+      "es": "ahorrar",
+      "en": "to save",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "buscar",
+      "es": "buscar",
+      "en": "to search",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "encontrar",
+      "es": "encontrar",
+      "en": "to find",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "perder",
+      "es": "perder",
+      "en": "to lose",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "olvidar",
+      "es": "olvidar",
+      "en": "to forget",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "recordar",
+      "es": "recordar",
+      "en": "to remember",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "esperar",
+      "es": "esperar",
+      "en": "to wait",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "comenzar",
+      "es": "comenzar",
+      "en": "to begin",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "terminar",
+      "es": "terminar",
+      "en": "to finish",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "continuar",
+      "es": "continuar",
+      "en": "to continue",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "parar",
+      "es": "parar",
+      "en": "to stop",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "cambiar",
+      "es": "cambiar",
+      "en": "to change",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "mejorar",
+      "es": "mejorar",
+      "en": "to improve",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "empeorar",
+      "es": "empeorar",
+      "en": "to worsen",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "crecer",
+      "es": "crecer",
+      "en": "to grow",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Nature"
+    },
+    {
+      "id": "bajar",
+      "es": "bajar",
+      "en": "to go down",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Transport"
+    },
+    {
+      "id": "subir",
+      "es": "subir",
+      "en": "to go up",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Transport"
+    },
+    {
+      "id": "caer",
+      "es": "caer",
+      "en": "to fall",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "levantar",
+      "es": "levantar",
+      "en": "to lift",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "sentarse",
+      "es": "sentarse",
+      "en": "to sit down",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "levantarse",
+      "es": "levantarse",
+      "en": "to get up",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "ducharse",
+      "es": "ducharse",
+      "en": "to shower",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "vestirse",
+      "es": "vestirse",
+      "en": "to get dressed",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "despertarse",
+      "es": "despertarse",
+      "en": "to wake up",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "acostarse",
+      "es": "acostarse",
+      "en": "to go to bed",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "cepillarse",
+      "es": "cepillarse",
+      "en": "to brush (oneself)",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "lavarse",
+      "es": "lavarse",
+      "en": "to wash (oneself)",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "peinarse",
+      "es": "peinarse",
+      "en": "to comb (one's hair)",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "afeitarse",
+      "es": "afeitarse",
+      "en": "to shave",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "maquillarse",
+      "es": "maquillarse",
+      "en": "to put on makeup",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "divertirse",
+      "es": "divertirse",
+      "en": "to have fun",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "aburrirse",
+      "es": "aburrirse",
+      "en": "to get bored",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "cansarse",
+      "es": "cansarse",
+      "en": "to get tired",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "enfadarse",
+      "es": "enfadarse",
+      "en": "to get angry",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "alegrarse",
+      "es": "alegrarse",
+      "en": "to be happy",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "asustarse",
+      "es": "asustarse",
+      "en": "to get scared",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "sorprenderse",
+      "es": "sorprenderse",
+      "en": "to be surprised",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "enamorarse",
+      "es": "enamorarse",
+      "en": "to fall in love",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "casarse",
+      "es": "casarse",
+      "en": "to get married",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Family"
+    },
+    {
+      "id": "divorciarse",
+      "es": "divorciarse",
+      "en": "to get divorced",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Family"
+    },
+    {
+      "id": "nacer",
+      "es": "nacer",
+      "en": "to be born",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Family"
+    },
+    {
+      "id": "morir",
+      "es": "morir",
+      "en": "to die",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Family"
+    },
+    {
+      "id": "crecer",
+      "es": "crecer",
+      "en": "to grow",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "jubilarse",
+      "es": "jubilarse",
+      "en": "to retire",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "viajar",
+      "es": "viajar",
+      "en": "to travel",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Travel"
+    },
+    {
+      "id": "explorar",
+      "es": "explorar",
+      "en": "to explore",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Travel"
+    },
+    {
+      "id": "visitar",
+      "es": "visitar",
+      "en": "to visit",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Travel"
+    },
+    {
+      "id": "conocer",
+      "es": "conocer",
+      "en": "to know; to meet",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "descubrir",
+      "es": "descubrir",
+      "en": "to discover",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "relajarse",
+      "es": "relajarse",
+      "en": "to relax",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "disfrutar",
+      "es": "disfrutar",
+      "en": "to enjoy",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "practicar",
+      "es": "practicar",
+      "en": "to practice",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Education"
+    },
+    {
+      "id": "entrenar",
+      "es": "entrenar",
+      "en": "to train",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "competir",
+      "es": "competir",
+      "en": "to compete",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "ganar",
+      "es": "ganar",
+      "en": "to win",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "perder",
+      "es": "perder",
+      "en": "to lose",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "jugar",
+      "es": "jugar",
+      "en": "to play",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "tocar",
+      "es": "tocar",
+      "en": "to play (instrument)",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "cantar",
+      "es": "cantar",
+      "en": "to sing",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "bailar",
+      "es": "bailar",
+      "en": "to dance",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "dibujar",
+      "es": "dibujar",
+      "en": "to draw",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "pintar",
+      "es": "pintar",
+      "en": "to paint",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Entertainment"
+    },
+    {
+      "id": "fotografiar",
+      "es": "fotografiar",
+      "en": "to photograph",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "cocinar",
+      "es": "cocinar",
+      "en": "to cook",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Food"
+    },
+    {
+      "id": "limpiar",
+      "es": "limpiar",
+      "en": "to clean",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "ordenar",
+      "es": "ordenar",
+      "en": "to tidy",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "decorar",
+      "es": "decorar",
+      "en": "to decorate",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Home"
+    },
+    {
+      "id": "construir",
+      "es": "construir",
+      "en": "to build",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "reparar",
+      "es": "reparar",
+      "en": "to repair",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Work"
+    },
+    {
+      "id": "instalar",
+      "es": "instalar",
+      "en": "to install",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "conectar",
+      "es": "conectar",
+      "en": "to connect",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "guardar",
+      "es": "guardar",
+      "en": "to save",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "borrar",
+      "es": "borrar",
+      "en": "to delete",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "imprimir",
+      "es": "imprimir",
+      "en": "to print",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "copiar",
+      "es": "copiar",
+      "en": "to copy",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "compartir",
+      "es": "compartir",
+      "en": "to share",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "publicar",
+      "es": "publicar",
+      "en": "to publish",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "comentar",
+      "es": "comentar",
+      "en": "to comment",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Communication"
+    },
+    {
+      "id": "votar",
+      "es": "votar",
+      "en": "to vote",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Society"
+    },
+    {
+      "id": "elegir",
+      "es": "elegir",
+      "en": "to choose",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "decidir",
+      "es": "decidir",
+      "en": "to decide",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Emotions"
+    },
+    {
+      "id": "planear",
+      "es": "planear",
+      "en": "to plan",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "organizar",
+      "es": "organizar",
+      "en": "to organize",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Daily Routines"
+    },
+    {
+      "id": "preparar",
+      "es": "preparar",
+      "en": "to prepare",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "llevar",
+      "es": "llevar",
+      "en": "to carry; to wear; to take",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "traer",
+      "es": "traer",
+      "en": "to bring",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "devolver",
+      "es": "devolver",
+      "en": "to return; to give back",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "prestar",
+      "es": "prestar",
+      "en": "to lend",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "pedir-prestado",
+      "es": "pedir prestado",
+      "en": "to borrow",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Verbs"
+    },
+    {
+      "id": "regalar",
+      "es": "regalar",
+      "en": "to give a gift; to give away",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "recibir",
+      "es": "recibir",
+      "en": "to receive",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "mandar",
+      "es": "mandar",
+      "en": "to send; to order",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "recoger",
+      "es": "recoger",
+      "en": "to pick up; to collect",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "tirar",
+      "es": "tirar",
+      "en": "to throw; to pull",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "quedar",
+      "es": "quedar",
+      "en": "to remain; to stay; to fit",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "faltar",
+      "es": "faltar",
+      "en": "to lack; to be missing",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "sobrar",
+      "es": "sobrar",
+      "en": "to be left over; to be surplus",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "doler",
+      "es": "doler",
+      "en": "to hurt; to ache",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "parecer",
+      "es": "parecer",
+      "en": "to seem; to appear",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "resultar",
+      "es": "resultar",
+      "en": "to turn out; to result",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "servir",
+      "es": "servir",
+      "en": "to serve; to be useful",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "funcionar",
+      "es": "funcionar",
+      "en": "to work; to function",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "romper",
+      "es": "romper",
+      "en": "to break",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "arreglar",
+      "es": "arreglar",
+      "en": "to fix; to repair",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "lavar",
+      "es": "lavar",
+      "en": "to wash",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "secar",
+      "es": "secar",
+      "en": "to dry",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "planchar",
+      "es": "planchar",
+      "en": "to iron",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "coser",
+      "es": "coser",
+      "en": "to sew",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "cortar",
+      "es": "cortar",
+      "en": "to cut",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "mezclar",
+      "es": "mezclar",
+      "en": "to mix",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "anadir",
+      "es": "añadir",
+      "en": "to add",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "quitar",
+      "es": "quitar",
+      "en": "to remove; to take away",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "meter",
+      "es": "meter",
+      "en": "to put; to insert",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "sacar",
+      "es": "sacar",
+      "en": "to take out",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "llenar",
+      "es": "llenar",
+      "en": "to fill",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "vaciar",
+      "es": "vaciar",
+      "en": "to empty",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "encender",
+      "es": "encender",
+      "en": "to turn on",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "apagar",
+      "es": "apagar",
+      "en": "to turn off",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Verbs"
+    },
+    {
+      "id": "subir-el-volumen",
+      "es": "subir el volumen",
+      "en": "to turn up the volume",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Technology"
+    },
+    {
+      "id": "bajar-el-volumen",
+      "es": "bajar el volumen",
+      "en": "to turn down the volume",
+      "cefr": "A2",
+      "pos": "phrase",
+      "topic": "Technology"
+    },
+    {
+      "id": "enchufar",
+      "es": "enchufar",
+      "en": "to plug in",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    },
+    {
+      "id": "desenchufar",
+      "es": "desenchufar",
+      "en": "to unplug",
+      "cefr": "A2",
+      "pos": "verb",
+      "topic": "Technology"
+    }
+  ]
+}

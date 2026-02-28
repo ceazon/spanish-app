@@ -2,11 +2,8 @@
 
 import React from 'react';
 import { CEFR_LEVELS, LEVEL_TITLES } from '../config/cefr';
-import { PrimaryBtn } from './ui'; // Reusing the button component
+import { PrimaryBtn } from './ui';
 
-/**
- * A reusable progress bar component for the new dashboard.
- */
 const StatBar = ({ label, value, max, color, unit = '' }) => (
   <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "16px 18px" }}>
     <div style={{ color: "#9ca3af", fontSize: 11, letterSpacing: 1, marginBottom: 6 }}>{label.toUpperCase()}</div>
@@ -26,25 +23,16 @@ export function NewDashboard({ profile, onStartLesson, onLogout }) {
     return <div>Loading profile...</div>;
   }
 
-  const {
-    cefrBand,
-    sublevel,
-    bandProgress,
-    bandStrength,
-    streak,
-    totalWordsIntroduced,
-    totalCorrect,
-    totalAttempts,
-  } = profile;
-
+  const { cefrBand, sublevel, bandProgress, bandStrength, streak, totalWordsIntroduced, totalCorrect, totalAttempts } = profile;
   const levelTitle = LEVEL_TITLES[cefrBand]?.[sublevel] || 'Learner';
   const nextLevelTitle = LEVEL_TITLES[cefrBand]?.[sublevel + 1] || 'the next level';
-  const overallLevel = ((CEFR_LEVELS[cefrBand] || 0) * 10) + sublevel + 1;
+  const bandOrder = ['A1', 'A2', 'B1', 'B2'];
+  const bandIndex = bandOrder.indexOf(cefrBand);
+  const overallLevel = (bandIndex * 10) + sublevel + 1;
   const accuracy = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
 
   return (
     <div style={{ maxWidth: 880, margin: "0 auto", padding: "28px 20px 60px" }}>
-      {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
         <div>
           <div style={{ color: "#a78bfa", fontSize: 12, letterSpacing: 2 }}>LEVEL {overallLevel} OF 40</div>
@@ -56,10 +44,7 @@ export function NewDashboard({ profile, onStartLesson, onLogout }) {
           Sign Out
         </button>
       </div>
-
-      {/* Main Stats Grid */}
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16, marginBottom: 24 }}>
-        {/* Left Column: Progress Bars */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:16, padding: "16px 18px" }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
@@ -80,25 +65,29 @@ export function NewDashboard({ profile, onStartLesson, onLogout }) {
             </div>
           </div>
         </div>
-        
-        {/* Right Column: Key Metrics */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <StatBar label="Streak" value={`${streak}d`} color="#ef4444" />
-            <StatBar label="Words Seen" value={totalWordsIntroduced} color="#f59e0b" />
-            <StatBar label="Accuracy" value={accuracy} unit="%" color="#22c55e" />
+            <StatBar label="Streak" value={`${streak}d`} />
+            <StatBar label="Words Seen" value={totalWordsIntroduced} />
+            <StatBar label="Accuracy" value={accuracy} unit="%" />
         </div>
       </div>
-
-      {/* Call to Action */}
-      <div style={{ textAlign: 'center', marginBottom: 32 }}>
-        <PrimaryBtn onClick={() => onStartLesson('flashcard')} style={{ padding: "16px 48px", fontSize: 18 }}>
-          Start Next Lesson
-        </PrimaryBtn>
-        <p style={{ color: "#9ca3af", fontSize: 13, marginTop: 12 }}>Let's keep building your streak!</p>
+      <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 20, padding: "24px", marginBottom: 28 }}>
+        <div style={{ color: "#e5e7eb", fontSize: 15, fontWeight: 600, marginBottom: 14 }}>Choose a Lesson</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+          <button onClick={() => onStartLesson('flashcard')} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"18px 16px", textAlign:"left"}}>
+            <div style={{fontSize: 24, marginBottom: 8}}>🃏</div>
+            <div style={{color: "#fff", fontWeight: 700, fontSize: 13}}>Flashcards</div>
+          </button>
+          <button onClick={() => onStartLesson('word-match')} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"18px 16px", textAlign:"left"}}>
+            <div style={{fontSize: 24, marginBottom: 8}}>🧩</div>
+            <div style={{color: "#fff", fontWeight: 700, fontSize: 13}}>Word Match</div>
+          </button>
+           <button onClick={() => onStartLesson('fill-in-the-blank')} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"18px 16px", textAlign:"left"}}>
+            <div style={{fontSize: 24, marginBottom: 8}}>✏️</div>
+            <div style={{color: "#fff", fontWeight: 700, fontSize: 13}}>Fill in the Blank</div>
+          </button>
+        </div>
       </div>
-
-      {/* TODO: Add Journey Map and Badge Display components here in the future */}
-
     </div>
   );
 }
