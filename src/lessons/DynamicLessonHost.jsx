@@ -6,8 +6,10 @@ import { getWordsForSession, getSentencesForSession } from '../services/contentR
 import { updateProfileAfterSession } from '../services/progression';
 import { checkNewBadges } from '../services/badges';
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from './vocab';
+import { VerbLesson, SentenceScrambleLesson } from './legacy';
 import { Celebration } from '../components/Celebration';
 import { LEVEL_TITLES } from '../config/cefr';
+import { VERBS, SCRAMBLE_SENTENCES } from '../content/legacy-data';
 
 const LoadingSpinner = () => <div style={{ color: "#a78bfa", textAlign: 'center' }}>Loading your personalized lesson...</div>;
 
@@ -94,8 +96,12 @@ export function DynamicLessonHost({ lessonType, onSessionComplete }) {
         return <WordMatchLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
       case 'fill-in-the-blank':
         return <FillBlankLesson sentences={sessionContent.sentences} onComplete={simpleOnComplete} />;
+      case 'learn-verbs':
+        return <VerbLesson verbs={VERBS} onComplete={simpleOnComplete} />;
+      case 'sentence-scramble':
+        return <SentenceScrambleLesson scrambleSentences={SCRAMBLE_SENTENCES} onComplete={simpleOnComplete} />;
       default:
-        return <div style={{ color: 'red' }}>Error: Unknown lesson type "{lessonType}"</div>;
+        return <div style={{ color: 'red' }}>Error: Lesson type "{lessonType}" not implemented yet.</div>;
     }
   }
 
