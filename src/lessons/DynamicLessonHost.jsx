@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { loadProfile, saveProfile } from '../services/storage';
 import { getWordsForSession, getSentencesForSession } from '../services/contentResolver';
 import { updateProfileAfterSession } from '../services/progression';
+import { checkNewBadges } from '../services/badges';
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from './vocab';
 
 const LoadingSpinner = () => <div style={{ color: "#a78bfa", textAlign: 'center' }}>Loading your personalized lesson...</div>;
@@ -38,8 +39,21 @@ export function DynamicLessonHost({ lessonType, onSessionComplete }) {
 
   const handleLessonComplete = useCallback((results) => { // results is now an array of {id, cefr, correct}
     if (!profile) return;
+
+    // Update profile with word exposure and progress
     const updatedProfile = updateProfileAfterSession(profile, results);
+    
+    // Check for any new badges
+    const newBadges = checkNewBadges(updatedProfile, results);
+    if (newBadges.length > 0) {
+      updatedProfile.badges = [...new Set([...updatedProfile.badges, ...newBadges])];
+      // TODO: Fire a visual "Badge Earned!" event here
+      console.log("New badges earned:", newBadges);
+    }
+
+    // Save the new profile to storage
     saveProfile(updatedProfile);
+    
     if (onSessionComplete) {
       onSessionComplete(updatedProfile);
     }

@@ -1,8 +1,10 @@
 // Spanish-app/src/components/NewDashboard.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CEFR_LEVELS, LEVEL_TITLES } from '../config/cefr';
 import { PrimaryBtn } from './ui';
+import { JourneyMap } from './JourneyMap';
+import { BadgeDisplay } from './BadgeDisplay';
 
 const StatBar = ({ label, value, max, color, unit = '' }) => (
   <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "16px 18px" }}>
@@ -19,11 +21,13 @@ const StatBar = ({ label, value, max, color, unit = '' }) => (
 );
 
 export function NewDashboard({ profile, onStartLesson, onLogout }) {
+  const [showJourney, setShowJourney] = useState(false);
+
   if (!profile) {
     return <div>Loading profile...</div>;
   }
 
-  const { cefrBand, sublevel, bandProgress, bandStrength, streak, totalWordsIntroduced, totalCorrect, totalAttempts } = profile;
+  const { cefrBand, sublevel, bandProgress, bandStrength, streak, totalWordsIntroduced, totalCorrect, totalAttempts, badges } = profile;
   const levelTitle = LEVEL_TITLES[cefrBand]?.[sublevel] || 'Learner';
   const nextLevelTitle = LEVEL_TITLES[cefrBand]?.[sublevel + 1] || 'the next level';
   const bandOrder = ['A1', 'A2', 'B1', 'B2'];
@@ -87,6 +91,15 @@ export function NewDashboard({ profile, onStartLesson, onLogout }) {
             <div style={{color: "#fff", fontWeight: 700, fontSize: 13}}>Fill in the Blank</div>
           </button>
         </div>
+      </div>
+      <div style={{ marginTop: 24 }}>
+        <button onClick={() => setShowJourney(s => !s)} style={{ width: '100%', textAlign: 'center', color: '#a78bfa', fontSize: 14, fontWeight: 'bold', marginBottom: 16 }}>
+          {showJourney ? 'Hide' : 'Show'} Full Journey Map {showJourney ? '↑' : '↓'}
+        </button>
+        {showJourney && <JourneyMap profile={profile} />}
+      </div>
+      <div style={{ marginTop: 24 }}>
+        <BadgeDisplay earnedBadges={badges} />
       </div>
     </div>
   );

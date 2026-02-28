@@ -15,7 +15,7 @@ export function getWordsForSession(profile, count) {
   for (const word of ALL_VOCAB) {
     if (!seenWords.has(word.id)) {
       if (word.cefr === cefrBand) buckets.current.push(word);
-      else if (word.cefr === nextBand) buckets.stretch.push(word);
+      else if (word.cefr === nextBand) buckets.stretch.push({ ...word, isStretch: true });
     } else {
       const exposure = wordExposure[word.id];
       const accuracy = exposure.seen > 0 ? exposure.correct / exposure.seen : 0;
