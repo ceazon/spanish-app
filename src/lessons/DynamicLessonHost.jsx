@@ -6,6 +6,8 @@ import { getWordsForSession, getSentencesForSession } from '../services/contentR
 import { updateProfileAfterSession } from '../services/progression';
 import { checkNewBadges } from '../services/badges';
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from './vocab';
+import { Celebration } from '../components/Celebration';
+import { LEVEL_TITLES } from '../config/cefr';
 
 const LoadingSpinner = () => <div style={{ color: "#a78bfa", textAlign: 'center' }}>Loading your personalized lesson...</div>;
 
@@ -14,6 +16,7 @@ export function DynamicLessonHost({ lessonType, onSessionComplete }) {
   const [sessionContent, setSessionContent] = useState({ words: [], sentences: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [celebration, setCelebration] = useState(null); // { type: 'sublevel' | 'band', title: 'Explorer' }
 
   useEffect(() => {
     async function setupSession() {
@@ -37,32 +40,42 @@ export function DynamicLessonHost({ lessonType, onSessionComplete }) {
     setupSession();
   }, [lessonType]);
 
-  const handleLessonComplete = useCallback((results) => { // results is now an array of {id, cefr, correct}
+  const handleLessonComplete = useCallback((results) => {
     if (!profile) return;
 
-    // Update profile with word exposure and progress
+    const oldSublevel = profile.sublevel;
+    const oldBand = profile.cefrBand;
+
     const updatedProfile = updateProfileAfterSession(profile, results);
     
-    // Check for any new badges
     const newBadges = checkNewBadges(updatedProfile, results);
     if (newBadges.length > 0) {
       updatedProfile.badges = [...new Set([...updatedProfile.badges, ...newBadges])];
-      // TODO: Fire a visual "Badge Earned!" event here
-      console.log("New badges earned:", newBadges);
     }
 
-    // Save the new profile to storage
     saveProfile(updatedProfile);
-    
-    if (onSessionComplete) {
-      onSessionComplete(updatedProfile);
+    setProfile(updatedProfile); // Update profile state immediately
+
+    // Check for level up or band completion to trigger celebration
+    if (updatedProfile.cefrBand !== oldBand) {
+      setCelebration({ type: 'band', title: LEVEL_TITLES[updatedProfile.cefrBand][0] });
+    } else if (updatedProfile.sublevel > oldSublevel) {
+      setCelebration({ type: 'sublevel', title: LEVEL_TITLES[updatedProfile.cefrBand][updatedProfile.sublevel] });
+    } else {
+      // If no celebration, complete immediately
+      if (onSessionComplete) onSessionComplete(updatedProfile);
     }
   }, [profile, onSessionComplete]);
 
-  // Simplified onComplete wrapper for older components
+  const onCelebrationEnd = () => {
+    setCelebration(null);
+    if (onSessionComplete) {
+      onSessionComplete(profile);
+    }
+  };
+
+  // Simplified onComplete wrapper
   const simpleOnComplete = (points, correct, total) => {
-    // This is a rough translation; the new system needs per-word results.
-    // We'll pass a placeholder. This needs to be refactored in vocab.jsx.
     const mockResults = sessionContent.words.slice(0, total).map((word, i) => ({
       ...word,
       correct: i < correct
@@ -73,14 +86,29 @@ export function DynamicLessonHost({ lessonType, onSessionComplete }) {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
 
-  switch (lessonType) {
-    case 'flashcard':
-      return <FlashcardLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
-    case 'word-match':
-      return <WordMatchLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
-    case 'fill-in-the-blank':
-      return <FillBlankLesson sentences={sessionContent.sentences} onComplete={simpleOnComplete} />;
-    default:
-      return <div style={{ color: 'red' }}>Error: Unknown lesson type "{lessonType}"</div>;
+  const renderLesson = () => {
+     switch (lessonType) {
+      case 'flashcard':
+        return <FlashcardLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
+      case 'word-match':
+        return <WordMatchLesson words={sessionContent.words} onComplete={simpleOnComplete} />;
+      case 'fill-in-the-blank':
+        return <FillBlankLesson sentences={sessionContent.sentences} onComplete={simpleOnComplete} />;
+      default:
+        return <div style={{ color: 'red' }}>Error: Unknown lesson type "{lessonType}"</div>;
+    }
   }
+
+  return (
+    <>
+      {renderLesson()}
+      {celebration && (
+        <Celebration
+          type={celebration.type}
+          title={celebration.title}
+          onComplete={onCelebrationEnd}
+        />
+      )}
+    </>
+  );
 }
