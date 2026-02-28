@@ -1,72 +1,47 @@
-import { migrateUser } from "./progression";
+// Spanish-app/src/services/storage.js
 
-function hasWindowStorage() {
-  return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
-}
+import { migrateProfile } from './progression';
 
-function getLocal(key) {
-  if (typeof localStorage === "undefined") return null;
-  const value = localStorage.getItem(key);
-  return value ? { value } : null;
-}
+const USER_DATA_KEY = 'chadlingo_user';
+const PROFILE_KEY = 'chadlingo_profile';
 
-function setLocal(key, value) {
-  if (typeof localStorage === "undefined") return;
-  localStorage.setItem(key, value);
-}
-
-export async function loadUser(username) {
-  const key = `user:${username}`;
+/**
+ * Loads the user's learning profile from localStorage.
+ * Crucially, it passes the loaded profile through the migration function,
+ * which will wipe and reset it if it's an old schema version.
+ * @returns {object | null} The user's v3 profile, or null if not found.
+ */
+export function loadProfile() {
   try {
-    const r = hasWindowStorage() ? await window.storage.get(key) : getLocal(key);
-    return r ? migrateUser(JSON.parse(r.value)) : null;
-  } catch {
-    return null;
+    const rawProfile = localStorage.getItem(PROFILE_KEY);
+    const profile = rawProfile ? JSON.parse(rawProfile) : null;
+    // This is the migration step. migrateProfile will return a fresh v3 profile
+    // if the loaded one is old, invalid, or null.
+    return migrateProfile(profile);
+  } catch (error) {
+    console.error("Failed to load user profile:", error);
+    // On any error, return a fresh profile to prevent app crashes.
+    return migrateProfile(null);
   }
 }
 
-export async function saveUser(user) {
-  const key = `user:${user.username}`;
-  const value = JSON.stringify(user);
+/**
+ * Saves the user's learning profile to localStorage.
+ * @param {object} profile - The user's v3 profile to save.
+ */
+export function saveProfile(profile) {
   try {
-    if (hasWindowStorage()) await window.storage.set(key, value);
-    else setLocal(key, value);
-  } catch {
-    try { setLocal(key, value); } catch {}
+    const profileString = JSON.stringify(profile);
+    localStorage.setItem(PROFILE_KEY, profileString);
+  } catch (error) {
+    console.error("Failed to save user profile:", error);
   }
 }
 
-export async function loadActiveContentPack() {
-  const key = "contentPack:active";
-  try {
-    const raw = hasWindowStorage() ? await window.storage.get(key) : getLocal(key);
-    return raw?.value ? JSON.parse(raw.value) : null;
-  } catch {
-    return null;
-  }
-}
-
-export async function saveActiveContentPack(pack) {
-  const key = "contentPack:active";
-  const value = JSON.stringify(pack);
-  try {
-    if (hasWindowStorage()) await window.storage.set(key, value);
-    else setLocal(key, value);
-  } catch {
-    try { setLocal(key, value); } catch {}
-  }
-}
-
-export async function clearActiveContentPack() {
-  const key = "contentPack:active";
-  try {
-    if (hasWindowStorage() && typeof window.storage.del === "function") {
-      await window.storage.del(key);
-      return;
-    }
-  } catch {}
-
-  try {
-    if (typeof localStorage !== "undefined") localStorage.removeItem(key);
-  } catch {}
-}
+/**
+ * Note: The original file had logic for `window.storage` and separate user/profile
+ * concepts. This is being simplified for the rewrite to a single `profile` object
+ * stored directly in localStorage, which is sufficient for the MVP.
+ * The `loadUser` and `saveUser` functions are consolidated into `loadProfile`
+ * and `saveProfile`.
+ */

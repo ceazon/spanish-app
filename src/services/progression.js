@@ -1,179 +1,136 @@
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
-}
+// Spanish-app/src/services/progression.js
 
-function pickRandom(arr = []) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+import {
+  CEFR_LEVELS,
+  LEVEL_TITLES,
+  TOTAL_LEVELS_PER_BAND,
+  INITIAL_USER_PROFILE_V3,
+} from '../config/cefr';
 
-function shuffled(arr = []) {
-  const out = [...arr];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
+// This is a lightweight in-memory cache for the vocab counts.
+// In a larger app, this would be part of a more robust data layer.
+import vocabData from '../content/cefr-vocab.json';
+const vocabCounts = vocabData.counts;
+
+/**
+ * Ensures the user profile is on the latest schema.
+ * As per the plan, if the schema is old, it wipes the profile clean.
+ * @param {object} profile - The user's current learning profile.
+ * @returns {object} A valid v3 profile.
+ */
+export function migrateProfile(profile) {
+  if (profile && profile.schemaVersion === INITIAL_USER_PROFILE_V3.schemaVersion) {
+    return profile;
   }
-  return out;
+  // Wipe and reset for any other case (missing, or old version)
+  return { ...INITIAL_USER_PROFILE_V3 };
 }
 
-export const PROFILE_SCHEMA_VERSION = 2;
+/**
+ * Calculates the user's "Band Strength" (a 0-10 score).
+ * This formula rewards both coverage (seeing many unique words) and accuracy.
+ * @param {object} wordExposure - The user's word exposure map.
+ * @param {string} cefrBand - The user's current CEFR band (e.g., "A1").
+ * @returns {number} The calculated band strength, rounded to one decimal.
+ */
+export function calculateBandStrength(wordExposure, cefrBand) {
+  const wordsInBand = Object.values(wordExposure).filter(w => w.cefr === cefrBand);
+  const totalWordsInBand = vocabCounts[cefrBand] || 1; // Avoid division by zero
+  
+  if (wordsInBand.length === 0) return 0;
 
-export const LESSON_POOL = [
-  "Flashcards",
-  "Word Match",
-  "Fill in the Blank",
-  "Learn Verbs",
-  "Speed Round",
-  "Sentence Scramble",
-  "Transcription",
-  "Audio Shadowing",
-  "Pronunciation Coach",
-  "Scenario Builder",
-  "Chat Partner",
-  "Image Labeling",
-  "Picture Description",
-  "Placement Test",
-];
+  const seenCount = wordsInBand.length;
+  const correct = wordsInBand.reduce((acc, w) => acc + (w.correct || 0), 0);
+  const attempts = wordsInBand.reduce((acc, w) => acc + (w.seen || 0), 0);
 
-export function defaultLearningState() {
-  return {
-    schemaVersion: PROFILE_SCHEMA_VERSION,
-    xp: 0,
-    level: "starter",
-    globalDifficulty: 1, // 1-5
-    recentAccuracies: [],
-    mastery: {}, // by lesson type: { score(0-100), attempts, lastPlayed }
-    recommendedLessons: ["Flashcards", "Word Match", "Fill in the Blank"],
-    lastLessonType: null,
-    updatedAt: new Date().toISOString(),
-  };
+  const coverage = seenCount / totalWordsInBand;
+  const accuracy = attempts > 0 ? correct / attempts : 0;
+  
+  const strength = Math.max(0, Math.min(10, coverage * accuracy * 10));
+  return Math.round(strength * 10) / 10;
 }
 
-export function migrateUser(user) {
-  if (!user) return user;
-  const profile = user.profile || {};
-
-  // v0/v1 -> v2 unified learning profile
-  const learning = {
-    ...defaultLearningState(),
-    ...profile,
-    schemaVersion: PROFILE_SCHEMA_VERSION,
-    level: profile.level || "starter",
-    recommendedLessons: Array.isArray(profile.recommendedLessons) && profile.recommendedLessons.length
-      ? profile.recommendedLessons
-      : defaultLearningState().recommendedLessons,
-    mastery: profile.mastery || {},
-    recentAccuracies: Array.isArray(profile.recentAccuracies) ? profile.recentAccuracies.slice(-20) : [],
-    globalDifficulty: clamp(Number(profile.globalDifficulty || 1), 1, 5),
-    updatedAt: new Date().toISOString(),
-  };
-
-  return {
-    ...user,
-    profile: learning,
-  };
+/**
+ * Calculates the user's progress within their current CEFR band.
+ * Progress is based only on *coverage* (unique words seen), not accuracy.
+ * @param {object} wordExposure - The user's word exposure map.
+ * @param {string} cefrBand - The user's current CEFR band.
+ * @returns {number} Progress as a float between 0.0 and 1.0.
+ */
+export function calculateBandProgress(wordExposure, cefrBand) {
+  const wordsInBand = Object.values(wordExposure).filter(w => w.cefr === cefrBand);
+  const totalWordsInBand = vocabCounts[cefrBand] || 1;
+  const progress = Math.max(0, Math.min(1, wordsInBand.length / totalWordsInBand));
+  return progress;
 }
 
-export function getDailyQuestState(history = [], now = new Date()) {
-  const today = now.toDateString();
-  const todayHistory = history.filter(h => new Date(h.date).toDateString() === today);
-  const todayPts = todayHistory.reduce((s, h) => s + (h.points || 0), 0);
-  const todayLessons = todayHistory.length;
-  const todayListening = todayHistory.filter(h => ["Transcription", "Audio Shadowing", "Pronunciation Coach"].includes(h.type)).length;
+/**
+ * Updates a user's profile after a learning session.
+ * @param {object} profile - The user's current v3 profile.
+ * @param {array} sessionResults - Array of word result objects, e.g., [{ id, es, en, cefr, correct }]
+ * @returns {object} The updated user profile.
+ */
+export function updateProfileAfterSession(profile, sessionResults) {
+  const updatedProfile = { ...profile, wordExposure: { ...profile.wordExposure } };
 
-  const quests = [
-    { label: "Complete 1 lesson", done: todayLessons >= 1 },
-    { label: "Earn 50 points", done: todayPts >= 50 },
-    { label: "Do 1 listening lesson", done: todayListening >= 1 },
-  ];
+  let newWordsIntroduced = 0;
 
-  return { quests, todayPts, todayLessons, todayListening };
+  sessionResults.forEach(result => {
+    const { id, cefr } = result;
+    const prior = updatedProfile.wordExposure[id] || { seen: 0, correct: 0 };
+    
+    if (prior.seen === 0) {
+      newWordsIntroduced++;
+    }
+
+    updatedProfile.wordExposure[id] = {
+      seen: (prior.seen || 0) + 1,
+      correct: (prior.correct || 0) + (result.correct ? 1 : 0),
+      lastSeen: new Date().toISOString(),
+      cefr: cefr // Store the band on the word for easier filtering
+    };
+  });
+
+  // Update aggregate stats
+  updatedProfile.totalAttempts += sessionResults.length;
+  updatedProfile.totalCorrect += sessionResults.filter(r => r.correct).length;
+  updatedProfile.totalWordsIntroduced += newWordsIntroduced;
+  updatedProfile.lastSessionDate = new Date().toISOString().split('T')[0];
+
+  // Recalculate progression
+  const { cefrBand } = updatedProfile;
+  updatedProfile.bandProgress = calculateBandProgress(updatedProfile.wordExposure, cefrBand);
+  updatedProfile.bandStrength = calculateBandStrength(updatedProfile.wordExposure, cefrBand);
+  
+  const newSublevel = Math.floor(updatedProfile.bandProgress * TOTAL_LEVELS_PER_BAND);
+  updatedProfile.sublevel = Math.max(0, Math.min(TOTAL_LEVELS_PER_BAND - 1, newSublevel));
+  
+  // TODO: Handle band completion and transition to the next band (e.g., A1 -> A2)
+  if (updatedProfile.bandProgress >= 1.0) {
+    // This logic will be part of the celebration/gamification phase (Phase 3)
+    console.log(`User has completed band ${cefrBand}!`);
+  }
+
+  return updatedProfile;
 }
 
-export function placementFromScore(correct, total) {
-  const pct = total > 0 ? correct / total : 0;
-  const level = pct >= 0.8 ? "intermediate" : pct >= 0.5 ? "beginner" : "starter";
-  const recommendedLessons = level === "intermediate"
-    ? ["Scenario Builder", "Chat Partner", "Speed Round"]
-    : level === "beginner"
-      ? ["Learn Verbs", "Transcription", "Sentence Scramble"]
-      : ["Flashcards", "Word Match", "Fill in the Blank"];
-  return { level, recommendedLessons };
-}
-
-export function getAdaptiveDifficulty(profile = {}, lessonType) {
-  const p = { ...defaultLearningState(), ...(profile || {}) };
-  const base = clamp(Number(p.globalDifficulty || 1), 1, 5);
-  const mastery = p.mastery?.[lessonType]?.score;
-  if (typeof mastery !== "number") return base;
-  if (mastery >= 85) return clamp(base + 1, 1, 5);
-  if (mastery <= 45) return clamp(base - 1, 1, 5);
-  return base;
-}
-
-export function updateLearningProfile(profile = {}, result = {}) {
-  const p = { ...defaultLearningState(), ...(profile || {}) };
-  const lessonType = result.lessonType || result.type || "Unknown";
-  const accuracy = result.total > 0 ? (result.correct || 0) / result.total : 0;
-  const accPct = Math.round(accuracy * 100);
-
-  const prior = p.mastery?.[lessonType] || { score: 50, attempts: 0 };
-  const nextScore = clamp(Math.round(prior.score * 0.75 + accPct * 0.25), 0, 100);
-
-  const recent = [...(p.recentAccuracies || []), accPct].slice(-20);
-  const recentAvg = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : 0;
-
-  let globalDifficulty = p.globalDifficulty || 1;
-  if (recentAvg >= 82) globalDifficulty += 1;
-  else if (recentAvg <= 55) globalDifficulty -= 1;
-  globalDifficulty = clamp(Math.round(globalDifficulty), 1, 5);
-
-  const xpGain = Math.max(5, Math.round((result.points || 0) * (1 + (globalDifficulty - 1) * 0.12)));
-
-  const updated = {
-    ...p,
-    xp: (p.xp || 0) + xpGain,
-    recentAccuracies: recent,
-    globalDifficulty,
-    mastery: {
-      ...(p.mastery || {}),
-      [lessonType]: {
-        score: nextScore,
-        attempts: (prior.attempts || 0) + 1,
-        lastPlayed: new Date().toISOString(),
-      },
-    },
-    lastLessonType: lessonType,
-    updatedAt: new Date().toISOString(),
-    schemaVersion: PROFILE_SCHEMA_VERSION,
-  };
-
-  updated.recommendedLessons = buildRecommendedLessons(updated);
-  return updated;
-}
-
-export function buildRecommendedLessons(profile = {}) {
-  const p = { ...defaultLearningState(), ...(profile || {}) };
-  const mastery = p.mastery || {};
-
-  const weak = LESSON_POOL
-    .filter((l) => l !== "Placement Test")
-    .map((l) => ({ lesson: l, score: typeof mastery[l]?.score === "number" ? mastery[l].score : 50 }))
-    .sort((a, b) => a.score - b.score)
-    .slice(0, 5)
-    .map((x) => x.lesson);
-
-  const strong = LESSON_POOL
-    .filter((l) => !weak.includes(l) && l !== "Placement Test")
-    .map((l) => ({ lesson: l, score: typeof mastery[l]?.score === "number" ? mastery[l].score : 50 }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map((x) => x.lesson);
-
-  const mix = shuffled([
-    ...weak.slice(0, 3),
-    ...shuffled(strong).slice(0, 1),
-    pickRandom(LESSON_POOL.filter((l) => l !== "Placement Test")),
-  ].filter(Boolean));
-
-  return [...new Set(mix)].slice(0, 4);
+/**
+ * Determines a user's starting band and sublevel from a placement test score.
+ * @param {number} correct - Number of correct answers.
+ * @param {number} total - Total questions in the test.
+ * @returns {{ cefrBand: string, sublevel: number }}
+ */
+export function getPlacementFromScore(correct, total) {
+  const percentage = total > 0 ? correct / total : 0;
+  
+  if (percentage >= 0.8) {
+    // Starts user at the beginning of A2
+    return { cefrBand: 'A2', sublevel: 0 };
+  } else if (percentage >= 0.4) {
+    // Starts user halfway through A1
+    return { cefrBand: 'A1', sublevel: 5 };
+  } else {
+    // Starts user at the beginning of A1
+    return { cefrBand: 'A1', sublevel: 0 };
+  }
 }
