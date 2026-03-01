@@ -74,7 +74,13 @@ export function FlashcardLesson({ words, onComplete }) {
     if (idx + 1 >= words.length) {
       const totalPts = newScores.reduce((s, n) => s + n, 0);
       const correct = newScores.filter(n => n >= 14).length; // ~70%
-      onComplete(totalPts, correct, words.length);
+      const wordResults = words.map((w, i) => {
+        const earned = newScores[i] || 0;
+        const seen = 1;
+        const correctHit = earned >= 14 ? 1 : 0;
+        return { id: w.id || w.es, cefr: w.cefr || "A1", seen, correct: correctHit };
+      });
+      onComplete(totalPts, correct, words.length, { wordResults });
     } else {
       setFlipped(false);
       setMicText("");
@@ -183,7 +189,9 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
         if (nm.length === left.length && left.length > 0) {
           const basePerPair = 10 + Math.round(difficulty * 2);
           const penalty = 4 + Math.round(difficulty);
-          onComplete(Math.max(0, left.length * basePerPair - errors * penalty), left.length, left.length);
+          const pts = Math.max(0, left.length * basePerPair - errors * penalty);
+          const wordResults = left.map((w) => ({ id: w.id || w.es, cefr: w.cefr || "A1", seen: 1, correct: 1 }));
+          onComplete(pts, left.length, left.length, { wordResults });
         }
       } else {
         setWrong([selL.en, selR.en]);

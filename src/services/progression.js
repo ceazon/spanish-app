@@ -1,6 +1,7 @@
 // Spanish-app/src/services/progression.js
 
-import { getLevelLabel } from '../config/cefr';
+import { getLevelLabel } from '../config/cefr.js';
+import vocabData from '../content/cefr-vocab.json' with { type: 'json' };
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -21,6 +22,51 @@ function shuffled(arr = []) {
 
 // Upgrading to v3 for the CEFR progression system
 export const PROFILE_SCHEMA_VERSION = 3;
+const CEFR_COUNTS = vocabData?.counts || { A1: 1, A2: 1, B1: 1, B2: 1 };
+
+function normalizeExposureEntry(entry = {}) {
+  const seen = Number(entry.seen || 0);
+  const correct = Number(entry.correct || 0);
+  return {
+    seen,
+    correct,
+    cefr: entry.cefr || "A1",
+    lastSeen: entry.lastSeen || null,
+  };
+}
+
+function isMastered(entry = {}) {
+  const e = normalizeExposureEntry(entry);
+  if (e.seen < 3) return false;
+  const acc = e.seen > 0 ? e.correct / e.seen : 0;
+  return acc >= 0.7;
+}
+
+function computeBandProgressFromMastery(wordExposure = {}, band = "A1") {
+  const total = Number(CEFR_COUNTS?.[band] || 1);
+  const mastered = Object.values(wordExposure)
+    .filter((w) => (w?.cefr || "A1") === band)
+    .filter(isMastered)
+    .length;
+  return clamp(mastered / total, 0, 1);
+}
+
+function applyWordResults(profile, wordResults = []) {
+  const nextExposure = { ...(profile.wordExposure || {}) };
+  for (const wr of wordResults) {
+    const id = wr?.id;
+    if (!id) continue;
+    const prior = normalizeExposureEntry(nextExposure[id]);
+    nextExposure[id] = {
+      ...prior,
+      cefr: wr.cefr || prior.cefr || profile.cefrBand || "A1",
+      seen: prior.seen + Number(wr.seen || 1),
+      correct: prior.correct + Number(wr.correct || 0),
+      lastSeen: new Date().toISOString(),
+    };
+  }
+  return nextExposure;
+}
 
 export const LESSON_POOL = [
   "Flashcards",
@@ -46,6 +92,7 @@ export function defaultLearningState() {
     cefrBand: "A1",
     bandProgress: 0.0, // 0.0 to 1.0 within the band
     level: "Newcomer",
+    levelTitle: "Newcomer",
     overallLevel: 1,   // 1 to 40
     globalDifficulty: 1, 
     recentAccuracies: [],
@@ -78,6 +125,7 @@ export function migrateUser(user) {
   // Set initial labels
   const { title, overallLevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
   learning.level = title;
+  learning.levelTitle = title;
   learning.overallLevel = overallLevel;
 
   return { ...user, profile: learning };
@@ -135,25 +183,30 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const prior = p.mastery?.[lessonType] || { score: 50, attempts: 0 };
   const nextScore = clamp(Math.round(prior.score * 0.75 + accPct * 0.25), 0, 100);
 
-  // Update Global Progress (Simulated for this incremental step)
-  // Each correct answer adds 0.5% progress to the current band
-  if (result.correct > 0) {
-    p.bandProgress = clamp(p.bandProgress + (result.correct * 0.005), 0, 1.0);
-    
-    // Handle Band Level-up
-    if (p.bandProgress >= 1.0) {
-      const bands = ["A1", "A2", "B1", "B2"];
-      const idx = bands.indexOf(p.cefrBand);
-      if (idx < bands.length - 1) {
-        p.cefrBand = bands[idx + 1];
-        p.bandProgress = 0.0;
-      }
+  // Update per-word exposure and compute CEFR progress from mastered words.
+  if (Array.isArray(result.wordResults) && result.wordResults.length) {
+    p.wordExposure = applyWordResults(p, result.wordResults);
+  } else {
+    p.wordExposure = p.wordExposure || {};
+  }
+
+  // Progress is based on mastered words, not just raw correct answers.
+  p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
+
+  // Handle CEFR band level-up when mastered progress reaches 100%.
+  if (p.bandProgress >= 1.0) {
+    const bands = ["A1", "A2", "B1", "B2"];
+    const idx = bands.indexOf(p.cefrBand);
+    if (idx < bands.length - 1) {
+      p.cefrBand = bands[idx + 1];
+      p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
     }
   }
 
-  // Update labels
+  // Update user-friendly label/title every 10% sublevel.
   const { title, overallLevel } = getLevelLabel(p.cefrBand, p.bandProgress);
   p.level = title;
+  p.levelTitle = title;
   p.overallLevel = overallLevel;
 
   const recent = [...(p.recentAccuracies || []), accPct].slice(-20);

@@ -1948,7 +1948,15 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   return (
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
-        <div><div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div><h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>{user.displayName}</h1></div>
+        <div>
+          <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div>
+          <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>
+            {user.displayName} · {user.profile?.levelTitle || user.profile?.level || "Newcomer"}
+          </h1>
+          <div style={{ color:"#9ca3af", fontSize:12, marginTop:4 }}>
+            Level {user.profile?.overallLevel || 1} • {Math.round((user.profile?.bandProgress || 0) * 100)}% to next sub-level
+          </div>
+        </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
           <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
@@ -2858,6 +2866,7 @@ export default function App() {
       points: pts,
       correct,
       total,
+      wordResults: meta?.wordResults || [],
     });
 
     if (meta?.level) {

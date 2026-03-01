@@ -8,10 +8,10 @@ import {
   getAdaptiveDifficulty,
 } from './progression.js';
 
-test('placementFromScore returns starter/beginner/intermediate bands', () => {
-  assert.equal(placementFromScore(2, 10).level, 'starter');
-  assert.equal(placementFromScore(5, 10).level, 'beginner');
-  assert.equal(placementFromScore(8, 10).level, 'intermediate');
+test('placementFromScore returns user-friendly CEFR level titles', () => {
+  assert.equal(placementFromScore(2, 10).level, 'Newcomer');
+  assert.equal(placementFromScore(5, 10).level, 'Apprentice');
+  assert.equal(placementFromScore(8, 10).level, 'Elementary');
 });
 
 test('daily quests mark done correctly', () => {
@@ -34,7 +34,7 @@ test('migrate user + adaptive progression keeps profile across versions', () => 
     profile: { level: 'beginner', recommendedLessons: ['Learn Verbs'] },
   };
   const migrated = migrateUser(userV1);
-  assert.equal(migrated.profile.schemaVersion, 2);
+  assert.equal(migrated.profile.schemaVersion, 3);
   assert.equal(Array.isArray(migrated.profile.recommendedLessons), true);
 
   const updated = updateLearningProfile(migrated.profile, {
