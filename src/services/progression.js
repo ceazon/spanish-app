@@ -51,6 +51,15 @@ function computeBandProgressFromMastery(wordExposure = {}, band = "A1") {
   return clamp(mastered / total, 0, 1);
 }
 
+function computeBandLearningProgress(wordExposure = {}, band = "A1") {
+  const total = Number(CEFR_COUNTS?.[band] || 1);
+  const seenUnique = Object.values(wordExposure)
+    .filter((w) => (w?.cefr || "A1") === band)
+    .filter((w) => Number(w?.seen || 0) > 0)
+    .length;
+  return clamp(seenUnique / total, 0, 1);
+}
+
 function applyWordResults(profile, wordResults = []) {
   const nextExposure = { ...(profile.wordExposure || {}) };
   for (const wr of wordResults) {
@@ -115,7 +124,8 @@ export function defaultLearningState() {
     schemaVersion: PROFILE_SCHEMA_VERSION,
     xp: 0,
     cefrBand: "A1",
-    bandProgress: 0.0, // 0.0 to 1.0 within the band
+    bandProgress: 0.0, // mastery progress 0.0..1.0
+    learningProgress: 0.0, // exposure progress 0.0..1.0
     level: "Newcomer",
     levelTitle: "Newcomer",
     nextLevelTitle: "Beginner",
@@ -152,6 +162,7 @@ export function migrateUser(user) {
   };
 
   // Set initial labels
+  learning.learningProgress = computeBandLearningProgress(learning.wordExposure || {}, learning.cefrBand);
   const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
   learning.level = title;
   learning.levelTitle = title;
@@ -225,6 +236,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
 
   // Progress is based on mastered words, not just raw correct answers.
   p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
+  // Learning progress is exposure-based so users see momentum quickly.
+  p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
 
   // Handle CEFR band level-up when mastered progress reaches 100%.
   if (p.bandProgress >= 1.0) {
@@ -233,6 +246,7 @@ export function updateLearningProfile(profile = {}, result = {}) {
     if (idx < bands.length - 1) {
       p.cefrBand = bands[idx + 1];
       p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
+      p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
     }
   }
 
@@ -277,6 +291,7 @@ export function updateLearningProfile(profile = {}, result = {}) {
     wordCount: normalized.wordResults.length,
     cefrBand: p.cefrBand,
     bandProgress: p.bandProgress,
+    learningProgress: p.learningProgress || 0,
     levelTitle: p.levelTitle || p.level,
     nextLevelTitle: p.nextLevelTitle,
     sublevel: p.sublevel,

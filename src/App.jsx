@@ -1993,7 +1993,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             </div>
             <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress</div>
             <div style={{ marginTop:6, width:320, maxWidth:'100%', height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
-              <div style={{ width:`${Math.max(0, Math.min(100, Math.round((user.profile?.bandProgress || 0) * 100)))}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease' }} />
+              <div style={{ width:`${Math.max(0, Math.min(100, Math.round((user.profile?.learningProgress ?? user.profile?.bandProgress ?? 0) * 100)))}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease' }} />
             </div>
           </button>
         </div>
