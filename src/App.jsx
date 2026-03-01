@@ -2863,6 +2863,7 @@ export default function App() {
 
     let profileUpdate = updateLearningProfile(user?.profile || {}, {
       lessonType,
+      attemptedAt: entry.date,
       points: pts,
       correct,
       total,

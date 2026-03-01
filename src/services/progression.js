@@ -68,6 +68,31 @@ function applyWordResults(profile, wordResults = []) {
   return nextExposure;
 }
 
+function appendProgressionEvent(profile, event) {
+  const prev = Array.isArray(profile.progressionEvents) ? profile.progressionEvents : [];
+  return [...prev, event].slice(-100);
+}
+
+function normalizeModuleResult(result = {}) {
+  return {
+    moduleType: result.lessonType || result.type || "Unknown",
+    attemptedAt: result.attemptedAt || new Date().toISOString(),
+    points: Number(result.points || 0),
+    correct: Number(result.correct || 0),
+    total: Number(result.total || 0),
+    wordResults: Array.isArray(result.wordResults)
+      ? result.wordResults.map((w) => ({
+          id: w.id,
+          cefr: w.cefr || "A1",
+          seen: Number(w.seen || 1),
+          correct: Number(w.correct || 0),
+          latencyMs: typeof w.latencyMs === "number" ? w.latencyMs : undefined,
+          hintUsed: !!w.hintUsed,
+        }))
+      : [],
+  };
+}
+
 export const LESSON_POOL = [
   "Flashcards",
   "Word Match",
@@ -94,10 +119,11 @@ export function defaultLearningState() {
     level: "Newcomer",
     levelTitle: "Newcomer",
     overallLevel: 1,   // 1 to 40
-    globalDifficulty: 1, 
+    globalDifficulty: 1,
     recentAccuracies: [],
-    mastery: {}, 
+    mastery: {},
     wordExposure: {}, // Tracking per-word mastery
+    progressionEvents: [], // rolling ledger for debugging and analytics
     recommendedLessons: ["Flashcards", "Word Match", "Fill in the Blank"],
     lastLessonType: null,
     updatedAt: new Date().toISOString(),
@@ -174,9 +200,10 @@ export function getAdaptiveDifficulty(profile = {}, lessonType) {
 
 export function updateLearningProfile(profile = {}, result = {}) {
   const p = profile.schemaVersion === 3 ? { ...profile } : migrateUser({ profile }).profile;
-  
-  const lessonType = result.lessonType || result.type || "Unknown";
-  const accuracy = result.total > 0 ? (result.correct || 0) / result.total : 0;
+  const normalized = normalizeModuleResult(result);
+
+  const lessonType = normalized.moduleType;
+  const accuracy = normalized.total > 0 ? normalized.correct / normalized.total : 0;
   const accPct = Math.round(accuracy * 100);
 
   // Update Mastery
@@ -184,8 +211,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const nextScore = clamp(Math.round(prior.score * 0.75 + accPct * 0.25), 0, 100);
 
   // Update per-word exposure and compute CEFR progress from mastered words.
-  if (Array.isArray(result.wordResults) && result.wordResults.length) {
-    p.wordExposure = applyWordResults(p, result.wordResults);
+  if (Array.isArray(normalized.wordResults) && normalized.wordResults.length) {
+    p.wordExposure = applyWordResults(p, normalized.wordResults);
   } else {
     p.wordExposure = p.wordExposure || {};
   }
@@ -217,7 +244,7 @@ export function updateLearningProfile(profile = {}, result = {}) {
   else if (recentAvg <= 55) globalDifficulty -= 1;
   p.globalDifficulty = clamp(Math.round(globalDifficulty), 1, 5);
 
-  p.xp = (p.xp || 0) + Math.max(5, Math.round((result.points || 0) * (1 + (p.globalDifficulty - 1) * 0.12)));
+  p.xp = (p.xp || 0) + Math.max(5, Math.round((normalized.points || 0) * (1 + (p.globalDifficulty - 1) * 0.12)));
   p.recentAccuracies = recent;
   p.mastery = {
     ...(p.mastery || {}),
@@ -229,6 +256,19 @@ export function updateLearningProfile(profile = {}, result = {}) {
   };
   p.lastLessonType = lessonType;
   p.updatedAt = new Date().toISOString();
+
+  p.progressionEvents = appendProgressionEvent(p, {
+    moduleType: lessonType,
+    attemptedAt: normalized.attemptedAt,
+    points: normalized.points,
+    correct: normalized.correct,
+    total: normalized.total,
+    wordCount: normalized.wordResults.length,
+    cefrBand: p.cefrBand,
+    bandProgress: p.bandProgress,
+    levelTitle: p.levelTitle || p.level,
+    overallLevel: p.overallLevel,
+  });
 
   p.recommendedLessons = buildRecommendedLessons(p);
   return p;
