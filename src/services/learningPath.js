@@ -83,16 +83,28 @@ export function getPathNode(profile = {}) {
  * - deterministic structure
  * - can later adapt based on weak areas / fatigue / streak
  */
+function randomizeStepSequence(base = []) {
+  if (!Array.isArray(base) || !base.length) return [];
+  const first = base[0]; // keep intro first
+  const rest = [...base.slice(1)];
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rest[i], rest[j]] = [rest[j], rest[i]];
+  }
+  return [first, ...rest];
+}
+
 export function buildDailyPlan(profile = {}, now = new Date()) {
   const node = getPathNode(profile);
   const date = todayKey(now);
+  const sequence = randomizeStepSequence(node.moduleSequence);
 
   return {
     date,
     band: node.band,
     sublevel: node.sublevel,
     focus: node.focus,
-    steps: node.moduleSequence.map((moduleType, index) => ({
+    steps: sequence.map((moduleType, index) => ({
       id: `${date}:${node.band}:${node.sublevel}:${index}`,
       moduleType,
       index,
@@ -140,10 +152,11 @@ export function getNextPathStep(profile = {}, now = new Date()) {
 export function completePathStep(profile = {}, moduleType, now = new Date()) {
   const p = ensurePathState(profile, now);
 
-  const idx = p.pathState.steps.findIndex((s) => s.moduleType === moduleType && s.status !== "done");
-  if (idx >= 0) {
-    p.pathState.steps[idx] = {
-      ...p.pathState.steps[idx],
+  // strict sequencing: complete the next pending step only
+  const nextPendingIdx = p.pathState.steps.findIndex((s) => s.status !== "done");
+  if (nextPendingIdx >= 0 && p.pathState.steps[nextPendingIdx].moduleType === moduleType) {
+    p.pathState.steps[nextPendingIdx] = {
+      ...p.pathState.steps[nextPendingIdx],
       status: "done",
       completedAt: new Date(now).toISOString(),
     };
@@ -161,6 +174,12 @@ export function completePathStep(profile = {}, moduleType, now = new Date()) {
       },
       ...(p.pathHistory || []),
     ].slice(0, 90);
+
+    // auto-roll next daily plan for continuity
+    p.pathState = {
+      ...buildDailyPlan(p, new Date(now.getTime() + 1000)),
+      lastUpdatedAt: new Date(now).toISOString(),
+    };
   }
 
   return p;
