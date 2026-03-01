@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
+import { LEVEL_TITLES } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
 import { getDailyQuestState, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
@@ -1923,6 +1924,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
 }
 
 function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode }) {
+  const [showProgressMap, setShowProgressMap] = useState(false);
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -1945,6 +1947,31 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
     : user.streak >= 3
       ? `Nice streak, ${user.displayName}. Let’s keep it alive today.`
       : "Small steps daily. Let’s get your streak rolling!";
+
+  const progressBands = ['A1', 'A2'];
+  const currentBand = user.profile?.cefrBand || 'A1';
+  const currentBandIdx = progressBands.indexOf(currentBand);
+  const currentSublevel = Number(user.profile?.sublevel || 0);
+  const currentSublevelProgress = Math.max(0, Math.min(100, Number(user.profile?.sublevelProgress || 0)));
+
+  const progressionMap = progressBands.flatMap((band, bandIdx) => {
+    const titles = LEVEL_TITLES[band] || [];
+    return titles.map((title, subIdx) => {
+      let pct = 0;
+      if (bandIdx < currentBandIdx) pct = 100;
+      else if (bandIdx === currentBandIdx) {
+        if (subIdx < currentSublevel) pct = 100;
+        else if (subIdx === currentSublevel) pct = currentSublevelProgress;
+      }
+      return {
+        band,
+        title,
+        levelNumber: bandIdx * 10 + subIdx + 1,
+        percent: pct,
+        isCurrent: bandIdx === currentBandIdx && subIdx === currentSublevel,
+      };
+    });
+  });
   return (
     <div style={{ maxWidth:880, margin:"0 auto", padding:"0 20px 60px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"28px 0 24px" }}>
@@ -1953,12 +1980,18 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>
             {user.displayName} · {user.profile?.levelTitle || user.profile?.level || "Newcomer"}
           </h1>
-          <div style={{ color:"#9ca3af", fontSize:12, marginTop:4 }}>
-            Level {user.profile?.overallLevel || 1} • {user.profile?.sublevelProgress || 0}% to {user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
-          </div>
-          <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
-            <div style={{ width:`${Math.max(0, Math.min(100, user.profile?.sublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
-          </div>
+          <button
+            onClick={() => setShowProgressMap(true)}
+            style={{ marginTop:4, background:'transparent', padding:0, textAlign:'left' }}
+            title="View your progress map"
+          >
+            <div style={{ color:"#9ca3af", fontSize:12 }}>
+              Level {user.profile?.overallLevel || 1} • {user.profile?.sublevelProgress || 0}% to {user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+            </div>
+            <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
+              <div style={{ width:`${Math.max(0, Math.min(100, user.profile?.sublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
+            </div>
+          </button>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
@@ -2082,6 +2115,58 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           </div>
         </div>
       ))}
+
+      {showProgressMap && (
+        <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.72)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}>
+          <div style={{ width:'min(980px, 96vw)', maxHeight:'86vh', overflowY:'auto', background:'#120a22', border:'1px solid rgba(255,255,255,0.12)', borderRadius:18, padding:20 }}>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:14 }}>
+              <div>
+                <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>YOUR JOURNEY</div>
+                <h3 style={{ color:'#fff', margin:'4px 0 0', fontFamily:"'Playfair Display', serif" }}>
+                  {user.displayName} · {user.profile?.levelTitle || 'Newcomer'}
+                </h3>
+              </div>
+              <button onClick={() => setShowProgressMap(false)} style={{ padding:'8px 12px', borderRadius:10, background:'rgba(255,255,255,0.08)', color:'#e5e7eb', fontWeight:700 }}>Close</button>
+            </div>
+
+            <div style={{ color:'#9ca3af', fontSize:12, marginBottom:14 }}>
+              Progress is mastery-based. As you answer harder words correctly, higher levels fill up.
+            </div>
+
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(180px, 1fr))', gap:12 }}>
+              {progressionMap.map((node) => {
+                const isComplete = node.percent >= 100;
+                const isCurrent = node.isCurrent;
+                return (
+                  <button
+                    key={`${node.band}-${node.levelNumber}`}
+                    onClick={() => onStartLesson('Flashcards')}
+                    style={{
+                      textAlign:'left',
+                      padding:14,
+                      borderRadius:14,
+                      background: isCurrent ? 'rgba(124,58,237,0.25)' : 'rgba(255,255,255,0.04)',
+                      border: `1px solid ${isCurrent ? 'rgba(168,85,247,0.8)' : 'rgba(255,255,255,0.09)'}`,
+                      opacity: node.percent > 0 ? 1 : 0.72,
+                      cursor:'pointer'
+                    }}
+                    title={`Level ${node.levelNumber}: ${node.title}`}
+                  >
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8 }}>
+                      <div style={{ color:'#fff', fontSize:13, fontWeight:700 }}>Level {node.levelNumber}</div>
+                      <div style={{ color:isComplete ? '#4ade80' : '#a78bfa', fontSize:11, fontWeight:700 }}>{node.percent}%</div>
+                    </div>
+                    <div style={{ color:'#d1d5db', fontSize:12, marginBottom:10 }}>{node.title}</div>
+                    <div style={{ height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
+                      <div style={{ width:`${Math.max(0, Math.min(100, node.percent))}%`, height:'100%', background:isComplete ? 'linear-gradient(90deg,#16a34a,#22c55e)' : 'linear-gradient(90deg,#7c3aed,#a855f7)' }} />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
