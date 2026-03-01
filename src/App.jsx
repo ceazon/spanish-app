@@ -2074,7 +2074,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             </div>
 
             <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:10 }}>
-              <PrimaryBtn onClick={() => onStartLesson(nextSuggested)} style={{ padding:"8px 12px" }}>
+              <PrimaryBtn onClick={() => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id })} style={{ padding:"8px 12px" }}>
                 Continue Path: {nextSuggested} →
               </PrimaryBtn>
               <button onClick={() => onStartLesson("Placement Test")} style={{ padding:"8px 12px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#9ca3af", fontSize:12 }}>Retake Test</button>
@@ -2226,7 +2226,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 // LESSON SCREEN (router)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user }) {
+function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user, launchOptions }) {
   const SELECTOR_MODULES = new Set(["Scenario Builder", "Image Labeling", "Picture Description"]);
   const needsCategory = !NO_CATEGORY.has(type) || SELECTOR_MODULES.has(type);
   const [category, setCategory] = useState(needsCategory ? null : type);
@@ -2258,7 +2258,10 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   const vocabTarget = Math.min(12, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
+  const forcedWords = Array.isArray(launchOptions?.challengeWords) ? launchOptions.challengeWords : [];
+  const forcedFillItems = Array.isArray(launchOptions?.challengeFillItems) ? launchOptions.challengeFillItems : [];
   const wordsForLesson = useMemo(() => {
+    if (category === "General" && forcedWords.length) return forcedWords;
     if (category === "General") {
       return selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) });
     }
@@ -2268,8 +2271,9 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       userKey,
       category: category || type,
     });
-  }, [words, difficulty, vocabTarget, userKey, category, type, user]);
+  }, [words, difficulty, vocabTarget, userKey, category, type, user, forcedWords]);
   const fillForLesson = useMemo(() => {
+    if (category === "General" && forcedFillItems.length) return forcedFillItems;
     if (category === "General") {
       return getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) });
     }
@@ -2279,7 +2283,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       userKey,
       category: category || "General",
     });
-  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user]);
+  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user, forcedFillItems]);
   const flashcardsForLesson = useMemo(() => {
     const fixed = (wordsForLesson || []).map((w) => {
       const enKey = normalizeSimple(w?.en || "");
@@ -2342,7 +2346,10 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     setCategory(cat);
     setWords(vocabMap[cat] || []);
   }
-  function done(pts,correct,total,meta) { onComplete(pts,correct,total,category||type,meta); }
+  function done(pts,correct,total,meta) {
+    const pathMeta = launchOptions?.path ? { pathStep: true, pathStepId: launchOptions?.pathStepId || null } : {};
+    onComplete(pts,correct,total,category||type,{ ...(meta || {}), ...pathMeta });
+  }
 
   useEffect(() => {
     if (!needsCategory || category || !categoryOptions.length) return;
@@ -2930,7 +2937,7 @@ async function trackAnalyticsEvent(payload) {
 
 export default function App() {
   const [user, setUser] = useState(null); const [screen, setScreen] = useState("auth");
-  const [lessonType, setLessonType] = useState(null); const [lastResult, setLastResult] = useState(null); const [toast, setToast] = useState(null);
+  const [lessonType, setLessonType] = useState(null); const [lessonLaunchOptions, setLessonLaunchOptions] = useState(null); const [lastResult, setLastResult] = useState(null); const [toast, setToast] = useState(null);
   const [contentPack, setContentPack] = useState(starterPack);
   const [aiStatus, setAiStatus] = useState({ anyAvailable: true, providers: {}, checkedAt: null });
   const [storyMode, setStoryMode] = useState(null);
@@ -2992,6 +2999,26 @@ export default function App() {
     };
   }, []);
   function showToast(msg,type="success") { setToast({msg,type}); setTimeout(()=>setToast(null),3000); }
+
+  function startLesson(type, opts = {}) {
+    const pathMode = !!opts.path;
+    const challengeWords = pathMode
+      ? selectWordsForModule({ profile: user?.profile || {}, moduleType: type, count: 10 })
+      : null;
+    const challengeFillItems = pathMode && type === "Fill in the Blank"
+      ? getFillBlankItemsForModule({ profile: user?.profile || {}, count: 8 })
+      : null;
+
+    setLessonLaunchOptions({
+      path: pathMode,
+      pathStepId: opts.pathStepId || null,
+      challengeWords,
+      challengeFillItems,
+    });
+    setLessonType(type);
+    setScreen("lesson");
+  }
+
   function handleLogin(u) {
     const today=new Date().toDateString(); const last=u.lastLogin?new Date(u.lastLogin).toDateString():null;
     const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
@@ -3033,6 +3060,7 @@ export default function App() {
       endAt: now + minutes * 60 * 1000,
       results: [],
     });
+    setLessonLaunchOptions(null);
     setLessonType(first);
     setScreen("lesson");
     showToast(`Story Mode started: ${built?.episodeTitle || "Mission"}`);
@@ -3059,8 +3087,10 @@ export default function App() {
       };
     }
 
-    // Update guided learning path step completion
-    profileUpdate = completePathStep(profileUpdate, lessonType);
+    // Update guided learning path step completion only for guided launches
+    if (meta?.pathStep) {
+      profileUpdate = completePathStep(profileUpdate, lessonType);
+    }
 
     const previousOverallLevel = user?.profile?.overallLevel || 1;
     const updated={...user,points:user.points+pts,history:[...user.history,entry],profile:profileUpdate};
@@ -3107,6 +3137,7 @@ export default function App() {
 
       const nextType = storyMode.plan[nextIndex];
       setStoryMode({ ...storyMode, index: nextIndex, results: nextResults });
+      setLessonLaunchOptions(null);
       setLessonType(nextType);
       showToast(`${storyMode.episodeTitle} • Challenge ${nextIndex + 1}/${storyMode.plan.length}: ${nextType}`);
       setScreen("lesson");
@@ -3123,11 +3154,11 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={t=>{setLessonType(t);setScreen("lesson");}} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
-      {screen==="lesson"&&<LessonScreen type={lessonType} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
