@@ -153,6 +153,23 @@ export function selectWordsForModule({ profile, moduleType = 'Flashcards', count
   return shuffle(picked).slice(0, safeCount);
 }
 
+export function getFillBlankItemsForModule({ profile, count = 8 } = {}) {
+  const words = selectWordsForModule({ profile, moduleType: 'Fill in the Blank', count });
+  const templates = [
+    (w) => ({ template: `Yo digo ___ cada día.`, hint: w.en, answer: w.es }),
+    (w) => ({ template: `La palabra correcta es ___ .`, hint: w.en, answer: w.es }),
+    (w) => ({ template: `En español: ___ .`, hint: w.en, answer: w.es }),
+  ];
+  return words.map((w, i) => {
+    const t = templates[i % templates.length](w);
+    return {
+      ...t,
+      wordId: w.id || w.es,
+      cefr: w.cefr || 'A1',
+    };
+  });
+}
+
 // Backward-compatible wrapper used by existing module code
 export function getWordsForFlashcards(profile, count = 10) {
   return selectWordsForModule({ profile, moduleType: 'Flashcards', count });

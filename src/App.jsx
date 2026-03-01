@@ -6,7 +6,7 @@ import { LEVEL_TITLES } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
 import { getDailyQuestState, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
-import { getWordsForFlashcards } from "./services/contentResolver";
+import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from "./lessons/vocab";
 
@@ -2208,8 +2208,8 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const vocabTarget = Math.min(12, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
   const wordsForLesson = useMemo(() => {
-    if (type === "Flashcards" && category === "General") {
-      return getWordsForFlashcards(user?.profile, Math.max(4, vocabTarget));
+    if (category === "General") {
+      return selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) });
     }
     return selectAdaptiveFlashcards(words, {
       difficulty,
@@ -2218,14 +2218,17 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       category: category || type,
     });
   }, [words, difficulty, vocabTarget, userKey, category, type, user]);
-  const fillForLesson = useMemo(() => (
-    selectAdaptiveFillBlanks(fillBlankSentences, {
+  const fillForLesson = useMemo(() => {
+    if (category === "General") {
+      return getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) });
+    }
+    return selectAdaptiveFillBlanks(fillBlankSentences, {
       difficulty,
       target: Math.max(5, sentenceTarget),
       userKey,
       category: category || "General",
-    })
-  ), [fillBlankSentences, difficulty, sentenceTarget, userKey, category]);
+    });
+  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user]);
   const flashcardsForLesson = useMemo(() => {
     const fixed = (wordsForLesson || []).map((w) => {
       const enKey = normalizeSimple(w?.en || "");
@@ -2237,12 +2240,12 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [wordsForLesson, category, vocabTarget]);
 
   const wordsForMatch = useMemo(() => {
-    if (type === "Word Match" && category === "General") {
-      return getWordsForFlashcards(user?.profile, Math.max(4, vocabTarget));
+    if (category === "General") {
+      return selectWordsForModule({ profile: user?.profile, moduleType: "Word Match", count: Math.max(4, vocabTarget) });
     }
     const fallback = (APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget));
     return (wordsForLesson && wordsForLesson.length) ? wordsForLesson : fallback;
-  }, [wordsForLesson, category, vocabTarget, type, user]);
+  }, [wordsForLesson, category, vocabTarget, user]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const transcriptionForLesson = useMemo(() => (
@@ -2288,7 +2291,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     setCategory(cat);
     setWords(vocabMap[cat] || []);
   }
-  function done(pts,correct,total) { onComplete(pts,correct,total,category||type); }
+  function done(pts,correct,total,meta) { onComplete(pts,correct,total,category||type,meta); }
 
   useEffect(() => {
     if (!needsCategory || category || !categoryOptions.length) return;
@@ -2328,9 +2331,9 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     );
   }
   const lessonRegistry = {
-    "Flashcards": () => <FlashcardLesson words={flashcardsForLesson} onComplete={(pts,correct,total) => { writeRecentFlashcards(userKey, category || type, flashcardsForLesson); done(pts,correct,total); }} />,
+    "Flashcards": () => <FlashcardLesson words={flashcardsForLesson} onComplete={(pts,correct,total,meta) => { writeRecentFlashcards(userKey, category || type, flashcardsForLesson); done(pts,correct,total,meta); }} />,
     "Word Match": () => <WordMatchLesson words={wordsForMatch} difficulty={difficulty} onComplete={done} />,
-    "Fill in the Blank": () => <FillBlankLesson difficulty={difficulty} onComplete={(pts,correct,total) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total); }} sentences={fillForLesson} />,
+    "Fill in the Blank": () => <FillBlankLesson difficulty={difficulty} onComplete={(pts,correct,total,meta) => { writeRecentFillBlanks(userKey, category || "General", fillForLesson); done(pts,correct,total,meta); }} sentences={fillForLesson} />,
     "Learn Verbs": () => <VerbLesson onComplete={done} verbs={verbsForLesson} />,
     "Speed Round": () => <SpeedRoundLesson onComplete={done} verbs={verbsForLesson} />,
     "Sentence Scramble": () => <SentenceScrambleLesson onComplete={(pts,correct,total) => { writeRecentScrambles(userKey, "Sentence Scramble", scrambleForLesson); done(pts,correct,total); }} scrambleSentences={scrambleForLesson} />,

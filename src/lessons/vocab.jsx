@@ -242,15 +242,24 @@ export function FillBlankLesson({ onComplete, sentences = [], difficulty = 1 }) 
   const target = Math.max(5, Math.min(10, 4 + Number(difficulty || 1)));
   const [items] = useState(() => shuffle(sentences).slice(0, Math.min(target, sentences.length)));
   const [idx, setIdx] = useState(0); const [input, setInput] = useState(""); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
+  const [results, setResults] = useState([]);
   function check() {
     if (!items.length || !input.trim()) return;
     const ok = input.trim().toLowerCase() === items[idx].answer.toLowerCase();
     setFeedback(ok?"correct":"incorrect");
     const ns = ok?score+1:score; if(ok) setScore(ns);
+    const item = items[idx];
+    const nextResults = [...results, {
+      id: item.wordId || item.answer,
+      cefr: item.cefr || 'A1',
+      seen: 1,
+      correct: ok ? 1 : 0,
+    }];
+    setResults(nextResults);
     setTimeout(() => {
       if(idx+1>=items.length) {
         const perCorrect = 14 + Math.round((Number(difficulty || 1) - 1) * 1.5);
-        onComplete(ns * perCorrect, ns, items.length);
+        onComplete(ns * perCorrect, ns, items.length, { wordResults: nextResults });
       } else { setFeedback(null); setInput(""); setIdx(i=>i+1); }
     }, 1200);
   }
