@@ -1948,6 +1948,20 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
       ? `Nice streak, ${user.displayName}. Let’s keep it alive today.`
       : "Small steps daily. Let’s get your streak rolling!";
 
+  const learningProgressPct = Math.max(0, Math.min(100, Math.round((user.profile?.learningProgress ?? user.profile?.bandProgress ?? 0) * 100)));
+  const [learningPulse, setLearningPulse] = useState(false);
+  const prevLearningProgressRef = useRef(learningProgressPct);
+
+  useEffect(() => {
+    if (learningProgressPct > prevLearningProgressRef.current) {
+      setLearningPulse(true);
+      const t = setTimeout(() => setLearningPulse(false), 650);
+      prevLearningProgressRef.current = learningProgressPct;
+      return () => clearTimeout(t);
+    }
+    prevLearningProgressRef.current = learningProgressPct;
+  }, [learningProgressPct]);
+
   const progressBands = ['A1', 'A2'];
   const currentBand = user.profile?.cefrBand || 'A1';
   const currentBandIdx = progressBands.indexOf(currentBand);
@@ -1993,8 +2007,9 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             </div>
             <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress</div>
             <div style={{ marginTop:6, width:320, maxWidth:'100%', height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
-              <div style={{ width:`${Math.max(0, Math.min(100, Math.round((user.profile?.learningProgress ?? user.profile?.bandProgress ?? 0) * 100)))}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease' }} />
+              <div style={{ width:`${learningProgressPct}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease, filter 0.25s ease', filter: learningPulse ? 'brightness(1.35)' : 'brightness(1)' }} />
             </div>
+            {learningPulse && <div style={{ marginTop:6, color:'#67e8f9', fontSize:11, fontWeight:700 }}>✨ Nice progress!</div>}
           </button>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
