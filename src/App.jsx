@@ -7,6 +7,7 @@ import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
 import { getDailyQuestState, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
 import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
+import { ensurePathState, getNextPathStep, completePathStep } from "./services/learningPath";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from "./lessons/vocab";
 
@@ -1933,7 +1934,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   const recommended = user.profile?.recommendedLessons || [];
   const level = user.profile?.level || null;
   const globalDifficulty = user.profile?.globalDifficulty || 1;
-  const nextSuggested = recommended[0] || "Flashcards";
+  const pathView = getNextPathStep(user.profile || {});
+  const pathPlan = pathView.plan;
+  const nextPathStep = pathView.nextStep;
+  const nextSuggested = nextPathStep?.moduleType || recommended[0] || "Flashcards";
   const masteryEntries = Object.entries(user.profile?.mastery || {});
   const weakest = [...masteryEntries].sort((a,b)=>(a[1]?.score||50)-(b[1]?.score||50)).slice(0,3);
   const strongest = [...masteryEntries].sort((a,b)=>(b[1]?.score||50)-(a[1]?.score||50)).slice(0,3);
@@ -2054,7 +2058,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
-        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Adaptive Path</div>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Guided Learning Path</div>
         {!level ? (
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
             <div style={{ color:"#9ca3af", fontSize:13 }}>Take a placement test to personalize your study path.</div>
@@ -2062,13 +2066,35 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           </div>
         ) : (
           <div>
-            <div style={{ color:"#a78bfa", fontSize:13, marginBottom:8 }}>Current level: <strong>{level}</strong> • Difficulty tier: <strong>{globalDifficulty}/5</strong></div>
+            <div style={{ color:"#a78bfa", fontSize:13, marginBottom:8 }}>
+              Current level: <strong>{level}</strong> • Difficulty tier: <strong>{globalDifficulty}/5</strong>
+            </div>
+            <div style={{ color:"#9ca3af", fontSize:12, marginBottom:10 }}>
+              Today’s focus: <strong style={{ color:'#e5e7eb' }}>{pathPlan?.focus || 'Core practice'}</strong>
+            </div>
+
             <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:10 }}>
-              <PrimaryBtn onClick={() => onStartLesson(nextSuggested)} style={{ padding:"8px 12px" }}>Continue: {nextSuggested} →</PrimaryBtn>
-              {recommended.map(r => <button key={r} onClick={() => onStartLesson(r)} style={{ padding:"8px 12px", borderRadius:10, background:"rgba(124,58,237,0.18)", border:"1px solid rgba(124,58,237,0.4)", color:"#d8b4fe", fontSize:12, fontWeight:700 }}>{r}</button>)}
+              <PrimaryBtn onClick={() => onStartLesson(nextSuggested)} style={{ padding:"8px 12px" }}>
+                Continue Path: {nextSuggested} →
+              </PrimaryBtn>
               <button onClick={() => onStartLesson("Placement Test")} style={{ padding:"8px 12px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#9ca3af", fontSize:12 }}>Retake Test</button>
             </div>
-            <div style={{ color:"#6b7280", fontSize:12 }}>Recommendations refresh as your mastery changes and challenges randomize each run.</div>
+
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(3,minmax(0,1fr))', gap:8 }}>
+              {(pathPlan?.steps || []).map((s) => (
+                <div key={s.id} style={{
+                  padding:'8px 10px',
+                  borderRadius:10,
+                  border:'1px solid rgba(255,255,255,0.10)',
+                  background:s.status === 'done' ? 'rgba(34,197,94,0.12)' : 'rgba(255,255,255,0.04)',
+                  color:s.status === 'done' ? '#86efac' : '#d1d5db',
+                  fontSize:12,
+                  fontWeight:700
+                }}>
+                  {s.status === 'done' ? '✓' : '○'} {s.moduleType}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -2972,9 +2998,10 @@ export default function App() {
     let streak=u.streak;
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
     const updated={...u,lastLogin:new Date().toISOString(),streak};
+    const updatedWithPath = { ...updated, profile: ensurePathState(updated.profile || {}) };
     const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
     const isNewRegistration = !u.lastLogin;
-    setUser(updated);saveUser(updated);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
+    setUser(updatedWithPath);saveUser(updatedWithPath);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
     trackAnalyticsEvent({
       eventType: isNewRegistration ? "register" : "login",
       username: updated.username,
@@ -3031,6 +3058,9 @@ export default function App() {
         recommendedLessons: meta.recommendedLessons?.length ? meta.recommendedLessons : profileUpdate.recommendedLessons,
       };
     }
+
+    // Update guided learning path step completion
+    profileUpdate = completePathStep(profileUpdate, lessonType);
 
     const previousOverallLevel = user?.profile?.overallLevel || 1;
     const updated={...user,points:user.points+pts,history:[...user.history,entry],profile:profileUpdate};
