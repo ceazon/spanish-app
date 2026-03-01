@@ -166,9 +166,21 @@ export async function getApprovedSet() {
   return Array.isArray(out) ? out.map(String) : [];
 }
 
+function extractLineValue(content = "", labels = []) {
+  const lines = String(content).split("\n");
+  for (const line of lines) {
+    for (const label of labels) {
+      if (line.toLowerCase().includes(label.toLowerCase())) {
+        return String(line).replace(/\*\*/g, "").replace(/^[^:]+:\s*/, "").trim();
+      }
+    }
+  }
+  return "";
+}
+
 function isLikelySyntheticDraft(draft = {}) {
   const content = String(draft?.content || draft?.excerpt || "").toLowerCase();
-  const student = String(draft?.meta?.studentName || "").toLowerCase();
+  const student = String(draft?.meta?.studentName || extractLineValue(content, ["student:"]) || "").toLowerCase();
   const slug = String(draft?.slug || "").toLowerCase();
 
   const syntheticSignals = [
@@ -177,11 +189,45 @@ function isLikelySyntheticDraft(draft = {}) {
     "debug note",
     "environment:",
     "status: ok",
+    "opened site successfully",
+    "auto-selected category",
   ];
 
   if (student.startsWith("studentbot_")) return true;
   if (slug.includes("studentbot") || slug.includes("synthetic")) return true;
-  return syntheticSignals.some((s) => content.includes(s));
+  if (syntheticSignals.some((s) => content.includes(s))) return true;
+
+  // Humanity lint: reject obvious low-variance boilerplate spam patterns
+  const boilerplateSignals = [
+    "i spent time in",
+    "what felt good",
+    "what felt tricky",
+    "my goal for tomorrow",
+  ];
+  const boilerplateHits = boilerplateSignals.filter((s) => content.includes(s)).length;
+  if (boilerplateHits >= 4 && content.length < 700) return true;
+
+  return false;
+}
+
+function dedupeByStudentPerDay(posts = []) {
+  const seen = new Set();
+  const out = [];
+
+  for (const p of posts) {
+    const content = String(p?.content || p?.excerpt || "");
+    const student = String(p?.meta?.studentName || extractLineValue(content, ["student:"]) || "Student").toLowerCase();
+    const dateFromMeta = p?.meta?.startedAt ? String(p.meta.startedAt).slice(0, 10) : "";
+    const dateFromSlug = String(p?.slug || "").match(/\d{4}-\d{2}-\d{2}/)?.[0] || "";
+    const day = dateFromMeta || dateFromSlug || "unknown-day";
+    const key = `${student}|${day}`;
+
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(p);
+  }
+
+  return out;
 }
 
 export async function listApprovedPosts(limit = 20) {
@@ -190,8 +236,10 @@ export async function listApprovedPosts(limit = 20) {
   const approved = await getApprovedSet();
   const approvedSet = new Set(approved);
 
-  return drafts
+  const cleaned = drafts
     .filter((d) => approvedSet.has(d.slug))
     .filter((d) => !isLikelySyntheticDraft(d))
     .sort((a, b) => String(b?.name || "").localeCompare(String(a?.name || "")));
+
+  return dedupeByStudentPerDay(cleaned);
 }

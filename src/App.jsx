@@ -2761,6 +2761,22 @@ function LearningBlogPage() {
     };
   }
 
+  function avatarStyleFromName(name = "Student") {
+    const seed = [...String(name)].reduce((a, c) => a + c.charCodeAt(0), 0);
+    const palettes = [
+      ['#7c3aed', '#f59e0b'],
+      ['#06b6d4', '#22c55e'],
+      ['#ec4899', '#8b5cf6'],
+      ['#f97316', '#ef4444'],
+      ['#14b8a6', '#3b82f6'],
+    ];
+    const [a, b] = palettes[seed % palettes.length];
+    return {
+      background: `linear-gradient(135deg, ${a}, ${b})`,
+      border: `1px solid ${a}55`,
+    };
+  }
+
   function renderPostBody(content) {
     const lines = String(content || "").split("\n");
     const out = [];
@@ -2837,10 +2853,11 @@ function LearningBlogPage() {
                 .replace(/\*\*/g, "")
                 .slice(0, 200) + "...";
 
+              const avatarStyle = avatarStyleFromName(student);
               return (
                 <article key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:20, padding:"20px", position:"relative", transition:"transform 0.2s" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
-                    <div style={{ width:40, height:40, borderRadius:"50%", background:"linear-gradient(135deg, #7c3aed, #f59e0b)", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:800, color:"#fff", fontSize:16 }}>
+                    <div style={{ width:40, height:40, borderRadius:"50%", ...avatarStyle, display:"flex", alignItems:"center", justifyContent:"center", fontWeight:800, color:"#fff", fontSize:16 }}>
                       {student.charAt(0)}
                     </div>
                     <div>
