@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "generatedAt": "2026-02-28T21:22:00Z",
+  "counts": {
+    "A1": 10,
+    "A2": 10,
+    "B1": 0,
+    "B2": 0,
+    "C1": 0,
+    "C2": 0
+  },
+  "total": 20,
+  "vocab": [
+    { "id": "hola", "es": "hola", "en": "hello", "cefr": "A1", "pos": "interjection", "topic": "Greetings" },
+    { "id": "gracias", "es": "gracias", "en": "thank you", "cefr": "A1", "pos": "interjection", "topic": "Greetings" },
+    { "id": "por-favor", "es": "por favor", "en": "please", "cefr": "A1", "pos": "phrase", "topic": "Greetings" },
+    { "id": "si", "es": "sí", "en": "yes", "cefr": "A1", "pos": "adverb", "topic": "General" },
+    { "id": "no", "es": "no", "en": "no", "cefr": "A1", "pos": "adverb", "topic": "General" },
+    { "id": "uno", "es": "uno", "en": "one", "cefr": "A1", "pos": "number", "topic": "Numbers" },
+    { "id": "dos", "es": "dos", "en": "two", "cefr": "A1", "pos": "number", "topic": "Numbers" },
+    { "id": "tres", "es": "tres", "en": "three", "cefr": "A1", "pos": "number", "topic": "Numbers" },
+    { "id": "rojo", "es": "rojo", "en": "red", "cefr": "A1", "pos": "adjective", "topic": "Colors" },
+    { "id": "azul", "es": "azul", "en": "blue", "cefr": "A1", "pos": "adjective", "topic": "Colors" },
+    { "id": "viaje", "es": "viaje", "en": "trip", "cefr": "A2", "pos": "noun", "topic": "Travel" },
+    { "id": "maleta", "es": "maleta", "en": "suitcase", "cefr": "A2", "pos": "noun", "topic": "Travel" },
+    { "id": "pasaporte", "es": "pasaporte", "en": "passport", "cefr": "A2", "pos": "noun", "topic": "Travel" },
+    { "id": "billete", "es": "billete", "en": "ticket", "cefr": "A2", "pos": "noun", "topic": "Travel" },
+    { "id": "avion", "es": "avión", "en": "airplane", "cefr": "A2", "pos": "noun", "topic": "Travel" },
+    { "id": "comida", "es": "comida", "en": "food", "cefr": "A2", "pos": "noun", "topic": "Food" },
+    { "id": "bebida", "es": "bebida", "en": "drink", "cefr": "A2", "pos": "noun", "topic": "Food" },
+    { "id": "cena", "es": "cena", "en": "dinner", "cefr": "A2", "pos": "noun", "topic": "Food" },
+    { "id": "desayuno", "es": "desayuno", "en": "breakfast", "cefr": "A2", "pos": "noun", "topic": "Food" },
+    { "id": "almuerzo", "es": "almuerzo", "en": "lunch", "cefr": "A2", "pos": "noun", "topic": "Food" }
+  ]
+}
