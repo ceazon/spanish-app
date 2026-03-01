@@ -2141,9 +2141,12 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [wordsForLesson, category, vocabTarget]);
 
   const wordsForMatch = useMemo(() => {
+    if (type === "Word Match" && category === "General") {
+      return getWordsForFlashcards(user?.profile, Math.max(4, vocabTarget));
+    }
     const fallback = (APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget));
     return (wordsForLesson && wordsForLesson.length) ? wordsForLesson : fallback;
-  }, [wordsForLesson, category, vocabTarget]);
+  }, [wordsForLesson, category, vocabTarget, type, user]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const transcriptionForLesson = useMemo(() => (
