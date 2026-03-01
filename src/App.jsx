@@ -2741,6 +2741,26 @@ function LearningBlogPage() {
     return String(line || "").replace(/\*\*/g, "").trim();
   }
 
+  function derivePostMeta(post) {
+    const content = String(post?.content || "");
+    const lines = content.split("\n");
+    const findValue = (label) => {
+      const row = lines.find((l) => l.toLowerCase().includes(label.toLowerCase()));
+      if (!row) return "";
+      return cleanMd(row.replace(/^[-*#\s]*/, "")).replace(/^[^:]+:\s*/, "").trim();
+    };
+
+    const studentFromBody = findValue("student:");
+    const scoreFromBody = Number((findValue("score:") || "").replace(/[^0-9]/g, "")) || 0;
+    const dateFromBody = findValue("date & time:") || findValue("session time:");
+
+    return {
+      student: post?.meta?.studentName || studentFromBody || "Student",
+      score: Number(post?.meta?.score) || scoreFromBody || 0,
+      when: post?.meta?.startedAt ? new Date(post.meta.startedAt).toLocaleString() : (dateFromBody || "Unknown time"),
+    };
+  }
+
   function renderPostBody(content) {
     const lines = String(content || "").split("\n");
     const out = [];
@@ -2805,9 +2825,10 @@ function LearningBlogPage() {
         ) : (
           <div style={{ display:"grid", gap:14 }}>
             {posts.map((p) => {
-              const when = p?.meta?.startedAt ? new Date(p.meta.startedAt).toLocaleString() : "Unknown time";
-              const student = p?.meta?.studentName || "Student";
-              const score = Number(p?.meta?.score) || 0;
+              const meta = derivePostMeta(p);
+              const when = meta.when;
+              const student = meta.student;
+              const score = meta.score;
               const body = p?.content || p?.excerpt || "";
               const excerpt = (p?.content || p?.excerpt || "")
                 .split("\n")

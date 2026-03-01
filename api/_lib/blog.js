@@ -166,17 +166,32 @@ export async function getApprovedSet() {
   return Array.isArray(out) ? out.map(String) : [];
 }
 
+function isLikelySyntheticDraft(draft = {}) {
+  const content = String(draft?.content || draft?.excerpt || "").toLowerCase();
+  const student = String(draft?.meta?.studentName || "").toLowerCase();
+  const slug = String(draft?.slug || "").toLowerCase();
+
+  const syntheticSignals = [
+    "synthetic student diary",
+    "studentbot_",
+    "debug note",
+    "environment:",
+    "status: ok",
+  ];
+
+  if (student.startsWith("studentbot_")) return true;
+  if (slug.includes("studentbot") || slug.includes("synthetic")) return true;
+  return syntheticSignals.some((s) => content.includes(s));
+}
+
 export async function listApprovedPosts(limit = 20) {
   const draftResult = await listDraftPosts(limit);
   const drafts = Array.isArray(draftResult) ? draftResult : draftResult.posts;
   const approved = await getApprovedSet();
   const approvedSet = new Set(approved);
 
-  return drafts.filter((d) => {
-    if (!approvedSet.has(d.slug)) return false;
-    const student = String(d?.meta?.studentName || "").toLowerCase();
-    if (["diego", "maría", "maria"].includes(student)) return true;
-    // Hide legacy synthetic bot posts from public blog feed.
-    return false;
-  });
+  return drafts
+    .filter((d) => approvedSet.has(d.slug))
+    .filter((d) => !isLikelySyntheticDraft(d))
+    .sort((a, b) => String(b?.name || "").localeCompare(String(a?.name || "")));
 }
