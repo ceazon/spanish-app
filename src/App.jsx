@@ -5,6 +5,7 @@ import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
 import { getDailyQuestState, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
+import { getWordsForFlashcards } from "./services/contentResolver";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from "./lessons/vocab";
 
@@ -2110,14 +2111,17 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   const vocabTarget = Math.min(12, 4 + difficulty * 2);
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
-  const wordsForLesson = useMemo(() => (
-    selectAdaptiveFlashcards(words, {
+  const wordsForLesson = useMemo(() => {
+    if (type === "Flashcards" && category === "General") {
+      return getWordsForFlashcards(user?.profile, Math.max(4, vocabTarget));
+    }
+    return selectAdaptiveFlashcards(words, {
       difficulty,
       target: Math.max(4, vocabTarget),
       userKey,
       category: category || type,
-    })
-  ), [words, difficulty, vocabTarget, userKey, category, type]);
+    });
+  }, [words, difficulty, vocabTarget, userKey, category, type, user]);
   const fillForLesson = useMemo(() => (
     selectAdaptiveFillBlanks(fillBlankSentences, {
       difficulty,
