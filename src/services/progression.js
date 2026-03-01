@@ -118,6 +118,9 @@ export function defaultLearningState() {
     bandProgress: 0.0, // 0.0 to 1.0 within the band
     level: "Newcomer",
     levelTitle: "Newcomer",
+    nextLevelTitle: "Beginner",
+    sublevel: 0,
+    sublevelProgress: 0,
     overallLevel: 1,   // 1 to 40
     globalDifficulty: 1,
     recentAccuracies: [],
@@ -149,9 +152,12 @@ export function migrateUser(user) {
   };
 
   // Set initial labels
-  const { title, overallLevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
+  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
   learning.level = title;
   learning.levelTitle = title;
+  learning.nextLevelTitle = nextTitle;
+  learning.sublevel = sublevel;
+  learning.sublevelProgress = pctWithinSublevel;
   learning.overallLevel = overallLevel;
 
   return { ...user, profile: learning };
@@ -231,10 +237,15 @@ export function updateLearningProfile(profile = {}, result = {}) {
   }
 
   // Update user-friendly label/title every 10% sublevel.
-  const { title, overallLevel } = getLevelLabel(p.cefrBand, p.bandProgress);
+  const prevOverallLevel = p.overallLevel || 1;
+  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(p.cefrBand, p.bandProgress);
   p.level = title;
   p.levelTitle = title;
+  p.nextLevelTitle = nextTitle;
+  p.sublevel = sublevel;
+  p.sublevelProgress = pctWithinSublevel;
   p.overallLevel = overallLevel;
+  const leveledUp = overallLevel > prevOverallLevel;
 
   const recent = [...(p.recentAccuracies || []), accPct].slice(-20);
   const recentAvg = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : 0;
@@ -267,7 +278,11 @@ export function updateLearningProfile(profile = {}, result = {}) {
     cefrBand: p.cefrBand,
     bandProgress: p.bandProgress,
     levelTitle: p.levelTitle || p.level,
+    nextLevelTitle: p.nextLevelTitle,
+    sublevel: p.sublevel,
+    sublevelProgress: p.sublevelProgress,
     overallLevel: p.overallLevel,
+    leveledUp,
   });
 
   p.recommendedLessons = buildRecommendedLessons(p);

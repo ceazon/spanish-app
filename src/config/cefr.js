@@ -18,16 +18,16 @@ export const CEFR_BANDS = {
  */
 export const LEVEL_TITLES = {
   A1: [
-    'Newcomer',       // 0-10%
-    'Beginner',       // 10-20%
-    'Student',        // 20-30%
-    'Explorer',       // 30-40%
-    'Apprentice',     // 40-50%
-    'Practitioner',   // 50-60%
-    'Speaker',        // 60-70%
-    'Conversationalist',// 70-80%
-    'Achiever',       // 80-90%
-    'Foundation Master' // 90-100%
+    'Newcomer',
+    'Beginner',
+    'Student',
+    'Explorer',
+    'Apprentice',
+    'Practitioner',
+    'Speaker',
+    'Conversationalist',
+    'Achiever',
+    'Foundation Master'
   ],
   A2: [
     'Elementary',
@@ -54,9 +54,11 @@ export const TOTAL_LEVELS_PER_BAND = 10;
 export function getLevelLabel(cefrBand, progress) {
   const bandIndex = ['A1', 'A2', 'B1', 'B2'].indexOf(cefrBand);
   const sublevel = Math.min(9, Math.floor(progress * 10));
-  
+
   const title = LEVEL_TITLES[cefrBand]?.[sublevel] || 'Learner';
+  const nextTitle = LEVEL_TITLES[cefrBand]?.[Math.min(sublevel + 1, 9)] || title;
   const overallLevel = (bandIndex * 10) + sublevel + 1;
-  
-  return { title, overallLevel };
+  const pctWithinSublevel = Math.round((progress * 10 - sublevel) * 100);
+
+  return { title, nextTitle, overallLevel, sublevel, pctWithinSublevel };
 }

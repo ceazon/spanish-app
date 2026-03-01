@@ -1954,7 +1954,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             {user.displayName} · {user.profile?.levelTitle || user.profile?.level || "Newcomer"}
           </h1>
           <div style={{ color:"#9ca3af", fontSize:12, marginTop:4 }}>
-            Level {user.profile?.overallLevel || 1} • {Math.round((user.profile?.bandProgress || 0) * 100)}% to next sub-level
+            Level {user.profile?.overallLevel || 1} • {user.profile?.sublevelProgress || 0}% to {user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+          </div>
+          <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
+            <div style={{ width:`${Math.max(0, Math.min(100, user.profile?.sublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
           </div>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
@@ -2878,8 +2881,13 @@ export default function App() {
       };
     }
 
+    const previousOverallLevel = user?.profile?.overallLevel || 1;
     const updated={...user,points:user.points+pts,history:[...user.history,entry],profile:profileUpdate};
     setUser(updated);await saveUser(updated);
+
+    if ((profileUpdate?.overallLevel || 1) > previousOverallLevel) {
+      showToast(`🎉 Level Up! ${profileUpdate.levelTitle} · Level ${profileUpdate.overallLevel}`);
+    }
     trackAnalyticsEvent({
       eventType: "lesson_complete",
       username: updated.username,
