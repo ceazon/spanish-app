@@ -1991,6 +1991,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
               <div style={{ width:`${Math.max(0, Math.min(100, user.profile?.sublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
             </div>
+            <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress</div>
+            <div style={{ marginTop:6, width:320, maxWidth:'100%', height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
+              <div style={{ width:`${Math.max(0, Math.min(100, Math.round((user.profile?.bandProgress || 0) * 100)))}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease' }} />
+            </div>
           </button>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
@@ -2120,17 +2124,23 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.72)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}>
           <div style={{ width:'min(980px, 96vw)', maxHeight:'86vh', overflowY:'auto', background:'#120a22', border:'1px solid rgba(255,255,255,0.12)', borderRadius:18, padding:20 }}>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:14 }}>
-              <div>
-                <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>YOUR JOURNEY</div>
-                <h3 style={{ color:'#fff', margin:'4px 0 0', fontFamily:"'Playfair Display', serif" }}>
-                  {user.displayName} · {user.profile?.levelTitle || 'Newcomer'}
-                </h3>
+              <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                <img src={dashboardMascot} alt="Chadlingo mascot" style={{ width:56, height:56, objectFit:'contain', borderRadius:10, background:'rgba(124,58,237,0.12)', padding:4 }} />
+                <div>
+                  <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>YOUR JOURNEY</div>
+                  <h3 style={{ color:'#fff', margin:'4px 0 0', fontFamily:"'Playfair Display', serif" }}>
+                    {user.displayName} · {user.profile?.levelTitle || 'Newcomer'}
+                  </h3>
+                </div>
               </div>
               <button onClick={() => setShowProgressMap(false)} style={{ padding:'8px 12px', borderRadius:10, background:'rgba(255,255,255,0.08)', color:'#e5e7eb', fontWeight:700 }}>Close</button>
             </div>
 
+            <div style={{ color:'#c4b5fd', fontSize:13, marginBottom:6, fontWeight:700 }}>
+              Keep going — every strong answer fills your journey map.
+            </div>
             <div style={{ color:'#9ca3af', fontSize:12, marginBottom:14 }}>
-              Progress is mastery-based. As you answer harder words correctly, higher levels fill up.
+              Mastery grows over time as you practice and review.
             </div>
 
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(180px, 1fr))', gap:12 }}>
