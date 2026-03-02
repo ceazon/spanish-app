@@ -3056,6 +3056,60 @@ async function trackAnalyticsEvent(payload) {
   } catch {}
 }
 
+function playCelebrationSound() {
+  if (typeof window === 'undefined') return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  try {
+    const ctx = new Ctx();
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, now + i * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.12, now + i * 0.08 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.24);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.08);
+      osc.stop(now + i * 0.08 + 0.26);
+    });
+    setTimeout(() => { try { ctx.close(); } catch {} }, 700);
+  } catch {}
+}
+
+function CelebrationOverlay({ celebration, onClose }) {
+  if (!celebration) return null;
+  const confetti = Array.from({ length: 70 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 0.5,
+    dur: 1.7 + Math.random() * 1.8,
+    color: ['#7c3aed', '#22d3ee', '#f59e0b', '#4ade80', '#f472b6'][i % 5],
+    size: 6 + Math.random() * 8,
+  }));
+  return (
+    <div style={{ position:'fixed', inset:0, zIndex:1400, pointerEvents:'none' }}>
+      <style>{`@keyframes confettiFall{0%{transform:translateY(-12vh) rotate(0)}100%{transform:translateY(112vh) rotate(720deg)}}`}</style>
+      {confetti.map((c) => (
+        <div key={c.id} style={{ position:'absolute', left:`${c.left}%`, top:'-10vh', width:c.size, height:c.size * 0.6, background:c.color, opacity:0.9, borderRadius:2, animation:`confettiFall ${c.dur}s linear ${c.delay}s forwards` }} />
+      ))}
+      <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}>
+        <div style={{ pointerEvents:'auto', width:'min(520px, 92vw)', background:'rgba(18,10,34,0.95)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:18, padding:18, textAlign:'center' }}>
+          <img src={MASCOT_ASSETS.success} alt="Mascot celebration" style={{ width:110, height:110, objectFit:'contain' }} onError={(e)=>{e.currentTarget.style.display='none';}} />
+          <div style={{ color:'#fbbf24', letterSpacing:2, fontSize:11, marginTop:4 }}>{celebration?.tag || 'MILESTONE'}</div>
+          <h3 style={{ color:'#fff', margin:'6px 0 8px', fontFamily:"'Playfair Display', serif" }}>{celebration?.title || 'Great job!'}</h3>
+          <MascotSpeechBubble text={celebration?.message || 'You are on fire! Keep going!'} tone='success' style={{ maxWidth:430, margin:'0 auto' }} />
+          <button onClick={onClose} style={{ marginTop:12, padding:'8px 14px', borderRadius:10, background:'rgba(255,255,255,0.10)', color:'#fff', fontWeight:700 }}>Continue</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DailyFocusModal({ user, dailyFocus, onClose }) {
   if (!dailyFocus) return null;
   const verb = dailyFocus?.verb || {};
@@ -3118,6 +3172,7 @@ export default function App() {
   const [storySummary, setStorySummary] = useState(null);
   const [dailyFocus, setDailyFocus] = useState(null);
   const [showDailyFocusModal, setShowDailyFocusModal] = useState(false);
+  const [celebration, setCelebration] = useState(null);
 
   useEffect(() => {
     async function loadPack() {
@@ -3175,6 +3230,11 @@ export default function App() {
     };
   }, []);
   function showToast(msg,type="success") { setToast({msg,type}); setTimeout(()=>setToast(null),3000); }
+  function triggerCelebration(payload) {
+    setCelebration(payload || { title: 'Milestone reached!', message: 'Great momentum — keep going!' });
+    playCelebrationSound();
+    setTimeout(() => setCelebration(null), 5200);
+  }
 
   function startLesson(type, opts = {}) {
     const pathMode = !!opts.path;
@@ -3297,8 +3357,29 @@ export default function App() {
     const updated={...user,points:user.points+pts,history:[...user.history,entry],profile:profileUpdate};
     setUser(updated);await saveUser(updated);
 
-    if ((profileUpdate?.overallLevel || 1) > previousOverallLevel) {
-      showToast(`🎉 Level Up! ${profileUpdate.levelTitle} · Level ${profileUpdate.overallLevel}`);
+    const newOverallLevel = profileUpdate?.overallLevel || 1;
+    if (newOverallLevel > previousOverallLevel) {
+      showToast(`🎉 Level Up! ${profileUpdate.levelTitle} · Level ${newOverallLevel}`);
+      const milestone = newOverallLevel % 5 === 0;
+      triggerCelebration({
+        tag: milestone ? 'MAJOR MILESTONE' : 'LEVEL UP',
+        title: milestone ? `🏆 Level ${newOverallLevel} Unlocked!` : `🎉 Level ${newOverallLevel}!`,
+        message: milestone
+          ? `Mascot says: Legendary work! You hit a major milestone — ${profileUpdate.levelTitle}!`
+          : `Mascot says: Awesome push! You're now ${profileUpdate.levelTitle}. Keep the streak alive!`,
+      });
+    } else {
+      const prevLearn = Math.round(Number(user?.profile?.learningProgress || 0) * 100);
+      const nextLearn = Math.round(Number(profileUpdate?.learningProgress || 0) * 100);
+      const milestones = [25, 50, 75, 100];
+      const hit = milestones.find((m) => prevLearn < m && nextLearn >= m);
+      if (hit) {
+        triggerCelebration({
+          tag: 'PROGRESS MILESTONE',
+          title: `✨ ${hit}% Band Progress!`,
+          message: `Mascot says: Boom! You reached ${hit}% learning progress in ${profileUpdate?.cefrBand || 'your current'} band.`,
+        });
+      }
     }
     trackAnalyticsEvent({
       eventType: "lesson_complete",
@@ -3358,6 +3439,7 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
+      {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
       {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
