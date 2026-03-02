@@ -97,6 +97,20 @@ function computeHybridBandProgress(wordExposure = {}, progressPointsByBand = {},
   return clamp((mastery * 0.7) + (momentum * 0.3), 0, 1);
 }
 
+function bucketTargetSublevel(bucket = 'current', currentSublevel = 0) {
+  if (bucket === 'review') return Math.max(0, currentSublevel - 1);
+  if (bucket === 'stretch_same_band' || bucket === 'stretch_next_band') return Math.min(9, currentSublevel + 1);
+  return currentSublevel;
+}
+
+function scoreStrengthPoint(wr = {}) {
+  const correct = Number(wr?.correct || 0) > 0;
+  if (!correct) return 0.05;
+  if (wr?.bucket === 'review') return 1.0;
+  if (wr?.bucket === 'current') return 0.3;
+  return 0.15;
+}
+
 function applyWordResults(profile, wordResults = []) {
   const nextExposure = { ...(profile.wordExposure || {}) };
   for (const wr of wordResults) {
@@ -176,6 +190,7 @@ export function defaultLearningState() {
     wordExposure: {}, // Tracking per-word mastery
     progressPointsByBand: {}, // weighted momentum points by CEFR band
     progressionEvents: [], // rolling ledger for debugging and analytics
+    strengthByLevel: {}, // reinforcement score for previous/current levels
     recommendedLessons: ["Flashcards", "Word Match", "Fill in the Blank"],
     lastLessonType: null,
     updatedAt: new Date().toISOString(),
@@ -276,8 +291,17 @@ export function updateLearningProfile(profile = {}, result = {}) {
   }
 
   p.progressPointsByBand = { ...(p.progressPointsByBand || {}) };
+  p.strengthByLevel = { ...(p.strengthByLevel || {}) };
+  const currentSubForStrength = Number(p.sublevel || 0);
   const progressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
+  const strengthEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreStrengthPoint(wr), 0);
   p.progressPointsByBand[p.cefrBand] = Number(p.progressPointsByBand[p.cefrBand] || 0) + progressEarned;
+
+  for (const wr of normalized.wordResults) {
+    const sub = bucketTargetSublevel(wr?.bucket || 'current', currentSubForStrength);
+    const key = `${p.cefrBand}:${sub}`;
+    p.strengthByLevel[key] = Number(p.strengthByLevel[key] || 0) + scoreStrengthPoint(wr);
+  }
 
   // Hybrid progression: mastery + momentum for steady forward movement.
   p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
@@ -339,7 +363,9 @@ export function updateLearningProfile(profile = {}, result = {}) {
     bandProgress: p.bandProgress,
     learningProgress: p.learningProgress || 0,
     progressPointsEarned: progressEarned,
+    strengthPointsEarned: strengthEarned,
     progressPointsByBand: p.progressPointsByBand,
+    strengthenedLevelKey: `${p.cefrBand}:${p.sublevel}`,
     levelTitle: p.levelTitle || p.level,
     nextLevelTitle: p.nextLevelTitle,
     sublevel: p.sublevel,

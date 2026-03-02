@@ -1917,7 +1917,9 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
 function ResultScreen({ points, correct, total, onBack, progression }) {
   const pct=Math.round(correct/total*100);
   const progEarned = Number(progression?.progressPointsEarned || 0);
+  const strengthEarned = Number(progression?.strengthPointsEarned || 0);
   const progBand = progression?.cefrBand || null;
+  const strengthenedLevelKey = progression?.strengthenedLevelKey || null;
   const progPct = Math.round(Number(progression?.bandProgress || 0) * 100);
   const learningPct = Math.round(Number(progression?.learningProgress || 0) * 100);
   const mascot = pct >= 80 ? MASCOT_ASSETS.success : pct >= 50 ? MASCOT_ASSETS.progress : MASCOT_ASSETS.base;
@@ -1936,9 +1938,11 @@ function ResultScreen({ points, correct, total, onBack, progression }) {
         <div style={{ width:'100%', maxWidth:420, background:'rgba(6,182,212,0.10)', border:'1px solid rgba(34,211,238,0.35)', borderRadius:14, padding:'12px 14px' }}>
           <div style={{ color:'#67e8f9', fontSize:11, letterSpacing:2, marginBottom:8 }}>PROGRESSION BOOST</div>
           <div style={{ color:'#ecfeff', fontSize:15, fontWeight:800 }}>+{progEarned.toFixed(2)} progress points</div>
+          <div style={{ color:'#a7f3d0', fontSize:13, marginTop:4, fontWeight:700 }}>+{strengthEarned.toFixed(2)} level strength</div>
           <div style={{ color:'#bae6fd', fontSize:12, marginTop:4 }}>
             {progBand ? `${progBand} band` : 'Current band'} • Mastery {progPct}% • Learning {learningPct}%
           </div>
+          {strengthenedLevelKey && <div style={{ color:'#bbf7d0', fontSize:12, marginTop:4 }}>🛡️ Reinforced level node: {strengthenedLevelKey}</div>}
           {progEarned >= 2.5 && <div style={{ color:'#86efac', fontSize:12, marginTop:6, fontWeight:700 }}>✨ Stretch bonus momentum unlocked!</div>}
         </div>
       )}
