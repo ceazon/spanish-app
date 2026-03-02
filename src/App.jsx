@@ -3201,6 +3201,7 @@ function StorySummaryScreen({ summary, onBack }) {
 function LearningBlogPage() {
   const [posts, setPosts] = useState([]);
   const [err, setErr] = useState("");
+  const [expandedPosts, setExpandedPosts] = useState({});
 
   useEffect(() => {
     let mounted = true;
@@ -3336,6 +3337,7 @@ function LearningBlogPage() {
                 .slice(0, 200) + "...";
 
               const avatarStyle = avatarStyleFromName(student);
+              const isExpanded = !!expandedPosts[p.slug];
               return (
                 <article key={p.slug} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:20, padding:"20px", position:"relative", transition:"transform 0.2s" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
@@ -3351,14 +3353,23 @@ function LearningBlogPage() {
                     </div>
                   </div>
                   
-                  <p style={{ color:"#e5e7eb", fontSize:15, lineHeight:1.6, margin:"0 0 14px", whiteSpace:"pre-wrap" }}>
-                    {excerpt}
-                  </p>
+                  {isExpanded ? (
+                    <div style={{ margin:"0 0 14px" }}>
+                      {renderPostBody(body)}
+                    </div>
+                  ) : (
+                    <p style={{ color:"#e5e7eb", fontSize:15, lineHeight:1.6, margin:"0 0 14px", whiteSpace:"pre-wrap" }}>
+                      {excerpt}
+                    </p>
+                  )}
 
                   <div style={{ display:"flex", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:12 }}>
-                    <a href={p.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#a78bfa", fontSize:13, fontWeight:600, textDecoration:"none", display:"flex", alignItems:"center", gap:4 }}>
-                      View full diary entry ↗
-                    </a>
+                    <button
+                      onClick={() => setExpandedPosts((prev) => ({ ...prev, [p.slug]: !prev[p.slug] }))}
+                      style={{ color:"#a78bfa", fontSize:13, fontWeight:600, background:"transparent", padding:0, border:"none", cursor:"pointer", fontFamily:"'Outfit', sans-serif" }}
+                    >
+                      {isExpanded ? "Collapse diary entry" : "View full diary entry"}
+                    </button>
                   </div>
                 </article>
               );
