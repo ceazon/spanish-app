@@ -13,6 +13,7 @@ export const LESSON_META = {
   "Image Labeling":     { icon: "🖼️", desc: "Label objects in scenes",            group: "👁️ Visual" },
   "Picture Description":{ icon: "🌄", desc: "Describe images in Spanish (AI)",   group: "👁️ Visual" },
   "Placement Test":     { icon: "🧪", desc: "Find your level + adaptive path",    group: "🎯 Adaptive" },
+  "Dictionary Book":    { icon: "📚", desc: "Browse your word book by progress",  group: "📖 Vocabulary" },
 };
 
 export const LESSON_TYPES = Object.keys(LESSON_META);
@@ -28,4 +29,5 @@ export const NO_CATEGORY = new Set([
   "Speed Round",
   "Sentence Scramble",
   "Placement Test",
+  "Dictionary Book",
 ]);

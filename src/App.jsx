@@ -1955,6 +1955,94 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
   );
 }
 
+function DictionaryBookLesson({ user, onComplete }) {
+  const words = useMemo(() => (cefrVocab?.vocab || []).filter((w) => ['A1', 'A2'].includes(w?.cefr)), []);
+  const [page, setPage] = useState(0);
+  const [query, setQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [selected, setSelected] = useState(null);
+  const perPage = 16;
+
+  function wordStatus(w) {
+    const e = user?.profile?.wordExposure?.[w?.id || w?.es] || { seen: 0, correct: 0 };
+    const seen = Number(e?.seen || 0);
+    const correct = Number(e?.correct || 0);
+    const acc = seen > 0 ? correct / seen : 0;
+    if (seen <= 0) return { key: 'unseen', label: 'Unseen', color: '#9ca3af' };
+    if (acc < 0.7) return { key: 'needs', label: 'Needs review', color: '#f87171' };
+    return { key: 'learned', label: 'Learned', color: '#4ade80' };
+  }
+
+  const filtered = useMemo(() => {
+    const q = normalizeSimple(query || '');
+    return words.filter((w) => {
+      const st = wordStatus(w).key;
+      if (statusFilter !== 'all' && st !== statusFilter) return false;
+      if (!q) return true;
+      return normalizeSimple(w?.es || '').includes(q) || normalizeSimple(w?.en || '').includes(q);
+    });
+  }, [words, query, statusFilter, user]);
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
+  const safePage = Math.max(0, Math.min(page, pageCount - 1));
+  const pageWords = filtered.slice(safePage * perPage, (safePage + 1) * perPage);
+
+  useEffect(() => { if (page !== safePage) setPage(safePage); }, [page, safePage]);
+
+  return (
+    <div style={{ display:'grid', gap:12 }}>
+      <div style={{ display:'flex', gap:8, alignItems:'center', flexWrap:'wrap' }}>
+        <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder='Search Spanish or English...' style={{ flex:1, minWidth:220, padding:'10px 12px', borderRadius:10, background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)', color:'#fff' }} />
+        <select value={statusFilter} onChange={(e)=>setStatusFilter(e.target.value)} style={{ padding:'10px 12px', borderRadius:10, background:'#1f1638', color:'#fff', border:'1px solid rgba(255,255,255,0.14)' }}>
+          <option value='all'>All words</option>
+          <option value='learned'>Learned (green)</option>
+          <option value='needs'>Needs review (red)</option>
+          <option value='unseen'>Unseen (grey)</option>
+        </select>
+      </div>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1.2fr 0.8fr', gap:12 }}>
+        <div style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:14, padding:12 }}>
+          <div style={{ color:'#a78bfa', fontSize:12, marginBottom:8 }}>Dictionary Book · Page {safePage + 1}/{pageCount}</div>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(2, minmax(0, 1fr))', gap:8 }}>
+            {pageWords.map((w) => {
+              const st = wordStatus(w);
+              return (
+                <button key={w.id || w.es} onClick={() => setSelected(w)} style={{ textAlign:'left', borderRadius:10, padding:'9px 10px', background:'rgba(255,255,255,0.03)', border:`1px solid ${st.color}66` }}>
+                  <div style={{ color:'#fff', fontWeight:700 }}>{w.es}</div>
+                  <div style={{ color:'#cbd5e1', fontSize:12 }}>{w.en}</div>
+                  <div style={{ color:st.color, fontSize:11, marginTop:4 }}>{st.label}</div>
+                </button>
+              );
+            })}
+          </div>
+          <div style={{ display:'flex', justifyContent:'space-between', marginTop:10 }}>
+            <button onClick={() => setPage((p) => Math.max(0, p - 1))} style={{ color:'#ddd6fe' }}>← Prev</button>
+            <button onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))} style={{ color:'#ddd6fe' }}>Next →</button>
+          </div>
+        </div>
+
+        <div style={{ background:'rgba(124,58,237,0.12)', border:'1px solid rgba(168,85,247,0.3)', borderRadius:14, padding:12 }}>
+          <img src={MASCOT_ASSETS.base} alt='mascot' style={{ width:72, height:72, objectFit:'contain' }} onError={(e)=>{e.currentTarget.style.display='none';}} />
+          {selected ? (
+            <>
+              <div style={{ color:'#fff', fontSize:22, fontWeight:900, marginTop:6 }}>{selected.es}</div>
+              <div style={{ color:'#c4b5fd', marginBottom:6 }}>{selected.en}</div>
+              <div style={{ color:'#9ca3af', fontSize:12 }}>Topic: {selected.topic || 'General'}</div>
+              <div style={{ color:'#9ca3af', fontSize:12 }}>Type: {selected.pos || 'word'}</div>
+              <MascotSpeechBubble text={`Great choice. Practice “${selected.es}” in your next module.`} tone='default' style={{ marginTop:10 }} />
+            </>
+          ) : (
+            <MascotSpeechBubble text='Tap a word to preview it with mascot guidance.' tone='default' style={{ marginTop:8 }} />
+          )}
+        </div>
+      </div>
+
+      <PrimaryBtn onClick={() => onComplete(0, 0, 1, { wordResults: [] })}>Done Browsing</PrimaryBtn>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // RESULT SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2664,6 +2752,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
+    "Dictionary Book": () => <DictionaryBookLesson user={user} onComplete={done} />,
   };
   const lessonNode = lessonRegistry[type] ? lessonRegistry[type]() : null;
 

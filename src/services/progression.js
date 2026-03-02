@@ -169,6 +169,7 @@ export const LESSON_POOL = [
   "Image Labeling",
   "Picture Description",
   "Placement Test",
+  "Dictionary Book",
 ];
 
 export function defaultLearningState() {
