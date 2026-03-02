@@ -1,23 +1,21 @@
 {
-  "startedAt": "2026-03-02T05:09:42.667Z",
-  "endedAt": "2026-03-02T05:10:52.169Z",
+  "startedAt": "2026-03-02T21:01:45.916Z",
+  "endedAt": "2026-03-02T21:02:54.138Z",
   "baseUrl": "https://chadlingo.com",
-  "username": "maria_182668",
+  "username": "maria_305916",
   "studentName": "María",
   "status": "ok",
   "notes": [
     "Opened site successfully: https://chadlingo.com",
-    "Session score estimate: 112 points across 4 completed lessons."
+    "Session score estimate: 57 points across 2 completed lessons."
   ],
   "blogHighlights": [
     "I settled in and treated today like a mini language lab.",
     "I opened with a 5 min Story Mode run and got a challenge.",
-    "In Word Match, I practiced carefully (I corrected 1 slips) and finished with 49 points.",
-    "Then I spent time in Scenario Builder and paid attention to phrasing and rhythm. I picked up 24 pts here.",
-    "Then I spent time in Transcription and paid attention to phrasing and rhythm. I picked up 18 pts here.",
-    "Then I spent time in Fill in the Blank and paid attention to phrasing and rhythm. I picked up 21 pts here."
+    "In Word Match, I practiced carefully (I corrected 2 slips) and finished with 41 points.",
+    "Then I spent time in Flashcards and paid attention to phrasing and rhythm. I picked up 16 pts here."
   ],
-  "score": 112,
-  "lessonsCompleted": 4,
+  "score": 57,
+  "lessonsCompleted": 2,
   "error": null
 }
