@@ -11,7 +11,9 @@
     "test:e2e": "playwright test",
     "test:e2e:prod": "E2E_BASE_URL=https://chadlingo.com playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "student:run": "node scripts/synthetic-student-run.mjs"
+    "student:run": "node scripts/synthetic-student-run.mjs",
+    "content:build-master": "node scripts/build-cefr-master.mjs",
+    "content:validate-master": "node scripts/validate-cefr-master.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.35.6",

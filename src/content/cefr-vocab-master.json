@@ -1,0 +1,2237 @@
+{
+  "generatedAt": "2026-03-02T23:52:58.883Z",
+  "words": [
+    {
+      "id": "A1.01:hola",
+      "es": "Hola",
+      "en": "Hello",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 1
+    },
+    {
+      "id": "A1.01:adiós",
+      "es": "Adiós",
+      "en": "Goodbye",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 2
+    },
+    {
+      "id": "A1.01:buenos-días",
+      "es": "Buenos días",
+      "en": "Good morning",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 3
+    },
+    {
+      "id": "A1.01:buenas-noches",
+      "es": "Buenas noches",
+      "en": "Good night",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 4
+    },
+    {
+      "id": "A1.01:gracias",
+      "es": "Gracias",
+      "en": "Thank you",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 5
+    },
+    {
+      "id": "A1.01:por-favor",
+      "es": "Por favor",
+      "en": "Please",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 6
+    },
+    {
+      "id": "A1.01:sí",
+      "es": "Sí",
+      "en": "Yes",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 7
+    },
+    {
+      "id": "A1.01:no",
+      "es": "No",
+      "en": "No",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 8
+    },
+    {
+      "id": "A1.01:perdón",
+      "es": "Perdón",
+      "en": "Excuse me",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 9
+    },
+    {
+      "id": "A1.01:uno",
+      "es": "Uno",
+      "en": "One",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Numbers",
+      "frequencyRank": 10
+    },
+    {
+      "id": "A1.01:dos",
+      "es": "Dos",
+      "en": "Two",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Numbers",
+      "frequencyRank": 11
+    },
+    {
+      "id": "A1.01:tres",
+      "es": "Tres",
+      "en": "Three",
+      "cefr": "A1",
+      "microLevel": 1,
+      "topic": "Numbers",
+      "frequencyRank": 12
+    },
+    {
+      "id": "A1.02:cuatro",
+      "es": "Cuatro",
+      "en": "Four",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 13
+    },
+    {
+      "id": "A1.02:cinco",
+      "es": "Cinco",
+      "en": "Five",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 14
+    },
+    {
+      "id": "A1.02:seis",
+      "es": "Seis",
+      "en": "Six",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 15
+    },
+    {
+      "id": "A1.02:siete",
+      "es": "Siete",
+      "en": "Seven",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 16
+    },
+    {
+      "id": "A1.02:ocho",
+      "es": "Ocho",
+      "en": "Eight",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 17
+    },
+    {
+      "id": "A1.02:nueve",
+      "es": "Nueve",
+      "en": "Nine",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 18
+    },
+    {
+      "id": "A1.02:diez",
+      "es": "Diez",
+      "en": "Ten",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Numbers",
+      "frequencyRank": 19
+    },
+    {
+      "id": "A1.02:rojo",
+      "es": "Rojo",
+      "en": "Red",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Colors",
+      "frequencyRank": 20
+    },
+    {
+      "id": "A1.02:azul",
+      "es": "Azul",
+      "en": "Blue",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Colors",
+      "frequencyRank": 21
+    },
+    {
+      "id": "A1.02:verde",
+      "es": "Verde",
+      "en": "Green",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Colors",
+      "frequencyRank": 22
+    },
+    {
+      "id": "A1.02:negro",
+      "es": "Negro",
+      "en": "Black",
+      "cefr": "A1",
+      "microLevel": 2,
+      "topic": "Colors",
+      "frequencyRank": 23
+    },
+    {
+      "id": "A1.03:blanco",
+      "es": "Blanco",
+      "en": "White",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Colors",
+      "frequencyRank": 24
+    },
+    {
+      "id": "A1.03:rosa",
+      "es": "Rosa",
+      "en": "Pink",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Colors",
+      "frequencyRank": 25
+    },
+    {
+      "id": "A1.03:manzana",
+      "es": "Manzana",
+      "en": "Apple",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 26
+    },
+    {
+      "id": "A1.03:pan",
+      "es": "Pan",
+      "en": "Bread",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 27
+    },
+    {
+      "id": "A1.03:agua",
+      "es": "Agua",
+      "en": "Water",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 28
+    },
+    {
+      "id": "A1.03:leche",
+      "es": "Leche",
+      "en": "Milk",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 29
+    },
+    {
+      "id": "A1.03:pollo",
+      "es": "Pollo",
+      "en": "Chicken",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 30
+    },
+    {
+      "id": "A1.03:arroz",
+      "es": "Arroz",
+      "en": "Rice",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 31
+    },
+    {
+      "id": "A1.03:huevo",
+      "es": "Huevo",
+      "en": "Egg",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 32
+    },
+    {
+      "id": "A1.03:queso",
+      "es": "Queso",
+      "en": "Cheese",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 33
+    },
+    {
+      "id": "A1.03:café",
+      "es": "Café",
+      "en": "Coffee",
+      "cefr": "A1",
+      "microLevel": 3,
+      "topic": "Food",
+      "frequencyRank": 34
+    },
+    {
+      "id": "A1.04:perro",
+      "es": "Perro",
+      "en": "Dog",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Animals",
+      "frequencyRank": 35
+    },
+    {
+      "id": "A1.04:gato",
+      "es": "Gato",
+      "en": "Cat",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Animals",
+      "frequencyRank": 36
+    },
+    {
+      "id": "A1.04:oso",
+      "es": "Oso",
+      "en": "Bear",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Animals",
+      "frequencyRank": 37
+    },
+    {
+      "id": "A1.04:madre",
+      "es": "Madre",
+      "en": "Mother",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 38
+    },
+    {
+      "id": "A1.04:padre",
+      "es": "Padre",
+      "en": "Father",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 39
+    },
+    {
+      "id": "A1.04:hermano",
+      "es": "Hermano",
+      "en": "Brother",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 40
+    },
+    {
+      "id": "A1.04:hermana",
+      "es": "Hermana",
+      "en": "Sister",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 41
+    },
+    {
+      "id": "A1.04:hijo",
+      "es": "Hijo",
+      "en": "Son",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 42
+    },
+    {
+      "id": "A1.04:hija",
+      "es": "Hija",
+      "en": "Daughter",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 43
+    },
+    {
+      "id": "A1.04:tío",
+      "es": "Tío",
+      "en": "Uncle",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 44
+    },
+    {
+      "id": "A1.04:tía",
+      "es": "Tía",
+      "en": "Aunt",
+      "cefr": "A1",
+      "microLevel": 4,
+      "topic": "Family",
+      "frequencyRank": 45
+    },
+    {
+      "id": "A1.05:casa",
+      "es": "Casa",
+      "en": "House",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 46
+    },
+    {
+      "id": "A1.05:habitación",
+      "es": "Habitación",
+      "en": "Room",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 47
+    },
+    {
+      "id": "A1.05:cocina",
+      "es": "Cocina",
+      "en": "Kitchen",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 48
+    },
+    {
+      "id": "A1.05:baño",
+      "es": "Baño",
+      "en": "Bathroom",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 49
+    },
+    {
+      "id": "A1.05:puerta",
+      "es": "Puerta",
+      "en": "Door",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 50
+    },
+    {
+      "id": "A1.05:ventana",
+      "es": "Ventana",
+      "en": "Window",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 51
+    },
+    {
+      "id": "A1.05:mesa",
+      "es": "Mesa",
+      "en": "Table",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 52
+    },
+    {
+      "id": "A1.05:silla",
+      "es": "Silla",
+      "en": "Chair",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 53
+    },
+    {
+      "id": "A1.05:cama",
+      "es": "Cama",
+      "en": "Bed",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 54
+    },
+    {
+      "id": "A1.05:llave",
+      "es": "Llave",
+      "en": "Key",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "Home",
+      "frequencyRank": 55
+    },
+    {
+      "id": "A1.05:escuela",
+      "es": "Escuela",
+      "en": "School",
+      "cefr": "A1",
+      "microLevel": 5,
+      "topic": "School",
+      "frequencyRank": 56
+    },
+    {
+      "id": "A1.06:profesor",
+      "es": "Profesor",
+      "en": "Teacher",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 57
+    },
+    {
+      "id": "A1.06:estudiante",
+      "es": "Estudiante",
+      "en": "Student",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 58
+    },
+    {
+      "id": "A1.06:libro",
+      "es": "Libro",
+      "en": "Book",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 59
+    },
+    {
+      "id": "A1.06:cuaderno",
+      "es": "Cuaderno",
+      "en": "Notebook",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 60
+    },
+    {
+      "id": "A1.06:bolígrafo",
+      "es": "Bolígrafo",
+      "en": "Pen",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 61
+    },
+    {
+      "id": "A1.06:lápiz",
+      "es": "Lápiz",
+      "en": "Pencil",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 62
+    },
+    {
+      "id": "A1.06:clase",
+      "es": "Clase",
+      "en": "Class",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 63
+    },
+    {
+      "id": "A1.06:tarea",
+      "es": "Tarea",
+      "en": "Homework",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 64
+    },
+    {
+      "id": "A1.06:examen",
+      "es": "Examen",
+      "en": "Exam",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "School",
+      "frequencyRank": 65
+    },
+    {
+      "id": "A1.06:hoy",
+      "es": "Hoy",
+      "en": "Today",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "Time",
+      "frequencyRank": 66
+    },
+    {
+      "id": "A1.06:mañana",
+      "es": "Mañana",
+      "en": "Tomorrow",
+      "cefr": "A1",
+      "microLevel": 6,
+      "topic": "Time",
+      "frequencyRank": 67
+    },
+    {
+      "id": "A1.07:noche",
+      "es": "Noche",
+      "en": "Night",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Time",
+      "frequencyRank": 68
+    },
+    {
+      "id": "A1.07:semana",
+      "es": "Semana",
+      "en": "Week",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Time",
+      "frequencyRank": 69
+    },
+    {
+      "id": "A1.07:mes",
+      "es": "Mes",
+      "en": "Month",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Time",
+      "frequencyRank": 70
+    },
+    {
+      "id": "A1.07:año",
+      "es": "Año",
+      "en": "Year",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Time",
+      "frequencyRank": 71
+    },
+    {
+      "id": "A1.07:hora",
+      "es": "Hora",
+      "en": "Hour",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Time",
+      "frequencyRank": 72
+    },
+    {
+      "id": "A1.07:sol",
+      "es": "Sol",
+      "en": "Sun",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 73
+    },
+    {
+      "id": "A1.07:lluvia",
+      "es": "Lluvia",
+      "en": "Rain",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 74
+    },
+    {
+      "id": "A1.07:nube",
+      "es": "Nube",
+      "en": "Cloud",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 75
+    },
+    {
+      "id": "A1.07:viento",
+      "es": "Viento",
+      "en": "Wind",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 76
+    },
+    {
+      "id": "A1.07:nieve",
+      "es": "Nieve",
+      "en": "Snow",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 77
+    },
+    {
+      "id": "A1.07:caliente",
+      "es": "Caliente",
+      "en": "Hot",
+      "cefr": "A1",
+      "microLevel": 7,
+      "topic": "Weather",
+      "frequencyRank": 78
+    },
+    {
+      "id": "A1.08:frío",
+      "es": "Frío",
+      "en": "Cold",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "Weather",
+      "frequencyRank": 79
+    },
+    {
+      "id": "A1.08:templado",
+      "es": "Templado",
+      "en": "Warm",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "Weather",
+      "frequencyRank": 80
+    },
+    {
+      "id": "A1.08:tormenta",
+      "es": "Tormenta",
+      "en": "Storm",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "Weather",
+      "frequencyRank": 81
+    },
+    {
+      "id": "A1.08:clima",
+      "es": "Clima",
+      "en": "Weather",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "Weather",
+      "frequencyRank": 82
+    },
+    {
+      "id": "A1.08:calle",
+      "es": "Calle",
+      "en": "Street",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 83
+    },
+    {
+      "id": "A1.08:ciudad",
+      "es": "Ciudad",
+      "en": "City",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 84
+    },
+    {
+      "id": "A1.08:pueblo",
+      "es": "Pueblo",
+      "en": "Town",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 85
+    },
+    {
+      "id": "A1.08:parque",
+      "es": "Parque",
+      "en": "Park",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 86
+    },
+    {
+      "id": "A1.08:tienda",
+      "es": "Tienda",
+      "en": "Store",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 87
+    },
+    {
+      "id": "A1.08:mercado",
+      "es": "Mercado",
+      "en": "Market",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 88
+    },
+    {
+      "id": "A1.08:banco",
+      "es": "Banco",
+      "en": "Bank",
+      "cefr": "A1",
+      "microLevel": 8,
+      "topic": "City",
+      "frequencyRank": 89
+    },
+    {
+      "id": "A1.09:hospital",
+      "es": "Hospital",
+      "en": "Hospital",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "City",
+      "frequencyRank": 90
+    },
+    {
+      "id": "A1.09:farmacia",
+      "es": "Farmacia",
+      "en": "Pharmacy",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "City",
+      "frequencyRank": 91
+    },
+    {
+      "id": "A1.09:aeropuerto",
+      "es": "Aeropuerto",
+      "en": "Airport",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "City",
+      "frequencyRank": 92
+    },
+    {
+      "id": "A1.09:coche",
+      "es": "Coche",
+      "en": "Car",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 93
+    },
+    {
+      "id": "A1.09:autobús",
+      "es": "Autobús",
+      "en": "Bus",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 94
+    },
+    {
+      "id": "A1.09:tren",
+      "es": "Tren",
+      "en": "Train",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 95
+    },
+    {
+      "id": "A1.09:bicicleta",
+      "es": "Bicicleta",
+      "en": "Bicycle",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 96
+    },
+    {
+      "id": "A1.09:avión",
+      "es": "Avión",
+      "en": "Plane",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 97
+    },
+    {
+      "id": "A1.09:taxi",
+      "es": "Taxi",
+      "en": "Taxi",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 98
+    },
+    {
+      "id": "A1.09:boleto",
+      "es": "Boleto",
+      "en": "Ticket",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 99
+    },
+    {
+      "id": "A1.09:estación",
+      "es": "Estación",
+      "en": "Station",
+      "cefr": "A1",
+      "microLevel": 9,
+      "topic": "Transport",
+      "frequencyRank": 100
+    },
+    {
+      "id": "A1.10:carretera",
+      "es": "Carretera",
+      "en": "Road",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Transport",
+      "frequencyRank": 101
+    },
+    {
+      "id": "A1.10:viajar",
+      "es": "Viajar",
+      "en": "Travel",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Transport",
+      "frequencyRank": 102
+    },
+    {
+      "id": "A1.10:cabeza",
+      "es": "Cabeza",
+      "en": "Head",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 103
+    },
+    {
+      "id": "A1.10:ojo",
+      "es": "Ojo",
+      "en": "Eye",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 104
+    },
+    {
+      "id": "A1.10:oreja",
+      "es": "Oreja",
+      "en": "Ear",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 105
+    },
+    {
+      "id": "A1.10:nariz",
+      "es": "Nariz",
+      "en": "Nose",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 106
+    },
+    {
+      "id": "A1.10:boca",
+      "es": "Boca",
+      "en": "Mouth",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 107
+    },
+    {
+      "id": "A1.10:mano",
+      "es": "Mano",
+      "en": "Hand",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 108
+    },
+    {
+      "id": "A1.10:brazo",
+      "es": "Brazo",
+      "en": "Arm",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 109
+    },
+    {
+      "id": "A1.10:pierna",
+      "es": "Pierna",
+      "en": "Leg",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 110
+    },
+    {
+      "id": "A1.10:pie",
+      "es": "Pie",
+      "en": "Foot",
+      "cefr": "A1",
+      "microLevel": 10,
+      "topic": "Body",
+      "frequencyRank": 111
+    },
+    {
+      "id": "A1.11:corazón",
+      "es": "Corazón",
+      "en": "Heart",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Body",
+      "frequencyRank": 112
+    },
+    {
+      "id": "A1.11:camisa",
+      "es": "Camisa",
+      "en": "Shirt",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 113
+    },
+    {
+      "id": "A1.11:pantalones",
+      "es": "Pantalones",
+      "en": "Pants",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 114
+    },
+    {
+      "id": "A1.11:zapatos",
+      "es": "Zapatos",
+      "en": "Shoes",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 115
+    },
+    {
+      "id": "A1.11:vestido",
+      "es": "Vestido",
+      "en": "Dress",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 116
+    },
+    {
+      "id": "A1.11:chaqueta",
+      "es": "Chaqueta",
+      "en": "Jacket",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 117
+    },
+    {
+      "id": "A1.11:sombrero",
+      "es": "Sombrero",
+      "en": "Hat",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 118
+    },
+    {
+      "id": "A1.11:calcetines",
+      "es": "Calcetines",
+      "en": "Socks",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 119
+    },
+    {
+      "id": "A1.11:abrigo",
+      "es": "Abrigo",
+      "en": "Coat",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 120
+    },
+    {
+      "id": "A1.11:falda",
+      "es": "Falda",
+      "en": "Skirt",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 121
+    },
+    {
+      "id": "A1.11:gafas",
+      "es": "Gafas",
+      "en": "Glasses",
+      "cefr": "A1",
+      "microLevel": 11,
+      "topic": "Clothes",
+      "frequencyRank": 122
+    },
+    {
+      "id": "A1.12:ser",
+      "es": "Ser",
+      "en": "To be",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 123
+    },
+    {
+      "id": "A1.12:tener",
+      "es": "Tener",
+      "en": "To have",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 124
+    },
+    {
+      "id": "A1.12:ir",
+      "es": "Ir",
+      "en": "To go",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 125
+    },
+    {
+      "id": "A1.12:venir",
+      "es": "Venir",
+      "en": "To come",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 126
+    },
+    {
+      "id": "A1.12:comer",
+      "es": "Comer",
+      "en": "To eat",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 127
+    },
+    {
+      "id": "A1.12:beber",
+      "es": "Beber",
+      "en": "To drink",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 128
+    },
+    {
+      "id": "A1.12:hablar",
+      "es": "Hablar",
+      "en": "To speak",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 129
+    },
+    {
+      "id": "A1.12:leer",
+      "es": "Leer",
+      "en": "To read",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 130
+    },
+    {
+      "id": "A1.12:escribir",
+      "es": "Escribir",
+      "en": "To write",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsBasics",
+      "frequencyRank": 131
+    },
+    {
+      "id": "A1.12:dormir",
+      "es": "Dormir",
+      "en": "To sleep",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsDaily",
+      "frequencyRank": 132
+    },
+    {
+      "id": "A1.12:trabajar",
+      "es": "Trabajar",
+      "en": "To work",
+      "cefr": "A1",
+      "microLevel": 12,
+      "topic": "VerbsDaily",
+      "frequencyRank": 133
+    },
+    {
+      "id": "A1.13:estudiar",
+      "es": "Estudiar",
+      "en": "To study",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 134
+    },
+    {
+      "id": "A1.13:comprar",
+      "es": "Comprar",
+      "en": "To buy",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 135
+    },
+    {
+      "id": "A1.13:vender",
+      "es": "Vender",
+      "en": "To sell",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 136
+    },
+    {
+      "id": "A1.13:abrir",
+      "es": "Abrir",
+      "en": "To open",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 137
+    },
+    {
+      "id": "A1.13:cerrar",
+      "es": "Cerrar",
+      "en": "To close",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 138
+    },
+    {
+      "id": "A1.13:caminar",
+      "es": "Caminar",
+      "en": "To walk",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 139
+    },
+    {
+      "id": "A1.13:correr",
+      "es": "Correr",
+      "en": "To run",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "VerbsDaily",
+      "frequencyRank": 140
+    },
+    {
+      "id": "A1.13:grande",
+      "es": "Grande",
+      "en": "Big",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "Adjectives",
+      "frequencyRank": 141
+    },
+    {
+      "id": "A1.13:pequeño",
+      "es": "Pequeño",
+      "en": "Small",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "Adjectives",
+      "frequencyRank": 142
+    },
+    {
+      "id": "A1.13:rápido",
+      "es": "Rápido",
+      "en": "Fast",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "Adjectives",
+      "frequencyRank": 143
+    },
+    {
+      "id": "A1.13:lento",
+      "es": "Lento",
+      "en": "Slow",
+      "cefr": "A1",
+      "microLevel": 13,
+      "topic": "Adjectives",
+      "frequencyRank": 144
+    },
+    {
+      "id": "A1.14:fácil",
+      "es": "Fácil",
+      "en": "Easy",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Adjectives",
+      "frequencyRank": 145
+    },
+    {
+      "id": "A1.14:nuevo",
+      "es": "Nuevo",
+      "en": "New",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Adjectives",
+      "frequencyRank": 146
+    },
+    {
+      "id": "A1.14:viejo",
+      "es": "Viejo",
+      "en": "Old",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Adjectives",
+      "frequencyRank": 147
+    },
+    {
+      "id": "A1.14:bueno",
+      "es": "Bueno",
+      "en": "Good",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Adjectives",
+      "frequencyRank": 148
+    },
+    {
+      "id": "A1.14:malo",
+      "es": "Malo",
+      "en": "Bad",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Adjectives",
+      "frequencyRank": 149
+    },
+    {
+      "id": "A1.14:feliz",
+      "es": "Feliz",
+      "en": "Happy",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 150
+    },
+    {
+      "id": "A1.14:triste",
+      "es": "Triste",
+      "en": "Sad",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 151
+    },
+    {
+      "id": "A1.14:enojado",
+      "es": "Enojado",
+      "en": "Angry",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 152
+    },
+    {
+      "id": "A1.14:cansado",
+      "es": "Cansado",
+      "en": "Tired",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 153
+    },
+    {
+      "id": "A1.14:emocionado",
+      "es": "Emocionado",
+      "en": "Excited",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 154
+    },
+    {
+      "id": "A1.14:tranquilo",
+      "es": "Tranquilo",
+      "en": "Calm",
+      "cefr": "A1",
+      "microLevel": 14,
+      "topic": "Emotions",
+      "frequencyRank": 155
+    },
+    {
+      "id": "A1.15:nervioso",
+      "es": "Nervioso",
+      "en": "Nervous",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Emotions",
+      "frequencyRank": 156
+    },
+    {
+      "id": "A1.15:preocupado",
+      "es": "Preocupado",
+      "en": "Worried",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Emotions",
+      "frequencyRank": 157
+    },
+    {
+      "id": "A1.15:asustado",
+      "es": "Asustado",
+      "en": "Scared",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Emotions",
+      "frequencyRank": 158
+    },
+    {
+      "id": "A1.15:menú",
+      "es": "Menú",
+      "en": "Menu",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 159
+    },
+    {
+      "id": "A1.15:mesero",
+      "es": "Mesero",
+      "en": "Waiter",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 160
+    },
+    {
+      "id": "A1.15:cuenta",
+      "es": "Cuenta",
+      "en": "Bill",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 161
+    },
+    {
+      "id": "A1.15:propina",
+      "es": "Propina",
+      "en": "Tip",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 162
+    },
+    {
+      "id": "A1.15:tenedor",
+      "es": "Tenedor",
+      "en": "Fork",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 163
+    },
+    {
+      "id": "A1.15:cuchillo",
+      "es": "Cuchillo",
+      "en": "Knife",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 164
+    },
+    {
+      "id": "A1.15:cuchara",
+      "es": "Cuchara",
+      "en": "Spoon",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 165
+    },
+    {
+      "id": "A1.15:plato",
+      "es": "Plato",
+      "en": "Plate",
+      "cefr": "A1",
+      "microLevel": 15,
+      "topic": "Restaurant",
+      "frequencyRank": 166
+    },
+    {
+      "id": "A1.16:vaso",
+      "es": "Vaso",
+      "en": "Glass",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Restaurant",
+      "frequencyRank": 167
+    },
+    {
+      "id": "A1.16:servilleta",
+      "es": "Servilleta",
+      "en": "Napkin",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Restaurant",
+      "frequencyRank": 168
+    },
+    {
+      "id": "A1.16:banana",
+      "es": "Banana",
+      "en": "Banana",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 169
+    },
+    {
+      "id": "A1.16:uva",
+      "es": "Uva",
+      "en": "Grape",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 170
+    },
+    {
+      "id": "A1.16:limón",
+      "es": "Limón",
+      "en": "Lemon",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 171
+    },
+    {
+      "id": "A1.16:melocotón",
+      "es": "Melocotón",
+      "en": "Peach",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 172
+    },
+    {
+      "id": "A1.16:pera",
+      "es": "Pera",
+      "en": "Pear",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 173
+    },
+    {
+      "id": "A1.16:mango",
+      "es": "Mango",
+      "en": "Mango",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 174
+    },
+    {
+      "id": "A1.16:tomate",
+      "es": "Tomate",
+      "en": "Tomato",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Vegetables",
+      "frequencyRank": 175
+    },
+    {
+      "id": "A1.16:papa",
+      "es": "Papa",
+      "en": "Potato",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Vegetables",
+      "frequencyRank": 176
+    },
+    {
+      "id": "A1.16:cebolla",
+      "es": "Cebolla",
+      "en": "Onion",
+      "cefr": "A1",
+      "microLevel": 16,
+      "topic": "Vegetables",
+      "frequencyRank": 177
+    },
+    {
+      "id": "A1.17:zanahoria",
+      "es": "Zanahoria",
+      "en": "Carrot",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 178
+    },
+    {
+      "id": "A1.17:lechuga",
+      "es": "Lechuga",
+      "en": "Lettuce",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 179
+    },
+    {
+      "id": "A1.17:maíz",
+      "es": "Maíz",
+      "en": "Corn",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 180
+    },
+    {
+      "id": "A1.17:frijol",
+      "es": "Frijol",
+      "en": "Bean",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 181
+    },
+    {
+      "id": "A1.17:ajo",
+      "es": "Ajo",
+      "en": "Garlic",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 182
+    },
+    {
+      "id": "A1.17:pimiento",
+      "es": "Pimiento",
+      "en": "Pepper",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 183
+    },
+    {
+      "id": "A1.17:pepino",
+      "es": "Pepino",
+      "en": "Cucumber",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Vegetables",
+      "frequencyRank": 184
+    },
+    {
+      "id": "A1.17:computadora",
+      "es": "Computadora",
+      "en": "Computer",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Technology",
+      "frequencyRank": 185
+    },
+    {
+      "id": "A1.17:teléfono",
+      "es": "Teléfono",
+      "en": "Phone",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Technology",
+      "frequencyRank": 186
+    },
+    {
+      "id": "A1.17:internet",
+      "es": "Internet",
+      "en": "Internet",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Technology",
+      "frequencyRank": 187
+    },
+    {
+      "id": "A1.17:pantalla",
+      "es": "Pantalla",
+      "en": "Screen",
+      "cefr": "A1",
+      "microLevel": 17,
+      "topic": "Technology",
+      "frequencyRank": 188
+    },
+    {
+      "id": "A1.18:teclado",
+      "es": "Teclado",
+      "en": "Keyboard",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 189
+    },
+    {
+      "id": "A1.18:ratón",
+      "es": "Ratón",
+      "en": "Mouse",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 190
+    },
+    {
+      "id": "A1.18:contraseña",
+      "es": "Contraseña",
+      "en": "Password",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 191
+    },
+    {
+      "id": "A1.18:correo-electrónico",
+      "es": "Correo electrónico",
+      "en": "Email",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 192
+    },
+    {
+      "id": "A1.18:mensaje",
+      "es": "Mensaje",
+      "en": "Message",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 193
+    },
+    {
+      "id": "A1.18:sitio-web",
+      "es": "Sitio web",
+      "en": "Website",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Technology",
+      "frequencyRank": 194
+    },
+    {
+      "id": "A1.18:oficina",
+      "es": "Oficina",
+      "en": "Office",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 195
+    },
+    {
+      "id": "A1.18:reunión",
+      "es": "Reunión",
+      "en": "Meeting",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 196
+    },
+    {
+      "id": "A1.18:jefe",
+      "es": "Jefe",
+      "en": "Boss",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 197
+    },
+    {
+      "id": "A1.18:compañero",
+      "es": "Compañero",
+      "en": "Coworker",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 198
+    },
+    {
+      "id": "A1.18:proyecto",
+      "es": "Proyecto",
+      "en": "Project",
+      "cefr": "A1",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 199
+    },
+    {
+      "id": "A1.19:fecha-límite",
+      "es": "Fecha límite",
+      "en": "Deadline",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Work",
+      "frequencyRank": 200
+    },
+    {
+      "id": "A1.19:salario",
+      "es": "Salario",
+      "en": "Salary",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Work",
+      "frequencyRank": 201
+    },
+    {
+      "id": "A1.19:trabajo",
+      "es": "Trabajo",
+      "en": "Job",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Work",
+      "frequencyRank": 202
+    },
+    {
+      "id": "A1.19:carrera",
+      "es": "Carrera",
+      "en": "Career",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Work",
+      "frequencyRank": 203
+    },
+    {
+      "id": "A1.19:montaña",
+      "es": "Montaña",
+      "en": "Mountain",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 204
+    },
+    {
+      "id": "A1.19:río",
+      "es": "Río",
+      "en": "River",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 205
+    },
+    {
+      "id": "A1.19:lago",
+      "es": "Lago",
+      "en": "Lake",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 206
+    },
+    {
+      "id": "A1.19:playa",
+      "es": "Playa",
+      "en": "Beach",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 207
+    },
+    {
+      "id": "A1.19:bosque",
+      "es": "Bosque",
+      "en": "Forest",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 208
+    },
+    {
+      "id": "A1.19:mar",
+      "es": "Mar",
+      "en": "Sea",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 209
+    },
+    {
+      "id": "A1.19:cielo",
+      "es": "Cielo",
+      "en": "Sky",
+      "cefr": "A1",
+      "microLevel": 19,
+      "topic": "Nature",
+      "frequencyRank": 210
+    },
+    {
+      "id": "A1.20:tierra",
+      "es": "Tierra",
+      "en": "Earth",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Nature",
+      "frequencyRank": 211
+    },
+    {
+      "id": "A1.20:fuego",
+      "es": "Fuego",
+      "en": "Fire",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Nature",
+      "frequencyRank": 212
+    },
+    {
+      "id": "A1.20:aire",
+      "es": "Aire",
+      "en": "Air",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Nature",
+      "frequencyRank": 213
+    },
+    {
+      "id": "A1.20:hotel",
+      "es": "Hotel",
+      "en": "Hotel",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 214
+    },
+    {
+      "id": "A1.20:museo",
+      "es": "Museo",
+      "en": "Museum",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 215
+    },
+    {
+      "id": "A1.20:biblioteca",
+      "es": "Biblioteca",
+      "en": "Library",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 216
+    },
+    {
+      "id": "A1.20:iglesia",
+      "es": "Iglesia",
+      "en": "Church",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 217
+    },
+    {
+      "id": "A1.20:gimnasio",
+      "es": "Gimnasio",
+      "en": "Gym",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 218
+    },
+    {
+      "id": "A1.20:cine",
+      "es": "Cine",
+      "en": "Cinema",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 219
+    },
+    {
+      "id": "A1.20:centro-comercial",
+      "es": "Centro comercial",
+      "en": "Mall",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 220
+    },
+    {
+      "id": "A1.20:puente",
+      "es": "Puente",
+      "en": "Bridge",
+      "cefr": "A1",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 221
+    },
+    {
+      "id": "A2.01:lo-siento",
+      "es": "Lo siento",
+      "en": "Sorry",
+      "cefr": "A2",
+      "microLevel": 1,
+      "topic": "Greetings",
+      "frequencyRank": 1
+    },
+    {
+      "id": "A2.01:amarillo",
+      "es": "Amarillo",
+      "en": "Yellow",
+      "cefr": "A2",
+      "microLevel": 1,
+      "topic": "Colors",
+      "frequencyRank": 2
+    },
+    {
+      "id": "A2.02:naranja",
+      "es": "Naranja",
+      "en": "Orange",
+      "cefr": "A2",
+      "microLevel": 2,
+      "topic": "Colors",
+      "frequencyRank": 3
+    },
+    {
+      "id": "A2.03:morado",
+      "es": "Morado",
+      "en": "Purple",
+      "cefr": "A2",
+      "microLevel": 3,
+      "topic": "Colors",
+      "frequencyRank": 4
+    },
+    {
+      "id": "A2.03:marrón",
+      "es": "Marrón",
+      "en": "Brown",
+      "cefr": "A2",
+      "microLevel": 3,
+      "topic": "Colors",
+      "frequencyRank": 5
+    },
+    {
+      "id": "A2.04:pescado",
+      "es": "Pescado",
+      "en": "Fish (food)",
+      "cefr": "A2",
+      "microLevel": 4,
+      "topic": "Food",
+      "frequencyRank": 6
+    },
+    {
+      "id": "A2.05:pájaro",
+      "es": "Pájaro",
+      "en": "Bird",
+      "cefr": "A2",
+      "microLevel": 5,
+      "topic": "Animals",
+      "frequencyRank": 7
+    },
+    {
+      "id": "A2.06:caballo",
+      "es": "Caballo",
+      "en": "Horse",
+      "cefr": "A2",
+      "microLevel": 6,
+      "topic": "Animals",
+      "frequencyRank": 8
+    },
+    {
+      "id": "A2.06:pez",
+      "es": "Pez",
+      "en": "Fish (animal)",
+      "cefr": "A2",
+      "microLevel": 6,
+      "topic": "Animals",
+      "frequencyRank": 9
+    },
+    {
+      "id": "A2.07:conejo",
+      "es": "Conejo",
+      "en": "Rabbit",
+      "cefr": "A2",
+      "microLevel": 7,
+      "topic": "Animals",
+      "frequencyRank": 10
+    },
+    {
+      "id": "A2.08:león",
+      "es": "León",
+      "en": "Lion",
+      "cefr": "A2",
+      "microLevel": 8,
+      "topic": "Animals",
+      "frequencyRank": 11
+    },
+    {
+      "id": "A2.09:tigre",
+      "es": "Tigre",
+      "en": "Tiger",
+      "cefr": "A2",
+      "microLevel": 9,
+      "topic": "Animals",
+      "frequencyRank": 12
+    },
+    {
+      "id": "A2.09:elefante",
+      "es": "Elefante",
+      "en": "Elephant",
+      "cefr": "A2",
+      "microLevel": 9,
+      "topic": "Animals",
+      "frequencyRank": 13
+    },
+    {
+      "id": "A2.10:abuela",
+      "es": "Abuela",
+      "en": "Grandmother",
+      "cefr": "A2",
+      "microLevel": 10,
+      "topic": "Family",
+      "frequencyRank": 14
+    },
+    {
+      "id": "A2.11:abuelo",
+      "es": "Abuelo",
+      "en": "Grandfather",
+      "cefr": "A2",
+      "microLevel": 11,
+      "topic": "Family",
+      "frequencyRank": 15
+    },
+    {
+      "id": "A2.12:ayer",
+      "es": "Ayer",
+      "en": "Yesterday",
+      "cefr": "A2",
+      "microLevel": 12,
+      "topic": "Time",
+      "frequencyRank": 16
+    },
+    {
+      "id": "A2.12:tarde",
+      "es": "Tarde",
+      "en": "Afternoon",
+      "cefr": "A2",
+      "microLevel": 12,
+      "topic": "Time",
+      "frequencyRank": 17
+    },
+    {
+      "id": "A2.13:escuchar",
+      "es": "Escuchar",
+      "en": "To listen",
+      "cefr": "A2",
+      "microLevel": 13,
+      "topic": "VerbsBasics",
+      "frequencyRank": 18
+    },
+    {
+      "id": "A2.14:despertar",
+      "es": "Despertar",
+      "en": "To wake up",
+      "cefr": "A2",
+      "microLevel": 14,
+      "topic": "VerbsDaily",
+      "frequencyRank": 19
+    },
+    {
+      "id": "A2.15:difícil",
+      "es": "Difícil",
+      "en": "Difficult",
+      "cefr": "A2",
+      "microLevel": 15,
+      "topic": "Adjectives",
+      "frequencyRank": 20
+    },
+    {
+      "id": "A2.15:sorprendido",
+      "es": "Sorprendido",
+      "en": "Surprised",
+      "cefr": "A2",
+      "microLevel": 15,
+      "topic": "Emotions",
+      "frequencyRank": 21
+    },
+    {
+      "id": "A2.16:fresa",
+      "es": "Fresa",
+      "en": "Strawberry",
+      "cefr": "A2",
+      "microLevel": 16,
+      "topic": "Fruits",
+      "frequencyRank": 22
+    },
+    {
+      "id": "A2.17:piña",
+      "es": "Piña",
+      "en": "Pineapple",
+      "cefr": "A2",
+      "microLevel": 17,
+      "topic": "Fruits",
+      "frequencyRank": 23
+    },
+    {
+      "id": "A2.18:sandía",
+      "es": "Sandía",
+      "en": "Watermelon",
+      "cefr": "A2",
+      "microLevel": 18,
+      "topic": "Fruits",
+      "frequencyRank": 24
+    },
+    {
+      "id": "A2.18:entrevista",
+      "es": "Entrevista",
+      "en": "Interview",
+      "cefr": "A2",
+      "microLevel": 18,
+      "topic": "Work",
+      "frequencyRank": 25
+    },
+    {
+      "id": "A2.19:restaurante",
+      "es": "Restaurante",
+      "en": "Restaurant",
+      "cefr": "A2",
+      "microLevel": 19,
+      "topic": "Places",
+      "frequencyRank": 26
+    },
+    {
+      "id": "A2.20:barrio",
+      "es": "Barrio",
+      "en": "Neighborhood",
+      "cefr": "A2",
+      "microLevel": 20,
+      "topic": "Places",
+      "frequencyRank": 27
+    }
+  ]
+}
