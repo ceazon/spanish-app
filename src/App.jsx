@@ -1955,11 +1955,35 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
   );
 }
 
-function DictionaryBookLesson({ user, onComplete, onPractice }) {
-  const words = useMemo(() => (cefrVocab?.vocab || []).filter((w) => ['A1', 'A2'].includes(w?.cefr)), []);
+function DictionaryBookLesson({ user, onComplete, onPractice, contentPack }) {
+  const words = useMemo(() => {
+    const base = (cefrVocab?.vocab || []).filter((w) => ['A1', 'A2'].includes(w?.cefr));
+    const approved = Object.entries(approvedVocab?.vocab || {}).flatMap(([topic, list]) =>
+      (list || [])
+        .filter((x) => x?.approved && x?.es && x?.en)
+        .map((x) => ({ id: x?.id || `${normalizeSimple(x.es)}:${normalizeSimple(x.en)}`, es: x.es, en: x.en, topic: x?.topic || topic, pos: x?.pos || 'word', cefr: x?.cefr || 'A1' }))
+    );
+    const packWords = Object.entries(contentPack?.vocab || {}).flatMap(([topic, list]) =>
+      (list || [])
+        .filter((x) => x?.es && x?.en)
+        .map((x) => ({ id: x?.id || `${normalizeSimple(x.es)}:${normalizeSimple(x.en)}`, es: x.es, en: x.en, topic: x?.topic || topic, pos: x?.pos || 'word', cefr: x?.cefr || 'A1' }))
+    );
+
+    const map = new Map();
+    [...base, ...approved, ...packWords].forEach((w) => {
+      const key = w?.id || `${normalizeSimple(w?.es || '')}:${normalizeSimple(w?.en || '')}`;
+      if (!key) return;
+      if (!map.has(key)) map.set(key, w);
+    });
+
+    return [...map.values()]
+      .filter((w) => ['A1', 'A2'].includes(w?.cefr || 'A1'))
+      .sort((a, b) => (a?.es || '').localeCompare(b?.es || ''));
+  }, [contentPack]);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [topicFilter, setTopicFilter] = useState('all');
   const [selected, setSelected] = useState(null);
   const [pageFlip, setPageFlip] = useState(false);
   const perPage = 16;
@@ -1974,15 +1998,21 @@ function DictionaryBookLesson({ user, onComplete, onPractice }) {
     return { key: 'learned', label: 'Learned', color: '#4ade80' };
   }
 
+  const topics = useMemo(() => {
+    const s = new Set(words.map((w) => w?.topic || 'General'));
+    return ['all', ...[...s].sort((a, b) => String(a).localeCompare(String(b)))];
+  }, [words]);
+
   const filtered = useMemo(() => {
     const q = normalizeSimple(query || '');
     return words.filter((w) => {
       const st = wordStatus(w).key;
       if (statusFilter !== 'all' && st !== statusFilter) return false;
+      if (topicFilter !== 'all' && (w?.topic || 'General') !== topicFilter) return false;
       if (!q) return true;
       return normalizeSimple(w?.es || '').includes(q) || normalizeSimple(w?.en || '').includes(q);
     });
-  }, [words, query, statusFilter, user]);
+  }, [words, query, statusFilter, topicFilter, user]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
@@ -2007,6 +2037,9 @@ function DictionaryBookLesson({ user, onComplete, onPractice }) {
           <option value='learned'>Learned (green)</option>
           <option value='needs'>Needs review (red)</option>
           <option value='unseen'>Unseen (grey)</option>
+        </select>
+        <select value={topicFilter} onChange={(e)=>setTopicFilter(e.target.value)} style={{ padding:'10px 12px', borderRadius:10, background:'#1f1638', color:'#fff', border:'1px solid rgba(255,255,255,0.14)' }}>
+          {topics.map((t) => <option key={t} value={t}>{t === 'all' ? 'All topics' : t}</option>)}
         </select>
       </div>
 
@@ -2776,7 +2809,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
-    "Dictionary Book": () => <DictionaryBookLesson user={user} onComplete={done} onPractice={(challengeWords) => onStartLesson?.('Flashcards', { challengeWords })} />,
+    "Dictionary Book": () => <DictionaryBookLesson user={user} contentPack={contentPack} onComplete={done} onPractice={(challengeWords) => onStartLesson?.('Flashcards', { challengeWords })} />,
   };
   const lessonNode = lessonRegistry[type] ? lessonRegistry[type]() : null;
 
