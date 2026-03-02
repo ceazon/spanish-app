@@ -2620,6 +2620,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const forcedWords = Array.isArray(launchOptions?.challengeWords) ? launchOptions.challengeWords : [];
   const forcedFillItems = Array.isArray(launchOptions?.challengeFillItems) ? launchOptions.challengeFillItems : [];
   const dailyFocusWord = launchOptions?.dailyFocusWord || null;
+  const dailyFocusVerb = launchOptions?.dailyFocusVerb || user?.profile?.dailyFocusVerb || null;
 
   function withDailyFocusWord(items = []) {
     if (!dailyFocusWord?.es || !dailyFocusWord?.en) return items || [];
@@ -2686,14 +2687,95 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [wordsForLesson, category, vocabTarget, user, dailyFocusWord]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
-  const transcriptionForLesson = useMemo(() => (
-    selectAdaptiveListenSentences(listenSentences, {
+
+  const transcriptionSourcePool = useMemo(() => {
+    const basePool = Array.isArray(listenSentences) ? [...listenSentences] : [];
+    const band = user?.profile?.cefrBand || "A1";
+
+    const levelTemplates = band === "A2"
+      ? [
+          { es: "Mañana {yoVerb} con {wordEs} en el mercado.", en: "Tomorrow I {verbEn} with {wordEn} at the market." },
+          { es: "Esta tarde voy a usar {wordEs} cuando {yoVerb}.", en: "This afternoon I will use {wordEn} when I {verbEn}." },
+          { es: "En mi rutina, yo {yoVerb} y practico la palabra {wordEs}.", en: "In my routine, I {verbEn} and practice the word {wordEn}." },
+        ]
+      : [
+          { es: "Hoy yo {yoVerb} y digo {wordEs}.", en: "Today I {verbEn} and say {wordEn}." },
+          { es: "Yo practico {wordEs} cuando {yoVerb}.", en: "I practice {wordEn} when I {verbEn}." },
+          { es: "Ahora yo {yoVerb} con {wordEs}.", en: "Now I {verbEn} with {wordEn}." },
+        ];
+
+    const verbPool = Array.isArray(verbs) ? verbs : [];
+    const focusVerbObj = verbPool.find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(dailyFocusVerb || ""));
+    const chosenVerbPool = shuffle(focusVerbObj ? [focusVerbObj, ...verbPool.filter((v) => v !== focusVerbObj)] : verbPool).slice(0, 6);
+
+    const levelWords = (wordsForLesson || []).filter((w) => w?.es && w?.en).slice(0, 12);
+    const focusWord = dailyFocusWord?.es && dailyFocusWord?.en ? dailyFocusWord : null;
+    const chosenWords = shuffle(focusWord ? [focusWord, ...levelWords.filter((w) => normalizeSimple(w?.es || "") !== normalizeSimple(focusWord.es))] : levelWords).slice(0, 12);
+
+    const generated = [];
+    for (const tpl of levelTemplates) {
+      for (const word of chosenWords.slice(0, 4)) {
+        for (const verb of chosenVerbPool.slice(0, 3)) {
+          const yoForm = (verb?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")?.form || verb?.infinitive || "practico";
+          const verbEn = verb?.meaning || "practice";
+          generated.push({
+            id: `dyn:${band}:${normalizeSimple(word?.es || "")}:${normalizeSimple(verb?.infinitive || "")}:${normalizeSimple(tpl.es)}`,
+            es: tpl.es
+              .replaceAll("{yoVerb}", yoForm)
+              .replaceAll("{wordEs}", word.es),
+            en: tpl.en
+              .replaceAll("{verbEn}", verbEn)
+              .replaceAll("{wordEn}", word.en),
+            cefr: band,
+          });
+        }
+      }
+    }
+
+    const dailyForced = [];
+    if (focusWord) {
+      dailyForced.push({
+        id: `focus-word:${normalizeSimple(focusWord.es)}`,
+        es: `Hoy practicamos la palabra ${focusWord.es}.`,
+        en: `Today we practice the word ${focusWord.en}.`,
+        cefr: band,
+      });
+    }
+    if (focusVerbObj) {
+      const yoForm = (focusVerbObj?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")?.form || focusVerbObj?.infinitive;
+      dailyForced.push({
+        id: `focus-verb:${normalizeSimple(focusVerbObj.infinitive)}`,
+        es: `Hoy yo ${yoForm} para practicar español.`,
+        en: `Today I ${focusVerbObj.meaning || focusVerbObj.infinitive} to practice Spanish.`,
+        cefr: band,
+      });
+    }
+
+    const all = [...dailyForced, ...generated, ...basePool];
+    const byEs = {};
+    for (const s of all) {
+      if (!s?.es) continue;
+      byEs[s.es] = s;
+    }
+    return Object.values(byEs);
+  }, [listenSentences, user, verbs, wordsForLesson, dailyFocusWord, dailyFocusVerb]);
+
+  const transcriptionForLesson = useMemo(() => {
+    const selected = selectAdaptiveListenSentences(transcriptionSourcePool, {
       difficulty,
-      target: Math.max(5, 3 + difficulty),
+      target: Math.max(7, 4 + difficulty),
       userKey,
       category: "Transcription",
-    })
-  ), [listenSentences, difficulty, userKey]);
+    });
+    const mustInclude = transcriptionSourcePool.filter((s) => String(s?.id || "").startsWith("focus-"));
+    const merged = [...mustInclude, ...selected];
+    const byEs = {};
+    for (const s of merged) {
+      if (!s?.es) continue;
+      byEs[s.es] = s;
+    }
+    return shuffle(Object.values(byEs)).slice(0, Math.max(7, 4 + difficulty));
+  }, [transcriptionSourcePool, difficulty, userKey]);
   const selectedScenarioPool = type === "Scenario Builder" && category
     ? scenariosData.filter((s) => s.setting === category)
     : scenariosData;
