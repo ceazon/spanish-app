@@ -3309,6 +3309,9 @@ function LearningBlogPage() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb", fontFamily:"'Outfit', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap'); *{box-sizing:border-box}`}</style>
       <div style={{ maxWidth:900, margin:"0 auto", padding:"30px 20px 70px" }}>
+        <div style={{ marginBottom:12 }}>
+          <a href="/" style={{ color:"#a78bfa", fontSize:13, fontWeight:600, textDecoration:"none" }}>← Back to Chadlingo</a>
+        </div>
         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
           <img src={MASCOT_ASSETS.base} alt="mascot" style={{ width:72, height:72, objectFit:"contain" }} onError={(e)=>{e.currentTarget.style.display="none";}} />
           <div>
