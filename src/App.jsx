@@ -2064,8 +2064,14 @@ function DictionaryBookLesson({ user, onComplete, onPractice, contentPack }) {
               );
             })}
           </div>
-          <div style={{ display:'flex', justifyContent:'space-between', marginTop:10 }}>
+          <div style={{ display:'flex', justifyContent:'space-between', marginTop:10, alignItems:'center', gap:8 }}>
             <button onClick={() => setPage((p) => Math.max(0, p - 1))} style={{ color:'#ddd6fe' }}>← Prev</button>
+            <button onClick={() => {
+              const pageSet = pageWords.map((w) => ({ id: w.id || w.es, es: w.es, en: w.en, cefr: w.cefr || 'A1' }));
+              if (pageSet.length) onPractice?.(pageSet);
+            }} style={{ padding:'6px 10px', borderRadius:8, background:'rgba(6,182,212,0.2)', color:'#67e8f9', fontWeight:700 }}>
+              Practice this page
+            </button>
             <button onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))} style={{ color:'#ddd6fe' }}>Next →</button>
           </div>
         </div>
