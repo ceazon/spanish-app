@@ -3140,7 +3140,7 @@ function DailyFocusModal({ user, dailyFocus, onClose }) {
         <MascotSpeechBubble text="Use today’s word and verb in every lesson. Stack points, keep streak, and sound natural. 💪" tone="hype" style={{ marginBottom:14 }} />
 
         <div style={{ display:"grid", gridTemplateColumns:"repeat(2, minmax(0, 1fr))", gap:12, alignItems:'stretch' }}>
-          <button onClick={() => setFlipWord((v) => !v)} style={{ textAlign:'left', perspective:1000, borderRadius:14 }}>
+          <button onClick={() => setFlipWord((v) => !v)} style={{ textAlign:'left', perspective:1000, borderRadius:14, transition:'transform 0.2s ease, filter 0.2s ease', animation:'tileFloat 2.8s ease-in-out infinite' }} onMouseEnter={(e)=>{e.currentTarget.style.transform='translateY(-2px) scale(1.01)';e.currentTarget.style.filter='drop-shadow(0 8px 20px rgba(34,211,238,0.22))';}} onMouseLeave={(e)=>{e.currentTarget.style.transform='translateY(0) scale(1)';e.currentTarget.style.filter='none';}}>
             <div style={{ position:'relative', minHeight:232, transformStyle:'preserve-3d', transition:'transform 0.55s ease', transform: flipWord ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
               <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', background:"rgba(6,182,212,0.10)", border:"1px solid rgba(34,211,238,0.35)", borderRadius:14, padding:14 }}>
                 <div style={{ color:"#67e8f9", fontSize:11, letterSpacing:2, marginBottom:8 }}>🃏 WORD TILE</div>
@@ -3160,7 +3160,7 @@ function DailyFocusModal({ user, dailyFocus, onClose }) {
             </div>
           </button>
 
-          <button onClick={() => setFlipVerb((v) => !v)} style={{ textAlign:'left', perspective:1000, borderRadius:14 }}>
+          <button onClick={() => setFlipVerb((v) => !v)} style={{ textAlign:'left', perspective:1000, borderRadius:14, transition:'transform 0.2s ease, filter 0.2s ease', animation:'tileFloat 3.1s ease-in-out infinite' }} onMouseEnter={(e)=>{e.currentTarget.style.transform='translateY(-2px) scale(1.01)';e.currentTarget.style.filter='drop-shadow(0 8px 20px rgba(168,85,247,0.26))';}} onMouseLeave={(e)=>{e.currentTarget.style.transform='translateY(0) scale(1)';e.currentTarget.style.filter='none';}}>
             <div style={{ position:'relative', minHeight:232, transformStyle:'preserve-3d', transition:'transform 0.55s ease', transform: flipVerb ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
               <div style={{ position:'absolute', inset:0, backfaceVisibility:'hidden', background:"rgba(124,58,237,0.14)", border:"1px solid rgba(168,85,247,0.35)", borderRadius:14, padding:14 }}>
                 <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>🃏 VERB TILE</div>
@@ -3474,7 +3474,7 @@ export default function App() {
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
   return (
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}@keyframes tileFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
