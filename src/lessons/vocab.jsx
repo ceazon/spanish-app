@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { shuffle, speak } from "../services/utils";
 import { FeedbackBanner, PrimaryBtn, ProgressBar } from "../components/ui";
 
@@ -167,9 +167,16 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
   const [matched, setMatched] = useState([]);
   const [wrong, setWrong] = useState([]);
   const [errors, setErrors] = useState(0);
+  const settleTimerRef = useRef(null);
+  const resolvingRef = useRef(false);
+
+  const wordsSignature = useMemo(
+    () => (Array.isArray(words) ? words.map((w) => `${w?.id || ''}:${w?.en || ''}:${w?.es || ''}`).join('|') : ''),
+    [words]
+  );
 
   useEffect(() => {
-    const pool = words.slice(0, Math.min(targetPairs, words.length));
+    const pool = (words || []).slice(0, Math.min(targetPairs, words?.length || 0));
     setLeft(shuffle(pool));
     setRight(shuffle(pool));
     setSelL(null);
@@ -177,15 +184,26 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
     setMatched([]);
     setWrong([]);
     setErrors(0);
-  }, [words, targetPairs]);
+    resolvingRef.current = false;
+    if (settleTimerRef.current) {
+      clearTimeout(settleTimerRef.current);
+      settleTimerRef.current = null;
+    }
+  }, [wordsSignature, targetPairs]);
 
   useEffect(() => {
-    if (selL && selR) {
-      if (selL.es === selR.es) {
-        const nm = [...matched, selL.en];
-        setMatched(nm);
-        setSelL(null);
-        setSelR(null);
+    return () => {
+      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selL || !selR || resolvingRef.current) return;
+    resolvingRef.current = true;
+
+    if (selL.es === selR.es) {
+      setMatched((prev) => {
+        const nm = [...prev, token(selL)];
         if (nm.length === left.length && left.length > 0) {
           const basePerPair = 10 + Math.round(difficulty * 2);
           const penalty = 4 + Math.round(difficulty);
@@ -193,20 +211,28 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
           const wordResults = left.map((w) => ({ id: w.id || w.es, cefr: w.cefr || "A1", bucket: w._bucket || w.bucket || 'current', seen: 1, correct: 1 }));
           onComplete(pts, left.length, left.length, { wordResults });
         }
-      } else {
-        setWrong([selL.en, selR.en]);
-        setErrors((e) => e + 1);
-        setTimeout(() => {
-          setWrong([]);
-          setSelL(null);
-          setSelR(null);
-        }, 800);
-      }
+        return nm;
+      });
+      setSelL(null);
+      setSelR(null);
+      resolvingRef.current = false;
+    } else {
+      setWrong([token(selL), token(selR)]);
+      setErrors((e) => e + 1);
+      settleTimerRef.current = setTimeout(() => {
+        setWrong([]);
+        setSelL(null);
+        setSelR(null);
+        resolvingRef.current = false;
+      }, 800);
     }
-  }, [selL, selR, matched, left.length, difficulty, errors, onComplete]);
+  }, [selL, selR, left, difficulty, errors, onComplete]);
+
+  function token(word) { return word?.id || `${word?.en || ''}:${word?.es || ''}`; }
 
   function bs(word, sel) {
-    const m=matched.includes(word.en), w=wrong.includes(word.en), s=sel&&sel.en===word.en;
+    const t = token(word);
+    const m=matched.includes(t), w=wrong.includes(t), s=sel&&token(sel)===t;
     return { padding:"12px 20px", borderRadius:10, fontSize:14, fontWeight:600, fontFamily:"'Outfit', sans-serif", cursor:m?"default":"pointer", transition:"all 0.2s", width:140, textAlign:"center",
       background:m?"rgba(34,197,94,0.15)":w?"rgba(239,68,68,0.15)":s?"rgba(124,58,237,0.3)":"rgba(255,255,255,0.06)",
       border:`1px solid ${m?"#22c55e66":w?"#ef444466":s?"#a855f7":"rgba(255,255,255,0.08)"}`,
@@ -227,11 +253,11 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
       <div style={{ display:"flex", gap:40 }}>
         <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
           <div style={{ color:"#a78bfa", fontSize:11, fontWeight:700, letterSpacing:2, textAlign:"center", marginBottom:4 }}>ENGLISH</div>
-          {left.map(w => <button key={w.en} onClick={() => !matched.includes(w.en) && setSelL(w)} style={bs(w, selL)}>{w.en}</button>)}
+          {left.map(w => <button key={token(w)} onClick={() => !matched.includes(token(w)) && setSelL(w)} style={bs(w, selL)}>{w.en}</button>)}
         </div>
         <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
           <div style={{ color:"#f59e0b", fontSize:11, fontWeight:700, letterSpacing:2, textAlign:"center", marginBottom:4 }}>ESPAÑOL</div>
-          {right.map(w => <button key={w.es} onClick={() => !matched.includes(w.en) && setSelR(w)} style={bs(w, selR)}>{w.es}</button>)}
+          {right.map(w => <button key={`${token(w)}:r`} onClick={() => !matched.includes(token(w)) && setSelR(w)} style={bs(w, selR)}>{w.es}</button>)}
         </div>
       </div>
     </div>
