@@ -1138,7 +1138,18 @@ function VerbLesson({ onComplete, verbs = VERBS }) {
 function SpeedRoundLesson({ onComplete, verbs = VERBS }) {
   const TOTAL=60;
   const [started, setStarted] = useState(false); const [timeLeft, setTimeLeft] = useState(TOTAL);
-  const [questions] = useState(() => { const qs=[]; for(let i=0;i<40;i++){const v=verbs[Math.floor(Math.random()*verbs.length)];const c=v.conjugations[Math.floor(Math.random()*v.conjugations.length)];qs.push({verb:v.infinitive,pronoun:c.pronoun,answer:c.form,meaning:v.meaning});}return qs; });
+  const [questions] = useState(() => {
+    const qs=[];
+    const pronouns = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"];
+    for(let i=0;i<40;i++){
+      const v=verbs[Math.floor(Math.random()*verbs.length)];
+      const wantedPronoun = pronouns[i % pronouns.length];
+      const c=(v.conjugations||[]).find((x)=>String(x?.pronoun||"").toLowerCase()===wantedPronoun)
+        || v.conjugations[Math.floor(Math.random()*v.conjugations.length)];
+      qs.push({verb:v.infinitive,pronoun:c.pronoun,answer:c.form,meaning:v.meaning});
+    }
+    return qs;
+  });
   const [qi, setQi] = useState(0); const [input, setInput] = useState(""); const [flash, setFlash] = useState(null);
   const [score, setScore] = useState(0); const [total, setTotal] = useState(0);
   const inputRef = useRef(null);
@@ -2737,7 +2748,32 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     const fallback = withDailyFocusWord((APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget)));
     return (wordsForLesson && wordsForLesson.length) ? wordsForLesson : fallback;
   }, [wordsForLesson, category, vocabTarget, user, dailyFocusWord]);
-  const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
+  const verbsForLesson = useMemo(() => {
+    const base = Array.isArray(verbs) ? [...verbs] : [];
+    const band = user?.profile?.cefrBand || "A1";
+    const mostlyInBand = base.filter((v) => !v?.cefr || v.cefr === band);
+    const reviewPool = base.filter((v) => v?.cefr && v.cefr !== band);
+    const target = Math.max(4, 2 + difficulty * 2);
+
+    let selected = [
+      ...shuffle(mostlyInBand).slice(0, Math.max(2, Math.round(target * 0.7))),
+      ...shuffle(reviewPool).slice(0, Math.max(1, Math.round(target * 0.2))),
+      ...shuffle(base).slice(0, Math.max(1, target - Math.max(2, Math.round(target * 0.7)) - Math.max(1, Math.round(target * 0.2)))),
+    ];
+
+    const focusVerbObj = base.find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(dailyFocusVerb || ""));
+    if (focusVerbObj && Math.random() < 0.72 && !selected.find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(focusVerbObj.infinitive))) {
+      selected = [focusVerbObj, ...selected];
+    }
+
+    const byInf = {};
+    for (const v of selected) {
+      if (!v?.infinitive) continue;
+      byInf[v.infinitive] = v;
+    }
+    return shuffle(Object.values(byInf)).slice(0, target);
+  }, [verbs, user, difficulty, dailyFocusVerb]);
+
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
 
   const transcriptionSourcePool = useMemo(() => {
@@ -2842,14 +2878,52 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     ? pictureScenes.filter((s, i) => `${s.emoji} Scene ${i + 1}` === category)
     : pictureScenes;
   const pictureForLesson = shuffle(selectedPicturePool.length ? selectedPicturePool : pictureScenes).slice(0, 4);
-  const scrambleForLesson = useMemo(() => (
-    selectAdaptiveScrambles(scrambleSentences, {
+  const scrambleForLesson = useMemo(() => {
+    const target = Math.max(4, Math.min(8, 3 + difficulty));
+    const selected = selectAdaptiveScrambles(scrambleSentences, {
       difficulty,
-      target: Math.max(4, Math.min(8, 3 + difficulty)),
+      target,
       userKey,
       category: "Sentence Scramble",
-    })
-  ), [scrambleSentences, difficulty, userKey]);
+    });
+
+    const additions = [];
+    if (dailyFocusWord?.es && dailyFocusWord?.en && Math.random() < 0.58) {
+      const w = dailyFocusWord;
+      additions.push({
+        words: shuffle(["Yo", "practico", w.es, "hoy"]),
+        correct: `Yo practico ${w.es} hoy`,
+        hint: `I practice ${w.en} today.`,
+        cefr: user?.profile?.cefrBand || 'A1',
+      });
+    }
+
+    if (dailyFocusVerb && Math.random() < 0.62) {
+      const verb = (verbs || []).find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+      if (verb?.conjugations?.length) {
+        const pronoun = pronouns[(rotationIndex + 1) % pronouns.length];
+        const form = verb.conjugations.find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(pronoun))
+          || verb.conjugations[(rotationIndex + 1) % verb.conjugations.length]
+          || verb.conjugations[0];
+        if (form?.form) {
+          additions.push({
+            words: shuffle([form.pronoun, form.form, "español", "cada", "día"]),
+            correct: `${form.pronoun} ${form.form} español cada día`,
+            hint: `${form.pronoun} ${verb.meaning || verb.infinitive} Spanish every day.`,
+            cefr: user?.profile?.cefrBand || 'A1',
+          });
+        }
+      }
+    }
+
+    const merged = [...additions, ...selected];
+    const byCorrect = {};
+    for (const s of merged) {
+      if (!s?.correct) continue;
+      byCorrect[s.correct] = s;
+    }
+    return shuffle(Object.values(byCorrect)).slice(0, target);
+  }, [scrambleSentences, difficulty, userKey, dailyFocusWord, dailyFocusVerb, verbs, rotationIndex, user]);
   function pickCategory(cat) {
     if (cat === "General") {
       setCategory("General");
