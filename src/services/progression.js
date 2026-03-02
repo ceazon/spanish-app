@@ -1,6 +1,6 @@
 // Spanish-app/src/services/progression.js
 
-import { getLevelLabel, LEVEL_TITLES } from '../config/cefr.js';
+import { getLevelLabel } from '../config/cefr.js';
 import vocabData from '../content/cefr-vocab.json' with { type: 'json' };
 
 function clamp(n, min, max) {
@@ -295,25 +295,17 @@ export function updateLearningProfile(profile = {}, result = {}) {
     }
   }
 
-  // Update user-friendly label/title every 10% sublevel.
-  const prevOverallLevel = p.overallLevel || 1;
-  const prevSublevel = Number(p.sublevel || 0);
+  // Canonical level projection from current CEFR band + band progress.
+  const prevOverallLevel = Number(p.overallLevel || 1);
   const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(p.cefrBand, p.bandProgress);
 
-  // Feedback-driven pacing: prevent multi-sublevel jumps in a single lesson.
-  const smoothedSublevel = Math.max(prevSublevel, Math.min(sublevel, prevSublevel + 1));
-  const bandIdx = ['A1', 'A2', 'B1', 'B2'].indexOf(p.cefrBand);
-  const smoothedOverall = (bandIdx * 10) + smoothedSublevel + 1;
-  const smoothedTitle = LEVEL_TITLES?.[p.cefrBand]?.[smoothedSublevel] || title;
-  const smoothedNext = LEVEL_TITLES?.[p.cefrBand]?.[Math.min(smoothedSublevel + 1, 9)] || nextTitle;
-
-  p.level = smoothedTitle;
-  p.levelTitle = smoothedTitle;
-  p.nextLevelTitle = smoothedNext;
-  p.sublevel = smoothedSublevel;
-  p.sublevelProgress = smoothedSublevel === sublevel ? pctWithinSublevel : 100;
-  p.overallLevel = smoothedOverall;
-  const leveledUp = smoothedOverall > prevOverallLevel;
+  p.level = title;
+  p.levelTitle = title;
+  p.nextLevelTitle = nextTitle;
+  p.sublevel = sublevel;
+  p.sublevelProgress = pctWithinSublevel;
+  p.overallLevel = overallLevel;
+  const leveledUp = overallLevel > prevOverallLevel;
 
   const recent = [...(p.recentAccuracies || []), accPct].slice(-20);
   const recentAvg = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : 0;

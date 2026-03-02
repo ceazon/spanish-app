@@ -2021,8 +2021,8 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 
   const bandProgressRaw = Number(user.profile?.bandProgress || 0);
   const learningProgressRaw = Number(user.profile?.learningProgress || 0);
-  const displayProgressRaw = Math.max(bandProgressRaw, learningProgressRaw);
-  const learningProgressPct = Math.max(0, Math.min(100, Math.round(displayProgressRaw * 100)));
+  const canonicalLabel = getLevelLabel(user.profile?.cefrBand || 'A1', Math.max(0, Math.min(1, bandProgressRaw)));
+  const learningProgressPct = Math.max(0, Math.min(100, Math.round(learningProgressRaw * 100)));
   const [learningPulse, setLearningPulse] = useState(false);
   const prevLearningProgressRef = useRef(learningProgressPct);
 
@@ -2039,11 +2039,8 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   const progressBands = ['A1', 'A2'];
   const currentBand = user.profile?.cefrBand || 'A1';
   const currentBandIdx = progressBands.indexOf(currentBand);
-  const displayLabel = getLevelLabel(currentBand, displayProgressRaw);
-  const storedSublevel = Number(user.profile?.sublevel);
-  const storedSublevelProgress = Number(user.profile?.sublevelProgress);
-  const currentSublevel = Number.isFinite(storedSublevel) ? storedSublevel : Number(displayLabel.sublevel || 0);
-  const currentSublevelProgress = Math.max(0, Math.min(100, Number.isFinite(storedSublevelProgress) ? storedSublevelProgress : Number(displayLabel.pctWithinSublevel || 0)));
+  const currentSublevel = Number(canonicalLabel.sublevel || 0);
+  const currentSublevelProgress = Math.max(0, Math.min(100, Number(canonicalLabel.pctWithinSublevel || 0)));
 
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
@@ -2069,7 +2066,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         <div>
           <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div>
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>
-            {user.displayName} · {displayLabel.title || user.profile?.levelTitle || user.profile?.level || "Newcomer"}
+            {user.displayName} · {canonicalLabel.title || user.profile?.levelTitle || user.profile?.level || "Newcomer"}
           </h1>
           <button
             onClick={() => setShowProgressMap(true)}
@@ -2077,7 +2074,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             title="View your progress map"
           >
             <div style={{ color:"#9ca3af", fontSize:12 }}>
-              Level {displayLabel.overallLevel || user.profile?.overallLevel || 1} • {currentSublevelProgress}% to {displayLabel.nextTitle || user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+              Level {canonicalLabel.overallLevel || user.profile?.overallLevel || 1} • {currentSublevelProgress}% to {canonicalLabel.nextTitle || user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
             </div>
             <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
               <div style={{ width:`${Math.max(0, Math.min(100, currentSublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
@@ -2243,7 +2240,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
                 <div>
                   <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>YOUR JOURNEY</div>
                   <h3 style={{ color:'#fff', margin:'4px 0 0', fontFamily:"'Playfair Display', serif" }}>
-                    {user.displayName} · {displayLabel.title || user.profile?.levelTitle || 'Newcomer'}
+                    {user.displayName} · {canonicalLabel.title || user.profile?.levelTitle || 'Newcomer'}
                   </h3>
                 </div>
               </div>
