@@ -1749,9 +1749,19 @@ function ImageLabelingLesson({ onComplete, scenes = SCENES }) {
     const list = Array.isArray(scenes) && scenes.length ? scenes : SCENES;
     try {
       const recent = JSON.parse(localStorage.getItem("image_scene_recent_v1") || "[]");
-      const fresh = list.filter((s) => !recent.includes(s?.name));
-      const pool = fresh.length ? fresh : list;
-      const pick = pool[Math.floor(Math.random() * pool.length)];
+      const last = localStorage.getItem("image_scene_last_v1");
+      let pool = list.filter((s) => !recent.includes(s?.name) && s?.name !== last);
+      if (!pool.length) pool = list.filter((s) => s?.name !== last);
+      if (!pool.length) pool = list;
+      const pick = pool[Math.floor(Math.random() * pool.length)] || list[0];
+
+      const nextRecent = [pick?.name, ...(Array.isArray(recent) ? recent : [])]
+        .filter(Boolean)
+        .filter((v, i, arr) => arr.indexOf(v) === i)
+        .slice(0, 20);
+      localStorage.setItem("image_scene_recent_v1", JSON.stringify(nextRecent));
+      localStorage.setItem("image_scene_last_v1", pick?.name || "");
+
       return Math.max(0, list.findIndex((s) => s?.name === pick?.name));
     } catch {
       return Math.floor(Math.random() * list.length);
@@ -3005,7 +3015,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [type, category, scenes, profileBand]);
   const scenesForLesson = useMemo(() => {
     const target = Math.max(3, Math.min(6, 2 + difficulty));
-    return shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target);
+    const pool = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target).map((scene) => ({
+      ...scene,
+      items: (scene?.items || []).map((it) => {
+        const isChairEmoji = it?.emoji === "🪑";
+        const saysTable = normalizeSimple(it?.label || "") === "mesa" || normalizeSimple(it?.en || "") === "table";
+        if (isChairEmoji && saysTable) return { ...it, label: "Silla", en: "Chair" };
+        return it;
+      }),
+    }));
+    return pool;
   }, [selectedScenePool, scenes, difficulty]);
 
   const selectedPicturePool = type === "Picture Description" && category
