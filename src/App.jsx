@@ -303,6 +303,14 @@ function getFriendlyPathName(profile = {}) {
   return `${title} path`;
 }
 
+function formatStrengthNodeLabel(strengthKey = '') {
+  const [band, subRaw] = String(strengthKey || '').split(':');
+  const sub = Number(subRaw);
+  if (!band || !Number.isFinite(sub)) return 'current learning path';
+  const title = LEVEL_TITLES?.[band]?.[Math.max(0, Math.min(9, sub))] || 'Learning node';
+  return title;
+}
+
 function getDailyFocusBundle(profile = {}, username = "guest", now = new Date()) {
   const key = localDayKey(now);
   const currentBand = profile?.cefrBand || "A1";
@@ -1979,7 +1987,7 @@ function ResultScreen({ points, correct, total, onBack, progression }) {
           <div style={{ color:'#bae6fd', fontSize:12, marginTop:4 }}>
             {progBand ? 'Your learning path' : 'Current path'} • Mastery {progPct}% • Learning {learningPct}%
           </div>
-          {strengthenedLevelKey && <div style={{ color:'#bbf7d0', fontSize:12, marginTop:4 }}>🛡️ Reinforced level node: {strengthenedLevelKey}</div>}
+          {strengthenedLevelKey && <div style={{ color:'#bbf7d0', fontSize:12, marginTop:4 }}>🛡️ Reinforced learning node: {formatStrengthNodeLabel(strengthenedLevelKey)}</div>}
           {progEarned >= 2.5 && <div style={{ color:'#86efac', fontSize:12, marginTop:6, fontWeight:700 }}>✨ Stretch bonus momentum unlocked!</div>}
         </div>
       )}

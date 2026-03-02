@@ -27,7 +27,7 @@ export const LEARNING_PATH = {
   A1: Array.from({ length: SUBLEVELS_PER_BAND }, (_, i) => ({
     band: "A1",
     sublevel: i,
-    title: `A1-${i + 1}`,
+    title: i < 3 ? `Foundations ${i + 1}` : i < 7 ? `Core Communication ${i + 1}` : `Confidence Building ${i + 1}`,
     focus: i < 3 ? "Foundations" : i < 7 ? "Core Communication" : "Confidence Building",
     moduleSequence: [
       MODULES.INTRO,
@@ -43,7 +43,7 @@ export const LEARNING_PATH = {
   A2: Array.from({ length: SUBLEVELS_PER_BAND }, (_, i) => ({
     band: "A2",
     sublevel: i,
-    title: `A2-${i + 1}`,
+    title: i < 3 ? `Everyday Expansion ${i + 1}` : i < 7 ? `Narration & Context ${i + 1}` : `Fluency Bridge ${i + 1}`,
     focus: i < 3 ? "Everyday Expansion" : i < 7 ? "Narration & Context" : "Fluency Bridge",
     moduleSequence: [
       MODULES.INTRO,
