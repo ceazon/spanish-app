@@ -2998,18 +2998,8 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     : scenes;
   const scenesForLesson = useMemo(() => {
     const target = Math.max(3, Math.min(6, 2 + difficulty));
-    const base = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target);
-    if (!dailyFocusWord?.es || Math.random() > 0.45) return base;
-    const focusScene = {
-      name: "Daily Focus Scene",
-      items: [
-        { label: dailyFocusWord.es, en: dailyFocusWord.en, emoji: "⭐", x: 50, y: 40 },
-        { label: "Libro", en: "Book", emoji: "📚", x: 25, y: 70 },
-        { label: "Mesa", en: "Table", emoji: "🪑", x: 75, y: 70 },
-      ],
-    };
-    return shuffle([focusScene, ...base]).slice(0, target);
-  }, [selectedScenePool, scenes, difficulty, dailyFocusWord]);
+    return shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target);
+  }, [selectedScenePool, scenes, difficulty]);
 
   const selectedPicturePool = type === "Picture Description" && category
     ? pictureScenes.filter((s, i) => `${s.emoji} Scene ${i + 1}` === category)
