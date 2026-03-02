@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import cefrVocab from "./content/cefr-vocab.json";
+import dailyFocusWords from "./content/daily-focus-words.json";
+import dailyFocusVerbs from "./content/daily-focus-verbs.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
@@ -315,7 +317,8 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
   const key = localDayKey(now);
   const currentBand = profile?.cefrBand || "A1";
   const currentSub = Math.max(0, Math.min(9, Number(profile?.sublevel || 0)));
-  const allWords = (cefrVocab?.vocab || []).filter(Boolean);
+  const focusWordPool = (dailyFocusWords?.words || cefrVocab?.vocab || []).filter(Boolean);
+  const allWords = focusWordPool;
   const bandWords = allWords.filter((w) => (w?.cefr || "A1") === currentBand);
   const rankedBandWords = bandWords.map((w, idx) => {
     const exposure = profile?.wordExposure?.[w?.id || w?.es] || {};
@@ -332,13 +335,16 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
   const blendedPool = [...currentPool.slice(0, 40), ...reviewPool.slice(0, 20), ...stretchPool.slice(0, 20)];
 
   const verbDifficulty = Number(profile?.globalDifficulty || 1);
-  const verbsRanked = [...VERBS].sort((a, b) => {
+  const focusVerbPool = (dailyFocusVerbs?.verbs || []).length ? dailyFocusVerbs.verbs : VERBS;
+  const verbsRanked = [...focusVerbPool].sort((a, b) => {
     const aIrregular = String(a?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
     const bIrregular = String(b?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
     return aIrregular - bIrregular;
   });
-  const verbStart = Math.max(0, Math.min(Math.max(0, verbsRanked.length - 1), Math.floor(((currentSub + verbDifficulty) / 11) * verbsRanked.length)));
-  const verbPool = verbsRanked.slice(Math.max(0, verbStart - 2), Math.min(verbsRanked.length, verbStart + 4));
+  const verbsInBand = verbsRanked.filter((v) => !v?.cefr || v.cefr === currentBand);
+  const activeVerbList = verbsInBand.length ? verbsInBand : verbsRanked;
+  const verbStart = Math.max(0, Math.min(Math.max(0, activeVerbList.length - 1), Math.floor(((currentSub + verbDifficulty) / 11) * activeVerbList.length)));
+  const verbPool = activeVerbList.slice(Math.max(0, verbStart - 3), Math.min(activeVerbList.length, verbStart + 6));
 
   const storedWordId = profile?.dailyFocusWordId || null;
   const storedVerbInf = profile?.dailyFocusVerb || null;
@@ -351,7 +357,7 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
   ) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
 
   const verb = pickSeeded(
-    verbPool.length ? verbPool : VERBS,
+    verbPool.length ? verbPool : verbsRanked,
     seed + 29 + Math.floor(Math.random() * 9999),
     storedVerbInf,
     (v) => v?.infinitive

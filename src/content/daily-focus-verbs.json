@@ -1,0 +1,1965 @@
+{
+  "verbs": [
+    {
+      "infinitive": "hablar",
+      "meaning": "to habl",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "hablo",
+          "meaning": "yo to habl"
+        },
+        {
+          "pronoun": "tú",
+          "form": "hablas",
+          "meaning": "tú to habl"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "habla",
+          "meaning": "él / ella to habl"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "hablamos",
+          "meaning": "nosotros to habl"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "habláis",
+          "meaning": "vosotros to habl"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "hablan",
+          "meaning": "ellos / ellas to habl"
+        }
+      ]
+    },
+    {
+      "infinitive": "trabajar",
+      "meaning": "to trabaj",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "trabajo",
+          "meaning": "yo to trabaj"
+        },
+        {
+          "pronoun": "tú",
+          "form": "trabajas",
+          "meaning": "tú to trabaj"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "trabaja",
+          "meaning": "él / ella to trabaj"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "trabajamos",
+          "meaning": "nosotros to trabaj"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "trabajáis",
+          "meaning": "vosotros to trabaj"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "trabajan",
+          "meaning": "ellos / ellas to trabaj"
+        }
+      ]
+    },
+    {
+      "infinitive": "estudiar",
+      "meaning": "to estudi",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "estudio",
+          "meaning": "yo to estudi"
+        },
+        {
+          "pronoun": "tú",
+          "form": "estudias",
+          "meaning": "tú to estudi"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "estudia",
+          "meaning": "él / ella to estudi"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "estudiamos",
+          "meaning": "nosotros to estudi"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "estudiáis",
+          "meaning": "vosotros to estudi"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "estudian",
+          "meaning": "ellos / ellas to estudi"
+        }
+      ]
+    },
+    {
+      "infinitive": "caminar",
+      "meaning": "to camin",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "camino",
+          "meaning": "yo to camin"
+        },
+        {
+          "pronoun": "tú",
+          "form": "caminas",
+          "meaning": "tú to camin"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "camina",
+          "meaning": "él / ella to camin"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "caminamos",
+          "meaning": "nosotros to camin"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "camináis",
+          "meaning": "vosotros to camin"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "caminan",
+          "meaning": "ellos / ellas to camin"
+        }
+      ]
+    },
+    {
+      "infinitive": "bailar",
+      "meaning": "to bail",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "bailo",
+          "meaning": "yo to bail"
+        },
+        {
+          "pronoun": "tú",
+          "form": "bailas",
+          "meaning": "tú to bail"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "baila",
+          "meaning": "él / ella to bail"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "bailamos",
+          "meaning": "nosotros to bail"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "bailáis",
+          "meaning": "vosotros to bail"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "bailan",
+          "meaning": "ellos / ellas to bail"
+        }
+      ]
+    },
+    {
+      "infinitive": "cantar",
+      "meaning": "to cant",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "canto",
+          "meaning": "yo to cant"
+        },
+        {
+          "pronoun": "tú",
+          "form": "cantas",
+          "meaning": "tú to cant"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "canta",
+          "meaning": "él / ella to cant"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "cantamos",
+          "meaning": "nosotros to cant"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "cantáis",
+          "meaning": "vosotros to cant"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "cantan",
+          "meaning": "ellos / ellas to cant"
+        }
+      ]
+    },
+    {
+      "infinitive": "mirar",
+      "meaning": "to mir",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "miro",
+          "meaning": "yo to mir"
+        },
+        {
+          "pronoun": "tú",
+          "form": "miras",
+          "meaning": "tú to mir"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "mira",
+          "meaning": "él / ella to mir"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "miramos",
+          "meaning": "nosotros to mir"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "miráis",
+          "meaning": "vosotros to mir"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "miran",
+          "meaning": "ellos / ellas to mir"
+        }
+      ]
+    },
+    {
+      "infinitive": "escuchar",
+      "meaning": "to escuch",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "escucho",
+          "meaning": "yo to escuch"
+        },
+        {
+          "pronoun": "tú",
+          "form": "escuchas",
+          "meaning": "tú to escuch"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "escucha",
+          "meaning": "él / ella to escuch"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "escuchamos",
+          "meaning": "nosotros to escuch"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "escucháis",
+          "meaning": "vosotros to escuch"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "escuchan",
+          "meaning": "ellos / ellas to escuch"
+        }
+      ]
+    },
+    {
+      "infinitive": "comprar",
+      "meaning": "to compr",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "compro",
+          "meaning": "yo to compr"
+        },
+        {
+          "pronoun": "tú",
+          "form": "compras",
+          "meaning": "tú to compr"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "compra",
+          "meaning": "él / ella to compr"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "compramos",
+          "meaning": "nosotros to compr"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "compráis",
+          "meaning": "vosotros to compr"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "compran",
+          "meaning": "ellos / ellas to compr"
+        }
+      ]
+    },
+    {
+      "infinitive": "viajar",
+      "meaning": "to viaj",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "viajo",
+          "meaning": "yo to viaj"
+        },
+        {
+          "pronoun": "tú",
+          "form": "viajas",
+          "meaning": "tú to viaj"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "viaja",
+          "meaning": "él / ella to viaj"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "viajamos",
+          "meaning": "nosotros to viaj"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "viajáis",
+          "meaning": "vosotros to viaj"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "viajan",
+          "meaning": "ellos / ellas to viaj"
+        }
+      ]
+    },
+    {
+      "infinitive": "cocinar",
+      "meaning": "to cocin",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "cocino",
+          "meaning": "yo to cocin"
+        },
+        {
+          "pronoun": "tú",
+          "form": "cocinas",
+          "meaning": "tú to cocin"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "cocina",
+          "meaning": "él / ella to cocin"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "cocinamos",
+          "meaning": "nosotros to cocin"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "cocináis",
+          "meaning": "vosotros to cocin"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "cocinan",
+          "meaning": "ellos / ellas to cocin"
+        }
+      ]
+    },
+    {
+      "infinitive": "llamar",
+      "meaning": "to llam",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "llamo",
+          "meaning": "yo to llam"
+        },
+        {
+          "pronoun": "tú",
+          "form": "llamas",
+          "meaning": "tú to llam"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "llama",
+          "meaning": "él / ella to llam"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "llamamos",
+          "meaning": "nosotros to llam"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "llamáis",
+          "meaning": "vosotros to llam"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "llaman",
+          "meaning": "ellos / ellas to llam"
+        }
+      ]
+    },
+    {
+      "infinitive": "llegar",
+      "meaning": "to lleg",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "llego",
+          "meaning": "yo to lleg"
+        },
+        {
+          "pronoun": "tú",
+          "form": "llegas",
+          "meaning": "tú to lleg"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "llega",
+          "meaning": "él / ella to lleg"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "llegamos",
+          "meaning": "nosotros to lleg"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "llegáis",
+          "meaning": "vosotros to lleg"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "llegan",
+          "meaning": "ellos / ellas to lleg"
+        }
+      ]
+    },
+    {
+      "infinitive": "preguntar",
+      "meaning": "to pregunt",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "pregunto",
+          "meaning": "yo to pregunt"
+        },
+        {
+          "pronoun": "tú",
+          "form": "preguntas",
+          "meaning": "tú to pregunt"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "pregunta",
+          "meaning": "él / ella to pregunt"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "preguntamos",
+          "meaning": "nosotros to pregunt"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "preguntáis",
+          "meaning": "vosotros to pregunt"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "preguntan",
+          "meaning": "ellos / ellas to pregunt"
+        }
+      ]
+    },
+    {
+      "infinitive": "necesitar",
+      "meaning": "to necesit",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "necesito",
+          "meaning": "yo to necesit"
+        },
+        {
+          "pronoun": "tú",
+          "form": "necesitas",
+          "meaning": "tú to necesit"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "necesita",
+          "meaning": "él / ella to necesit"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "necesitamos",
+          "meaning": "nosotros to necesit"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "necesitáis",
+          "meaning": "vosotros to necesit"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "necesitan",
+          "meaning": "ellos / ellas to necesit"
+        }
+      ]
+    },
+    {
+      "infinitive": "ayudar",
+      "meaning": "to ayud",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "ayudo",
+          "meaning": "yo to ayud"
+        },
+        {
+          "pronoun": "tú",
+          "form": "ayudas",
+          "meaning": "tú to ayud"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "ayuda",
+          "meaning": "él / ella to ayud"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "ayudamos",
+          "meaning": "nosotros to ayud"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "ayudáis",
+          "meaning": "vosotros to ayud"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "ayudan",
+          "meaning": "ellos / ellas to ayud"
+        }
+      ]
+    },
+    {
+      "infinitive": "jugar",
+      "meaning": "to jug",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "jugo",
+          "meaning": "yo to jug"
+        },
+        {
+          "pronoun": "tú",
+          "form": "jugas",
+          "meaning": "tú to jug"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "juga",
+          "meaning": "él / ella to jug"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "jugamos",
+          "meaning": "nosotros to jug"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "jugáis",
+          "meaning": "vosotros to jug"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "jugan",
+          "meaning": "ellos / ellas to jug"
+        }
+      ]
+    },
+    {
+      "infinitive": "descansar",
+      "meaning": "to descans",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "descanso",
+          "meaning": "yo to descans"
+        },
+        {
+          "pronoun": "tú",
+          "form": "descansas",
+          "meaning": "tú to descans"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "descansa",
+          "meaning": "él / ella to descans"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "descansamos",
+          "meaning": "nosotros to descans"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "descansáis",
+          "meaning": "vosotros to descans"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "descansan",
+          "meaning": "ellos / ellas to descans"
+        }
+      ]
+    },
+    {
+      "infinitive": "usar",
+      "meaning": "to us",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "uso",
+          "meaning": "yo to us"
+        },
+        {
+          "pronoun": "tú",
+          "form": "usas",
+          "meaning": "tú to us"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "usa",
+          "meaning": "él / ella to us"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "usamos",
+          "meaning": "nosotros to us"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "usáis",
+          "meaning": "vosotros to us"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "usan",
+          "meaning": "ellos / ellas to us"
+        }
+      ]
+    },
+    {
+      "infinitive": "lavar",
+      "meaning": "to lav",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "lavo",
+          "meaning": "yo to lav"
+        },
+        {
+          "pronoun": "tú",
+          "form": "lavas",
+          "meaning": "tú to lav"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "lava",
+          "meaning": "él / ella to lav"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "lavamos",
+          "meaning": "nosotros to lav"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "laváis",
+          "meaning": "vosotros to lav"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "lavan",
+          "meaning": "ellos / ellas to lav"
+        }
+      ]
+    },
+    {
+      "infinitive": "abrir",
+      "meaning": "to abr",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "abro",
+          "meaning": "yo to abr"
+        },
+        {
+          "pronoun": "tú",
+          "form": "abres",
+          "meaning": "tú to abr"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "abre",
+          "meaning": "él / ella to abr"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "abrimos",
+          "meaning": "nosotros to abr"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "abrís",
+          "meaning": "vosotros to abr"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "abren",
+          "meaning": "ellos / ellas to abr"
+        }
+      ]
+    },
+    {
+      "infinitive": "cerrar",
+      "meaning": "to cerr",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "cerro",
+          "meaning": "yo to cerr"
+        },
+        {
+          "pronoun": "tú",
+          "form": "cerras",
+          "meaning": "tú to cerr"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "cerra",
+          "meaning": "él / ella to cerr"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "cerramos",
+          "meaning": "nosotros to cerr"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "cerráis",
+          "meaning": "vosotros to cerr"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "cerran",
+          "meaning": "ellos / ellas to cerr"
+        }
+      ]
+    },
+    {
+      "infinitive": "comer",
+      "meaning": "to com",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "como",
+          "meaning": "yo to com"
+        },
+        {
+          "pronoun": "tú",
+          "form": "comes",
+          "meaning": "tú to com"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "come",
+          "meaning": "él / ella to com"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "comemos",
+          "meaning": "nosotros to com"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "coméis",
+          "meaning": "vosotros to com"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "comen",
+          "meaning": "ellos / ellas to com"
+        }
+      ]
+    },
+    {
+      "infinitive": "beber",
+      "meaning": "to beb",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "bebo",
+          "meaning": "yo to beb"
+        },
+        {
+          "pronoun": "tú",
+          "form": "bebes",
+          "meaning": "tú to beb"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "bebe",
+          "meaning": "él / ella to beb"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "bebemos",
+          "meaning": "nosotros to beb"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "bebéis",
+          "meaning": "vosotros to beb"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "beben",
+          "meaning": "ellos / ellas to beb"
+        }
+      ]
+    },
+    {
+      "infinitive": "leer",
+      "meaning": "to le",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "leo",
+          "meaning": "yo to le"
+        },
+        {
+          "pronoun": "tú",
+          "form": "lees",
+          "meaning": "tú to le"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "lee",
+          "meaning": "él / ella to le"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "leemos",
+          "meaning": "nosotros to le"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "leéis",
+          "meaning": "vosotros to le"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "leen",
+          "meaning": "ellos / ellas to le"
+        }
+      ]
+    },
+    {
+      "infinitive": "aprender",
+      "meaning": "to aprend",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "aprendo",
+          "meaning": "yo to aprend"
+        },
+        {
+          "pronoun": "tú",
+          "form": "aprendes",
+          "meaning": "tú to aprend"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "aprende",
+          "meaning": "él / ella to aprend"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "aprendemos",
+          "meaning": "nosotros to aprend"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "aprendéis",
+          "meaning": "vosotros to aprend"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "aprenden",
+          "meaning": "ellos / ellas to aprend"
+        }
+      ]
+    },
+    {
+      "infinitive": "vender",
+      "meaning": "to vend",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "vendo",
+          "meaning": "yo to vend"
+        },
+        {
+          "pronoun": "tú",
+          "form": "vendes",
+          "meaning": "tú to vend"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "vende",
+          "meaning": "él / ella to vend"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "vendemos",
+          "meaning": "nosotros to vend"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "vendéis",
+          "meaning": "vosotros to vend"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "venden",
+          "meaning": "ellos / ellas to vend"
+        }
+      ]
+    },
+    {
+      "infinitive": "correr",
+      "meaning": "to corr",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "corro",
+          "meaning": "yo to corr"
+        },
+        {
+          "pronoun": "tú",
+          "form": "corres",
+          "meaning": "tú to corr"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "corre",
+          "meaning": "él / ella to corr"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "corremos",
+          "meaning": "nosotros to corr"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "corréis",
+          "meaning": "vosotros to corr"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "corren",
+          "meaning": "ellos / ellas to corr"
+        }
+      ]
+    },
+    {
+      "infinitive": "responder",
+      "meaning": "to respond",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "respondo",
+          "meaning": "yo to respond"
+        },
+        {
+          "pronoun": "tú",
+          "form": "respondes",
+          "meaning": "tú to respond"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "responde",
+          "meaning": "él / ella to respond"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "respondemos",
+          "meaning": "nosotros to respond"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "respondéis",
+          "meaning": "vosotros to respond"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "responden",
+          "meaning": "ellos / ellas to respond"
+        }
+      ]
+    },
+    {
+      "infinitive": "comprender",
+      "meaning": "to comprend",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "comprendo",
+          "meaning": "yo to comprend"
+        },
+        {
+          "pronoun": "tú",
+          "form": "comprendes",
+          "meaning": "tú to comprend"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "comprende",
+          "meaning": "él / ella to comprend"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "comprendemos",
+          "meaning": "nosotros to comprend"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "comprendéis",
+          "meaning": "vosotros to comprend"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "comprenden",
+          "meaning": "ellos / ellas to comprend"
+        }
+      ]
+    },
+    {
+      "infinitive": "prometer",
+      "meaning": "to promet",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "prometo",
+          "meaning": "yo to promet"
+        },
+        {
+          "pronoun": "tú",
+          "form": "prometes",
+          "meaning": "tú to promet"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "promete",
+          "meaning": "él / ella to promet"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "prometemos",
+          "meaning": "nosotros to promet"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "prometéis",
+          "meaning": "vosotros to promet"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "prometen",
+          "meaning": "ellos / ellas to promet"
+        }
+      ]
+    },
+    {
+      "infinitive": "temer",
+      "meaning": "to tem",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "temo",
+          "meaning": "yo to tem"
+        },
+        {
+          "pronoun": "tú",
+          "form": "temes",
+          "meaning": "tú to tem"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "teme",
+          "meaning": "él / ella to tem"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "tememos",
+          "meaning": "nosotros to tem"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "teméis",
+          "meaning": "vosotros to tem"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "temen",
+          "meaning": "ellos / ellas to tem"
+        }
+      ]
+    },
+    {
+      "infinitive": "deber",
+      "meaning": "to deb",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "debo",
+          "meaning": "yo to deb"
+        },
+        {
+          "pronoun": "tú",
+          "form": "debes",
+          "meaning": "tú to deb"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "debe",
+          "meaning": "él / ella to deb"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "debemos",
+          "meaning": "nosotros to deb"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "debéis",
+          "meaning": "vosotros to deb"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "deben",
+          "meaning": "ellos / ellas to deb"
+        }
+      ]
+    },
+    {
+      "infinitive": "meter",
+      "meaning": "to met",
+      "cefr": "A1",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "meto",
+          "meaning": "yo to met"
+        },
+        {
+          "pronoun": "tú",
+          "form": "metes",
+          "meaning": "tú to met"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "mete",
+          "meaning": "él / ella to met"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "metemos",
+          "meaning": "nosotros to met"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "metéis",
+          "meaning": "vosotros to met"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "meten",
+          "meaning": "ellos / ellas to met"
+        }
+      ]
+    },
+    {
+      "infinitive": "vivir",
+      "meaning": "to viv",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "vivo",
+          "meaning": "yo to viv"
+        },
+        {
+          "pronoun": "tú",
+          "form": "vives",
+          "meaning": "tú to viv"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "vive",
+          "meaning": "él / ella to viv"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "vivimos",
+          "meaning": "nosotros to viv"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "vivís",
+          "meaning": "vosotros to viv"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "viven",
+          "meaning": "ellos / ellas to viv"
+        }
+      ]
+    },
+    {
+      "infinitive": "escribir",
+      "meaning": "to escrib",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "escribo",
+          "meaning": "yo to escrib"
+        },
+        {
+          "pronoun": "tú",
+          "form": "escribes",
+          "meaning": "tú to escrib"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "escribe",
+          "meaning": "él / ella to escrib"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "escribimos",
+          "meaning": "nosotros to escrib"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "escribís",
+          "meaning": "vosotros to escrib"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "escriben",
+          "meaning": "ellos / ellas to escrib"
+        }
+      ]
+    },
+    {
+      "infinitive": "subir",
+      "meaning": "to sub",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "subo",
+          "meaning": "yo to sub"
+        },
+        {
+          "pronoun": "tú",
+          "form": "subes",
+          "meaning": "tú to sub"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "sube",
+          "meaning": "él / ella to sub"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "subimos",
+          "meaning": "nosotros to sub"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "subís",
+          "meaning": "vosotros to sub"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "suben",
+          "meaning": "ellos / ellas to sub"
+        }
+      ]
+    },
+    {
+      "infinitive": "decidir",
+      "meaning": "to decid",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "decido",
+          "meaning": "yo to decid"
+        },
+        {
+          "pronoun": "tú",
+          "form": "decides",
+          "meaning": "tú to decid"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "decide",
+          "meaning": "él / ella to decid"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "decidimos",
+          "meaning": "nosotros to decid"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "decidís",
+          "meaning": "vosotros to decid"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "deciden",
+          "meaning": "ellos / ellas to decid"
+        }
+      ]
+    },
+    {
+      "infinitive": "recibir",
+      "meaning": "to recib",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "recibo",
+          "meaning": "yo to recib"
+        },
+        {
+          "pronoun": "tú",
+          "form": "recibes",
+          "meaning": "tú to recib"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "recibe",
+          "meaning": "él / ella to recib"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "recibimos",
+          "meaning": "nosotros to recib"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "recibís",
+          "meaning": "vosotros to recib"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "reciben",
+          "meaning": "ellos / ellas to recib"
+        }
+      ]
+    },
+    {
+      "infinitive": "permitir",
+      "meaning": "to permit",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "permito",
+          "meaning": "yo to permit"
+        },
+        {
+          "pronoun": "tú",
+          "form": "permites",
+          "meaning": "tú to permit"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "permite",
+          "meaning": "él / ella to permit"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "permitimos",
+          "meaning": "nosotros to permit"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "permitís",
+          "meaning": "vosotros to permit"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "permiten",
+          "meaning": "ellos / ellas to permit"
+        }
+      ]
+    },
+    {
+      "infinitive": "compartir",
+      "meaning": "to compart",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "comparto",
+          "meaning": "yo to compart"
+        },
+        {
+          "pronoun": "tú",
+          "form": "compartes",
+          "meaning": "tú to compart"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "comparte",
+          "meaning": "él / ella to compart"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "compartimos",
+          "meaning": "nosotros to compart"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "compartís",
+          "meaning": "vosotros to compart"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "comparten",
+          "meaning": "ellos / ellas to compart"
+        }
+      ]
+    },
+    {
+      "infinitive": "asistir",
+      "meaning": "to asist",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "asisto",
+          "meaning": "yo to asist"
+        },
+        {
+          "pronoun": "tú",
+          "form": "asistes",
+          "meaning": "tú to asist"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "asiste",
+          "meaning": "él / ella to asist"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "asistimos",
+          "meaning": "nosotros to asist"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "asistís",
+          "meaning": "vosotros to asist"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "asisten",
+          "meaning": "ellos / ellas to asist"
+        }
+      ]
+    },
+    {
+      "infinitive": "existir",
+      "meaning": "to exist",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "existo",
+          "meaning": "yo to exist"
+        },
+        {
+          "pronoun": "tú",
+          "form": "existes",
+          "meaning": "tú to exist"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "existe",
+          "meaning": "él / ella to exist"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "existimos",
+          "meaning": "nosotros to exist"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "existís",
+          "meaning": "vosotros to exist"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "existen",
+          "meaning": "ellos / ellas to exist"
+        }
+      ]
+    },
+    {
+      "infinitive": "sufrir",
+      "meaning": "to sufr",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "sufro",
+          "meaning": "yo to sufr"
+        },
+        {
+          "pronoun": "tú",
+          "form": "sufres",
+          "meaning": "tú to sufr"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "sufre",
+          "meaning": "él / ella to sufr"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "sufrimos",
+          "meaning": "nosotros to sufr"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "sufrís",
+          "meaning": "vosotros to sufr"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "sufren",
+          "meaning": "ellos / ellas to sufr"
+        }
+      ]
+    },
+    {
+      "infinitive": "discutir",
+      "meaning": "to discut",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "discuto",
+          "meaning": "yo to discut"
+        },
+        {
+          "pronoun": "tú",
+          "form": "discutes",
+          "meaning": "tú to discut"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "discute",
+          "meaning": "él / ella to discut"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "discutimos",
+          "meaning": "nosotros to discut"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "discutís",
+          "meaning": "vosotros to discut"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "discuten",
+          "meaning": "ellos / ellas to discut"
+        }
+      ]
+    },
+    {
+      "infinitive": "ser",
+      "meaning": "to be",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "soy",
+          "meaning": "yo to be"
+        },
+        {
+          "pronoun": "tú",
+          "form": "eres",
+          "meaning": "tú to be"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "es",
+          "meaning": "él / ella to be"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "somos",
+          "meaning": "nosotros to be"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "sois",
+          "meaning": "vosotros to be"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "son",
+          "meaning": "ellos / ellas to be"
+        }
+      ]
+    },
+    {
+      "infinitive": "estar",
+      "meaning": "to be",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "estoy",
+          "meaning": "yo to be"
+        },
+        {
+          "pronoun": "tú",
+          "form": "estás",
+          "meaning": "tú to be"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "está",
+          "meaning": "él / ella to be"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "estamos",
+          "meaning": "nosotros to be"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "estáis",
+          "meaning": "vosotros to be"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "están",
+          "meaning": "ellos / ellas to be"
+        }
+      ]
+    },
+    {
+      "infinitive": "tener",
+      "meaning": "to have",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "tengo",
+          "meaning": "yo to have"
+        },
+        {
+          "pronoun": "tú",
+          "form": "tienes",
+          "meaning": "tú to have"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "tiene",
+          "meaning": "él / ella to have"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "tenemos",
+          "meaning": "nosotros to have"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "tenéis",
+          "meaning": "vosotros to have"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "tienen",
+          "meaning": "ellos / ellas to have"
+        }
+      ]
+    },
+    {
+      "infinitive": "ir",
+      "meaning": "to go",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "voy",
+          "meaning": "yo to go"
+        },
+        {
+          "pronoun": "tú",
+          "form": "vas",
+          "meaning": "tú to go"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "va",
+          "meaning": "él / ella to go"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "vamos",
+          "meaning": "nosotros to go"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "vais",
+          "meaning": "vosotros to go"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "van",
+          "meaning": "ellos / ellas to go"
+        }
+      ]
+    },
+    {
+      "infinitive": "querer",
+      "meaning": "to want",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "quiero",
+          "meaning": "yo to want"
+        },
+        {
+          "pronoun": "tú",
+          "form": "quieres",
+          "meaning": "tú to want"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "quiere",
+          "meaning": "él / ella to want"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "queremos",
+          "meaning": "nosotros to want"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "queréis",
+          "meaning": "vosotros to want"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "quieren",
+          "meaning": "ellos / ellas to want"
+        }
+      ]
+    },
+    {
+      "infinitive": "poder",
+      "meaning": "to be able to",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "puedo",
+          "meaning": "yo to be able to"
+        },
+        {
+          "pronoun": "tú",
+          "form": "puedes",
+          "meaning": "tú to be able to"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "puede",
+          "meaning": "él / ella to be able to"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "podemos",
+          "meaning": "nosotros to be able to"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "podéis",
+          "meaning": "vosotros to be able to"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "pueden",
+          "meaning": "ellos / ellas to be able to"
+        }
+      ]
+    },
+    {
+      "infinitive": "hacer",
+      "meaning": "to do/make",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "hago",
+          "meaning": "yo to do/make"
+        },
+        {
+          "pronoun": "tú",
+          "form": "haces",
+          "meaning": "tú to do/make"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "hace",
+          "meaning": "él / ella to do/make"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "hacemos",
+          "meaning": "nosotros to do/make"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "hacéis",
+          "meaning": "vosotros to do/make"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "hacen",
+          "meaning": "ellos / ellas to do/make"
+        }
+      ]
+    },
+    {
+      "infinitive": "venir",
+      "meaning": "to come",
+      "cefr": "A2",
+      "conjugations": [
+        {
+          "pronoun": "yo",
+          "form": "vengo",
+          "meaning": "yo to come"
+        },
+        {
+          "pronoun": "tú",
+          "form": "vienes",
+          "meaning": "tú to come"
+        },
+        {
+          "pronoun": "él / ella",
+          "form": "viene",
+          "meaning": "él / ella to come"
+        },
+        {
+          "pronoun": "nosotros",
+          "form": "venimos",
+          "meaning": "nosotros to come"
+        },
+        {
+          "pronoun": "vosotros",
+          "form": "venís",
+          "meaning": "vosotros to come"
+        },
+        {
+          "pronoun": "ellos / ellas",
+          "form": "vienen",
+          "meaning": "ellos / ellas to come"
+        }
+      ]
+    }
+  ]
+}

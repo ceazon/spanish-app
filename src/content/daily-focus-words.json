@@ -1,0 +1,1740 @@
+{
+  "words": [
+    {
+      "id": "greetings:hola",
+      "es": "Hola",
+      "en": "Hello",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:adiós",
+      "es": "Adiós",
+      "en": "Goodbye",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:buenos días",
+      "es": "Buenos días",
+      "en": "Good morning",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:buenas noches",
+      "es": "Buenas noches",
+      "en": "Good night",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:gracias",
+      "es": "Gracias",
+      "en": "Thank you",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:por favor",
+      "es": "Por favor",
+      "en": "Please",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:sí",
+      "es": "Sí",
+      "en": "Yes",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:no",
+      "es": "No",
+      "en": "No",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:perdón",
+      "es": "Perdón",
+      "en": "Excuse me",
+      "cefr": "A1",
+      "topic": "Greetings"
+    },
+    {
+      "id": "greetings:lo siento",
+      "es": "Lo siento",
+      "en": "Sorry",
+      "cefr": "A2",
+      "topic": "Greetings"
+    },
+    {
+      "id": "numbers:uno",
+      "es": "Uno",
+      "en": "One",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:dos",
+      "es": "Dos",
+      "en": "Two",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:tres",
+      "es": "Tres",
+      "en": "Three",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:cuatro",
+      "es": "Cuatro",
+      "en": "Four",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:cinco",
+      "es": "Cinco",
+      "en": "Five",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:seis",
+      "es": "Seis",
+      "en": "Six",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:siete",
+      "es": "Siete",
+      "en": "Seven",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:ocho",
+      "es": "Ocho",
+      "en": "Eight",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:nueve",
+      "es": "Nueve",
+      "en": "Nine",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "numbers:diez",
+      "es": "Diez",
+      "en": "Ten",
+      "cefr": "A1",
+      "topic": "Numbers"
+    },
+    {
+      "id": "colors:rojo",
+      "es": "Rojo",
+      "en": "Red",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:azul",
+      "es": "Azul",
+      "en": "Blue",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:verde",
+      "es": "Verde",
+      "en": "Green",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:amarillo",
+      "es": "Amarillo",
+      "en": "Yellow",
+      "cefr": "A2",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:negro",
+      "es": "Negro",
+      "en": "Black",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:blanco",
+      "es": "Blanco",
+      "en": "White",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:naranja",
+      "es": "Naranja",
+      "en": "Orange",
+      "cefr": "A2",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:morado",
+      "es": "Morado",
+      "en": "Purple",
+      "cefr": "A2",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:rosa",
+      "es": "Rosa",
+      "en": "Pink",
+      "cefr": "A1",
+      "topic": "Colors"
+    },
+    {
+      "id": "colors:marrón",
+      "es": "Marrón",
+      "en": "Brown",
+      "cefr": "A2",
+      "topic": "Colors"
+    },
+    {
+      "id": "food:manzana",
+      "es": "Manzana",
+      "en": "Apple",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:pan",
+      "es": "Pan",
+      "en": "Bread",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:agua",
+      "es": "Agua",
+      "en": "Water",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:leche",
+      "es": "Leche",
+      "en": "Milk",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:pollo",
+      "es": "Pollo",
+      "en": "Chicken",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:arroz",
+      "es": "Arroz",
+      "en": "Rice",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:pescado",
+      "es": "Pescado",
+      "en": "Fish (food)",
+      "cefr": "A2",
+      "topic": "Food"
+    },
+    {
+      "id": "food:huevo",
+      "es": "Huevo",
+      "en": "Egg",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:queso",
+      "es": "Queso",
+      "en": "Cheese",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "food:café",
+      "es": "Café",
+      "en": "Coffee",
+      "cefr": "A1",
+      "topic": "Food"
+    },
+    {
+      "id": "animals:perro",
+      "es": "Perro",
+      "en": "Dog",
+      "cefr": "A1",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:gato",
+      "es": "Gato",
+      "en": "Cat",
+      "cefr": "A1",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:pájaro",
+      "es": "Pájaro",
+      "en": "Bird",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:caballo",
+      "es": "Caballo",
+      "en": "Horse",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:pez",
+      "es": "Pez",
+      "en": "Fish (animal)",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:conejo",
+      "es": "Conejo",
+      "en": "Rabbit",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:león",
+      "es": "León",
+      "en": "Lion",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:tigre",
+      "es": "Tigre",
+      "en": "Tiger",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:oso",
+      "es": "Oso",
+      "en": "Bear",
+      "cefr": "A1",
+      "topic": "Animals"
+    },
+    {
+      "id": "animals:elefante",
+      "es": "Elefante",
+      "en": "Elephant",
+      "cefr": "A2",
+      "topic": "Animals"
+    },
+    {
+      "id": "family:madre",
+      "es": "Madre",
+      "en": "Mother",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:padre",
+      "es": "Padre",
+      "en": "Father",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:hermano",
+      "es": "Hermano",
+      "en": "Brother",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:hermana",
+      "es": "Hermana",
+      "en": "Sister",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:hijo",
+      "es": "Hijo",
+      "en": "Son",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:hija",
+      "es": "Hija",
+      "en": "Daughter",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:abuela",
+      "es": "Abuela",
+      "en": "Grandmother",
+      "cefr": "A2",
+      "topic": "Family"
+    },
+    {
+      "id": "family:abuelo",
+      "es": "Abuelo",
+      "en": "Grandfather",
+      "cefr": "A2",
+      "topic": "Family"
+    },
+    {
+      "id": "family:tío",
+      "es": "Tío",
+      "en": "Uncle",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "family:tía",
+      "es": "Tía",
+      "en": "Aunt",
+      "cefr": "A1",
+      "topic": "Family"
+    },
+    {
+      "id": "home:casa",
+      "es": "Casa",
+      "en": "House",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:habitación",
+      "es": "Habitación",
+      "en": "Room",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:cocina",
+      "es": "Cocina",
+      "en": "Kitchen",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:baño",
+      "es": "Baño",
+      "en": "Bathroom",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:puerta",
+      "es": "Puerta",
+      "en": "Door",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:ventana",
+      "es": "Ventana",
+      "en": "Window",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:mesa",
+      "es": "Mesa",
+      "en": "Table",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:silla",
+      "es": "Silla",
+      "en": "Chair",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:cama",
+      "es": "Cama",
+      "en": "Bed",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "home:llave",
+      "es": "Llave",
+      "en": "Key",
+      "cefr": "A1",
+      "topic": "Home"
+    },
+    {
+      "id": "school:escuela",
+      "es": "Escuela",
+      "en": "School",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:profesor",
+      "es": "Profesor",
+      "en": "Teacher",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:estudiante",
+      "es": "Estudiante",
+      "en": "Student",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:libro",
+      "es": "Libro",
+      "en": "Book",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:cuaderno",
+      "es": "Cuaderno",
+      "en": "Notebook",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:bolígrafo",
+      "es": "Bolígrafo",
+      "en": "Pen",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:lápiz",
+      "es": "Lápiz",
+      "en": "Pencil",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:clase",
+      "es": "Clase",
+      "en": "Class",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:tarea",
+      "es": "Tarea",
+      "en": "Homework",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "school:examen",
+      "es": "Examen",
+      "en": "Exam",
+      "cefr": "A1",
+      "topic": "School"
+    },
+    {
+      "id": "time:hoy",
+      "es": "Hoy",
+      "en": "Today",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:mañana",
+      "es": "Mañana",
+      "en": "Tomorrow",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:ayer",
+      "es": "Ayer",
+      "en": "Yesterday",
+      "cefr": "A2",
+      "topic": "Time"
+    },
+    {
+      "id": "time:tarde",
+      "es": "Tarde",
+      "en": "Afternoon",
+      "cefr": "A2",
+      "topic": "Time"
+    },
+    {
+      "id": "time:noche",
+      "es": "Noche",
+      "en": "Night",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:semana",
+      "es": "Semana",
+      "en": "Week",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:mes",
+      "es": "Mes",
+      "en": "Month",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:año",
+      "es": "Año",
+      "en": "Year",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "time:hora",
+      "es": "Hora",
+      "en": "Hour",
+      "cefr": "A1",
+      "topic": "Time"
+    },
+    {
+      "id": "weather:sol",
+      "es": "Sol",
+      "en": "Sun",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:lluvia",
+      "es": "Lluvia",
+      "en": "Rain",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:nube",
+      "es": "Nube",
+      "en": "Cloud",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:viento",
+      "es": "Viento",
+      "en": "Wind",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:nieve",
+      "es": "Nieve",
+      "en": "Snow",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:caliente",
+      "es": "Caliente",
+      "en": "Hot",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:frío",
+      "es": "Frío",
+      "en": "Cold",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:templado",
+      "es": "Templado",
+      "en": "Warm",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:tormenta",
+      "es": "Tormenta",
+      "en": "Storm",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "weather:clima",
+      "es": "Clima",
+      "en": "Weather",
+      "cefr": "A1",
+      "topic": "Weather"
+    },
+    {
+      "id": "city:calle",
+      "es": "Calle",
+      "en": "Street",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:ciudad",
+      "es": "Ciudad",
+      "en": "City",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:pueblo",
+      "es": "Pueblo",
+      "en": "Town",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:parque",
+      "es": "Parque",
+      "en": "Park",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:tienda",
+      "es": "Tienda",
+      "en": "Store",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:mercado",
+      "es": "Mercado",
+      "en": "Market",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:banco",
+      "es": "Banco",
+      "en": "Bank",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:hospital",
+      "es": "Hospital",
+      "en": "Hospital",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:farmacia",
+      "es": "Farmacia",
+      "en": "Pharmacy",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "city:aeropuerto",
+      "es": "Aeropuerto",
+      "en": "Airport",
+      "cefr": "A1",
+      "topic": "City"
+    },
+    {
+      "id": "transport:coche",
+      "es": "Coche",
+      "en": "Car",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:autobús",
+      "es": "Autobús",
+      "en": "Bus",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:tren",
+      "es": "Tren",
+      "en": "Train",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:bicicleta",
+      "es": "Bicicleta",
+      "en": "Bicycle",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:avión",
+      "es": "Avión",
+      "en": "Plane",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:taxi",
+      "es": "Taxi",
+      "en": "Taxi",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:boleto",
+      "es": "Boleto",
+      "en": "Ticket",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:estación",
+      "es": "Estación",
+      "en": "Station",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:carretera",
+      "es": "Carretera",
+      "en": "Road",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "transport:viajar",
+      "es": "Viajar",
+      "en": "Travel",
+      "cefr": "A1",
+      "topic": "Transport"
+    },
+    {
+      "id": "body:cabeza",
+      "es": "Cabeza",
+      "en": "Head",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:ojo",
+      "es": "Ojo",
+      "en": "Eye",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:oreja",
+      "es": "Oreja",
+      "en": "Ear",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:nariz",
+      "es": "Nariz",
+      "en": "Nose",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:boca",
+      "es": "Boca",
+      "en": "Mouth",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:mano",
+      "es": "Mano",
+      "en": "Hand",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:brazo",
+      "es": "Brazo",
+      "en": "Arm",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:pierna",
+      "es": "Pierna",
+      "en": "Leg",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:pie",
+      "es": "Pie",
+      "en": "Foot",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "body:corazón",
+      "es": "Corazón",
+      "en": "Heart",
+      "cefr": "A1",
+      "topic": "Body"
+    },
+    {
+      "id": "clothes:camisa",
+      "es": "Camisa",
+      "en": "Shirt",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:pantalones",
+      "es": "Pantalones",
+      "en": "Pants",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:zapatos",
+      "es": "Zapatos",
+      "en": "Shoes",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:vestido",
+      "es": "Vestido",
+      "en": "Dress",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:chaqueta",
+      "es": "Chaqueta",
+      "en": "Jacket",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:sombrero",
+      "es": "Sombrero",
+      "en": "Hat",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:calcetines",
+      "es": "Calcetines",
+      "en": "Socks",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:abrigo",
+      "es": "Abrigo",
+      "en": "Coat",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:falda",
+      "es": "Falda",
+      "en": "Skirt",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "clothes:gafas",
+      "es": "Gafas",
+      "en": "Glasses",
+      "cefr": "A1",
+      "topic": "Clothes"
+    },
+    {
+      "id": "verbsbasics:ser",
+      "es": "Ser",
+      "en": "To be",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:tener",
+      "es": "Tener",
+      "en": "To have",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:ir",
+      "es": "Ir",
+      "en": "To go",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:venir",
+      "es": "Venir",
+      "en": "To come",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:comer",
+      "es": "Comer",
+      "en": "To eat",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:beber",
+      "es": "Beber",
+      "en": "To drink",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:hablar",
+      "es": "Hablar",
+      "en": "To speak",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:leer",
+      "es": "Leer",
+      "en": "To read",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:escribir",
+      "es": "Escribir",
+      "en": "To write",
+      "cefr": "A1",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsbasics:escuchar",
+      "es": "Escuchar",
+      "en": "To listen",
+      "cefr": "A2",
+      "topic": "VerbsBasics"
+    },
+    {
+      "id": "verbsdaily:dormir",
+      "es": "Dormir",
+      "en": "To sleep",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:despertar",
+      "es": "Despertar",
+      "en": "To wake up",
+      "cefr": "A2",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:trabajar",
+      "es": "Trabajar",
+      "en": "To work",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:estudiar",
+      "es": "Estudiar",
+      "en": "To study",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:comprar",
+      "es": "Comprar",
+      "en": "To buy",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:vender",
+      "es": "Vender",
+      "en": "To sell",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:abrir",
+      "es": "Abrir",
+      "en": "To open",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:cerrar",
+      "es": "Cerrar",
+      "en": "To close",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:caminar",
+      "es": "Caminar",
+      "en": "To walk",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "verbsdaily:correr",
+      "es": "Correr",
+      "en": "To run",
+      "cefr": "A1",
+      "topic": "VerbsDaily"
+    },
+    {
+      "id": "adjectives:grande",
+      "es": "Grande",
+      "en": "Big",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:pequeño",
+      "es": "Pequeño",
+      "en": "Small",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:rápido",
+      "es": "Rápido",
+      "en": "Fast",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:lento",
+      "es": "Lento",
+      "en": "Slow",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:fácil",
+      "es": "Fácil",
+      "en": "Easy",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:difícil",
+      "es": "Difícil",
+      "en": "Difficult",
+      "cefr": "A2",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:nuevo",
+      "es": "Nuevo",
+      "en": "New",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:viejo",
+      "es": "Viejo",
+      "en": "Old",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:bueno",
+      "es": "Bueno",
+      "en": "Good",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "adjectives:malo",
+      "es": "Malo",
+      "en": "Bad",
+      "cefr": "A1",
+      "topic": "Adjectives"
+    },
+    {
+      "id": "emotions:feliz",
+      "es": "Feliz",
+      "en": "Happy",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:triste",
+      "es": "Triste",
+      "en": "Sad",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:enojado",
+      "es": "Enojado",
+      "en": "Angry",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:cansado",
+      "es": "Cansado",
+      "en": "Tired",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:emocionado",
+      "es": "Emocionado",
+      "en": "Excited",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:tranquilo",
+      "es": "Tranquilo",
+      "en": "Calm",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:nervioso",
+      "es": "Nervioso",
+      "en": "Nervous",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:preocupado",
+      "es": "Preocupado",
+      "en": "Worried",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:sorprendido",
+      "es": "Sorprendido",
+      "en": "Surprised",
+      "cefr": "A2",
+      "topic": "Emotions"
+    },
+    {
+      "id": "emotions:asustado",
+      "es": "Asustado",
+      "en": "Scared",
+      "cefr": "A1",
+      "topic": "Emotions"
+    },
+    {
+      "id": "restaurant:menú",
+      "es": "Menú",
+      "en": "Menu",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:mesero",
+      "es": "Mesero",
+      "en": "Waiter",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:cuenta",
+      "es": "Cuenta",
+      "en": "Bill",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:propina",
+      "es": "Propina",
+      "en": "Tip",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:tenedor",
+      "es": "Tenedor",
+      "en": "Fork",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:cuchillo",
+      "es": "Cuchillo",
+      "en": "Knife",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:cuchara",
+      "es": "Cuchara",
+      "en": "Spoon",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:plato",
+      "es": "Plato",
+      "en": "Plate",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:vaso",
+      "es": "Vaso",
+      "en": "Glass",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "restaurant:servilleta",
+      "es": "Servilleta",
+      "en": "Napkin",
+      "cefr": "A1",
+      "topic": "Restaurant"
+    },
+    {
+      "id": "fruits:banana",
+      "es": "Banana",
+      "en": "Banana",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:uva",
+      "es": "Uva",
+      "en": "Grape",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:fresa",
+      "es": "Fresa",
+      "en": "Strawberry",
+      "cefr": "A2",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:limón",
+      "es": "Limón",
+      "en": "Lemon",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:melocotón",
+      "es": "Melocotón",
+      "en": "Peach",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:pera",
+      "es": "Pera",
+      "en": "Pear",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:piña",
+      "es": "Piña",
+      "en": "Pineapple",
+      "cefr": "A2",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:sandía",
+      "es": "Sandía",
+      "en": "Watermelon",
+      "cefr": "A2",
+      "topic": "Fruits"
+    },
+    {
+      "id": "fruits:mango",
+      "es": "Mango",
+      "en": "Mango",
+      "cefr": "A1",
+      "topic": "Fruits"
+    },
+    {
+      "id": "vegetables:tomate",
+      "es": "Tomate",
+      "en": "Tomato",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:papa",
+      "es": "Papa",
+      "en": "Potato",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:cebolla",
+      "es": "Cebolla",
+      "en": "Onion",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:zanahoria",
+      "es": "Zanahoria",
+      "en": "Carrot",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:lechuga",
+      "es": "Lechuga",
+      "en": "Lettuce",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:maíz",
+      "es": "Maíz",
+      "en": "Corn",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:frijol",
+      "es": "Frijol",
+      "en": "Bean",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:ajo",
+      "es": "Ajo",
+      "en": "Garlic",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:pimiento",
+      "es": "Pimiento",
+      "en": "Pepper",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "vegetables:pepino",
+      "es": "Pepino",
+      "en": "Cucumber",
+      "cefr": "A1",
+      "topic": "Vegetables"
+    },
+    {
+      "id": "technology:computadora",
+      "es": "Computadora",
+      "en": "Computer",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:teléfono",
+      "es": "Teléfono",
+      "en": "Phone",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:internet",
+      "es": "Internet",
+      "en": "Internet",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:pantalla",
+      "es": "Pantalla",
+      "en": "Screen",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:teclado",
+      "es": "Teclado",
+      "en": "Keyboard",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:ratón",
+      "es": "Ratón",
+      "en": "Mouse",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:contraseña",
+      "es": "Contraseña",
+      "en": "Password",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:correo electrónico",
+      "es": "Correo electrónico",
+      "en": "Email",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:mensaje",
+      "es": "Mensaje",
+      "en": "Message",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "technology:sitio web",
+      "es": "Sitio web",
+      "en": "Website",
+      "cefr": "A1",
+      "topic": "Technology"
+    },
+    {
+      "id": "work:oficina",
+      "es": "Oficina",
+      "en": "Office",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:reunión",
+      "es": "Reunión",
+      "en": "Meeting",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:jefe",
+      "es": "Jefe",
+      "en": "Boss",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:compañero",
+      "es": "Compañero",
+      "en": "Coworker",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:proyecto",
+      "es": "Proyecto",
+      "en": "Project",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:fecha límite",
+      "es": "Fecha límite",
+      "en": "Deadline",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:salario",
+      "es": "Salario",
+      "en": "Salary",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:trabajo",
+      "es": "Trabajo",
+      "en": "Job",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:carrera",
+      "es": "Carrera",
+      "en": "Career",
+      "cefr": "A1",
+      "topic": "Work"
+    },
+    {
+      "id": "work:entrevista",
+      "es": "Entrevista",
+      "en": "Interview",
+      "cefr": "A2",
+      "topic": "Work"
+    },
+    {
+      "id": "nature:montaña",
+      "es": "Montaña",
+      "en": "Mountain",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:río",
+      "es": "Río",
+      "en": "River",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:lago",
+      "es": "Lago",
+      "en": "Lake",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:playa",
+      "es": "Playa",
+      "en": "Beach",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:bosque",
+      "es": "Bosque",
+      "en": "Forest",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:mar",
+      "es": "Mar",
+      "en": "Sea",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:cielo",
+      "es": "Cielo",
+      "en": "Sky",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:tierra",
+      "es": "Tierra",
+      "en": "Earth",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:fuego",
+      "es": "Fuego",
+      "en": "Fire",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "nature:aire",
+      "es": "Aire",
+      "en": "Air",
+      "cefr": "A1",
+      "topic": "Nature"
+    },
+    {
+      "id": "places:restaurante",
+      "es": "Restaurante",
+      "en": "Restaurant",
+      "cefr": "A2",
+      "topic": "Places"
+    },
+    {
+      "id": "places:hotel",
+      "es": "Hotel",
+      "en": "Hotel",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:museo",
+      "es": "Museo",
+      "en": "Museum",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:biblioteca",
+      "es": "Biblioteca",
+      "en": "Library",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:iglesia",
+      "es": "Iglesia",
+      "en": "Church",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:gimnasio",
+      "es": "Gimnasio",
+      "en": "Gym",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:cine",
+      "es": "Cine",
+      "en": "Cinema",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:centro comercial",
+      "es": "Centro comercial",
+      "en": "Mall",
+      "cefr": "A1",
+      "topic": "Places"
+    },
+    {
+      "id": "places:barrio",
+      "es": "Barrio",
+      "en": "Neighborhood",
+      "cefr": "A2",
+      "topic": "Places"
+    },
+    {
+      "id": "places:puente",
+      "es": "Puente",
+      "en": "Bridge",
+      "cefr": "A1",
+      "topic": "Places"
+    }
+  ]
+}
