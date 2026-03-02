@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
+import cefrVocab from "./content/cefr-vocab.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
-import { LEVEL_TITLES } from "./config/cefr.js";
+import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
-import { getDailyQuestState, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
+import { defaultLearningState, getDailyQuestState, migrateUser, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
 import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
 import { ensurePathState, getNextPathStep, completePathStep } from "./services/learningPath";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
@@ -272,6 +273,51 @@ function buildStoryPlan(minutes = 10, aiStatus = { anyAvailable: true }) {
   const plan = [];
   for (let i = 0; i < targetCount; i += 1) plan.push(selected.nodes[i % selected.nodes.length]);
   return { plan, episodeTitle: selected.title, episodeVibe: selected.vibe };
+}
+
+function localDayKey(now = new Date()) {
+  try {
+    return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto" }).format(now);
+  } catch {
+    return now.toISOString().slice(0, 10);
+  }
+}
+
+function hashCode(input = "") {
+  let h = 0;
+  for (let i = 0; i < input.length; i += 1) h = (h * 31 + input.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function pickSeeded(list = [], seed = 0) {
+  if (!Array.isArray(list) || !list.length) return null;
+  return list[seed % list.length];
+}
+
+function getDailyFocusBundle(profile = {}, username = "guest", now = new Date()) {
+  const key = localDayKey(now);
+  const seedBase = hashCode(`${username}:${key}`);
+  const currentBand = profile?.cefrBand || "A1";
+  const words = (cefrVocab?.vocab || []).filter((w) => (w?.cefr || "A1") === currentBand);
+  const wordFallback = (cefrVocab?.vocab || []).filter(Boolean);
+  const word = pickSeeded(words.length ? words : wordFallback, seedBase + 7) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
+  const verb = pickSeeded(VERBS, seedBase + 17) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
+
+  return {
+    key,
+    word: {
+      id: word?.id || word?.es || word?.en,
+      es: word?.es || "hola",
+      en: word?.en || "hello",
+      cefr: word?.cefr || currentBand,
+    },
+    verb: {
+      infinitive: verb?.infinitive || "hablar",
+      meaning: verb?.meaning || "to speak",
+      description: `Today’s power verb is ${verb?.infinitive || "hablar"} (${verb?.meaning || "to speak"}). Try using it in at least 3 answers today!`,
+      conjugations: Array.isArray(verb?.conjugations) ? verb.conjugations : [],
+    },
+  };
 }
 
 function MascotSpeechBubble({ text, tone = "default", style = {} }) {
@@ -1952,7 +1998,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
       ? `Nice streak, ${user.displayName}. Let’s keep it alive today.`
       : "Small steps daily. Let’s get your streak rolling!";
 
-  const learningProgressPct = Math.max(0, Math.min(100, Math.round((user.profile?.learningProgress ?? user.profile?.bandProgress ?? 0) * 100)));
+  const bandProgressRaw = Number(user.profile?.bandProgress || 0);
+  const learningProgressRaw = Number(user.profile?.learningProgress || 0);
+  const displayProgressRaw = Math.max(bandProgressRaw, learningProgressRaw);
+  const learningProgressPct = Math.max(0, Math.min(100, Math.round(displayProgressRaw * 100)));
   const [learningPulse, setLearningPulse] = useState(false);
   const prevLearningProgressRef = useRef(learningProgressPct);
 
@@ -1969,8 +2018,11 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   const progressBands = ['A1', 'A2'];
   const currentBand = user.profile?.cefrBand || 'A1';
   const currentBandIdx = progressBands.indexOf(currentBand);
-  const currentSublevel = Number(user.profile?.sublevel || 0);
-  const currentSublevelProgress = Math.max(0, Math.min(100, Number(user.profile?.sublevelProgress || 0)));
+  const displayLabel = getLevelLabel(currentBand, displayProgressRaw);
+  const storedSublevel = Number(user.profile?.sublevel);
+  const storedSublevelProgress = Number(user.profile?.sublevelProgress);
+  const currentSublevel = Number.isFinite(storedSublevel) ? storedSublevel : Number(displayLabel.sublevel || 0);
+  const currentSublevelProgress = Math.max(0, Math.min(100, Number.isFinite(storedSublevelProgress) ? storedSublevelProgress : Number(displayLabel.pctWithinSublevel || 0)));
 
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
@@ -1996,7 +2048,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         <div>
           <div style={{ color:"#a78bfa", fontSize:12, letterSpacing:2, marginBottom:4 }}>BIENVENIDO</div>
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:28 }}>
-            {user.displayName} · {user.profile?.levelTitle || user.profile?.level || "Newcomer"}
+            {user.displayName} · {displayLabel.title || user.profile?.levelTitle || user.profile?.level || "Newcomer"}
           </h1>
           <button
             onClick={() => setShowProgressMap(true)}
@@ -2004,10 +2056,10 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             title="View your progress map"
           >
             <div style={{ color:"#9ca3af", fontSize:12 }}>
-              Level {user.profile?.overallLevel || 1} • {user.profile?.sublevelProgress || 0}% to {user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+              Level {displayLabel.overallLevel || user.profile?.overallLevel || 1} • {currentSublevelProgress}% to {displayLabel.nextTitle || user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
             </div>
             <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
-              <div style={{ width:`${Math.max(0, Math.min(100, user.profile?.sublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
+              <div style={{ width:`${Math.max(0, Math.min(100, currentSublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
             </div>
             <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress</div>
             <div style={{ marginTop:6, width:320, maxWidth:'100%', height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
@@ -2170,7 +2222,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
                 <div>
                   <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>YOUR JOURNEY</div>
                   <h3 style={{ color:'#fff', margin:'4px 0 0', fontFamily:"'Playfair Display', serif" }}>
-                    {user.displayName} · {user.profile?.levelTitle || 'Newcomer'}
+                    {user.displayName} · {displayLabel.title || user.profile?.levelTitle || 'Newcomer'}
                   </h3>
                 </div>
               </div>
@@ -2260,30 +2312,54 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const sentenceTarget = Math.min(10, 3 + difficulty * 2);
   const forcedWords = Array.isArray(launchOptions?.challengeWords) ? launchOptions.challengeWords : [];
   const forcedFillItems = Array.isArray(launchOptions?.challengeFillItems) ? launchOptions.challengeFillItems : [];
+  const dailyFocusWord = launchOptions?.dailyFocusWord || null;
+
+  function withDailyFocusWord(items = []) {
+    if (!dailyFocusWord?.es || !dailyFocusWord?.en) return items || [];
+    const source = Array.isArray(items) ? items : [];
+    const key = `${normalizeSimple(dailyFocusWord.en)}::${normalizeSimple(dailyFocusWord.es)}`;
+    const seen = new Set(source.map((w) => `${normalizeSimple(w?.en || "")}::${normalizeSimple(w?.es || "")}`));
+    if (seen.has(key)) return source;
+    return [{ id: dailyFocusWord.id || dailyFocusWord.es, en: dailyFocusWord.en, es: dailyFocusWord.es, cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1' }, ...source];
+  }
+
   const wordsForLesson = useMemo(() => {
-    if (category === "General" && forcedWords.length) return forcedWords;
+    if (category === "General" && forcedWords.length) return withDailyFocusWord(forcedWords);
     if (category === "General") {
-      return selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) });
+      return withDailyFocusWord(selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) }));
     }
-    return selectAdaptiveFlashcards(words, {
+    return withDailyFocusWord(selectAdaptiveFlashcards(words, {
       difficulty,
       target: Math.max(4, vocabTarget),
       userKey,
       category: category || type,
-    });
+    }));
   }, [words, difficulty, vocabTarget, userKey, category, type, user, forcedWords]);
   const fillForLesson = useMemo(() => {
-    if (category === "General" && forcedFillItems.length) return forcedFillItems;
+    const injectDailyFill = (items = []) => {
+      if (!dailyFocusWord?.es || !dailyFocusWord?.en) return items;
+      const sentence = {
+        template: `Hoy practicamos la palabra ___ (${dailyFocusWord.en}).`,
+        answer: dailyFocusWord.es,
+        hint: `Use the Spanish word for "${dailyFocusWord.en}".`,
+        wordId: dailyFocusWord.id || dailyFocusWord.es,
+        cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1',
+      };
+      const hasAlready = (items || []).some((s) => normalizeSimple(s?.answer || "") === normalizeSimple(dailyFocusWord.es));
+      return hasAlready ? items : [sentence, ...(items || [])];
+    };
+
+    if (category === "General" && forcedFillItems.length) return injectDailyFill(forcedFillItems);
     if (category === "General") {
-      return getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) });
+      return injectDailyFill(getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) }));
     }
-    return selectAdaptiveFillBlanks(fillBlankSentences, {
+    return injectDailyFill(selectAdaptiveFillBlanks(fillBlankSentences, {
       difficulty,
       target: Math.max(5, sentenceTarget),
       userKey,
       category: category || "General",
-    });
-  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user, forcedFillItems]);
+    }));
+  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user, forcedFillItems, dailyFocusWord]);
   const flashcardsForLesson = useMemo(() => {
     const fixed = (wordsForLesson || []).map((w) => {
       const enKey = normalizeSimple(w?.en || "");
@@ -2296,11 +2372,11 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   const wordsForMatch = useMemo(() => {
     if (category === "General") {
-      return selectWordsForModule({ profile: user?.profile, moduleType: "Word Match", count: Math.max(4, vocabTarget) });
+      return withDailyFocusWord(selectWordsForModule({ profile: user?.profile, moduleType: "Word Match", count: Math.max(4, vocabTarget) }));
     }
-    const fallback = (APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget));
+    const fallback = withDailyFocusWord((APPROVED_VOCAB_MAP[category] || []).slice(0, Math.max(4, vocabTarget)));
     return (wordsForLesson && wordsForLesson.length) ? wordsForLesson : fallback;
-  }, [wordsForLesson, category, vocabTarget, user]);
+  }, [wordsForLesson, category, vocabTarget, user, dailyFocusWord]);
   const verbsForLesson = shuffle(verbs).slice(0, Math.max(4, 2 + difficulty * 2));
   const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
   const transcriptionForLesson = useMemo(() => (
@@ -2346,9 +2422,38 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     setCategory(cat);
     setWords(vocabMap[cat] || []);
   }
+  function buildFallbackWordResults(correct, total) {
+    const cap = Math.max(1, Math.min(12, Number(total || 0) || 1));
+    const hitCount = Math.max(0, Math.min(cap, Number(correct || 0)));
+
+    const toWordResults = (items = []) => {
+      const pool = (items || []).slice(0, cap);
+      if (!pool.length) return [];
+      return pool.map((item, idx) => ({
+        id: item?.id || item?.wordId || item?.es || item?.answer || item?.template || `${type}:${category || 'General'}:${idx}`,
+        cefr: item?.cefr || user?.profile?.cefrBand || 'A1',
+        seen: 1,
+        correct: idx < hitCount ? 1 : 0,
+      }));
+    };
+
+    if (type === 'Flashcards') return toWordResults(flashcardsForLesson);
+    if (type === 'Word Match') return toWordResults(wordsForMatch);
+    if (type === 'Fill in the Blank') return toWordResults(fillForLesson);
+    if (type === 'Learn Verbs' || type === 'Speed Round') return toWordResults(verbsForLesson.map((v) => ({ id: v?.infinitive, cefr: v?.cefr || user?.profile?.cefrBand || 'A1' })));
+    if (type === 'Sentence Scramble') return toWordResults(scrambleForLesson);
+    if (type === 'Transcription' || type === 'Audio Shadowing' || type === 'Pronunciation Coach') return toWordResults((transcriptionForLesson?.length ? transcriptionForLesson : listenForLesson).map((s, i) => ({ id: s?.id || s?.es || `listen:${i}`, cefr: s?.cefr || user?.profile?.cefrBand || 'A1' })));
+    if (type === 'Scenario Builder') return toWordResults(scenariosForLesson.map((s, i) => ({ id: s?.id || s?.setting || `scenario:${i}`, cefr: s?.cefr || user?.profile?.cefrBand || 'A1' })));
+    if (type === 'Image Labeling') return toWordResults(scenesForLesson.flatMap((scene, i) => (scene?.items || []).map((it, j) => ({ id: it?.id || it?.es || it?.word || `${scene?.name || 'scene'}:${i}:${j}`, cefr: it?.cefr || user?.profile?.cefrBand || 'A1' }))));
+    if (type === 'Picture Description') return toWordResults(pictureForLesson.map((p, i) => ({ id: p?.id || p?.prompt || `${p?.emoji || 'scene'}:${i}`, cefr: p?.cefr || user?.profile?.cefrBand || 'A1' })));
+    return [];
+  }
+
   function done(pts,correct,total,meta) {
     const pathMeta = launchOptions?.path ? { pathStep: true, pathStepId: launchOptions?.pathStepId || null } : {};
-    onComplete(pts,correct,total,category||type,{ ...(meta || {}), ...pathMeta });
+    const existingWordResults = Array.isArray(meta?.wordResults) ? meta.wordResults : [];
+    const fallbackWordResults = existingWordResults.length ? [] : buildFallbackWordResults(correct, total);
+    onComplete(pts,correct,total,category||type,{ ...(meta || {}), wordResults: existingWordResults.length ? existingWordResults : fallbackWordResults, ...pathMeta });
   }
 
   useEffect(() => {
@@ -2412,6 +2517,11 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
         <button onClick={onBack} style={{ background:"none", color:"#9ca3af", fontSize:13, padding:"8px 0", fontFamily:"'Outfit', sans-serif", display:"flex", alignItems:"center", gap:6 }}>← Back</button>
         <div style={{ textAlign:"right", display:"grid", gap:6 }}>
           <div style={{ color:"#e5e7eb", fontWeight:600, fontSize:15 }}>{type}</div>
+          {dailyFocusWord?.es && dailyFocusWord?.en && (
+            <div style={{ color:'#67e8f9', fontSize:11, background:'rgba(6,182,212,0.12)', border:'1px solid rgba(34,211,238,0.35)', borderRadius:999, padding:'4px 10px', justifySelf:'end' }}>
+              🌟 Word of the day: <strong>{dailyFocusWord.es}</strong> — {dailyFocusWord.en}
+            </div>
+          )}
           {needsCategory ? (
             <div style={{ display:"flex", alignItems:"center", gap:8, justifyContent:"flex-end" }}>
               <span style={{ color:"#9ca3af", fontSize:11 }}>Category</span>
@@ -2931,6 +3041,55 @@ async function trackAnalyticsEvent(payload) {
   } catch {}
 }
 
+function DailyFocusModal({ user, dailyFocus, onClose }) {
+  if (!dailyFocus) return null;
+  const verb = dailyFocus?.verb || {};
+  const word = dailyFocus?.word || {};
+  return (
+    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.74)", zIndex:1200, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+      <div style={{ width:"min(920px, 96vw)", maxHeight:"88vh", overflowY:"auto", background:"#120a22", border:"1px solid rgba(255,255,255,0.14)", borderRadius:18, padding:20 }}>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:12, marginBottom:12 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <img src={MASCOT_ASSETS.success} alt="Chadlingo mascot" style={{ width:68, height:68, objectFit:"contain", borderRadius:12, background:"rgba(124,58,237,0.12)", padding:4 }} onError={(e)=>{e.currentTarget.style.display='none';}} />
+            <div>
+              <div style={{ color:"#fbbf24", fontSize:11, letterSpacing:2 }}>DAILY LAUNCH</div>
+              <h3 style={{ color:"#fff", margin:"4px 0 0", fontFamily:"'Playfair Display', serif" }}>¡Vamos, {user?.displayName || "Amigo"}! Your daily Spanish mission is ready.</h3>
+            </div>
+          </div>
+          <button onClick={onClose} style={{ padding:"8px 12px", borderRadius:10, background:"rgba(255,255,255,0.08)", color:"#e5e7eb", fontWeight:700 }}>Start Learning 🚀</button>
+        </div>
+
+        <MascotSpeechBubble text="Use today’s word and verb in every lesson. Stack points, keep streak, and sound natural. 💪" tone="hype" style={{ marginBottom:14 }} />
+
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+          <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.10)", borderRadius:14, padding:14 }}>
+            <div style={{ color:"#67e8f9", fontSize:11, letterSpacing:2, marginBottom:8 }}>WORD OF THE DAY</div>
+            <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:30, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{word?.es || "hola"}</div>
+            <div style={{ color:"#9ca3af", fontSize:14, marginTop:4 }}>{word?.en || "hello"}</div>
+          </div>
+          <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.10)", borderRadius:14, padding:14 }}>
+            <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>VERB OF THE DAY</div>
+            <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:28, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{verb?.infinitive || "hablar"}</div>
+            <div style={{ color:"#9ca3af", fontSize:14, marginTop:4 }}>{verb?.meaning || "to speak"}</div>
+            <div style={{ color:"#ddd6fe", fontSize:12, marginTop:8 }}>{verb?.description}</div>
+          </div>
+        </div>
+
+        <div style={{ marginTop:12, background:"rgba(124,58,237,0.12)", border:"1px solid rgba(124,58,237,0.28)", borderRadius:14, padding:12 }}>
+          <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>TODAY'S CONJUGATIONS</div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(2, minmax(0, 1fr))", gap:8 }}>
+            {(verb?.conjugations || []).map((c, i) => (
+              <div key={`${c?.pronoun || 'p'}:${i}`} style={{ padding:"8px 10px", borderRadius:10, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"#e5e7eb", fontSize:12 }}>
+                <strong style={{ color:"#a78bfa" }}>{c?.pronoun}</strong> — <span translate="no" className="notranslate">{c?.form}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // APP ROOT
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2942,6 +3101,8 @@ export default function App() {
   const [aiStatus, setAiStatus] = useState({ anyAvailable: true, providers: {}, checkedAt: null });
   const [storyMode, setStoryMode] = useState(null);
   const [storySummary, setStorySummary] = useState(null);
+  const [dailyFocus, setDailyFocus] = useState(null);
+  const [showDailyFocusModal, setShowDailyFocusModal] = useState(false);
 
   useEffect(() => {
     async function loadPack() {
@@ -3014,9 +3175,43 @@ export default function App() {
       pathStepId: opts.pathStepId || null,
       challengeWords,
       challengeFillItems,
+      dailyFocusWord: dailyFocus?.word || null,
+      dailyFocusVerb: dailyFocus?.verb || null,
+      dailyFocusKey: dailyFocus?.key || null,
     });
     setLessonType(type);
     setScreen("lesson");
+  }
+
+  function rebuildProfileFromHistory(u) {
+    const migrated = migrateUser(u || {}) || u || {};
+    const history = Array.isArray(migrated?.history) ? migrated.history : [];
+    let profile = defaultLearningState();
+
+    for (let i = 0; i < history.length; i += 1) {
+      const h = history[i] || {};
+      const lessonType = h.type || h.category || "Flashcards";
+      const total = Math.max(0, Number(h.total || 0));
+      const correct = Math.max(0, Math.min(total, Number(h.correct || 0)));
+      const metaWordResults = Array.isArray(h?.meta?.wordResults) ? h.meta.wordResults : [];
+      const fallbackWordResults = metaWordResults.length ? [] : Array.from({ length: Math.max(1, total || 1) }, (_, idx) => ({
+        id: `hist:${lessonType}:${i}:${idx}`,
+        cefr: profile?.cefrBand || "A1",
+        seen: 1,
+        correct: idx < correct ? 1 : 0,
+      }));
+
+      profile = updateLearningProfile(profile, {
+        lessonType,
+        attemptedAt: h.date || new Date().toISOString(),
+        points: Number(h.points || 0),
+        correct,
+        total,
+        wordResults: metaWordResults.length ? metaWordResults : fallbackWordResults,
+      });
+    }
+
+    return profile;
   }
 
   function handleLogin(u) {
@@ -3024,10 +3219,17 @@ export default function App() {
     const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
     let streak=u.streak;
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
-    const updated={...u,lastLogin:new Date().toISOString(),streak};
+
+    const recomputedProfile = rebuildProfileFromHistory(u);
+    const daily = getDailyFocusBundle(recomputedProfile, u?.username || "guest", new Date());
+    const updated={...u,lastLogin:new Date().toISOString(),streak,profile:recomputedProfile};
     const updatedWithPath = { ...updated, profile: ensurePathState(updated.profile || {}) };
     const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
     const isNewRegistration = !u.lastLogin;
+    const hasSeenToday = (updatedWithPath?.profile?.lastDailyFocusSeen || "") === daily.key;
+
+    setDailyFocus(daily);
+    setShowDailyFocusModal(!hasSeenToday && !wantsAdmin);
     setUser(updatedWithPath);saveUser(updatedWithPath);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
     trackAnalyticsEvent({
       eventType: isNewRegistration ? "register" : "login",
@@ -3039,6 +3241,20 @@ export default function App() {
       lessons: Array.isArray(updated.history) ? updated.history.length : 0,
     });
   }
+  async function dismissDailyFocusModal() {
+    setShowDailyFocusModal(false);
+    if (!user || !dailyFocus?.key) return;
+    const patched = {
+      ...user,
+      profile: {
+        ...(user.profile || {}),
+        lastDailyFocusSeen: dailyFocus.key,
+      },
+    };
+    setUser(patched);
+    await saveUser(patched);
+  }
+
   function startStoryMode(minutes = 10, preview = null) {
     const built = preview || buildStoryPlan(minutes, aiStatus);
     const plan = built?.plan || [];
@@ -3154,7 +3370,8 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setUser(null);setScreen("auth");}}/>}
+      {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
