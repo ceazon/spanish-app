@@ -2896,17 +2896,112 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const selectedScenarioPool = type === "Scenario Builder" && category
     ? scenariosData.filter((s) => s.setting === category)
     : scenariosData;
-  const scenariosForLesson = shuffle(selectedScenarioPool.length ? selectedScenarioPool : scenariosData).slice(0, Math.max(1, Math.min(6, 2 + difficulty)));
+  const scenariosForLesson = useMemo(() => {
+    const base = shuffle(selectedScenarioPool.length ? selectedScenarioPool : scenariosData).slice(0, Math.max(1, Math.min(6, 2 + difficulty)));
+    const additions = [];
+    if (dailyFocusWord?.es && dailyFocusWord?.en && Math.random() < 0.6) {
+      additions.push({
+        id: `focus-scenario-word:${normalizeSimple(dailyFocusWord.es)}`,
+        setting: "🧩 Daily Focus Word",
+        context: `Use the focus word naturally in a response: ${dailyFocusWord.es} (${dailyFocusWord.en}).`,
+        dialogue: [
+          { speaker: "Guide", line: "Incluye esta palabra en tu respuesta." },
+          { speaker: "", line: `Include this word in your reply: ${dailyFocusWord.es}.` },
+        ],
+        options: [
+          { text: `Hoy practico la palabra ${dailyFocusWord.es}.`, correct: true, feedback: "Great, you used the focus word naturally." },
+          { text: "No entiendo nada.", correct: false, feedback: "Try including the focus word." },
+        ],
+      });
+    }
+    if (dailyFocusVerb && Math.random() < 0.62) {
+      const v = (verbs || []).find((x) => normalizeSimple(x?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+      const p = pronouns[(rotationIndex + 3) % pronouns.length];
+      const c = (v?.conjugations || []).find((x) => normalizeSimple(x?.pronoun || "") === normalizeSimple(p)) || v?.conjugations?.[0];
+      if (v && c?.form) {
+        additions.push({
+          id: `focus-scenario-verb:${normalizeSimple(v.infinitive)}:${normalizeSimple(c.pronoun)}`,
+          setting: "⚙️ Daily Focus Verb",
+          context: `Use this conjugation naturally: ${c.pronoun} ${c.form}.`,
+          dialogue: [
+            { speaker: "Guide", line: "Responde usando la conjugación indicada." },
+            { speaker: "", line: `Reply using: ${c.pronoun} ${c.form}.` },
+          ],
+          options: [
+            { text: `${c.pronoun} ${c.form} español cada día.`, correct: true, feedback: "Perfect conjugation use." },
+            { text: `${v.infinitive} español cada día.`, correct: false, feedback: "Use the conjugated form." },
+          ],
+        });
+      }
+    }
+    const merged = [...additions, ...base];
+    const byId = {};
+    for (const s of merged) byId[s?.id || s?.setting || Math.random()] = s;
+    return Object.values(byId).slice(0, Math.max(1, Math.min(6, 2 + difficulty)));
+  }, [selectedScenarioPool, scenariosData, difficulty, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
 
   const selectedScenePool = type === "Image Labeling" && category
     ? scenes.filter((s) => s.name === category)
     : scenes;
-  const scenesForLesson = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+  const scenesForLesson = useMemo(() => {
+    const base = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+    if (!dailyFocusWord?.es || Math.random() > 0.58) return base;
+    const focusScene = {
+      name: "Daily Focus Scene",
+      items: [
+        { label: dailyFocusWord.es, en: dailyFocusWord.en, emoji: "⭐", x: 50, y: 40 },
+        { label: "Libro", en: "Book", emoji: "📚", x: 25, y: 70 },
+        { label: "Mesa", en: "Table", emoji: "🪑", x: 75, y: 70 },
+      ],
+    };
+    return [focusScene, ...base].slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+  }, [selectedScenePool, scenes, difficulty, dailyFocusWord]);
 
   const selectedPicturePool = type === "Picture Description" && category
     ? pictureScenes.filter((s, i) => `${s.emoji} Scene ${i + 1}` === category)
     : pictureScenes;
-  const pictureForLesson = shuffle(selectedPicturePool.length ? selectedPicturePool : pictureScenes).slice(0, 4);
+  const pictureForLesson = useMemo(() => {
+    const base = shuffle(selectedPicturePool.length ? selectedPicturePool : pictureScenes).slice(0, 4);
+    const additions = [];
+    if (dailyFocusWord?.es && Math.random() < 0.55) {
+      additions.push({ emoji: "⭐ 🗣️", description: `Use the focus word ${dailyFocusWord.es} in a sentence`, prompt: `Hoy uso la palabra ${dailyFocusWord.es} en una oración.` });
+    }
+    if (dailyFocusVerb && Math.random() < 0.6) {
+      const v = (verbs || []).find((x) => normalizeSimple(x?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+      const p = pronouns[(rotationIndex + 4) % pronouns.length];
+      const c = (v?.conjugations || []).find((x) => normalizeSimple(x?.pronoun || "") === normalizeSimple(p)) || v?.conjugations?.[0];
+      if (v && c?.form) additions.push({ emoji: "🎯 📝", description: `Use ${c.pronoun} ${c.form} in a sentence`, prompt: `${c.pronoun} ${c.form} español con confianza.` });
+    }
+    return shuffle([...additions, ...base]).slice(0, 4);
+  }, [selectedPicturePool, pictureScenes, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
+  const chatTopicsForLesson = useMemo(() => {
+    const base = Array.isArray(chatTopics) ? [...chatTopics] : [];
+    const additions = [];
+    if (dailyFocusWord?.es && dailyFocusWord?.en && Math.random() < 0.62) {
+      additions.push({
+        id: `focus-chat-word:${normalizeSimple(dailyFocusWord.es)}`,
+        label: `⭐ Practice word: ${dailyFocusWord.es}`,
+        systemPrompt: `You are a friendly Spanish tutor. Keep replies beginner-friendly (max 15 words). Encourage the learner to naturally use the word "${dailyFocusWord.es}" (${dailyFocusWord.en}). Reply in Spanish.`
+      });
+    }
+    if (dailyFocusVerb && Math.random() < 0.65) {
+      const v = (verbs || []).find((x) => normalizeSimple(x?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+      const p = pronouns[(rotationIndex + 5) % pronouns.length];
+      const c = (v?.conjugations || []).find((x) => normalizeSimple(x?.pronoun || "") === normalizeSimple(p)) || v?.conjugations?.[0];
+      if (v && c?.form) {
+        additions.push({
+          id: `focus-chat-verb:${normalizeSimple(v.infinitive)}:${normalizeSimple(c.pronoun)}`,
+          label: `⚙️ Practice verb: ${c.pronoun} ${c.form}`,
+          systemPrompt: `You are a supportive Spanish tutor. Keep replies beginner-friendly (max 15 words). Encourage using this conjugation naturally: "${c.pronoun} ${c.form}" from "${v.infinitive}". Reply only in Spanish.`
+        });
+      }
+    }
+    const merged = [...additions, ...base];
+    const byId = {};
+    for (const t of merged) byId[t?.id || t?.label || Math.random()] = t;
+    return Object.values(byId);
+  }, [chatTopics, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
+
   const scrambleForLesson = useMemo(() => {
     const target = Math.max(4, Math.min(8, 3 + difficulty));
     const selected = selectAdaptiveScrambles(scrambleSentences, {
@@ -3049,7 +3144,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Audio Shadowing": () => <AudioShadowingLesson onComplete={done} listenSentences={listenForLesson} />,
     "Pronunciation Coach": () => <PronunciationCoachLesson onComplete={done} listenSentences={listenForLesson} />,
     "Scenario Builder": () => <ScenarioBuilderLesson onComplete={done} scenariosData={scenariosForLesson} />,
-    "Chat Partner": () => <ChatPartnerLesson onBack={onBack} onComplete={done} chatTopics={chatTopics} />,
+    "Chat Partner": () => <ChatPartnerLesson onBack={onBack} onComplete={done} chatTopics={chatTopicsForLesson} />,
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
