@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import cefrVocab from "./content/cefr-vocab.json";
+import expandedContent from "./content/modules/expanded-a1a2.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
@@ -2603,15 +2604,32 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const [words, setWords] = useState([]);
   const vocabMap = APPROVED_VOCAB_MAP;
   const categories = Object.keys(vocabMap);
-  const fillBlankSentences = contentPack?.sentences || SENTENCES;
+  const userKey = user?.username || "guest";
+  const profileBand = user?.profile?.cefrBand || "A1";
+  const bandOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+  const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...(expandedContent?.sentences || [])];
   const verbs = contentPack?.verbs || VERBS;
-  const listenSentences = contentPack?.listenSentences || LISTEN_SENTENCES;
+  const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
   const scenariosData = contentPack?.scenarios || SCENARIOS;
   const scenes = contentPack?.scenes || SCENES;
-  const scrambleSentences = contentPack?.scrambleSentences || SCRAMBLE_SENTENCES;
+  const scrambleSentencesRaw = contentPack?.scrambleSentences || [...SCRAMBLE_SENTENCES, ...(expandedContent?.scrambleSentences || [])];
+  const fillBlankSentences = filterByBandMix(fillBlankSentencesRaw);
+  const listenSentences = filterByBandMix(listenSentencesRaw);
+  const scrambleSentences = filterByBandMix(scrambleSentencesRaw);
   const chatTopics = contentPack?.chatTopics || CHAT_TOPICS;
   const pictureScenes = contentPack?.pictureScenes || PICTURE_SCENES;
-  const userKey = user?.username || "guest";
+
+  function filterByBandMix(items = []) {
+    const idx = bandOrder.indexOf(profileBand);
+    const prev = idx > 0 ? bandOrder[idx - 1] : null;
+    const next = idx >= 0 && idx < bandOrder.length - 1 ? bandOrder[idx + 1] : null;
+    const list = Array.isArray(items) ? items : [];
+    const current = list.filter((x) => !x?.cefr || x.cefr === profileBand);
+    const review = prev ? list.filter((x) => x?.cefr === prev) : [];
+    const stretch = next ? list.filter((x) => x?.cefr === next) : [];
+    return [...current, ...review.slice(0, Math.max(1, Math.round(review.length * 0.4))), ...stretch.slice(0, Math.max(1, Math.round(stretch.length * 0.25)))];
+  }
 
   const scenarioOptions = scenariosData.map((s) => s.setting);
   const sceneOptions = scenes.map((s) => s.name);
