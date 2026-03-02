@@ -76,13 +76,19 @@ export async function trackEvent(payload = {}) {
   if (eventType === "lesson_complete") {
     const earnedPoints = toNumber(payload?.earnedPoints);
     const durationSec = toNumber(payload?.durationSec);
+    const progressPoints = toNumber(payload?.progressPointsEarned);
+    const strengthPoints = toNumber(payload?.strengthPointsEarned);
 
     await redis.incrby("analytics:totals:lessons", 1);
     await redis.incrby("analytics:totals:points", earnedPoints);
     await redis.incrby("analytics:totals:activeSec", durationSec);
+    await redis.incrbyfloat("analytics:totals:progressPoints", progressPoints);
+    await redis.incrbyfloat("analytics:totals:strengthPoints", strengthPoints);
 
     if (payload?.lessonType) {
       await redis.hincrby("analytics:module-counts", payload.lessonType, 1);
+      await redis.hincrbyfloat("analytics:module-progress-points", payload.lessonType, progressPoints);
+      await redis.hincrbyfloat("analytics:module-strength-points", payload.lessonType, strengthPoints);
     }
 
     await redis.hset(userKey, {
@@ -91,6 +97,8 @@ export async function trackEvent(payload = {}) {
       points: toNumber(payload?.points),
       lessons: toNumber(payload?.lessons),
       lastLogin: nowIso,
+      lastProgressPoints: progressPoints,
+      lastStrengthPoints: strengthPoints,
     });
   }
 
@@ -108,12 +116,26 @@ async function uniqueUsersFromDailySets(prefix, dayCount) {
 export async function getStats() {
   await ensureConfigured();
 
-  const [totalUsers, totalLessons, totalPoints, totalActiveSec, topModulesRaw] = await Promise.all([
+  const [
+    totalUsers,
+    totalLessons,
+    totalPoints,
+    totalActiveSec,
+    totalProgressPoints,
+    totalStrengthPoints,
+    topModulesRaw,
+    moduleProgressRaw,
+    moduleStrengthRaw,
+  ] = await Promise.all([
     redis.scard("analytics:users"),
     redis.get("analytics:totals:lessons"),
     redis.get("analytics:totals:points"),
     redis.get("analytics:totals:activeSec"),
+    redis.get("analytics:totals:progressPoints"),
+    redis.get("analytics:totals:strengthPoints"),
     redis.hgetall("analytics:module-counts"),
+    redis.hgetall("analytics:module-progress-points"),
+    redis.hgetall("analytics:module-strength-points"),
   ]);
 
   const [newThisWeek, weeklyActiveUsers, monthlyActiveUsers] = await Promise.all([
@@ -127,15 +149,41 @@ export async function getStats() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
 
+  const moduleProgressDiagnostics = Object.entries(topModulesRaw || {})
+    .map(([name, lessonCountRaw]) => {
+      const lessons = toNumber(lessonCountRaw);
+      const progress = toNumber(moduleProgressRaw?.[name]);
+      const strength = toNumber(moduleStrengthRaw?.[name]);
+      return {
+        lesson: name,
+        lessons,
+        progressPoints: Number(progress.toFixed(2)),
+        strengthPoints: Number(strength.toFixed(2)),
+        avgProgressPerLesson: lessons > 0 ? Number((progress / lessons).toFixed(2)) : 0,
+        avgStrengthPerLesson: lessons > 0 ? Number((strength / lessons).toFixed(2)) : 0,
+      };
+    })
+    .sort((a, b) => b.avgProgressPerLesson - a.avgProgressPerLesson)
+    .slice(0, 10);
+
+  const lessonsNum = toNumber(totalLessons);
+  const progressNum = toNumber(totalProgressPoints);
+  const strengthNum = toNumber(totalStrengthPoints);
+
   return {
     totalUsers: toNumber(totalUsers),
     newThisWeek,
     weeklyActiveUsers,
     monthlyActiveUsers,
-    totalLessons: toNumber(totalLessons),
+    totalLessons: lessonsNum,
     totalPoints: toNumber(totalPoints),
     totalActiveMinutes: Math.round(toNumber(totalActiveSec) / 60),
+    totalProgressPoints: Number(progressNum.toFixed(2)),
+    totalStrengthPoints: Number(strengthNum.toFixed(2)),
+    avgProgressPerLesson: lessonsNum > 0 ? Number((progressNum / lessonsNum).toFixed(2)) : 0,
+    avgStrengthPerLesson: lessonsNum > 0 ? Number((strengthNum / lessonsNum).toFixed(2)) : 0,
     topLessons,
+    moduleProgressDiagnostics,
   };
 }
 

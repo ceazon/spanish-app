@@ -2829,6 +2829,9 @@ function AdminScreen({ onBack }) {
     { label: "MAU", value: stats?.monthlyActiveUsers ?? "—", icon: "📊" },
     { label: "Total Lessons", value: stats?.totalLessons ?? "—", icon: "📚" },
     { label: "Total Active Minutes", value: stats?.totalActiveMinutes ?? "—", icon: "⏱️" },
+    { label: "Avg Progress / Lesson", value: stats?.avgProgressPerLesson ?? "—", icon: "⚡" },
+    { label: "Avg Strength / Lesson", value: stats?.avgStrengthPerLesson ?? "—", icon: "🛡️" },
+    { label: "Total Progress Points", value: stats?.totalProgressPoints ?? "—", icon: "🚀" },
   ];
 
   return (
@@ -2876,6 +2879,24 @@ function AdminScreen({ onBack }) {
               <div key={name} style={{ display:"flex", justifyContent:"space-between", color:"#d1d5db", fontSize:13 }}>
                 <span>{name}</span>
                 <span style={{ color:"#a78bfa" }}>{count}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Progression Tuning Diagnostics</div>
+        {(stats?.moduleProgressDiagnostics || []).length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No progression diagnostics yet. Complete a few lessons first.</div>
+        ) : (
+          <div style={{ display:'grid', gap:8 }}>
+            {(stats?.moduleProgressDiagnostics || []).map((row) => (
+              <div key={row.lesson} style={{ display:'grid', gridTemplateColumns:'1.3fr 0.8fr 0.8fr 0.8fr', gap:8, color:'#d1d5db', fontSize:12, alignItems:'center' }}>
+                <div>{row.lesson}</div>
+                <div style={{ color:'#67e8f9' }}>+{row.avgProgressPerLesson}/lesson</div>
+                <div style={{ color:'#86efac' }}>+{row.avgStrengthPerLesson} strength</div>
+                <div style={{ color:'#9ca3af' }}>{row.lessons} lessons</div>
               </div>
             ))}
           </div>
@@ -3556,6 +3577,10 @@ export default function App() {
         });
       }
     }
+    const latestProgressionEvent = Array.isArray(profileUpdate?.progressionEvents)
+      ? profileUpdate.progressionEvents[profileUpdate.progressionEvents.length - 1]
+      : null;
+
     trackAnalyticsEvent({
       eventType: "lesson_complete",
       username: updated.username,
@@ -3565,6 +3590,8 @@ export default function App() {
       lessonType,
       durationSec: Number(meta?.durationSec) || 0,
       earnedPoints: Number(pts) || 0,
+      progressPointsEarned: Number(latestProgressionEvent?.progressPointsEarned || 0),
+      strengthPointsEarned: Number(latestProgressionEvent?.strengthPointsEarned || 0),
     });
 
     if (storyMode?.active) {
@@ -3601,10 +3628,7 @@ export default function App() {
       return;
     }
 
-    const latestProgression = Array.isArray(profileUpdate?.progressionEvents)
-      ? profileUpdate.progressionEvents[profileUpdate.progressionEvents.length - 1]
-      : null;
-    setLastResult({pts,correct,total,progression:latestProgression});setScreen("result");
+    setLastResult({pts,correct,total,progression:latestProgressionEvent});setScreen("result");
   }
   if (typeof window !== "undefined" && ["/student-blog", "/blog"].includes(window.location.pathname)) {
     return <LearningBlogPage />;
