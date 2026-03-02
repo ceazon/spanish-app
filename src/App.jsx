@@ -1745,59 +1745,90 @@ Grade meanings: excellent=native-like (20-30pts), good=clear with minor errors (
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function ImageLabelingLesson({ onComplete, scenes = SCENES }) {
-  const [sceneIdx] = useState(() => {
+  const [sceneList] = useState(() => {
     const list = Array.isArray(scenes) && scenes.length ? scenes : SCENES;
     try {
       const recent = JSON.parse(localStorage.getItem("image_scene_recent_v1") || "[]");
-      const last = localStorage.getItem("image_scene_last_v1");
-      let pool = list.filter((s) => !recent.includes(s?.name) && s?.name !== last);
-      if (!pool.length) pool = list.filter((s) => s?.name !== last);
-      if (!pool.length) pool = list;
-      const pick = pool[Math.floor(Math.random() * pool.length)] || list[0];
+      const fresh = list.filter((s) => !recent.includes(s?.name));
+      const pool = fresh.length ? fresh : list;
+      return shuffle(pool).slice(0, Math.max(4, Math.min(5, pool.length)));
+    } catch {
+      return shuffle(list).slice(0, Math.max(4, Math.min(5, list.length)));
+    }
+  });
 
-      const nextRecent = [pick?.name, ...(Array.isArray(recent) ? recent : [])]
+  const [sceneIdx, setSceneIdx] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const scene = sceneList[sceneIdx];
+
+  const [matched, setMatched] = useState([]);
+  const [errors, setErrors] = useState(0);
+  const [dragLabel, setDragLabel] = useState(null);
+  const [available, setAvailable] = useState(() => shuffle((scene?.items || []).map(i => i.label)));
+
+  useEffect(() => {
+    if (!scene) return;
+    setMatched([]);
+    setErrors(0);
+    setDragLabel(null);
+    setAvailable(shuffle((scene.items || []).map(i => i.label)));
+  }, [sceneIdx]);
+
+  function finishScene(scenePoints) {
+    const nextPoints = totalPoints + scenePoints;
+    const nextCompleted = completed + 1;
+
+    try {
+      const raw = localStorage.getItem("image_scene_recent_v1");
+      const recent = raw ? JSON.parse(raw) : [];
+      const next = [scene?.name, ...(Array.isArray(recent) ? recent : [])]
         .filter(Boolean)
         .filter((v, i, arr) => arr.indexOf(v) === i)
         .slice(0, 20);
-      localStorage.setItem("image_scene_recent_v1", JSON.stringify(nextRecent));
-      localStorage.setItem("image_scene_last_v1", pick?.name || "");
+      localStorage.setItem("image_scene_recent_v1", JSON.stringify(next));
+    } catch {}
 
-      return Math.max(0, list.findIndex((s) => s?.name === pick?.name));
-    } catch {
-      return Math.floor(Math.random() * list.length);
+    if (sceneIdx + 1 >= sceneList.length) {
+      onComplete(nextPoints, nextCompleted, sceneList.length);
+      return;
     }
-  });
-  const scene=scenes[sceneIdx];
-  const [matched, setMatched] = useState([]); const [errors, setErrors] = useState(0); const [dragLabel, setDragLabel] = useState(null);
-  const [available, setAvailable] = useState(()=>shuffle(scene.items.map(i=>i.label)));
+
+    setTotalPoints(nextPoints);
+    setCompleted(nextCompleted);
+    setSceneIdx((s) => s + 1);
+  }
+
   function tryPlace(targetLabel) {
     if(!dragLabel) return;
     if(dragLabel===targetLabel) {
-      const nm=[...matched,targetLabel]; setMatched(nm); setAvailable(a=>a.filter(l=>l!==dragLabel));
+      const nm=[...matched,targetLabel];
+      setMatched(nm);
+      setAvailable(a=>a.filter(l=>l!==dragLabel));
       if(nm.length===scene.items.length) {
-        try {
-          const raw = localStorage.getItem("image_scene_recent_v1");
-          const recent = raw ? JSON.parse(raw) : [];
-          const next = [scene?.name, ...(Array.isArray(recent) ? recent : [])].filter(Boolean).filter((v, i, arr) => arr.indexOf(v) === i).slice(0, 20);
-          localStorage.setItem("image_scene_recent_v1", JSON.stringify(next));
-        } catch {}
-        onComplete(Math.max(0,scene.items.length*15-errors*3),nm.length,scene.items.length);
+        const scenePoints = Math.max(0, scene.items.length * 15 - errors * 3);
+        finishScene(scenePoints);
       }
-    } else { setErrors(e=>e+1); }
+    } else {
+      setErrors(e=>e+1);
+    }
     setDragLabel(null);
   }
+
+  if (!scene) return null;
+
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:20, maxWidth:560, margin:"0 auto" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div style={{ color:"#e5e7eb", fontWeight:700, fontSize:16 }}>{scene.name}</div>
-        <div style={{ color:"#9ca3af", fontSize:13 }}>Placed: {matched.length}/{scene.items.length} • Errors: {errors}</div>
+        <div style={{ color:"#9ca3af", fontSize:13 }}>Scene {sceneIdx+1}/{sceneList.length} • Placed: {matched.length}/{scene.items.length} • Errors: {errors}</div>
       </div>
       <div style={{ position:"relative", height:320, background:"linear-gradient(160deg, #1e1347 0%, #0f1a2e 100%)", borderRadius:20, border:"1px solid rgba(255,255,255,0.1)", overflow:"hidden" }}>
         <div style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize:"40px 40px", pointerEvents:"none" }} />
         {scene.items.map(item=>{
           const isPlaced=matched.includes(item.label);
           return (
-            <div key={item.label} onDragOver={e=>e.preventDefault()} onDrop={()=>tryPlace(item.label)} onClick={()=>tryPlace(item.label)}
+            <div key={`${scene.name}-${item.label}`} onDragOver={e=>e.preventDefault()} onDrop={()=>tryPlace(item.label)} onClick={()=>tryPlace(item.label)}
               style={{ position:"absolute", left:`${item.x}%`, top:`${item.y}%`, transform:"translate(-50%,-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:4, cursor:dragLabel?"pointer":"default" }}>
               <div style={{ fontSize:28 }}>{item.emoji}</div>
               <div style={{ padding:"4px 10px", borderRadius:8, fontSize:12, fontWeight:700, background:isPlaced?"rgba(34,197,94,0.2)":dragLabel?"rgba(124,58,237,0.2)":"rgba(255,255,255,0.08)", border:`1px solid ${isPlaced?"#22c55e66":dragLabel?"#7c3aed55":"rgba(255,255,255,0.15)"}`, color:isPlaced?"#4ade80":dragLabel?"#c4b5fd":"#9ca3af", minWidth:60, textAlign:"center", transition:"all 0.2s" }}>
@@ -1813,14 +1844,14 @@ function ImageLabelingLesson({ onComplete, scenes = SCENES }) {
           {available.map(label=>{
             const item=scene.items.find(i=>i.label===label);
             return (
-              <div key={label} draggable onDragStart={()=>setDragLabel(label)} onDragEnd={()=>setDragLabel(null)} onClick={()=>setDragLabel(dragLabel===label?null:label)}
+              <div key={`${scene.name}-${label}`} draggable onDragStart={()=>setDragLabel(label)} onDragEnd={()=>setDragLabel(null)} onClick={()=>setDragLabel(dragLabel===label?null:label)}
                 style={{ padding:"10px 16px", borderRadius:10, fontSize:14, fontWeight:700, background:dragLabel===label?"rgba(124,58,237,0.3)":"rgba(255,255,255,0.07)", border:`1px solid ${dragLabel===label?"#7c3aed":"rgba(255,255,255,0.12)"}`, color:dragLabel===label?"#c4b5fd":"#e5e7eb", cursor:"grab", userSelect:"none", transition:"all 0.15s", fontFamily:"'Outfit', sans-serif" }}>
                 {label}
                 <div style={{ color:"#6b7280", fontSize:10, fontWeight:400 }}>{item?.en}</div>
               </div>
             );
           })}
-          {available.length===0&&<div style={{ color:"#22c55e", fontWeight:600, fontSize:14 }}>¡Perfecto! All labeled! 🎉</div>}
+          {available.length===0&&<div style={{ color:"#22c55e", fontWeight:600, fontSize:14 }}>¡Perfecto! Scene complete 🎉</div>}
         </div>
       </div>
     </div>
@@ -2677,7 +2708,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }
 
   const scenarioOptions = scenariosData.map((s) => s.setting);
-  const sceneOptions = ["Adaptive Mix", "Current Level", "Review Mix", "Stretch Mix"];
+  const sceneOptions = ["Kitchen", "Food", "Animals", "Colors", "Home", "Nature", "Mixed"];
   const pictureOptions = pictureScenes.map((s, i) => `${s.emoji} Scene ${i + 1}`);
   const categoryOptions = type === "Fill in the Blank"
     ? [...categories, "General"]
@@ -3005,14 +3036,30 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   const selectedScenePool = useMemo(() => {
     if (type !== "Image Labeling") return scenes;
-    const idx = bandOrder.indexOf(profileBand);
-    const prev = idx > 0 ? bandOrder[idx - 1] : null;
-    const next = idx >= 0 && idx < bandOrder.length - 1 ? bandOrder[idx + 1] : null;
-    if (category === "Current Level") return scenes.filter((s) => !s?.cefr || s.cefr === profileBand);
-    if (category === "Review Mix") return prev ? scenes.filter((s) => s?.cefr === prev || s?.cefr === profileBand) : scenes;
-    if (category === "Stretch Mix") return next ? scenes.filter((s) => s?.cefr === next || s?.cefr === profileBand) : scenes;
-    return scenes;
-  }, [type, category, scenes, profileBand]);
+
+    const categoryMap = {
+      Kitchen: ["Home", "Food"],
+      Food: ["Food", "Fruits", "Vegetables", "Restaurant"],
+      Animals: ["Animals", "Nature"],
+      Colors: ["Colors"],
+      Home: ["Home"],
+      Nature: ["Nature", "Weather"],
+      Mixed: [],
+    };
+
+    const desiredTopics = categoryMap[category] || [];
+    if (!desiredTopics.length) return scenes;
+
+    const topicWords = new Set(
+      desiredTopics.flatMap((t) => (APPROVED_VOCAB_MAP[t] || []).map((w) => normalizeSimple(w?.es || "")))
+    );
+
+    const filtered = scenes.filter((scene) =>
+      (scene?.items || []).some((it) => topicWords.has(normalizeSimple(it?.label || "")))
+    );
+
+    return filtered.length ? filtered : scenes;
+  }, [type, category, scenes]);
   const scenesForLesson = useMemo(() => {
     const target = Math.max(3, Math.min(6, 2 + difficulty));
     const pool = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target).map((scene) => ({
@@ -3168,13 +3215,9 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   useEffect(() => {
     if (!needsCategory || category || !categoryOptions.length) return;
-    if (type === "Image Labeling") {
-      pickCategory("Adaptive Mix");
-      return;
-    }
     const random = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
     pickCategory(random);
-  }, [needsCategory, category, categoryOptions.length, type]);
+  }, [needsCategory, category, categoryOptions.length]);
 
   if (AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable) {
     return (
