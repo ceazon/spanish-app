@@ -1907,8 +1907,12 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
 // RESULT SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function ResultScreen({ points, correct, total, onBack }) {
+function ResultScreen({ points, correct, total, onBack, progression }) {
   const pct=Math.round(correct/total*100);
+  const progEarned = Number(progression?.progressPointsEarned || 0);
+  const progBand = progression?.cefrBand || null;
+  const progPct = Math.round(Number(progression?.bandProgress || 0) * 100);
+  const learningPct = Math.round(Number(progression?.learningProgress || 0) * 100);
   const mascot = pct >= 80 ? MASCOT_ASSETS.success : pct >= 50 ? MASCOT_ASSETS.progress : MASCOT_ASSETS.base;
   const bubble = pct >= 80 ? "¡Excelente! You crushed it 🔥" : pct >= 50 ? "Nice work — keep pushing, you’re leveling up." : "Great effort. One more round and you’ll nail it 💪";
   return (
@@ -1921,6 +1925,16 @@ function ResultScreen({ points, correct, total, onBack }) {
         <div style={{ color:"#fff", fontSize:48, fontWeight:800, fontFamily:"'Playfair Display', serif" }}>+{points}</div>
         <div style={{ color:"#9ca3af", fontSize:14, marginTop:8 }}>{correct}/{total} correct ({pct}%)</div>
       </div>
+      {progression && (
+        <div style={{ width:'100%', maxWidth:420, background:'rgba(6,182,212,0.10)', border:'1px solid rgba(34,211,238,0.35)', borderRadius:14, padding:'12px 14px' }}>
+          <div style={{ color:'#67e8f9', fontSize:11, letterSpacing:2, marginBottom:8 }}>PROGRESSION BOOST</div>
+          <div style={{ color:'#ecfeff', fontSize:15, fontWeight:800 }}>+{progEarned.toFixed(2)} progress points</div>
+          <div style={{ color:'#bae6fd', fontSize:12, marginTop:4 }}>
+            {progBand ? `${progBand} band` : 'Current band'} • Mastery {progPct}% • Learning {learningPct}%
+          </div>
+          {progEarned >= 2.5 && <div style={{ color:'#86efac', fontSize:12, marginTop:6, fontWeight:700 }}>✨ Stretch bonus momentum unlocked!</div>}
+        </div>
+      )}
       <PrimaryBtn onClick={onBack}>Back to Dashboard</PrimaryBtn>
     </div>
   );
@@ -3331,7 +3345,10 @@ export default function App() {
       return;
     }
 
-    setLastResult({pts,correct,total});setScreen("result");
+    const latestProgression = Array.isArray(profileUpdate?.progressionEvents)
+      ? profileUpdate.progressionEvents[profileUpdate.progressionEvents.length - 1]
+      : null;
+    setLastResult({pts,correct,total,progression:latestProgression});setScreen("result");
   }
   if (typeof window !== "undefined" && ["/student-blog", "/blog"].includes(window.location.pathname)) {
     return <LearningBlogPage />;
@@ -3347,7 +3364,7 @@ export default function App() {
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
       {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user}/>}
-      {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} onBack={()=>setScreen("dashboard")}/></div>}
+      {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} progression={lastResult.progression} onBack={()=>setScreen("dashboard")}/></div>}
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
