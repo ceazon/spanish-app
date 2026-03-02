@@ -1955,7 +1955,7 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
   );
 }
 
-function DictionaryBookLesson({ user, onComplete, onPractice, contentPack }) {
+function DictionaryBookLesson({ user, onComplete, onPractice, onPracticeWord, contentPack }) {
   const words = useMemo(() => {
     const base = (cefrVocab?.vocab || []).filter((w) => ['A1', 'A2'].includes(w?.cefr));
     const approved = Object.entries(approvedVocab?.vocab || {}).flatMap(([topic, list]) =>
@@ -2085,7 +2085,7 @@ function DictionaryBookLesson({ user, onComplete, onPractice, contentPack }) {
               <div style={{ color:'#9ca3af', fontSize:12 }}>Topic: {selected.topic || 'General'}</div>
               <div style={{ color:'#9ca3af', fontSize:12 }}>Type: {selected.pos || 'word'}</div>
               <MascotSpeechBubble text={`Great choice. Practice “${selected.es}” in your next module.`} tone='default' style={{ marginTop:10 }} />
-              <button onClick={() => onPractice?.([{ id: selected.id || selected.es, es: selected.es, en: selected.en, cefr: selected.cefr || 'A1' }])} style={{ marginTop:10, width:'100%', padding:'9px 10px', borderRadius:10, background:'rgba(124,58,237,0.3)', color:'#fff', fontWeight:700 }}>
+              <button onClick={() => onPracticeWord?.({ id: selected.id || selected.es, es: selected.es, en: selected.en, cefr: selected.cefr || 'A1' })} style={{ marginTop:10, width:'100%', padding:'9px 10px', borderRadius:10, background:'rgba(124,58,237,0.3)', color:'#fff', fontWeight:700 }}>
                 Practice this word
               </button>
             </>
@@ -2815,7 +2815,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
-    "Dictionary Book": () => <DictionaryBookLesson user={user} contentPack={contentPack} onComplete={done} onPractice={(challengeWords) => onStartLesson?.('Flashcards', { challengeWords })} />,
+    "Dictionary Book": () => <DictionaryBookLesson
+      user={user}
+      contentPack={contentPack}
+      onComplete={done}
+      onPractice={(challengeWords) => onStartLesson?.('Flashcards', { challengeWords })}
+      onPracticeWord={(word) => {
+        const drillWords = Array.from({ length: 8 }, () => ({ ...word }));
+        onStartLesson?.('Flashcards', { challengeWords: drillWords });
+      }}
+    />,
   };
   const lessonNode = lessonRegistry[type] ? lessonRegistry[type]() : null;
 
