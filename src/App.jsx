@@ -340,20 +340,22 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
   const verbStart = Math.max(0, Math.min(Math.max(0, verbsRanked.length - 1), Math.floor(((currentSub + verbDifficulty) / 11) * verbsRanked.length)));
   const verbPool = verbsRanked.slice(Math.max(0, verbStart - 2), Math.min(verbsRanked.length, verbStart + 4));
 
-  const shouldReuseToday = (profile?.lastDailyFocusSeen || "") === key;
   const storedWordId = profile?.dailyFocusWordId || null;
   const storedVerbInf = profile?.dailyFocusVerb || null;
-  const seed = hashCode(`${username}:${key}:${currentBand}:${currentSub}:${verbDifficulty}`);
+  const seed = hashCode(`${username}:${Date.now()}:${currentBand}:${currentSub}:${verbDifficulty}`);
 
-  const reusedWord = shouldReuseToday
-    ? (rankedBandWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId) || allWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId))
-    : null;
-  const reusedVerb = shouldReuseToday
-    ? VERBS.find((v) => (v?.infinitive || "") === storedVerbInf)
-    : null;
+  const word = pickSeeded(
+    blendedPool.length ? blendedPool : (rankedBandWords.length ? rankedBandWords : allWords),
+    seed + Math.floor(Math.random() * 9999),
+    storedWordId
+  ) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
 
-  const word = reusedWord || pickSeeded(blendedPool.length ? blendedPool : (rankedBandWords.length ? rankedBandWords : allWords), seed + 11, profile?.dailyFocusWordId) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
-  const verb = reusedVerb || pickSeeded(verbPool.length ? verbPool : VERBS, seed + 29, profile?.dailyFocusVerb, (v) => v?.infinitive) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
+  const verb = pickSeeded(
+    verbPool.length ? verbPool : VERBS,
+    seed + 29 + Math.floor(Math.random() * 9999),
+    storedVerbInf,
+    (v) => v?.infinitive
+  ) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
 
   return {
     key,
@@ -3626,10 +3628,8 @@ export default function App() {
     };
     const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
     const isNewRegistration = !u.lastLogin;
-    const hasSeenToday = (updatedWithPath?.profile?.lastDailyFocusSeen || "") === daily.key;
-
     setDailyFocus(daily);
-    setShowDailyFocusModal(!hasSeenToday && !wantsAdmin);
+    setShowDailyFocusModal(!wantsAdmin);
     setUser(updatedWithPath);saveUser(updatedWithPath);setScreen(wantsAdmin ? "admin" : "dashboard");showToast(`¡Bienvenido, ${u.displayName}! 🇪🇸`);
     trackAnalyticsEvent({
       eventType: isNewRegistration ? "register" : "login",
