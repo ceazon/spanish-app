@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import cefrVocab from "./content/cefr-vocab.json";
-import expandedContent from "./content/modules/expanded-a1a2.json";
-import expandedInteractiveContent from "./content/modules/expanded-interactive-a1a2.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
@@ -2608,8 +2606,21 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const userKey = user?.username || "guest";
   const profileBand = user?.profile?.cefrBand || "A1";
   const bandOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  const [expandedContent, setExpandedContent] = useState(null);
+  const [expandedInteractiveContent, setExpandedInteractiveContent] = useState(null);
 
-  const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...(expandedContent?.sentences || [])];
+  useEffect(() => {
+    let mounted = true;
+    import("./content/modules/expanded-a1a2.json")
+      .then((m) => { if (mounted) setExpandedContent(m?.default || m); })
+      .catch(() => {});
+    import("./content/modules/expanded-interactive-a1a2.json")
+      .then((m) => { if (mounted) setExpandedInteractiveContent(m?.default || m); })
+      .catch(() => {});
+    return () => { mounted = false; };
+  }, []);
+
+  const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...((expandedContent && expandedContent.sentences) || [])];
   const verbs = contentPack?.verbs || VERBS;
   const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
   const scenariosDataRaw = contentPack?.scenarios || [...SCENARIOS, ...(expandedInteractiveContent?.scenarios || [])];
