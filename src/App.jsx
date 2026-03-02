@@ -283,25 +283,32 @@ function localDayKey(now = new Date()) {
   }
 }
 
-function hashCode(input = "") {
-  let h = 0;
-  for (let i = 0; i < input.length; i += 1) h = (h * 31 + input.charCodeAt(i)) | 0;
-  return Math.abs(h);
-}
-
-function pickSeeded(list = [], seed = 0) {
+function pickRandom(list = [], avoidKey = null, keyFn = (x) => x?.id || x?.es || x?.en || x) {
   if (!Array.isArray(list) || !list.length) return null;
-  return list[seed % list.length];
+  const filtered = avoidKey ? list.filter((x) => keyFn(x) !== avoidKey) : list;
+  const pool = filtered.length ? filtered : list;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function getDailyFocusBundle(profile = {}, username = "guest", now = new Date()) {
   const key = localDayKey(now);
-  const seedBase = hashCode(`${username}:${key}`);
   const currentBand = profile?.cefrBand || "A1";
-  const words = (cefrVocab?.vocab || []).filter((w) => (w?.cefr || "A1") === currentBand);
-  const wordFallback = (cefrVocab?.vocab || []).filter(Boolean);
-  const word = pickSeeded(words.length ? words : wordFallback, seedBase + 7) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
-  const verb = pickSeeded(VERBS, seedBase + 17) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
+  const allWords = (cefrVocab?.vocab || []).filter(Boolean);
+  const bandWords = allWords.filter((w) => (w?.cefr || "A1") === currentBand);
+
+  const shouldReuseToday = (profile?.lastDailyFocusSeen || "") === key;
+  const storedWordId = profile?.dailyFocusWordId || null;
+  const storedVerbInf = profile?.dailyFocusVerb || null;
+
+  const reusedWord = shouldReuseToday
+    ? (bandWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId) || allWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId))
+    : null;
+  const reusedVerb = shouldReuseToday
+    ? VERBS.find((v) => (v?.infinitive || "") === storedVerbInf)
+    : null;
+
+  const word = reusedWord || pickRandom(bandWords.length ? bandWords : allWords, profile?.dailyFocusWordId) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
+  const verb = reusedVerb || pickRandom(VERBS, profile?.dailyFocusVerb, (v) => v?.infinitive) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
 
   return {
     key,
@@ -3268,7 +3275,14 @@ export default function App() {
     const recomputedProfile = recomputeProfileFromHistory(u);
     const daily = getDailyFocusBundle(recomputedProfile, u?.username || "guest", new Date());
     const updated={...u,lastLogin:new Date().toISOString(),streak,profile:recomputedProfile};
-    const updatedWithPath = { ...updated, profile: ensurePathState(updated.profile || {}) };
+    const updatedWithPath = {
+      ...updated,
+      profile: ensurePathState({
+        ...(updated.profile || {}),
+        dailyFocusWordId: daily?.word?.id || null,
+        dailyFocusVerb: daily?.verb?.infinitive || null,
+      }),
+    };
     const wantsAdmin = typeof window !== "undefined" && window.location.pathname === "/admin";
     const isNewRegistration = !u.lastLogin;
     const hasSeenToday = (updatedWithPath?.profile?.lastDailyFocusSeen || "") === daily.key;
@@ -3294,6 +3308,8 @@ export default function App() {
       profile: {
         ...(user.profile || {}),
         lastDailyFocusSeen: dailyFocus.key,
+        dailyFocusWordId: dailyFocus?.word?.id || user?.profile?.dailyFocusWordId || null,
+        dailyFocusVerb: dailyFocus?.verb?.infinitive || user?.profile?.dailyFocusVerb || null,
       },
     };
     setUser(patched);
