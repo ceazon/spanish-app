@@ -3137,28 +3137,32 @@ function DailyFocusModal({ user, dailyFocus, onClose }) {
 
         <MascotSpeechBubble text="Use today’s word and verb in every lesson. Stack points, keep streak, and sound natural. 💪" tone="hype" style={{ marginBottom:14 }} />
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-          <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.10)", borderRadius:14, padding:14 }}>
-            <div style={{ color:"#67e8f9", fontSize:11, letterSpacing:2, marginBottom:8 }}>WORD OF THE DAY</div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(2, minmax(0, 1fr))", gap:12, alignItems:'stretch' }}>
+          <div style={{ background:"rgba(6,182,212,0.10)", border:"1px solid rgba(34,211,238,0.35)", borderRadius:14, padding:14 }}>
+            <div style={{ color:"#67e8f9", fontSize:11, letterSpacing:2, marginBottom:8 }}>🃏 WORD TILE</div>
+            <div style={{ color:'#9ca3af', fontSize:12, marginBottom:6 }}>Word of the day</div>
             <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:30, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{word?.es || "hola"}</div>
-            <div style={{ color:"#9ca3af", fontSize:14, marginTop:4 }}>{word?.en || "hello"}</div>
+            <div style={{ color:"#bae6fd", fontSize:14, marginTop:4 }}>{word?.en || "hello"}</div>
+            <div style={{ color:'#a5f3fc', fontSize:12, marginTop:10 }}>Use this word in every module today for bonus momentum.</div>
           </div>
-          <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.10)", borderRadius:14, padding:14 }}>
-            <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>VERB OF THE DAY</div>
-            <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:28, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{verb?.infinitive || "hablar"}</div>
-            <div style={{ color:"#9ca3af", fontSize:14, marginTop:4 }}>{verb?.meaning || "to speak"}</div>
-            <div style={{ color:"#ddd6fe", fontSize:12, marginTop:8 }}>{verb?.description}</div>
-          </div>
-        </div>
 
-        <div style={{ marginTop:12, background:"rgba(124,58,237,0.12)", border:"1px solid rgba(124,58,237,0.28)", borderRadius:14, padding:12 }}>
-          <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>TODAY'S CONJUGATIONS</div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(2, minmax(0, 1fr))", gap:8 }}>
-            {(verb?.conjugations || []).map((c, i) => (
-              <div key={`${c?.pronoun || 'p'}:${i}`} style={{ padding:"8px 10px", borderRadius:10, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", color:"#e5e7eb", fontSize:12 }}>
-                <strong style={{ color:"#a78bfa" }}>{c?.pronoun}</strong> — <span translate="no" className="notranslate">{c?.form}</span>
+          <div style={{ background:"rgba(124,58,237,0.14)", border:"1px solid rgba(168,85,247,0.35)", borderRadius:14, padding:14 }}>
+            <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>🃏 VERB TILE</div>
+            <div style={{ color:'#9ca3af', fontSize:12, marginBottom:6 }}>Verb of the day</div>
+            <div translate="no" className="notranslate" style={{ color:"#fff", fontSize:28, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{verb?.infinitive || "hablar"}</div>
+            <div style={{ color:"#ddd6fe", fontSize:14, marginTop:4 }}>{verb?.meaning || "to speak"}</div>
+            <div style={{ color:"#ddd6fe", fontSize:12, marginTop:8 }}>{verb?.description}</div>
+
+            <div style={{ marginTop:10 }}>
+              <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2, marginBottom:8 }}>CONJUGATIONS</div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(2, minmax(0, 1fr))", gap:8 }}>
+                {(verb?.conjugations || []).map((c, i) => (
+                  <div key={`${c?.pronoun || 'p'}:${i}`} style={{ padding:"8px 10px", borderRadius:10, background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", color:"#e5e7eb", fontSize:12 }}>
+                    <strong style={{ color:"#a78bfa" }}>{c?.pronoun}</strong> — <span translate="no" className="notranslate">{c?.form}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
