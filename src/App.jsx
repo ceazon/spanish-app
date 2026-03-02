@@ -2203,7 +2203,6 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   const maxPts=Math.max(...dayPoints,50);
   const recommended = user.profile?.recommendedLessons || [];
   const level = user.profile?.level || null;
-  const globalDifficulty = user.profile?.globalDifficulty || 1;
   const pathView = getNextPathStep(user.profile || {});
   const pathPlan = pathView.plan;
   const nextPathStep = pathView.nextStep;
@@ -2369,7 +2368,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         ) : (
           <div>
             <div style={{ color:"#a78bfa", fontSize:13, marginBottom:8 }}>
-              Current level: <strong>{level}</strong> • Difficulty tier: <strong>{globalDifficulty}/5</strong>
+              Current level: <strong>{level}</strong>
             </div>
             <div style={{ color:"#9ca3af", fontSize:12, marginBottom:10 }}>
               Today’s focus: <strong style={{ color:'#e5e7eb' }}>{pathPlan?.focus || 'Core practice'}</strong>
