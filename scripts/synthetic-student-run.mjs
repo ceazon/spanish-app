@@ -185,6 +185,46 @@ async function gotoAnyBaseUrl(page, notes) {
   throw lastError || new Error("Unable to reach any configured base URL");
 }
 
+async function dismissDailyLaunchIfPresent(page) {
+  const startBtn = page.getByRole("button", { name: /Start Learning/i });
+  if (await startBtn.isVisible().catch(() => false)) {
+    await startBtn.click({ timeout: 10000 }).catch(() => {});
+    await page.waitForTimeout(250);
+  }
+}
+
+async function waitForDashboardReady(page, timeout = 12000) {
+  await dismissDailyLaunchIfPresent(page);
+  const markers = [
+    page.getByText("Guided Learning Path", { exact: true }),
+    page.getByText("Daily Quests", { exact: true }),
+    page.getByText("Learning Progress", { exact: true }),
+    page.getByRole("button", { name: /Take on the Challenge/i }),
+  ];
+
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    for (const m of markers) {
+      if (await m.isVisible().catch(() => false)) return true;
+    }
+    await dismissDailyLaunchIfPresent(page);
+    await page.waitForTimeout(200);
+  }
+  throw new Error("Dashboard did not become ready in time");
+}
+
+async function safeClickButton(page, nameMatcher, timeout = 12000) {
+  const btn = page.getByRole("button", { name: nameMatcher }).first();
+  await dismissDailyLaunchIfPresent(page);
+  await btn.waitFor({ timeout });
+  try {
+    await btn.click({ timeout });
+  } catch {
+    await dismissDailyLaunchIfPresent(page);
+    await btn.click({ timeout, force: true });
+  }
+}
+
 async function returnToDashboard(page) {
   const backBtn = page.getByRole("button", { name: "← Back" });
   const dashboardBtn = page.getByRole("button", { name: "Back to Dashboard" });
@@ -195,7 +235,7 @@ async function returnToDashboard(page) {
     await dashboardBtn.click({ timeout: 10000 });
   }
 
-  await page.getByText("Adaptive Path", { exact: true }).waitFor({ timeout: 10000 });
+  await waitForDashboardReady(page);
 }
 
 async function completeWordMatchForPoints(page) {
@@ -309,15 +349,15 @@ async function runSession() {
     await inputs.nth(0).fill(username);
     await inputs.nth(1).fill("testpass123");
     await page.getByRole("button", { name: "Create Account →" }).click();
-    await page.getByText("Adaptive Path", { exact: true }).waitFor({ timeout: 15000 });
+    await waitForDashboardReady(page, 20000);
 
     blogHighlights.push(voice.intro);
 
     const chosenDuration = pick(STORY_DURATIONS);
-    await page.getByRole("button", { name: "Take on the Challenge" }).click();
-    await page.getByRole("button", { name: "🚀 Start Story Mode" }).waitFor({ timeout: 10000 });
-    await page.getByRole("button", { name: chosenDuration, exact: true }).click();
-    await page.getByRole("button", { name: "🚀 Start Story Mode" }).click();
+    await safeClickButton(page, /Take on the Challenge/i);
+    await page.getByRole("button", { name: /Start Story Mode/i }).waitFor({ timeout: 10000 });
+    await safeClickButton(page, new RegExp(`^${chosenDuration.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i"));
+    await safeClickButton(page, /Start Story Mode/i);
 
     const lessonHeader = (
       await page
@@ -338,7 +378,7 @@ async function runSession() {
 
     for (const moduleName of dailyModules) {
       try {
-        await page.getByRole("button", { name: moduleName, exact: false }).first().click({ timeout: 10000 });
+        await safeClickButton(page, new RegExp(moduleName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), 10000);
         await page.waitForTimeout(1200);
 
         if (moduleName === "Word Match") {
