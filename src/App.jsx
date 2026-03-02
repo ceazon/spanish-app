@@ -1955,12 +1955,13 @@ function PronunciationCoachLesson({ onComplete, listenSentences = LISTEN_SENTENC
   );
 }
 
-function DictionaryBookLesson({ user, onComplete }) {
+function DictionaryBookLesson({ user, onComplete, onPractice }) {
   const words = useMemo(() => (cefrVocab?.vocab || []).filter((w) => ['A1', 'A2'].includes(w?.cefr)), []);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selected, setSelected] = useState(null);
+  const [pageFlip, setPageFlip] = useState(false);
   const perPage = 16;
 
   function wordStatus(w) {
@@ -1986,8 +1987,16 @@ function DictionaryBookLesson({ user, onComplete }) {
   const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
   const safePage = Math.max(0, Math.min(page, pageCount - 1));
   const pageWords = filtered.slice(safePage * perPage, (safePage + 1) * perPage);
+  const unseenCount = words.filter((w) => wordStatus(w).key === 'unseen').length;
+  const needsCount = words.filter((w) => wordStatus(w).key === 'needs').length;
+  const learnedCount = words.filter((w) => wordStatus(w).key === 'learned').length;
 
   useEffect(() => { if (page !== safePage) setPage(safePage); }, [page, safePage]);
+  useEffect(() => {
+    setPageFlip(true);
+    const t = setTimeout(() => setPageFlip(false), 320);
+    return () => clearTimeout(t);
+  }, [safePage]);
 
   return (
     <div style={{ display:'grid', gap:12 }}>
@@ -2001,10 +2010,16 @@ function DictionaryBookLesson({ user, onComplete }) {
         </select>
       </div>
 
+      <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+        <div style={{ background:'rgba(74,222,128,0.12)', border:'1px solid rgba(74,222,128,0.35)', color:'#86efac', borderRadius:999, padding:'4px 10px', fontSize:12 }}>Learned: {learnedCount}</div>
+        <div style={{ background:'rgba(248,113,113,0.12)', border:'1px solid rgba(248,113,113,0.35)', color:'#fca5a5', borderRadius:999, padding:'4px 10px', fontSize:12 }}>Needs review: {needsCount}</div>
+        <div style={{ background:'rgba(156,163,175,0.12)', border:'1px solid rgba(156,163,175,0.35)', color:'#d1d5db', borderRadius:999, padding:'4px 10px', fontSize:12 }}>Unseen: {unseenCount}</div>
+      </div>
+
       <div style={{ display:'grid', gridTemplateColumns:'1.2fr 0.8fr', gap:12 }}>
         <div style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:14, padding:12 }}>
           <div style={{ color:'#a78bfa', fontSize:12, marginBottom:8 }}>Dictionary Book · Page {safePage + 1}/{pageCount}</div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(2, minmax(0, 1fr))', gap:8 }}>
+          <div key={`page:${safePage}`} style={{ display:'grid', gridTemplateColumns:'repeat(2, minmax(0, 1fr))', gap:8, transformOrigin:'left center', animation: pageFlip ? 'bookFlip 0.32s ease' : 'none' }}>
             {pageWords.map((w) => {
               const st = wordStatus(w);
               return (
@@ -2031,10 +2046,19 @@ function DictionaryBookLesson({ user, onComplete }) {
               <div style={{ color:'#9ca3af', fontSize:12 }}>Topic: {selected.topic || 'General'}</div>
               <div style={{ color:'#9ca3af', fontSize:12 }}>Type: {selected.pos || 'word'}</div>
               <MascotSpeechBubble text={`Great choice. Practice “${selected.es}” in your next module.`} tone='default' style={{ marginTop:10 }} />
+              <button onClick={() => onPractice?.([{ id: selected.id || selected.es, es: selected.es, en: selected.en, cefr: selected.cefr || 'A1' }])} style={{ marginTop:10, width:'100%', padding:'9px 10px', borderRadius:10, background:'rgba(124,58,237,0.3)', color:'#fff', fontWeight:700 }}>
+                Practice this word
+              </button>
             </>
           ) : (
             <MascotSpeechBubble text='Tap a word to preview it with mascot guidance.' tone='default' style={{ marginTop:8 }} />
           )}
+          <button onClick={() => {
+            const weak = words.filter((w) => wordStatus(w).key === 'needs').slice(0, 8).map((w) => ({ id: w.id || w.es, es: w.es, en: w.en, cefr: w.cefr || 'A1' }));
+            if (weak.length) onPractice?.(weak);
+          }} style={{ marginTop:10, width:'100%', padding:'9px 10px', borderRadius:10, background:'rgba(239,68,68,0.2)', color:'#fecaca', fontWeight:700 }}>
+            Practice weak words
+          </button>
         </div>
       </div>
 
@@ -2521,7 +2545,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 // LESSON SCREEN (router)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user, launchOptions }) {
+function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficulty = 1, user, launchOptions, onStartLesson }) {
   const SELECTOR_MODULES = new Set(["Scenario Builder", "Image Labeling", "Picture Description"]);
   const needsCategory = !NO_CATEGORY.has(type) || SELECTOR_MODULES.has(type);
   const [category, setCategory] = useState(needsCategory ? null : type);
@@ -2752,7 +2776,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
     "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
-    "Dictionary Book": () => <DictionaryBookLesson user={user} onComplete={done} />,
+    "Dictionary Book": () => <DictionaryBookLesson user={user} onComplete={done} onPractice={(challengeWords) => onStartLesson?.('Flashcards', { challengeWords })} />,
   };
   const lessonNode = lessonRegistry[type] ? lessonRegistry[type]() : null;
 
@@ -3725,7 +3749,7 @@ export default function App() {
   if(screen==="auth") return <AuthScreen onLogin={handleLogin}/>;
   return (
     <div style={{ minHeight:"100vh", background:"#0f0a1e", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)", color:"#e5e7eb" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}@keyframes tileFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}@keyframes tileFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes bookFlip{0%{transform:perspective(900px) rotateY(-14deg);opacity:0.65}100%{transform:perspective(900px) rotateY(0deg);opacity:1}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
@@ -3733,7 +3757,7 @@ export default function App() {
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
-      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user} onStartLesson={startLesson}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} progression={lastResult.progression} onBack={()=>setScreen("dashboard")}/></div>}
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
