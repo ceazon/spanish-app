@@ -283,32 +283,62 @@ function localDayKey(now = new Date()) {
   }
 }
 
-function pickRandom(list = [], avoidKey = null, keyFn = (x) => x?.id || x?.es || x?.en || x) {
+function hashCode(input = "") {
+  let h = 0;
+  for (let i = 0; i < input.length; i += 1) h = (h * 31 + input.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function pickSeeded(list = [], seed = 0, avoidKey = null, keyFn = (x) => x?.id || x?.es || x?.en || x) {
   if (!Array.isArray(list) || !list.length) return null;
   const filtered = avoidKey ? list.filter((x) => keyFn(x) !== avoidKey) : list;
   const pool = filtered.length ? filtered : list;
-  return pool[Math.floor(Math.random() * pool.length)];
+  return pool[Math.abs(seed) % pool.length];
 }
 
 function getDailyFocusBundle(profile = {}, username = "guest", now = new Date()) {
   const key = localDayKey(now);
   const currentBand = profile?.cefrBand || "A1";
+  const currentSub = Math.max(0, Math.min(9, Number(profile?.sublevel || 0)));
   const allWords = (cefrVocab?.vocab || []).filter(Boolean);
   const bandWords = allWords.filter((w) => (w?.cefr || "A1") === currentBand);
+  const rankedBandWords = bandWords.map((w, idx) => {
+    const exposure = profile?.wordExposure?.[w?.id || w?.es] || {};
+    const seen = Number(exposure?.seen || 0);
+    const correct = Number(exposure?.correct || 0);
+    const acc = seen > 0 ? correct / seen : 0;
+    const derivedSub = Math.max(0, Math.min(9, Math.floor((idx / Math.max(1, bandWords.length)) * 10)));
+    return { ...w, _seen: seen, _acc: acc, _sub: derivedSub };
+  });
+
+  const reviewPool = rankedBandWords.filter((w) => w._sub < currentSub).sort((a, b) => (a._acc - b._acc) || (a._seen - b._seen));
+  const currentPool = rankedBandWords.filter((w) => w._sub === currentSub).sort((a, b) => (a._seen - b._seen) || (a._acc - b._acc));
+  const stretchPool = rankedBandWords.filter((w) => w._sub > currentSub).sort((a, b) => (a._seen - b._seen));
+  const blendedPool = [...currentPool.slice(0, 40), ...reviewPool.slice(0, 20), ...stretchPool.slice(0, 20)];
+
+  const verbDifficulty = Number(profile?.globalDifficulty || 1);
+  const verbsRanked = [...VERBS].sort((a, b) => {
+    const aIrregular = String(a?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
+    const bIrregular = String(b?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
+    return aIrregular - bIrregular;
+  });
+  const verbStart = Math.max(0, Math.min(Math.max(0, verbsRanked.length - 1), Math.floor(((currentSub + verbDifficulty) / 11) * verbsRanked.length)));
+  const verbPool = verbsRanked.slice(Math.max(0, verbStart - 2), Math.min(verbsRanked.length, verbStart + 4));
 
   const shouldReuseToday = (profile?.lastDailyFocusSeen || "") === key;
   const storedWordId = profile?.dailyFocusWordId || null;
   const storedVerbInf = profile?.dailyFocusVerb || null;
+  const seed = hashCode(`${username}:${key}:${currentBand}:${currentSub}:${verbDifficulty}`);
 
   const reusedWord = shouldReuseToday
-    ? (bandWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId) || allWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId))
+    ? (rankedBandWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId) || allWords.find((w) => (w?.id || w?.es || w?.en) === storedWordId))
     : null;
   const reusedVerb = shouldReuseToday
     ? VERBS.find((v) => (v?.infinitive || "") === storedVerbInf)
     : null;
 
-  const word = reusedWord || pickRandom(bandWords.length ? bandWords : allWords, profile?.dailyFocusWordId) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
-  const verb = reusedVerb || pickRandom(VERBS, profile?.dailyFocusVerb, (v) => v?.infinitive) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
+  const word = reusedWord || pickSeeded(blendedPool.length ? blendedPool : (rankedBandWords.length ? rankedBandWords : allWords), seed + 11, profile?.dailyFocusWordId) || { id: "hola", es: "hola", en: "hello", cefr: currentBand };
+  const verb = reusedVerb || pickSeeded(verbPool.length ? verbPool : VERBS, seed + 29, profile?.dailyFocusVerb, (v) => v?.infinitive) || { infinitive: "hablar", meaning: "to speak", conjugations: [] };
 
   return {
     key,
@@ -321,7 +351,7 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
     verb: {
       infinitive: verb?.infinitive || "hablar",
       meaning: verb?.meaning || "to speak",
-      description: `Today’s power verb is ${verb?.infinitive || "hablar"} (${verb?.meaning || "to speak"}). Try using it in at least 3 answers today!`,
+      description: `Today’s power verb for your ${currentBand} · L${currentSub + 1} path is ${verb?.infinitive || "hablar"} (${verb?.meaning || "to speak"}).`,
       conjugations: Array.isArray(verb?.conjugations) ? verb.conjugations : [],
     },
   };
