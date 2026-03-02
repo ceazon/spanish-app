@@ -2042,6 +2042,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
 
 function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode }) {
   const [showProgressMap, setShowProgressMap] = useState(false);
+  const [levelPreview, setLevelPreview] = useState(null);
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -2091,6 +2092,29 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
   const currentSublevel = Number(canonicalLabel.sublevel || 0);
   const currentSublevelProgress = Math.max(0, Math.min(100, Number(canonicalLabel.pctWithinSublevel || 0)));
 
+  function buildLevelPreview(node) {
+    const allWords = (cefrVocab?.vocab || []).filter((w) => (w?.cefr || 'A1') === node.band);
+    const start = Math.floor((node.sublevel / 10) * allWords.length);
+    const end = Math.max(start + 1, Math.floor(((node.sublevel + 1) / 10) * allWords.length));
+    const bucketWords = allWords.slice(start, end);
+    const sampledWords = (bucketWords.length ? bucketWords : allWords).slice(0, 4).map((w) => ({ es: w.es, en: w.en }));
+
+    const verbStart = Math.floor((node.sublevel / 10) * VERBS.length);
+    const sampledVerbs = VERBS.slice(verbStart, verbStart + 2).map((v) => ({
+      infinitive: v.infinitive,
+      meaning: v.meaning,
+      conjugations: (v.conjugations || []).slice(0, 3),
+    }));
+
+    const concepts = node.sublevel < 3
+      ? ['Core vocabulary', 'Simple sentence building', 'Listening recognition']
+      : node.sublevel < 7
+        ? ['Conversation flow', 'Grammar in context', 'Word retrieval speed']
+        : ['Confidence speaking', 'Real-life phrasing', 'Advanced review'];
+
+    return { ...node, words: sampledWords, verbs: sampledVerbs, concepts };
+  }
+
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
     return titles.map((title, subIdx) => {
@@ -2105,6 +2129,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
       const strengthPct = Math.max(0, Math.min(100, Math.round((strengthRaw / 10) * 100)));
       return {
         band,
+        sublevel: subIdx,
         title,
         levelNumber: bandIdx * 10 + subIdx + 1,
         percent: pct,
@@ -2305,7 +2330,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
               Keep going — every strong answer fills your journey map.
             </div>
             <div style={{ color:'#9ca3af', fontSize:12, marginBottom:14 }}>
-              Mastery grows over time as you practice and review.
+              Tap a level tile to preview words, verbs, and concepts with your mascot.
             </div>
 
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(180px, 1fr))', gap:12 }}>
@@ -2315,7 +2340,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
                 return (
                   <button
                     key={`${node.band}-${node.levelNumber}`}
-                    onClick={() => onStartLesson('Flashcards')}
+                    onClick={() => setLevelPreview(buildLevelPreview(node))}
                     style={{
                       textAlign:'left',
                       padding:14,
@@ -2346,6 +2371,57 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
                 );
               })}
             </div>
+          </div>
+        </div>
+      )}
+
+      {levelPreview && (
+        <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.72)', zIndex:1100, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}>
+          <div style={{ width:'min(760px, 95vw)', maxHeight:'86vh', overflowY:'auto', background:'#120a22', border:'1px solid rgba(255,255,255,0.12)', borderRadius:18, padding:18 }}>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
+              <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+                <img src={MASCOT_ASSETS.progress} alt='mascot' style={{ width:56, height:56, objectFit:'contain', borderRadius:10, background:'rgba(124,58,237,0.12)', padding:4 }} />
+                <div>
+                  <div style={{ color:'#a78bfa', fontSize:11, letterSpacing:2 }}>LEVEL PREVIEW</div>
+                  <div style={{ color:'#fff', fontWeight:800 }}>Level {levelPreview.levelNumber} · {levelPreview.title}</div>
+                </div>
+              </div>
+              <button onClick={() => setLevelPreview(null)} style={{ padding:'8px 12px', borderRadius:10, background:'rgba(255,255,255,0.08)', color:'#e5e7eb', fontWeight:700 }}>Close</button>
+            </div>
+
+            <MascotSpeechBubble text="Here are a few words, verbs, and focus concepts for this level. Want to train them now?" tone='success' style={{ marginBottom:12, maxWidth:520 }} />
+
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:12 }}>
+              <div style={{ background:'rgba(6,182,212,0.10)', border:'1px solid rgba(34,211,238,0.35)', borderRadius:14, padding:12 }}>
+                <div style={{ color:'#67e8f9', fontSize:11, letterSpacing:2, marginBottom:8 }}>WORDS</div>
+                {(levelPreview.words || []).map((w, i) => (
+                  <div key={`${w.es}:${i}`} style={{ color:'#e0f2fe', fontSize:13, marginBottom:6 }}>
+                    <strong>{w.es}</strong> — {w.en}
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background:'rgba(124,58,237,0.14)', border:'1px solid rgba(168,85,247,0.35)', borderRadius:14, padding:12 }}>
+                <div style={{ color:'#c4b5fd', fontSize:11, letterSpacing:2, marginBottom:8 }}>VERBS</div>
+                {(levelPreview.verbs || []).map((v, i) => (
+                  <div key={`${v.infinitive}:${i}`} style={{ color:'#e9d5ff', fontSize:13, marginBottom:8 }}>
+                    <strong>{v.infinitive}</strong> ({v.meaning})
+                    <div style={{ color:'#ddd6fe', fontSize:12, marginTop:2 }}>
+                      {(v.conjugations || []).map((c) => `${c.pronoun} ${c.form}`).join(' • ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background:'rgba(34,197,94,0.10)', border:'1px solid rgba(134,239,172,0.35)', borderRadius:14, padding:12, marginBottom:12 }}>
+              <div style={{ color:'#86efac', fontSize:11, letterSpacing:2, marginBottom:8 }}>CONCEPTS TO MASTER</div>
+              {(levelPreview.concepts || []).map((c, i) => <div key={`${c}:${i}`} style={{ color:'#dcfce7', fontSize:13, marginBottom:4 }}>• {c}</div>)}
+            </div>
+
+            <PrimaryBtn onClick={() => { onStartLesson('Flashcards', { challengeWords: (levelPreview.words || []).map((w) => ({ es: w.es, en: w.en })) }); setLevelPreview(null); setShowProgressMap(false); }}>
+              Practice this level now
+            </PrimaryBtn>
           </div>
         </div>
       )}
@@ -2403,7 +2479,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }
 
   const wordsForLesson = useMemo(() => {
-    if (category === "General" && forcedWords.length) return withDailyFocusWord(forcedWords);
+    if (forcedWords.length) return withDailyFocusWord(forcedWords);
     if (category === "General") {
       return withDailyFocusWord(selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) }));
     }
@@ -2428,7 +2504,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       return hasAlready ? items : [sentence, ...(items || [])];
     };
 
-    if (category === "General" && forcedFillItems.length) return injectDailyFill(forcedFillItems);
+    if (forcedFillItems.length) return injectDailyFill(forcedFillItems);
     if (category === "General") {
       return injectDailyFill(getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) }));
     }
@@ -3324,12 +3400,16 @@ export default function App() {
 
   function startLesson(type, opts = {}) {
     const pathMode = !!opts.path;
-    const challengeWords = pathMode
-      ? selectWordsForModule({ profile: user?.profile || {}, moduleType: type, count: 10 })
-      : null;
-    const challengeFillItems = pathMode && type === "Fill in the Blank"
-      ? getFillBlankItemsForModule({ profile: user?.profile || {}, count: 8 })
-      : null;
+    const challengeWords = Array.isArray(opts.challengeWords)
+      ? opts.challengeWords
+      : pathMode
+        ? selectWordsForModule({ profile: user?.profile || {}, moduleType: type, count: 10 })
+        : null;
+    const challengeFillItems = Array.isArray(opts.challengeFillItems)
+      ? opts.challengeFillItems
+      : (pathMode && type === "Fill in the Blank")
+        ? getFillBlankItemsForModule({ profile: user?.profile || {}, count: 8 })
+        : null;
 
     setLessonLaunchOptions({
       path: pathMode,
