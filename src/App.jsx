@@ -296,6 +296,13 @@ function pickSeeded(list = [], seed = 0, avoidKey = null, keyFn = (x) => x?.id |
   return pool[Math.abs(seed) % pool.length];
 }
 
+function getFriendlyPathName(profile = {}) {
+  const band = profile?.cefrBand || 'A1';
+  const sub = Math.max(0, Math.min(9, Number(profile?.sublevel || 0)));
+  const title = LEVEL_TITLES?.[band]?.[sub] || 'Learner';
+  return `${title} path`;
+}
+
 function getDailyFocusBundle(profile = {}, username = "guest", now = new Date()) {
   const key = localDayKey(now);
   const currentBand = profile?.cefrBand || "A1";
@@ -351,7 +358,7 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
     verb: {
       infinitive: verb?.infinitive || "hablar",
       meaning: verb?.meaning || "to speak",
-      description: `Today’s power verb for your ${currentBand} · L${currentSub + 1} path is ${verb?.infinitive || "hablar"} (${verb?.meaning || "to speak"}).`,
+      description: `Today’s power verb for your ${getFriendlyPathName(profile)} is ${verb?.infinitive || "hablar"} (${verb?.meaning || "to speak"}).`,
       conjugations: Array.isArray(verb?.conjugations) ? verb.conjugations : [],
     },
   };
@@ -1970,7 +1977,7 @@ function ResultScreen({ points, correct, total, onBack, progression }) {
           <div style={{ color:'#ecfeff', fontSize:15, fontWeight:800 }}>+{progEarned.toFixed(2)} progress points</div>
           <div style={{ color:'#a7f3d0', fontSize:13, marginTop:4, fontWeight:700 }}>+{strengthEarned.toFixed(2)} level strength</div>
           <div style={{ color:'#bae6fd', fontSize:12, marginTop:4 }}>
-            {progBand ? `${progBand} band` : 'Current band'} • Mastery {progPct}% • Learning {learningPct}%
+            {progBand ? 'Your learning path' : 'Current path'} • Mastery {progPct}% • Learning {learningPct}%
           </div>
           {strengthenedLevelKey && <div style={{ color:'#bbf7d0', fontSize:12, marginTop:4 }}>🛡️ Reinforced level node: {strengthenedLevelKey}</div>}
           {progEarned >= 2.5 && <div style={{ color:'#86efac', fontSize:12, marginTop:6, fontWeight:700 }}>✨ Stretch bonus momentum unlocked!</div>}
@@ -3457,7 +3464,7 @@ export default function App() {
         triggerCelebration({
           tag: 'PROGRESS MILESTONE',
           title: `✨ ${hit}% Band Progress!`,
-          message: `Mascot says: Boom! You reached ${hit}% learning progress in ${profileUpdate?.cefrBand || 'your current'} band.`,
+          message: `Mascot says: Boom! You reached ${hit}% learning progress in your ${getFriendlyPathName(profileUpdate)}.`,
         });
       }
     }
