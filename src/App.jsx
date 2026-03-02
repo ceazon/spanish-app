@@ -3,6 +3,7 @@ import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import cefrVocab from "./content/cefr-vocab.json";
 import expandedContent from "./content/modules/expanded-a1a2.json";
+import expandedInteractiveContent from "./content/modules/expanded-interactive-a1a2.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
@@ -2611,14 +2612,18 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...(expandedContent?.sentences || [])];
   const verbs = contentPack?.verbs || VERBS;
   const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
-  const scenariosData = contentPack?.scenarios || SCENARIOS;
-  const scenes = contentPack?.scenes || SCENES;
+  const scenariosDataRaw = contentPack?.scenarios || [...SCENARIOS, ...(expandedInteractiveContent?.scenarios || [])];
+  const scenesRaw = contentPack?.scenes || [...SCENES, ...(expandedInteractiveContent?.scenes || [])];
   const scrambleSentencesRaw = contentPack?.scrambleSentences || [...SCRAMBLE_SENTENCES, ...(expandedContent?.scrambleSentences || [])];
   const fillBlankSentences = filterByBandMix(fillBlankSentencesRaw);
   const listenSentences = filterByBandMix(listenSentencesRaw);
   const scrambleSentences = filterByBandMix(scrambleSentencesRaw);
-  const chatTopics = contentPack?.chatTopics || CHAT_TOPICS;
-  const pictureScenes = contentPack?.pictureScenes || PICTURE_SCENES;
+  const chatTopicsRaw = contentPack?.chatTopics || [...CHAT_TOPICS, ...(expandedInteractiveContent?.chatTopics || [])];
+  const pictureScenesRaw = contentPack?.pictureScenes || [...PICTURE_SCENES, ...(expandedInteractiveContent?.pictureScenes || [])];
+  const scenariosData = filterByBandMix(scenariosDataRaw);
+  const scenes = filterByBandMix(scenesRaw);
+  const chatTopics = filterByBandMix(chatTopicsRaw);
+  const pictureScenes = filterByBandMix(pictureScenesRaw);
 
   function filterByBandMix(items = []) {
     const idx = bandOrder.indexOf(profileBand);

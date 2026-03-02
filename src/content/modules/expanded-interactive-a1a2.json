@@ -1,0 +1,7461 @@
+{
+  "generatedAt": "2026-03-02T21:37:50.685Z",
+  "scenarios": [
+    {
+      "id": "gen-scn-0",
+      "setting": "🗣️ Daily Situation 1",
+      "context": "Use Hola naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hola en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hello in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Hola hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-1",
+      "setting": "🗣️ Daily Situation 2",
+      "context": "Use Adiós naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Adiós en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Goodbye in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Adiós hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-2",
+      "setting": "🗣️ Daily Situation 3",
+      "context": "Use Buenos días naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Buenos días en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Good morning in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Buenos días hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-3",
+      "setting": "🗣️ Daily Situation 4",
+      "context": "Use Buenas noches naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Buenas noches en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Good night in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Buenas noches hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-4",
+      "setting": "🗣️ Daily Situation 5",
+      "context": "Use Gracias naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Gracias en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Thank you in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Gracias hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-5",
+      "setting": "🗣️ Daily Situation 6",
+      "context": "Use Por favor naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Por favor en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Please in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Por favor hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-6",
+      "setting": "🗣️ Daily Situation 7",
+      "context": "Use Sí naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Sí en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Yes in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Sí hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-7",
+      "setting": "🗣️ Daily Situation 8",
+      "context": "Use No naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra No en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word No in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives No hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-8",
+      "setting": "🗣️ Daily Situation 9",
+      "context": "Use Perdón naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Perdón en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Excuse me in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Perdón hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-9",
+      "setting": "🗣️ Daily Situation 10",
+      "context": "Use Lo siento naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Lo siento en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Sorry in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Lo siento hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-10",
+      "setting": "🗣️ Daily Situation 11",
+      "context": "Use Uno naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Uno en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word One in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros habláis Uno hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-11",
+      "setting": "🗣️ Daily Situation 12",
+      "context": "Use Dos naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Dos en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Two in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas comen Dos hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-12",
+      "setting": "🗣️ Daily Situation 13",
+      "context": "Use Tres naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tres en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Three in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo vivo Tres hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-13",
+      "setting": "🗣️ Daily Situation 14",
+      "context": "Use Cuatro naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cuatro en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Four in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú tienes Cuatro hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-14",
+      "setting": "🗣️ Daily Situation 15",
+      "context": "Use Cinco naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cinco en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Five in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella va Cinco hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-15",
+      "setting": "🗣️ Daily Situation 16",
+      "context": "Use Seis naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Seis en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Six in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros hablamos Seis hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-16",
+      "setting": "🗣️ Daily Situation 17",
+      "context": "Use Siete naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Siete en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Seven in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros coméis Siete hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-17",
+      "setting": "🗣️ Daily Situation 18",
+      "context": "Use Ocho naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ocho en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Eight in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas viven Ocho hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-18",
+      "setting": "🗣️ Daily Situation 19",
+      "context": "Use Nueve naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Nueve en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Nine in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo tengo Nueve hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-19",
+      "setting": "🗣️ Daily Situation 20",
+      "context": "Use Diez naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Diez en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Ten in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vas Diez hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-20",
+      "setting": "🗣️ Daily Situation 21",
+      "context": "Use Rojo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Rojo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Red in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella habla Rojo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-21",
+      "setting": "🗣️ Daily Situation 22",
+      "context": "Use Azul naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Azul en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Blue in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros comemos Azul hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-22",
+      "setting": "🗣️ Daily Situation 23",
+      "context": "Use Verde naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Verde en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Green in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vivís Verde hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-23",
+      "setting": "🗣️ Daily Situation 24",
+      "context": "Use Amarillo naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Amarillo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Yellow in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas tienen Amarillo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-24",
+      "setting": "🗣️ Daily Situation 25",
+      "context": "Use Negro naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Negro en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Black in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo voy Negro hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-25",
+      "setting": "🗣️ Daily Situation 26",
+      "context": "Use Blanco naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Blanco en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word White in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú hablas Blanco hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-26",
+      "setting": "🗣️ Daily Situation 27",
+      "context": "Use Naranja naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Naranja en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Orange in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella come Naranja hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-27",
+      "setting": "🗣️ Daily Situation 28",
+      "context": "Use Morado naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Morado en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Purple in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vivimos Morado hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-28",
+      "setting": "🗣️ Daily Situation 29",
+      "context": "Use Rosa naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Rosa en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Pink in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros tenéis Rosa hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-29",
+      "setting": "🗣️ Daily Situation 30",
+      "context": "Use Marrón naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Marrón en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Brown in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas van Marrón hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-30",
+      "setting": "🗣️ Daily Situation 31",
+      "context": "Use Manzana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Manzana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Apple in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Manzana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-31",
+      "setting": "🗣️ Daily Situation 32",
+      "context": "Use Pan naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pan en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bread in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Pan hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-32",
+      "setting": "🗣️ Daily Situation 33",
+      "context": "Use Agua naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Agua en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Water in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Agua hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-33",
+      "setting": "🗣️ Daily Situation 34",
+      "context": "Use Leche naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Leche en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Milk in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Leche hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-34",
+      "setting": "🗣️ Daily Situation 35",
+      "context": "Use Pollo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pollo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Chicken in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Pollo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-35",
+      "setting": "🗣️ Daily Situation 36",
+      "context": "Use Arroz naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Arroz en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Rice in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Arroz hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-36",
+      "setting": "🗣️ Daily Situation 37",
+      "context": "Use Pescado naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pescado en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Fish (food) in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Pescado hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-37",
+      "setting": "🗣️ Daily Situation 38",
+      "context": "Use Huevo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Huevo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Egg in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives Huevo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-38",
+      "setting": "🗣️ Daily Situation 39",
+      "context": "Use Queso naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Queso en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Cheese in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Queso hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-39",
+      "setting": "🗣️ Daily Situation 40",
+      "context": "Use Café naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Café en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Coffee in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Café hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-40",
+      "setting": "🗣️ Daily Situation 41",
+      "context": "Use Perro naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Perro en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Dog in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros habláis Perro hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-41",
+      "setting": "🗣️ Daily Situation 42",
+      "context": "Use Gato naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Gato en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Cat in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas comen Gato hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-42",
+      "setting": "🗣️ Daily Situation 43",
+      "context": "Use Pájaro naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pájaro en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bird in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo vivo Pájaro hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-43",
+      "setting": "🗣️ Daily Situation 44",
+      "context": "Use Caballo naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Caballo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Horse in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú tienes Caballo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-44",
+      "setting": "🗣️ Daily Situation 45",
+      "context": "Use Pez naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pez en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Fish (animal) in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella va Pez hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-45",
+      "setting": "🗣️ Daily Situation 46",
+      "context": "Use Conejo naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Conejo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Rabbit in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros hablamos Conejo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-46",
+      "setting": "🗣️ Daily Situation 47",
+      "context": "Use León naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra León en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Lion in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros coméis León hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-47",
+      "setting": "🗣️ Daily Situation 48",
+      "context": "Use Tigre naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tigre en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Tiger in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas viven Tigre hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-48",
+      "setting": "🗣️ Daily Situation 49",
+      "context": "Use Oso naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Oso en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bear in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo tengo Oso hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-49",
+      "setting": "🗣️ Daily Situation 50",
+      "context": "Use Elefante naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Elefante en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Elephant in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vas Elefante hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-50",
+      "setting": "🗣️ Daily Situation 51",
+      "context": "Use Madre naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Madre en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Mother in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella habla Madre hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-51",
+      "setting": "🗣️ Daily Situation 52",
+      "context": "Use Padre naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Padre en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Father in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros comemos Padre hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-52",
+      "setting": "🗣️ Daily Situation 53",
+      "context": "Use Hermano naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hermano en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Brother in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vivís Hermano hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-53",
+      "setting": "🗣️ Daily Situation 54",
+      "context": "Use Hermana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hermana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Sister in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas tienen Hermana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-54",
+      "setting": "🗣️ Daily Situation 55",
+      "context": "Use Hijo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hijo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Son in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo voy Hijo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-55",
+      "setting": "🗣️ Daily Situation 56",
+      "context": "Use Hija naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hija en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Daughter in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú hablas Hija hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-56",
+      "setting": "🗣️ Daily Situation 57",
+      "context": "Use Abuela naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Abuela en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Grandmother in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella come Abuela hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-57",
+      "setting": "🗣️ Daily Situation 58",
+      "context": "Use Abuelo naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Abuelo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Grandfather in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vivimos Abuelo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-58",
+      "setting": "🗣️ Daily Situation 59",
+      "context": "Use Tío naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tío en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Uncle in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros tenéis Tío hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-59",
+      "setting": "🗣️ Daily Situation 60",
+      "context": "Use Tía naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tía en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Aunt in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas van Tía hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-60",
+      "setting": "🗣️ Daily Situation 61",
+      "context": "Use Casa naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Casa en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word House in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Casa hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-61",
+      "setting": "🗣️ Daily Situation 62",
+      "context": "Use Habitación naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Habitación en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Room in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Habitación hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-62",
+      "setting": "🗣️ Daily Situation 63",
+      "context": "Use Cocina naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cocina en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Kitchen in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Cocina hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-63",
+      "setting": "🗣️ Daily Situation 64",
+      "context": "Use Baño naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Baño en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bathroom in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Baño hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-64",
+      "setting": "🗣️ Daily Situation 65",
+      "context": "Use Puerta naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Puerta en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Door in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Puerta hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-65",
+      "setting": "🗣️ Daily Situation 66",
+      "context": "Use Ventana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ventana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Window in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Ventana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-66",
+      "setting": "🗣️ Daily Situation 67",
+      "context": "Use Mesa naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mesa en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Table in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Mesa hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-67",
+      "setting": "🗣️ Daily Situation 68",
+      "context": "Use Silla naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Silla en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Chair in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives Silla hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-68",
+      "setting": "🗣️ Daily Situation 69",
+      "context": "Use Cama naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cama en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bed in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Cama hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-69",
+      "setting": "🗣️ Daily Situation 70",
+      "context": "Use Llave naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Llave en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Key in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Llave hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-70",
+      "setting": "🗣️ Daily Situation 71",
+      "context": "Use Escuela naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Escuela en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word School in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros habláis Escuela hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-71",
+      "setting": "🗣️ Daily Situation 72",
+      "context": "Use Profesor naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Profesor en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Teacher in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas comen Profesor hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-72",
+      "setting": "🗣️ Daily Situation 73",
+      "context": "Use Estudiante naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Estudiante en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Student in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo vivo Estudiante hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-73",
+      "setting": "🗣️ Daily Situation 74",
+      "context": "Use Libro naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Libro en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Book in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú tienes Libro hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-74",
+      "setting": "🗣️ Daily Situation 75",
+      "context": "Use Cuaderno naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cuaderno en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Notebook in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella va Cuaderno hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-75",
+      "setting": "🗣️ Daily Situation 76",
+      "context": "Use Bolígrafo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Bolígrafo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Pen in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros hablamos Bolígrafo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-76",
+      "setting": "🗣️ Daily Situation 77",
+      "context": "Use Lápiz naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Lápiz en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Pencil in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros coméis Lápiz hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-77",
+      "setting": "🗣️ Daily Situation 78",
+      "context": "Use Clase naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Clase en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Class in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas viven Clase hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-78",
+      "setting": "🗣️ Daily Situation 79",
+      "context": "Use Tarea naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tarea en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Homework in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo tengo Tarea hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-79",
+      "setting": "🗣️ Daily Situation 80",
+      "context": "Use Examen naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Examen en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Exam in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vas Examen hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-80",
+      "setting": "🗣️ Daily Situation 81",
+      "context": "Use Hoy naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hoy en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Today in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella habla Hoy hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-81",
+      "setting": "🗣️ Daily Situation 82",
+      "context": "Use Mañana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mañana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Tomorrow in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros comemos Mañana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-82",
+      "setting": "🗣️ Daily Situation 83",
+      "context": "Use Ayer naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ayer en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Yesterday in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vivís Ayer hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-83",
+      "setting": "🗣️ Daily Situation 84",
+      "context": "Use Mañana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mañana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Morning in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas tienen Mañana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-84",
+      "setting": "🗣️ Daily Situation 85",
+      "context": "Use Tarde naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tarde en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Afternoon in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo voy Tarde hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-85",
+      "setting": "🗣️ Daily Situation 86",
+      "context": "Use Noche naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Noche en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Night in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú hablas Noche hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-86",
+      "setting": "🗣️ Daily Situation 87",
+      "context": "Use Semana naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Semana en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Week in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella come Semana hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-87",
+      "setting": "🗣️ Daily Situation 88",
+      "context": "Use Mes naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mes en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Month in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vivimos Mes hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-88",
+      "setting": "🗣️ Daily Situation 89",
+      "context": "Use Año naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Año en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Year in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros tenéis Año hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-89",
+      "setting": "🗣️ Daily Situation 90",
+      "context": "Use Hora naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hora en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hour in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas van Hora hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-90",
+      "setting": "🗣️ Daily Situation 91",
+      "context": "Use Sol naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Sol en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Sun in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Sol hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-91",
+      "setting": "🗣️ Daily Situation 92",
+      "context": "Use Lluvia naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Lluvia en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Rain in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Lluvia hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-92",
+      "setting": "🗣️ Daily Situation 93",
+      "context": "Use Nube naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Nube en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Cloud in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Nube hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-93",
+      "setting": "🗣️ Daily Situation 94",
+      "context": "Use Viento naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Viento en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Wind in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Viento hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-94",
+      "setting": "🗣️ Daily Situation 95",
+      "context": "Use Nieve naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Nieve en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Snow in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Nieve hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-95",
+      "setting": "🗣️ Daily Situation 96",
+      "context": "Use Caliente naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Caliente en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hot in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Caliente hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-96",
+      "setting": "🗣️ Daily Situation 97",
+      "context": "Use Frío naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Frío en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Cold in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Frío hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-97",
+      "setting": "🗣️ Daily Situation 98",
+      "context": "Use Templado naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Templado en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Warm in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives Templado hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-98",
+      "setting": "🗣️ Daily Situation 99",
+      "context": "Use Tormenta naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tormenta en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Storm in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Tormenta hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-99",
+      "setting": "🗣️ Daily Situation 100",
+      "context": "Use Clima naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Clima en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Weather in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Clima hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-100",
+      "setting": "🗣️ Daily Situation 101",
+      "context": "Use Calle naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Calle en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Street in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros habláis Calle hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-101",
+      "setting": "🗣️ Daily Situation 102",
+      "context": "Use Ciudad naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ciudad en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word City in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas comen Ciudad hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-102",
+      "setting": "🗣️ Daily Situation 103",
+      "context": "Use Pueblo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pueblo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Town in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo vivo Pueblo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-103",
+      "setting": "🗣️ Daily Situation 104",
+      "context": "Use Parque naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Parque en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Park in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú tienes Parque hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-104",
+      "setting": "🗣️ Daily Situation 105",
+      "context": "Use Tienda naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tienda en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Store in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella va Tienda hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-105",
+      "setting": "🗣️ Daily Situation 106",
+      "context": "Use Mercado naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mercado en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Market in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros hablamos Mercado hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-106",
+      "setting": "🗣️ Daily Situation 107",
+      "context": "Use Banco naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Banco en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bank in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros coméis Banco hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-107",
+      "setting": "🗣️ Daily Situation 108",
+      "context": "Use Hospital naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hospital en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hospital in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas viven Hospital hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-108",
+      "setting": "🗣️ Daily Situation 109",
+      "context": "Use Farmacia naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Farmacia en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Pharmacy in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo tengo Farmacia hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-109",
+      "setting": "🗣️ Daily Situation 110",
+      "context": "Use Aeropuerto naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Aeropuerto en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Airport in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vas Aeropuerto hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-110",
+      "setting": "🗣️ Daily Situation 111",
+      "context": "Use Coche naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Coche en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Car in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella habla Coche hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-111",
+      "setting": "🗣️ Daily Situation 112",
+      "context": "Use Autobús naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Autobús en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bus in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros comemos Autobús hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-112",
+      "setting": "🗣️ Daily Situation 113",
+      "context": "Use Tren naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tren en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Train in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vivís Tren hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-113",
+      "setting": "🗣️ Daily Situation 114",
+      "context": "Use Bicicleta naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Bicicleta en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Bicycle in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas tienen Bicicleta hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-114",
+      "setting": "🗣️ Daily Situation 115",
+      "context": "Use Avión naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Avión en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Plane in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo voy Avión hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-115",
+      "setting": "🗣️ Daily Situation 116",
+      "context": "Use Taxi naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Taxi en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Taxi in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú hablas Taxi hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-116",
+      "setting": "🗣️ Daily Situation 117",
+      "context": "Use Boleto naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Boleto en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Ticket in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella come Boleto hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-117",
+      "setting": "🗣️ Daily Situation 118",
+      "context": "Use Estación naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Estación en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Station in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vivimos Estación hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-118",
+      "setting": "🗣️ Daily Situation 119",
+      "context": "Use Carretera naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Carretera en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Road in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros tenéis Carretera hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-119",
+      "setting": "🗣️ Daily Situation 120",
+      "context": "Use Viajar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Viajar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Travel in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas van Viajar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-120",
+      "setting": "🗣️ Daily Situation 121",
+      "context": "Use Cabeza naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cabeza en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Head in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Cabeza hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-121",
+      "setting": "🗣️ Daily Situation 122",
+      "context": "Use Ojo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ojo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Eye in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Ojo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-122",
+      "setting": "🗣️ Daily Situation 123",
+      "context": "Use Oreja naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Oreja en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Ear in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Oreja hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-123",
+      "setting": "🗣️ Daily Situation 124",
+      "context": "Use Nariz naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Nariz en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Nose in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Nariz hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-124",
+      "setting": "🗣️ Daily Situation 125",
+      "context": "Use Boca naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Boca en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Mouth in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Boca hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-125",
+      "setting": "🗣️ Daily Situation 126",
+      "context": "Use Mano naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Mano en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hand in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Mano hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-126",
+      "setting": "🗣️ Daily Situation 127",
+      "context": "Use Brazo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Brazo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Arm in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Brazo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-127",
+      "setting": "🗣️ Daily Situation 128",
+      "context": "Use Pierna naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pierna en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Leg in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives Pierna hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-128",
+      "setting": "🗣️ Daily Situation 129",
+      "context": "Use Pie naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pie en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Foot in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Pie hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-129",
+      "setting": "🗣️ Daily Situation 130",
+      "context": "Use Corazón naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Corazón en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Heart in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Corazón hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-130",
+      "setting": "🗣️ Daily Situation 131",
+      "context": "Use Camisa naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Camisa en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Shirt in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros habláis Camisa hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-131",
+      "setting": "🗣️ Daily Situation 132",
+      "context": "Use Pantalones naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Pantalones en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Pants in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas comen Pantalones hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-132",
+      "setting": "🗣️ Daily Situation 133",
+      "context": "Use Zapatos naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Zapatos en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Shoes in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo vivo Zapatos hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-133",
+      "setting": "🗣️ Daily Situation 134",
+      "context": "Use Vestido naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Vestido en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Dress in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú tienes Vestido hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-134",
+      "setting": "🗣️ Daily Situation 135",
+      "context": "Use Chaqueta naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Chaqueta en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Jacket in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella va Chaqueta hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-135",
+      "setting": "🗣️ Daily Situation 136",
+      "context": "Use Sombrero naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Sombrero en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Hat in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros hablamos Sombrero hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-136",
+      "setting": "🗣️ Daily Situation 137",
+      "context": "Use Calcetines naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Calcetines en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Socks in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros coméis Calcetines hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-137",
+      "setting": "🗣️ Daily Situation 138",
+      "context": "Use Abrigo naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Abrigo en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Coat in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas viven Abrigo hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-138",
+      "setting": "🗣️ Daily Situation 139",
+      "context": "Use Falda naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Falda en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Skirt in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo tengo Falda hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-139",
+      "setting": "🗣️ Daily Situation 140",
+      "context": "Use Gafas naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Gafas en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word Glasses in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vas Gafas hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-140",
+      "setting": "🗣️ Daily Situation 141",
+      "context": "Use Ser naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ser en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To be in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella habla Ser hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-141",
+      "setting": "🗣️ Daily Situation 142",
+      "context": "Use Tener naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Tener en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To have in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros comemos Tener hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-142",
+      "setting": "🗣️ Daily Situation 143",
+      "context": "Use Ir naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Ir en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To go in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vivís Ir hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-143",
+      "setting": "🗣️ Daily Situation 144",
+      "context": "Use Venir naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Venir en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To come in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas tienen Venir hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-144",
+      "setting": "🗣️ Daily Situation 145",
+      "context": "Use Comer naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Comer en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To eat in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo voy Comer hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-145",
+      "setting": "🗣️ Daily Situation 146",
+      "context": "Use Beber naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Beber en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To drink in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú hablas Beber hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-146",
+      "setting": "🗣️ Daily Situation 147",
+      "context": "Use Hablar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Hablar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To speak in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella come Hablar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-147",
+      "setting": "🗣️ Daily Situation 148",
+      "context": "Use Leer naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Leer en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To read in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vivimos Leer hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-148",
+      "setting": "🗣️ Daily Situation 149",
+      "context": "Use Escribir naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Escribir en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To write in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros tenéis Escribir hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-149",
+      "setting": "🗣️ Daily Situation 150",
+      "context": "Use Escuchar naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Escuchar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To listen in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas van Escuchar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-150",
+      "setting": "🗣️ Daily Situation 151",
+      "context": "Use Dormir naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Dormir en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To sleep in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo hablo Dormir hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-151",
+      "setting": "🗣️ Daily Situation 152",
+      "context": "Use Despertar naturally while speaking.",
+      "cefr": "A2",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Despertar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To wake up in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú comes Despertar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-152",
+      "setting": "🗣️ Daily Situation 153",
+      "context": "Use Trabajar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Trabajar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To work in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella vive Trabajar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-153",
+      "setting": "🗣️ Daily Situation 154",
+      "context": "Use Estudiar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Estudiar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To study in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros tenemos Estudiar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-154",
+      "setting": "🗣️ Daily Situation 155",
+      "context": "Use Comprar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Comprar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To buy in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "vosotros vais Comprar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-155",
+      "setting": "🗣️ Daily Situation 156",
+      "context": "Use Vender naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Vender en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To sell in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "ellos / ellas hablan Vender hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-156",
+      "setting": "🗣️ Daily Situation 157",
+      "context": "Use Abrir naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Abrir en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To open in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "yo como Abrir hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-157",
+      "setting": "🗣️ Daily Situation 158",
+      "context": "Use Cerrar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Cerrar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To close in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "tú vives Cerrar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-158",
+      "setting": "🗣️ Daily Situation 159",
+      "context": "Use Caminar naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Caminar en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To walk in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "él / ella tiene Caminar hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    },
+    {
+      "id": "gen-scn-159",
+      "setting": "🗣️ Daily Situation 160",
+      "context": "Use Correr naturally while speaking.",
+      "cefr": "A1",
+      "dialogue": [
+        {
+          "speaker": "Tutor",
+          "line": "Usa la palabra Correr en tu respuesta."
+        },
+        {
+          "speaker": "",
+          "line": "Use the word To run in your response."
+        }
+      ],
+      "options": [
+        {
+          "text": "nosotros vamos Correr hoy.",
+          "correct": true,
+          "feedback": "Great natural use."
+        },
+        {
+          "text": "No practico ahora.",
+          "correct": false,
+          "feedback": "Try using the focus word."
+        }
+      ]
+    }
+  ],
+  "chatTopics": [
+    {
+      "id": "gen-chat-160",
+      "label": "💬 Topic 1: Hello",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hola\" and \"yo hablo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-161",
+      "label": "💬 Topic 2: Good night",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Buenas noches\" and \"tú vives\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-162",
+      "label": "💬 Topic 3: Yes",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Sí\" and \"él / ella va\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-163",
+      "label": "💬 Topic 4: Sorry",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Lo siento\" and \"nosotros comemos\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-164",
+      "label": "💬 Topic 5: Three",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tres\" and \"vosotros tenéis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-165",
+      "label": "💬 Topic 6: Six",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Seis\" and \"ellos / ellas hablan\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-166",
+      "label": "💬 Topic 7: Nine",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Nueve\" and \"yo vivo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-167",
+      "label": "💬 Topic 8: Blue",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Azul\" and \"tú vas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-168",
+      "label": "💬 Topic 9: Black",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Negro\" and \"él / ella come\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-169",
+      "label": "💬 Topic 10: Purple",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Morado\" and \"nosotros tenemos\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-170",
+      "label": "💬 Topic 11: Apple",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Manzana\" and \"vosotros habláis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-171",
+      "label": "💬 Topic 12: Milk",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Leche\" and \"ellos / ellas viven\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-172",
+      "label": "💬 Topic 13: Fish (food)",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Pescado\" and \"yo voy\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-173",
+      "label": "💬 Topic 14: Coffee",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Café\" and \"tú comes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-174",
+      "label": "💬 Topic 15: Bird",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Pájaro\" and \"él / ella tiene\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-175",
+      "label": "💬 Topic 16: Rabbit",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Conejo\" and \"nosotros hablamos\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-176",
+      "label": "💬 Topic 17: Bear",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Oso\" and \"vosotros vivís\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-177",
+      "label": "💬 Topic 18: Father",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Padre\" and \"ellos / ellas van\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-178",
+      "label": "💬 Topic 19: Son",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hijo\" and \"yo como\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-179",
+      "label": "💬 Topic 20: Grandfather",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Abuelo\" and \"tú tienes\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-180",
+      "label": "💬 Topic 21: House",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Casa\" and \"él / ella habla\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-181",
+      "label": "💬 Topic 22: Bathroom",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Baño\" and \"nosotros vivimos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-182",
+      "label": "💬 Topic 23: Table",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Mesa\" and \"vosotros vais\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-183",
+      "label": "💬 Topic 24: Key",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Llave\" and \"ellos / ellas comen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-184",
+      "label": "💬 Topic 25: Student",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Estudiante\" and \"yo tengo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-185",
+      "label": "💬 Topic 26: Pen",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Bolígrafo\" and \"tú hablas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-186",
+      "label": "💬 Topic 27: Homework",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tarea\" and \"él / ella vive\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-187",
+      "label": "💬 Topic 28: Tomorrow",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Mañana\" and \"nosotros vamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-188",
+      "label": "💬 Topic 29: Afternoon",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tarde\" and \"vosotros coméis\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-189",
+      "label": "💬 Topic 30: Month",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Mes\" and \"ellos / ellas tienen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-190",
+      "label": "💬 Topic 31: Sun",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Sol\" and \"yo hablo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-191",
+      "label": "💬 Topic 32: Wind",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Viento\" and \"tú vives\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-192",
+      "label": "💬 Topic 33: Cold",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Frío\" and \"él / ella va\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-193",
+      "label": "💬 Topic 34: Weather",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Clima\" and \"nosotros comemos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-194",
+      "label": "💬 Topic 35: Town",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Pueblo\" and \"vosotros tenéis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-195",
+      "label": "💬 Topic 36: Market",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Mercado\" and \"ellos / ellas hablan\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-196",
+      "label": "💬 Topic 37: Pharmacy",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Farmacia\" and \"yo vivo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-197",
+      "label": "💬 Topic 38: Bus",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Autobús\" and \"tú vas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-198",
+      "label": "💬 Topic 39: Plane",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Avión\" and \"él / ella come\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-199",
+      "label": "💬 Topic 40: Station",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Estación\" and \"nosotros tenemos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-200",
+      "label": "💬 Topic 41: Head",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cabeza\" and \"vosotros habláis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-201",
+      "label": "💬 Topic 42: Nose",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Nariz\" and \"ellos / ellas viven\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-202",
+      "label": "💬 Topic 43: Arm",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Brazo\" and \"yo voy\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-203",
+      "label": "💬 Topic 44: Heart",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Corazón\" and \"tú comes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-204",
+      "label": "💬 Topic 45: Shoes",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Zapatos\" and \"él / ella tiene\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-205",
+      "label": "💬 Topic 46: Hat",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Sombrero\" and \"nosotros hablamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-206",
+      "label": "💬 Topic 47: Skirt",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Falda\" and \"vosotros vivís\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-207",
+      "label": "💬 Topic 48: To have",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tener\" and \"ellos / ellas van\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-208",
+      "label": "💬 Topic 49: To eat",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Comer\" and \"yo como\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-209",
+      "label": "💬 Topic 50: To read",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Leer\" and \"tú tienes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-210",
+      "label": "💬 Topic 51: To sleep",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Dormir\" and \"él / ella habla\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-211",
+      "label": "💬 Topic 52: To study",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Estudiar\" and \"nosotros vivimos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-212",
+      "label": "💬 Topic 53: To open",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Abrir\" and \"vosotros vais\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-213",
+      "label": "💬 Topic 54: To run",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Correr\" and \"ellos / ellas comen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-214",
+      "label": "💬 Topic 55: Fast",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Rápido\" and \"yo tengo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-215",
+      "label": "💬 Topic 56: Difficult",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Difícil\" and \"tú hablas\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-216",
+      "label": "💬 Topic 57: Good",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Bueno\" and \"él / ella vive\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-217",
+      "label": "💬 Topic 58: Sad",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Triste\" and \"nosotros vamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-218",
+      "label": "💬 Topic 59: Excited",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Emocionado\" and \"vosotros coméis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-219",
+      "label": "💬 Topic 60: Worried",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Preocupado\" and \"ellos / ellas tienen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-220",
+      "label": "💬 Topic 61: Menu",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Menú\" and \"yo hablo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-221",
+      "label": "💬 Topic 62: Tip",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Propina\" and \"tú vives\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-222",
+      "label": "💬 Topic 63: Spoon",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cuchara\" and \"él / ella va\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-223",
+      "label": "💬 Topic 64: Napkin",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Servilleta\" and \"nosotros comemos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-224",
+      "label": "💬 Topic 65: Grape",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Uva\" and \"vosotros tenéis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-225",
+      "label": "💬 Topic 66: Peach",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Melocotón\" and \"ellos / ellas hablan\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-226",
+      "label": "💬 Topic 67: Watermelon",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Sandía\" and \"yo vivo\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-227",
+      "label": "💬 Topic 68: Potato",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Papa\" and \"tú vas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-228",
+      "label": "💬 Topic 69: Lettuce",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Lechuga\" and \"él / ella come\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-229",
+      "label": "💬 Topic 70: Garlic",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Ajo\" and \"nosotros tenemos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-230",
+      "label": "💬 Topic 71: Computer",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Computadora\" and \"vosotros habláis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-231",
+      "label": "💬 Topic 72: Screen",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Pantalla\" and \"ellos / ellas viven\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-232",
+      "label": "💬 Topic 73: Password",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Contraseña\" and \"yo voy\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-233",
+      "label": "💬 Topic 74: Website",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Sitio web\" and \"tú comes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-234",
+      "label": "💬 Topic 75: Boss",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Jefe\" and \"él / ella tiene\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-235",
+      "label": "💬 Topic 76: Deadline",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Fecha límite\" and \"nosotros hablamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-236",
+      "label": "💬 Topic 77: Career",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Carrera\" and \"vosotros vivís\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-237",
+      "label": "💬 Topic 78: River",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Río\" and \"ellos / ellas van\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-238",
+      "label": "💬 Topic 79: Forest",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Bosque\" and \"yo como\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-239",
+      "label": "💬 Topic 80: Earth",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tierra\" and \"tú tienes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-240",
+      "label": "💬 Topic 81: Restaurant",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Restaurante\" and \"él / ella habla\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-241",
+      "label": "💬 Topic 82: Library",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Biblioteca\" and \"nosotros vivimos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-242",
+      "label": "💬 Topic 83: Cinema",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cine\" and \"vosotros vais\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-243",
+      "label": "💬 Topic 84: Bridge",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Puente\" and \"ellos / ellas comen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-244",
+      "label": "💬 Topic 85: Good morning",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Buenos días\" and \"yo tengo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-245",
+      "label": "💬 Topic 86: Please",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Por favor\" and \"tú hablas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-246",
+      "label": "💬 Topic 87: Excuse me",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Perdón\" and \"él / ella vive\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-247",
+      "label": "💬 Topic 88: Two",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Dos\" and \"nosotros vamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-248",
+      "label": "💬 Topic 89: Five",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cinco\" and \"vosotros coméis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-249",
+      "label": "💬 Topic 90: Eight",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Ocho\" and \"ellos / ellas tienen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-250",
+      "label": "💬 Topic 91: Red",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Rojo\" and \"yo hablo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-251",
+      "label": "💬 Topic 92: Yellow",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Amarillo\" and \"tú vives\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-252",
+      "label": "💬 Topic 93: Orange",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Naranja\" and \"él / ella va\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-253",
+      "label": "💬 Topic 94: Brown",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Marrón\" and \"nosotros comemos\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-254",
+      "label": "💬 Topic 95: Water",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Agua\" and \"vosotros tenéis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-255",
+      "label": "💬 Topic 96: Rice",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Arroz\" and \"ellos / ellas hablan\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-256",
+      "label": "💬 Topic 97: Cheese",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Queso\" and \"yo vivo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-257",
+      "label": "💬 Topic 98: Cat",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Gato\" and \"tú vas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-258",
+      "label": "💬 Topic 99: Fish (animal)",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Pez\" and \"él / ella come\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-259",
+      "label": "💬 Topic 100: Tiger",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tigre\" and \"nosotros tenemos\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-260",
+      "label": "💬 Topic 101: Mother",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Madre\" and \"vosotros habláis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-261",
+      "label": "💬 Topic 102: Sister",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hermana\" and \"ellos / ellas viven\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-262",
+      "label": "💬 Topic 103: Grandmother",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Abuela\" and \"yo voy\" naturally.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-chat-263",
+      "label": "💬 Topic 104: Aunt",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tía\" and \"tú comes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-264",
+      "label": "💬 Topic 105: Kitchen",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cocina\" and \"él / ella tiene\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-265",
+      "label": "💬 Topic 106: Window",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Ventana\" and \"nosotros hablamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-266",
+      "label": "💬 Topic 107: Bed",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cama\" and \"vosotros vivís\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-267",
+      "label": "💬 Topic 108: Teacher",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Profesor\" and \"ellos / ellas van\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-268",
+      "label": "💬 Topic 109: Notebook",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Cuaderno\" and \"yo como\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-269",
+      "label": "💬 Topic 110: Class",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Clase\" and \"tú tienes\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-270",
+      "label": "💬 Topic 111: Today",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hoy\" and \"él / ella habla\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-271",
+      "label": "💬 Topic 112: Morning",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Mañana\" and \"nosotros vivimos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-272",
+      "label": "💬 Topic 113: Week",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Semana\" and \"vosotros vais\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-273",
+      "label": "💬 Topic 114: Hour",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hora\" and \"ellos / ellas comen\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-274",
+      "label": "💬 Topic 115: Cloud",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Nube\" and \"yo tengo\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-275",
+      "label": "💬 Topic 116: Hot",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Caliente\" and \"tú hablas\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-276",
+      "label": "💬 Topic 117: Storm",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tormenta\" and \"él / ella vive\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-277",
+      "label": "💬 Topic 118: City",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Ciudad\" and \"nosotros vamos\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-278",
+      "label": "💬 Topic 119: Store",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Tienda\" and \"vosotros coméis\" naturally.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-chat-279",
+      "label": "💬 Topic 120: Hospital",
+      "systemPrompt": "You are a Spanish tutor. Beginner Spanish only (max 15 words). Encourage learner to use \"Hospital\" and \"ellos / ellas tienen\" naturally.",
+      "cefr": "A1"
+    }
+  ],
+  "pictureScenes": [
+    {
+      "id": "gen-pic-280",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hello in a sentence",
+      "prompt": "En la imagen, uso la palabra Hola.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-281",
+      "emoji": "🖼️ ✨",
+      "description": "Use Please in a sentence",
+      "prompt": "En la imagen, uso la palabra Por favor.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-282",
+      "emoji": "🖼️ ✨",
+      "description": "Use One in a sentence",
+      "prompt": "En la imagen, uso la palabra Uno.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-283",
+      "emoji": "🖼️ ✨",
+      "description": "Use Six in a sentence",
+      "prompt": "En la imagen, uso la palabra Seis.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-284",
+      "emoji": "🖼️ ✨",
+      "description": "Use Red in a sentence",
+      "prompt": "En la imagen, uso la palabra Rojo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-285",
+      "emoji": "🖼️ ✨",
+      "description": "Use White in a sentence",
+      "prompt": "En la imagen, uso la palabra Blanco.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-286",
+      "emoji": "🖼️ ✨",
+      "description": "Use Apple in a sentence",
+      "prompt": "En la imagen, uso la palabra Manzana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-287",
+      "emoji": "🖼️ ✨",
+      "description": "Use Rice in a sentence",
+      "prompt": "En la imagen, uso la palabra Arroz.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-288",
+      "emoji": "🖼️ ✨",
+      "description": "Use Dog in a sentence",
+      "prompt": "En la imagen, uso la palabra Perro.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-289",
+      "emoji": "🖼️ ✨",
+      "description": "Use Rabbit in a sentence",
+      "prompt": "En la imagen, uso la palabra Conejo.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-pic-290",
+      "emoji": "🖼️ ✨",
+      "description": "Use Mother in a sentence",
+      "prompt": "En la imagen, uso la palabra Madre.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-291",
+      "emoji": "🖼️ ✨",
+      "description": "Use Daughter in a sentence",
+      "prompt": "En la imagen, uso la palabra Hija.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-292",
+      "emoji": "🖼️ ✨",
+      "description": "Use House in a sentence",
+      "prompt": "En la imagen, uso la palabra Casa.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-293",
+      "emoji": "🖼️ ✨",
+      "description": "Use Window in a sentence",
+      "prompt": "En la imagen, uso la palabra Ventana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-294",
+      "emoji": "🖼️ ✨",
+      "description": "Use School in a sentence",
+      "prompt": "En la imagen, uso la palabra Escuela.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-295",
+      "emoji": "🖼️ ✨",
+      "description": "Use Pen in a sentence",
+      "prompt": "En la imagen, uso la palabra Bolígrafo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-296",
+      "emoji": "🖼️ ✨",
+      "description": "Use Today in a sentence",
+      "prompt": "En la imagen, uso la palabra Hoy.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-297",
+      "emoji": "🖼️ ✨",
+      "description": "Use Night in a sentence",
+      "prompt": "En la imagen, uso la palabra Noche.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-298",
+      "emoji": "🖼️ ✨",
+      "description": "Use Sun in a sentence",
+      "prompt": "En la imagen, uso la palabra Sol.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-299",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hot in a sentence",
+      "prompt": "En la imagen, uso la palabra Caliente.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-300",
+      "emoji": "🖼️ ✨",
+      "description": "Use Street in a sentence",
+      "prompt": "En la imagen, uso la palabra Calle.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-301",
+      "emoji": "🖼️ ✨",
+      "description": "Use Market in a sentence",
+      "prompt": "En la imagen, uso la palabra Mercado.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-302",
+      "emoji": "🖼️ ✨",
+      "description": "Use Car in a sentence",
+      "prompt": "En la imagen, uso la palabra Coche.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-303",
+      "emoji": "🖼️ ✨",
+      "description": "Use Taxi in a sentence",
+      "prompt": "En la imagen, uso la palabra Taxi.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-304",
+      "emoji": "🖼️ ✨",
+      "description": "Use Head in a sentence",
+      "prompt": "En la imagen, uso la palabra Cabeza.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-305",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hand in a sentence",
+      "prompt": "En la imagen, uso la palabra Mano.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-306",
+      "emoji": "🖼️ ✨",
+      "description": "Use Shirt in a sentence",
+      "prompt": "En la imagen, uso la palabra Camisa.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-307",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hat in a sentence",
+      "prompt": "En la imagen, uso la palabra Sombrero.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-308",
+      "emoji": "🖼️ ✨",
+      "description": "Use To be in a sentence",
+      "prompt": "En la imagen, uso la palabra Ser.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-309",
+      "emoji": "🖼️ ✨",
+      "description": "Use To drink in a sentence",
+      "prompt": "En la imagen, uso la palabra Beber.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-310",
+      "emoji": "🖼️ ✨",
+      "description": "Use To sleep in a sentence",
+      "prompt": "En la imagen, uso la palabra Dormir.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-311",
+      "emoji": "🖼️ ✨",
+      "description": "Use To sell in a sentence",
+      "prompt": "En la imagen, uso la palabra Vender.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-312",
+      "emoji": "🖼️ ✨",
+      "description": "Use Big in a sentence",
+      "prompt": "En la imagen, uso la palabra Grande.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-313",
+      "emoji": "🖼️ ✨",
+      "description": "Use Difficult in a sentence",
+      "prompt": "En la imagen, uso la palabra Difícil.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-pic-314",
+      "emoji": "🖼️ ✨",
+      "description": "Use Happy in a sentence",
+      "prompt": "En la imagen, uso la palabra Feliz.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-315",
+      "emoji": "🖼️ ✨",
+      "description": "Use Calm in a sentence",
+      "prompt": "En la imagen, uso la palabra Tranquilo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-316",
+      "emoji": "🖼️ ✨",
+      "description": "Use Menu in a sentence",
+      "prompt": "En la imagen, uso la palabra Menú.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-317",
+      "emoji": "🖼️ ✨",
+      "description": "Use Knife in a sentence",
+      "prompt": "En la imagen, uso la palabra Cuchillo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-318",
+      "emoji": "🖼️ ✨",
+      "description": "Use Banana in a sentence",
+      "prompt": "En la imagen, uso la palabra Banana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-319",
+      "emoji": "🖼️ ✨",
+      "description": "Use Peach in a sentence",
+      "prompt": "En la imagen, uso la palabra Melocotón.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-320",
+      "emoji": "🖼️ ✨",
+      "description": "Use Tomato in a sentence",
+      "prompt": "En la imagen, uso la palabra Tomate.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-321",
+      "emoji": "🖼️ ✨",
+      "description": "Use Corn in a sentence",
+      "prompt": "En la imagen, uso la palabra Maíz.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-322",
+      "emoji": "🖼️ ✨",
+      "description": "Use Computer in a sentence",
+      "prompt": "En la imagen, uso la palabra Computadora.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-323",
+      "emoji": "🖼️ ✨",
+      "description": "Use Mouse in a sentence",
+      "prompt": "En la imagen, uso la palabra Ratón.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-324",
+      "emoji": "🖼️ ✨",
+      "description": "Use Office in a sentence",
+      "prompt": "En la imagen, uso la palabra Oficina.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-325",
+      "emoji": "🖼️ ✨",
+      "description": "Use Deadline in a sentence",
+      "prompt": "En la imagen, uso la palabra Fecha límite.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-326",
+      "emoji": "🖼️ ✨",
+      "description": "Use Mountain in a sentence",
+      "prompt": "En la imagen, uso la palabra Montaña.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-327",
+      "emoji": "🖼️ ✨",
+      "description": "Use Sea in a sentence",
+      "prompt": "En la imagen, uso la palabra Mar.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-328",
+      "emoji": "🖼️ ✨",
+      "description": "Use Restaurant in a sentence",
+      "prompt": "En la imagen, uso la palabra Restaurante.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-pic-329",
+      "emoji": "🖼️ ✨",
+      "description": "Use Gym in a sentence",
+      "prompt": "En la imagen, uso la palabra Gimnasio.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-330",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hello in a sentence",
+      "prompt": "En la imagen, uso la palabra Hola.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-331",
+      "emoji": "🖼️ ✨",
+      "description": "Use Please in a sentence",
+      "prompt": "En la imagen, uso la palabra Por favor.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-332",
+      "emoji": "🖼️ ✨",
+      "description": "Use One in a sentence",
+      "prompt": "En la imagen, uso la palabra Uno.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-333",
+      "emoji": "🖼️ ✨",
+      "description": "Use Six in a sentence",
+      "prompt": "En la imagen, uso la palabra Seis.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-334",
+      "emoji": "🖼️ ✨",
+      "description": "Use Red in a sentence",
+      "prompt": "En la imagen, uso la palabra Rojo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-335",
+      "emoji": "🖼️ ✨",
+      "description": "Use White in a sentence",
+      "prompt": "En la imagen, uso la palabra Blanco.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-336",
+      "emoji": "🖼️ ✨",
+      "description": "Use Apple in a sentence",
+      "prompt": "En la imagen, uso la palabra Manzana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-337",
+      "emoji": "🖼️ ✨",
+      "description": "Use Rice in a sentence",
+      "prompt": "En la imagen, uso la palabra Arroz.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-338",
+      "emoji": "🖼️ ✨",
+      "description": "Use Dog in a sentence",
+      "prompt": "En la imagen, uso la palabra Perro.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-339",
+      "emoji": "🖼️ ✨",
+      "description": "Use Rabbit in a sentence",
+      "prompt": "En la imagen, uso la palabra Conejo.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-pic-340",
+      "emoji": "🖼️ ✨",
+      "description": "Use Mother in a sentence",
+      "prompt": "En la imagen, uso la palabra Madre.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-341",
+      "emoji": "🖼️ ✨",
+      "description": "Use Daughter in a sentence",
+      "prompt": "En la imagen, uso la palabra Hija.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-342",
+      "emoji": "🖼️ ✨",
+      "description": "Use House in a sentence",
+      "prompt": "En la imagen, uso la palabra Casa.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-343",
+      "emoji": "🖼️ ✨",
+      "description": "Use Window in a sentence",
+      "prompt": "En la imagen, uso la palabra Ventana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-344",
+      "emoji": "🖼️ ✨",
+      "description": "Use School in a sentence",
+      "prompt": "En la imagen, uso la palabra Escuela.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-345",
+      "emoji": "🖼️ ✨",
+      "description": "Use Pen in a sentence",
+      "prompt": "En la imagen, uso la palabra Bolígrafo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-346",
+      "emoji": "🖼️ ✨",
+      "description": "Use Today in a sentence",
+      "prompt": "En la imagen, uso la palabra Hoy.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-347",
+      "emoji": "🖼️ ✨",
+      "description": "Use Night in a sentence",
+      "prompt": "En la imagen, uso la palabra Noche.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-348",
+      "emoji": "🖼️ ✨",
+      "description": "Use Sun in a sentence",
+      "prompt": "En la imagen, uso la palabra Sol.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-349",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hot in a sentence",
+      "prompt": "En la imagen, uso la palabra Caliente.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-350",
+      "emoji": "🖼️ ✨",
+      "description": "Use Street in a sentence",
+      "prompt": "En la imagen, uso la palabra Calle.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-351",
+      "emoji": "🖼️ ✨",
+      "description": "Use Market in a sentence",
+      "prompt": "En la imagen, uso la palabra Mercado.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-352",
+      "emoji": "🖼️ ✨",
+      "description": "Use Car in a sentence",
+      "prompt": "En la imagen, uso la palabra Coche.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-353",
+      "emoji": "🖼️ ✨",
+      "description": "Use Taxi in a sentence",
+      "prompt": "En la imagen, uso la palabra Taxi.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-354",
+      "emoji": "🖼️ ✨",
+      "description": "Use Head in a sentence",
+      "prompt": "En la imagen, uso la palabra Cabeza.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-355",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hand in a sentence",
+      "prompt": "En la imagen, uso la palabra Mano.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-356",
+      "emoji": "🖼️ ✨",
+      "description": "Use Shirt in a sentence",
+      "prompt": "En la imagen, uso la palabra Camisa.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-357",
+      "emoji": "🖼️ ✨",
+      "description": "Use Hat in a sentence",
+      "prompt": "En la imagen, uso la palabra Sombrero.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-358",
+      "emoji": "🖼️ ✨",
+      "description": "Use To be in a sentence",
+      "prompt": "En la imagen, uso la palabra Ser.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-359",
+      "emoji": "🖼️ ✨",
+      "description": "Use To drink in a sentence",
+      "prompt": "En la imagen, uso la palabra Beber.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-360",
+      "emoji": "🖼️ ✨",
+      "description": "Use To sleep in a sentence",
+      "prompt": "En la imagen, uso la palabra Dormir.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-361",
+      "emoji": "🖼️ ✨",
+      "description": "Use To sell in a sentence",
+      "prompt": "En la imagen, uso la palabra Vender.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-362",
+      "emoji": "🖼️ ✨",
+      "description": "Use Big in a sentence",
+      "prompt": "En la imagen, uso la palabra Grande.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-363",
+      "emoji": "🖼️ ✨",
+      "description": "Use Difficult in a sentence",
+      "prompt": "En la imagen, uso la palabra Difícil.",
+      "cefr": "A2"
+    },
+    {
+      "id": "gen-pic-364",
+      "emoji": "🖼️ ✨",
+      "description": "Use Happy in a sentence",
+      "prompt": "En la imagen, uso la palabra Feliz.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-365",
+      "emoji": "🖼️ ✨",
+      "description": "Use Calm in a sentence",
+      "prompt": "En la imagen, uso la palabra Tranquilo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-366",
+      "emoji": "🖼️ ✨",
+      "description": "Use Menu in a sentence",
+      "prompt": "En la imagen, uso la palabra Menú.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-367",
+      "emoji": "🖼️ ✨",
+      "description": "Use Knife in a sentence",
+      "prompt": "En la imagen, uso la palabra Cuchillo.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-368",
+      "emoji": "🖼️ ✨",
+      "description": "Use Banana in a sentence",
+      "prompt": "En la imagen, uso la palabra Banana.",
+      "cefr": "A1"
+    },
+    {
+      "id": "gen-pic-369",
+      "emoji": "🖼️ ✨",
+      "description": "Use Peach in a sentence",
+      "prompt": "En la imagen, uso la palabra Melocotón.",
+      "cefr": "A1"
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Escena Dinámica 1",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Hola",
+          "en": "Hello",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 2",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "No",
+          "en": "No",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 3",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Cinco",
+          "en": "Five",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 4",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Azul",
+          "en": "Blue",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 5",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Rosa",
+          "en": "Pink",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 6",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Arroz",
+          "en": "Rice",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 7",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Pájaro",
+          "en": "Bird",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 8",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Elefante",
+          "en": "Elephant",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 9",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Abuela",
+          "en": "Grandmother",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 10",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Baño",
+          "en": "Bathroom",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 11",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Escuela",
+          "en": "School",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 12",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Clase",
+          "en": "Class",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 13",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Tarde",
+          "en": "Afternoon",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 14",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Lluvia",
+          "en": "Rain",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 15",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Tormenta",
+          "en": "Storm",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 16",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Mercado",
+          "en": "Market",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 17",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Tren",
+          "en": "Train",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 18",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Viajar",
+          "en": "Travel",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 19",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Brazo",
+          "en": "Arm",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 20",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Vestido",
+          "en": "Dress",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 21",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Ser",
+          "en": "To be",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 22",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Leer",
+          "en": "To read",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 23",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Comprar",
+          "en": "To buy",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 24",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Pequeño",
+          "en": "Small",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 25",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Bueno",
+          "en": "Good",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 26",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Tranquilo",
+          "en": "Calm",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 27",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Cuenta",
+          "en": "Bill",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 28",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Servilleta",
+          "en": "Napkin",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 29",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Pera",
+          "en": "Pear",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 30",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Zanahoria",
+          "en": "Carrot",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 31",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Computadora",
+          "en": "Computer",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 32",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Correo electrónico",
+          "en": "Email",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 33",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Proyecto",
+          "en": "Project",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 34",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Río",
+          "en": "River",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 35",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Fuego",
+          "en": "Fire",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 36",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Gimnasio",
+          "en": "Gym",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 37",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Buenos días",
+          "en": "Good morning",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 38",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Lo siento",
+          "en": "Sorry",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 39",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Siete",
+          "en": "Seven",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 40",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Amarillo",
+          "en": "Yellow",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 41",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Manzana",
+          "en": "Apple",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 42",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Huevo",
+          "en": "Egg",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 43",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Pez",
+          "en": "Fish (animal)",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 44",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Padre",
+          "en": "Father",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 45",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Tío",
+          "en": "Uncle",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 46",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Ventana",
+          "en": "Window",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 47",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Estudiante",
+          "en": "Student",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 48",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Examen",
+          "en": "Exam",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 49",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Semana",
+          "en": "Week",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 50",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Viento",
+          "en": "Wind",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 51",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Calle",
+          "en": "Street",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 52",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Hospital",
+          "en": "Hospital",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 53",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Avión",
+          "en": "Plane",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 54",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Ojo",
+          "en": "Eye",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 55",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Pie",
+          "en": "Foot",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 56",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Sombrero",
+          "en": "Hat",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 57",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Ir",
+          "en": "To go",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 58",
+      "cefr": "A2",
+      "items": [
+        {
+          "label": "Escuchar",
+          "en": "To listen",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 59",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Abrir",
+          "en": "To open",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    },
+    {
+      "name": "Escena Dinámica 60",
+      "cefr": "A1",
+      "items": [
+        {
+          "label": "Lento",
+          "en": "Slow",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 40
+        },
+        {
+          "label": "Libro",
+          "en": "Book",
+          "emoji": "📚",
+          "x": 25,
+          "y": 70
+        },
+        {
+          "label": "Mesa",
+          "en": "Table",
+          "emoji": "🪑",
+          "x": 75,
+          "y": 70
+        }
+      ]
+    }
+  ]
+}
