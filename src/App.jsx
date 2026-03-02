@@ -2667,7 +2667,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }
 
   const scenarioOptions = scenariosData.map((s) => s.setting);
-  const sceneOptions = scenes.map((s) => s.name);
+  const sceneOptions = ["Adaptive Mix", "Current Level", "Review Mix", "Stretch Mix"];
   const pictureOptions = pictureScenes.map((s, i) => `${s.emoji} Scene ${i + 1}`);
   const categoryOptions = type === "Fill in the Blank"
     ? [...categories, "General"]
@@ -2993,9 +2993,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     return Object.values(byId).slice(0, Math.max(1, Math.min(6, 2 + difficulty)));
   }, [selectedScenarioPool, scenariosData, difficulty, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
 
-  const selectedScenePool = type === "Image Labeling" && category
-    ? scenes.filter((s) => s.name === category)
-    : scenes;
+  const selectedScenePool = useMemo(() => {
+    if (type !== "Image Labeling") return scenes;
+    const idx = bandOrder.indexOf(profileBand);
+    const prev = idx > 0 ? bandOrder[idx - 1] : null;
+    const next = idx >= 0 && idx < bandOrder.length - 1 ? bandOrder[idx + 1] : null;
+    if (category === "Current Level") return scenes.filter((s) => !s?.cefr || s.cefr === profileBand);
+    if (category === "Review Mix") return prev ? scenes.filter((s) => s?.cefr === prev || s?.cefr === profileBand) : scenes;
+    if (category === "Stretch Mix") return next ? scenes.filter((s) => s?.cefr === next || s?.cefr === profileBand) : scenes;
+    return scenes;
+  }, [type, category, scenes, profileBand]);
   const scenesForLesson = useMemo(() => {
     const target = Math.max(3, Math.min(6, 2 + difficulty));
     return shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target);
@@ -3142,9 +3149,13 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
 
   useEffect(() => {
     if (!needsCategory || category || !categoryOptions.length) return;
+    if (type === "Image Labeling") {
+      pickCategory("Adaptive Mix");
+      return;
+    }
     const random = categoryOptions[Math.floor(Math.random() * categoryOptions.length)];
     pickCategory(random);
-  }, [needsCategory, category, categoryOptions.length]);
+  }, [needsCategory, category, categoryOptions.length, type]);
 
   if (AI_REQUIRED_LESSONS.has(type) && !aiStatus?.anyAvailable) {
     return (
