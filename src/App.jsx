@@ -2774,8 +2774,6 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     return shuffle(Object.values(byInf)).slice(0, target);
   }, [verbs, user, difficulty, dailyFocusVerb]);
 
-  const listenForLesson = shuffle(listenSentences).slice(0, Math.max(5, 3 + difficulty));
-
   const transcriptionSourcePool = useMemo(() => {
     const basePool = Array.isArray(listenSentences) ? [...listenSentences] : [];
     const band = user?.profile?.cefrBand || "A1";
@@ -2804,12 +2802,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     for (const tpl of levelTemplates) {
       for (const word of chosenWords.slice(0, 4)) {
         for (const verb of chosenVerbPool.slice(0, 3)) {
-          const yoForm = (verb?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")?.form || verb?.infinitive || "practico";
+          const rotatedPronoun = pronouns[(rotationIndex + generated.length) % pronouns.length];
+          const conj = (verb?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(rotatedPronoun))
+            || (verb?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")
+            || (verb?.conjugations || [])[0];
+          const verbForm = conj?.form || verb?.infinitive || "practico";
           const verbEn = verb?.meaning || "practice";
           generated.push({
-            id: `dyn:${band}:${normalizeSimple(word?.es || "")}:${normalizeSimple(verb?.infinitive || "")}:${normalizeSimple(tpl.es)}`,
+            id: `dyn:${band}:${normalizeSimple(word?.es || "")}:${normalizeSimple(verb?.infinitive || "")}:${normalizeSimple(tpl.es)}:${normalizeSimple(conj?.pronoun || rotatedPronoun)}`,
             es: tpl.es
-              .replaceAll("{yoVerb}", yoForm)
+              .replaceAll("{yoVerb}", verbForm)
               .replaceAll("{wordEs}", word.es),
             en: tpl.en
               .replaceAll("{verbEn}", verbEn)
@@ -2830,11 +2832,15 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       });
     }
     if (focusVerbObj) {
-      const yoForm = (focusVerbObj?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")?.form || focusVerbObj?.infinitive;
+      const preferredPronoun = pronouns[(rotationIndex + 2) % pronouns.length];
+      const focusConj = (focusVerbObj?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(preferredPronoun))
+        || (focusVerbObj?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === "yo")
+        || focusVerbObj?.conjugations?.[0];
+      const focusForm = focusConj?.form || focusVerbObj?.infinitive;
       dailyForced.push({
-        id: `focus-verb:${normalizeSimple(focusVerbObj.infinitive)}`,
-        es: `Hoy yo ${yoForm} para practicar español.`,
-        en: `Today I ${focusVerbObj.meaning || focusVerbObj.infinitive} to practice Spanish.`,
+        id: `focus-verb:${normalizeSimple(focusVerbObj.infinitive)}:${normalizeSimple(focusConj?.pronoun || preferredPronoun)}`,
+        es: `Hoy ${focusConj?.pronoun || preferredPronoun} ${focusForm} para practicar español.`,
+        en: `Today ${focusConj?.meaning || focusVerbObj.meaning || focusVerbObj.infinitive} to practice Spanish.`,
         cefr: band,
       });
     }
@@ -2864,6 +2870,29 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     }
     return shuffle(Object.values(byEs)).slice(0, Math.max(7, 4 + difficulty));
   }, [transcriptionSourcePool, difficulty, userKey]);
+
+  const listenForLesson = useMemo(() => {
+    const selected = selectAdaptiveListenSentences(transcriptionSourcePool, {
+      difficulty,
+      target: Math.max(6, 3 + difficulty),
+      userKey,
+      category: "ListeningGeneral",
+    });
+
+    const mustInclude = transcriptionSourcePool.filter((s) => {
+      const id = String(s?.id || "");
+      return id.startsWith("focus-word:") || id.startsWith("focus-verb:");
+    });
+
+    const merged = [...mustInclude, ...selected];
+    const byEs = {};
+    for (const s of merged) {
+      if (!s?.es) continue;
+      byEs[s.es] = s;
+    }
+    return shuffle(Object.values(byEs)).slice(0, Math.max(6, 3 + difficulty));
+  }, [transcriptionSourcePool, difficulty, userKey]);
+
   const selectedScenarioPool = type === "Scenario Builder" && category
     ? scenariosData.filter((s) => s.setting === category)
     : scenariosData;
