@@ -1745,7 +1745,18 @@ Grade meanings: excellent=native-like (20-30pts), good=clear with minor errors (
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function ImageLabelingLesson({ onComplete, scenes = SCENES }) {
-  const [sceneIdx] = useState(()=>Math.floor(Math.random()*scenes.length));
+  const [sceneIdx] = useState(() => {
+    const list = Array.isArray(scenes) && scenes.length ? scenes : SCENES;
+    try {
+      const recent = JSON.parse(localStorage.getItem("image_scene_recent_v1") || "[]");
+      const fresh = list.filter((s) => !recent.includes(s?.name));
+      const pool = fresh.length ? fresh : list;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      return Math.max(0, list.findIndex((s) => s?.name === pick?.name));
+    } catch {
+      return Math.floor(Math.random() * list.length);
+    }
+  });
   const scene=scenes[sceneIdx];
   const [matched, setMatched] = useState([]); const [errors, setErrors] = useState(0); const [dragLabel, setDragLabel] = useState(null);
   const [available, setAvailable] = useState(()=>shuffle(scene.items.map(i=>i.label)));
@@ -1753,7 +1764,15 @@ function ImageLabelingLesson({ onComplete, scenes = SCENES }) {
     if(!dragLabel) return;
     if(dragLabel===targetLabel) {
       const nm=[...matched,targetLabel]; setMatched(nm); setAvailable(a=>a.filter(l=>l!==dragLabel));
-      if(nm.length===scene.items.length) onComplete(Math.max(0,scene.items.length*15-errors*3),nm.length,scene.items.length);
+      if(nm.length===scene.items.length) {
+        try {
+          const raw = localStorage.getItem("image_scene_recent_v1");
+          const recent = raw ? JSON.parse(raw) : [];
+          const next = [scene?.name, ...(Array.isArray(recent) ? recent : [])].filter(Boolean).filter((v, i, arr) => arr.indexOf(v) === i).slice(0, 20);
+          localStorage.setItem("image_scene_recent_v1", JSON.stringify(next));
+        } catch {}
+        onComplete(Math.max(0,scene.items.length*15-errors*3),nm.length,scene.items.length);
+      }
     } else { setErrors(e=>e+1); }
     setDragLabel(null);
   }
@@ -2978,8 +2997,9 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     ? scenes.filter((s) => s.name === category)
     : scenes;
   const scenesForLesson = useMemo(() => {
-    const base = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
-    if (!dailyFocusWord?.es || Math.random() > 0.58) return base;
+    const target = Math.max(3, Math.min(6, 2 + difficulty));
+    const base = shuffle(selectedScenePool.length ? selectedScenePool : scenes).slice(0, target);
+    if (!dailyFocusWord?.es || Math.random() > 0.45) return base;
     const focusScene = {
       name: "Daily Focus Scene",
       items: [
@@ -2988,7 +3008,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
         { label: "Mesa", en: "Table", emoji: "🪑", x: 75, y: 70 },
       ],
     };
-    return [focusScene, ...base].slice(0, Math.max(1, Math.min(2, Math.ceil(difficulty / 3))));
+    return shuffle([focusScene, ...base]).slice(0, target);
   }, [selectedScenePool, scenes, difficulty, dailyFocusWord]);
 
   const selectedPicturePool = type === "Picture Description" && category
