@@ -71,19 +71,19 @@ function splitPoolsByProgress(profile, band = 'A1') {
 
     if (sub < currentSub) {
       // Earlier levels become review material
-      review.push({ ...w, _sub: sub });
+      review.push({ ...w, _sub: sub, _bucket: 'review' });
       continue;
     }
 
     if (sub === currentSub) {
       // Current bucket focus: unseen or not mastered first
-      current.push({ ...w, _sub: sub, _priority: stats.mastered ? 1 : 0 });
-      if (stats.mastered) review.push({ ...w, _sub: sub });
+      current.push({ ...w, _sub: sub, _priority: stats.mastered ? 1 : 0, _bucket: 'current' });
+      if (stats.mastered) review.push({ ...w, _sub: sub, _bucket: 'review' });
       continue;
     }
 
     // Future buckets in same CEFR band are stretch candidates
-    stretch.push({ ...w, _sub: sub });
+    stretch.push({ ...w, _sub: sub, _bucket: 'stretch_same_band' });
   }
 
   // Sort current so not-mastered words appear first
@@ -134,7 +134,9 @@ export function selectWordsForModule({ profile, moduleType = 'Flashcards', count
 
     // If same-band stretch is thin, cautiously pull from next CEFR band unseen words
     if (picked.length < safeCount && next) {
-      const nextBandWords = wordsInBand(next).filter((w) => exposureStats(profile, w.id || w.es).seen === 0);
+      const nextBandWords = wordsInBand(next)
+        .filter((w) => exposureStats(profile, w.id || w.es).seen === 0)
+        .map((w) => ({ ...w, _bucket: 'stretch_next_band' }));
       picked.push(...shuffle(nextBandWords).slice(0, safeCount - picked.length));
     }
   }
@@ -166,6 +168,7 @@ export function getFillBlankItemsForModule({ profile, count = 8 } = {}) {
       ...t,
       wordId: w.id || w.es,
       cefr: w.cefr || 'A1',
+      bucket: w._bucket || w.bucket || 'current',
     };
   });
 }

@@ -23,6 +23,7 @@ function shuffled(arr = []) {
 // Upgrading to v3 for the CEFR progression system
 export const PROFILE_SCHEMA_VERSION = 3;
 const CEFR_COUNTS = vocabData?.counts || { A1: 1, A2: 1, B1: 1, B2: 1 };
+const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
@@ -58,6 +59,42 @@ function computeBandLearningProgress(wordExposure = {}, band = "A1") {
     .filter((w) => Number(w?.seen || 0) > 0)
     .length;
   return clamp(seenUnique / total, 0, 1);
+}
+
+function bucketStretchBonus(bucket = "current") {
+  if (bucket === 'stretch_same_band') return 0.5;
+  if (bucket === 'stretch_next_band') return 0.8;
+  return 0;
+}
+
+function bandDistance(fromBand = 'A1', toBand = 'A1') {
+  const from = BAND_ORDER.indexOf(fromBand);
+  const to = BAND_ORDER.indexOf(toBand);
+  if (from < 0 || to < 0) return 0;
+  return to - from;
+}
+
+function scoreWordProgressPoint(wr = {}, currentBand = 'A1') {
+  const correct = Number(wr?.correct || 0) > 0;
+  let points = correct ? 1.0 : 0.15;
+  if (correct) points += bucketStretchBonus(wr?.bucket || 'current');
+  const stretchByBand = bandDistance(currentBand, wr?.cefr || currentBand);
+  if (correct && stretchByBand > 0) points += Math.min(0.8, 0.3 * stretchByBand);
+  if (wr?.hintUsed) points -= 0.2;
+  return Math.max(0.05, points);
+}
+
+function computeBandProgressFromPoints(progressPointsByBand = {}, band = 'A1') {
+  const totalWords = Number(CEFR_COUNTS?.[band] || 1);
+  const targetPoints = Math.max(20, Math.round(totalWords * 1.05));
+  const earned = Number(progressPointsByBand?.[band] || 0);
+  return clamp(earned / targetPoints, 0, 1);
+}
+
+function computeHybridBandProgress(wordExposure = {}, progressPointsByBand = {}, band = 'A1') {
+  const mastery = computeBandProgressFromMastery(wordExposure, band);
+  const momentum = computeBandProgressFromPoints(progressPointsByBand, band);
+  return clamp((mastery * 0.7) + (momentum * 0.3), 0, 1);
 }
 
 function applyWordResults(profile, wordResults = []) {
@@ -97,6 +134,7 @@ function normalizeModuleResult(result = {}) {
           correct: Number(w.correct || 0),
           latencyMs: typeof w.latencyMs === "number" ? w.latencyMs : undefined,
           hintUsed: !!w.hintUsed,
+          bucket: w.bucket || 'current',
         }))
       : [],
   };
@@ -136,6 +174,7 @@ export function defaultLearningState() {
     recentAccuracies: [],
     mastery: {},
     wordExposure: {}, // Tracking per-word mastery
+    progressPointsByBand: {}, // weighted momentum points by CEFR band
     progressionEvents: [], // rolling ledger for debugging and analytics
     recommendedLessons: ["Flashcards", "Word Match", "Fill in the Blank"],
     lastLessonType: null,
@@ -162,6 +201,8 @@ export function migrateUser(user) {
   };
 
   // Set initial labels
+  learning.progressPointsByBand = learning.progressPointsByBand || {};
+  learning.bandProgress = computeHybridBandProgress(learning.wordExposure || {}, learning.progressPointsByBand || {}, learning.cefrBand);
   learning.learningProgress = computeBandLearningProgress(learning.wordExposure || {}, learning.cefrBand);
   const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
   learning.level = title;
@@ -234,8 +275,12 @@ export function updateLearningProfile(profile = {}, result = {}) {
     p.wordExposure = p.wordExposure || {};
   }
 
-  // Progress is based on mastered words, not just raw correct answers.
-  p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
+  p.progressPointsByBand = { ...(p.progressPointsByBand || {}) };
+  const progressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
+  p.progressPointsByBand[p.cefrBand] = Number(p.progressPointsByBand[p.cefrBand] || 0) + progressEarned;
+
+  // Hybrid progression: mastery + momentum for steady forward movement.
+  p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
   // Learning progress is exposure-based so users see momentum quickly.
   p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
 
@@ -245,7 +290,7 @@ export function updateLearningProfile(profile = {}, result = {}) {
     const idx = bands.indexOf(p.cefrBand);
     if (idx < bands.length - 1) {
       p.cefrBand = bands[idx + 1];
-      p.bandProgress = computeBandProgressFromMastery(p.wordExposure, p.cefrBand);
+      p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
       p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
     }
   }
@@ -301,6 +346,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
     cefrBand: p.cefrBand,
     bandProgress: p.bandProgress,
     learningProgress: p.learningProgress || 0,
+    progressPointsEarned: progressEarned,
+    progressPointsByBand: p.progressPointsByBand,
     levelTitle: p.levelTitle || p.level,
     nextLevelTitle: p.nextLevelTitle,
     sublevel: p.sublevel,
@@ -311,6 +358,38 @@ export function updateLearningProfile(profile = {}, result = {}) {
 
   p.recommendedLessons = buildRecommendedLessons(p);
   return p;
+}
+
+export function recomputeProfileFromHistory(user = {}) {
+  const migrated = migrateUser(user || {}) || user || {};
+  const history = Array.isArray(migrated?.history) ? migrated.history : [];
+  let profile = defaultLearningState();
+
+  for (let i = 0; i < history.length; i += 1) {
+    const h = history[i] || {};
+    const lessonType = h.type || h.category || 'Flashcards';
+    const total = Math.max(0, Number(h.total || 0));
+    const correct = Math.max(0, Math.min(total, Number(h.correct || 0)));
+    const explicit = Array.isArray(h?.meta?.wordResults) ? h.meta.wordResults : [];
+    const fallback = explicit.length ? [] : Array.from({ length: Math.max(1, total || 1) }, (_, idx) => ({
+      id: `hist:${lessonType}:${i}:${idx}`,
+      cefr: profile?.cefrBand || 'A1',
+      seen: 1,
+      correct: idx < correct ? 1 : 0,
+      bucket: idx < correct ? 'current' : 'review',
+    }));
+
+    profile = updateLearningProfile(profile, {
+      lessonType,
+      attemptedAt: h.date || new Date().toISOString(),
+      points: Number(h.points || 0),
+      correct,
+      total,
+      wordResults: explicit.length ? explicit : fallback,
+    });
+  }
+
+  return profile;
 }
 
 export function buildRecommendedLessons(profile = {}) {

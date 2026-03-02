@@ -6,7 +6,7 @@ import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
 import { LEVEL_TITLES, getLevelLabel } from "./config/cefr.js";
 import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
-import { defaultLearningState, getDailyQuestState, migrateUser, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
+import { getDailyQuestState, recomputeProfileFromHistory, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
 import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
 import { ensurePathState, getNextPathStep, completePathStep } from "./services/learningPath";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
@@ -2432,6 +2432,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       return pool.map((item, idx) => ({
         id: item?.id || item?.wordId || item?.es || item?.answer || item?.template || `${type}:${category || 'General'}:${idx}`,
         cefr: item?.cefr || user?.profile?.cefrBand || 'A1',
+        bucket: item?.bucket || item?._bucket || 'current',
         seen: 1,
         correct: idx < hitCount ? 1 : 0,
       }));
@@ -3183,36 +3184,6 @@ export default function App() {
     setScreen("lesson");
   }
 
-  function rebuildProfileFromHistory(u) {
-    const migrated = migrateUser(u || {}) || u || {};
-    const history = Array.isArray(migrated?.history) ? migrated.history : [];
-    let profile = defaultLearningState();
-
-    for (let i = 0; i < history.length; i += 1) {
-      const h = history[i] || {};
-      const lessonType = h.type || h.category || "Flashcards";
-      const total = Math.max(0, Number(h.total || 0));
-      const correct = Math.max(0, Math.min(total, Number(h.correct || 0)));
-      const metaWordResults = Array.isArray(h?.meta?.wordResults) ? h.meta.wordResults : [];
-      const fallbackWordResults = metaWordResults.length ? [] : Array.from({ length: Math.max(1, total || 1) }, (_, idx) => ({
-        id: `hist:${lessonType}:${i}:${idx}`,
-        cefr: profile?.cefrBand || "A1",
-        seen: 1,
-        correct: idx < correct ? 1 : 0,
-      }));
-
-      profile = updateLearningProfile(profile, {
-        lessonType,
-        attemptedAt: h.date || new Date().toISOString(),
-        points: Number(h.points || 0),
-        correct,
-        total,
-        wordResults: metaWordResults.length ? metaWordResults : fallbackWordResults,
-      });
-    }
-
-    return profile;
-  }
 
   function handleLogin(u) {
     const today=new Date().toDateString(); const last=u.lastLogin?new Date(u.lastLogin).toDateString():null;
@@ -3220,7 +3191,7 @@ export default function App() {
     let streak=u.streak;
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
 
-    const recomputedProfile = rebuildProfileFromHistory(u);
+    const recomputedProfile = recomputeProfileFromHistory(u);
     const daily = getDailyFocusBundle(recomputedProfile, u?.username || "guest", new Date());
     const updated={...u,lastLogin:new Date().toISOString(),streak,profile:recomputedProfile};
     const updatedWithPath = { ...updated, profile: ensurePathState(updated.profile || {}) };

@@ -78,7 +78,7 @@ export function FlashcardLesson({ words, onComplete }) {
         const earned = newScores[i] || 0;
         const seen = 1;
         const correctHit = earned >= 14 ? 1 : 0;
-        return { id: w.id || w.es, cefr: w.cefr || "A1", seen, correct: correctHit };
+        return { id: w.id || w.es, cefr: w.cefr || "A1", bucket: w._bucket || w.bucket || 'current', seen, correct: correctHit };
       });
       onComplete(totalPts, correct, words.length, { wordResults });
     } else {
@@ -190,7 +190,7 @@ export function WordMatchLesson({ words, onComplete, difficulty = 1 }) {
           const basePerPair = 10 + Math.round(difficulty * 2);
           const penalty = 4 + Math.round(difficulty);
           const pts = Math.max(0, left.length * basePerPair - errors * penalty);
-          const wordResults = left.map((w) => ({ id: w.id || w.es, cefr: w.cefr || "A1", seen: 1, correct: 1 }));
+          const wordResults = left.map((w) => ({ id: w.id || w.es, cefr: w.cefr || "A1", bucket: w._bucket || w.bucket || 'current', seen: 1, correct: 1 }));
           onComplete(pts, left.length, left.length, { wordResults });
         }
       } else {
@@ -252,6 +252,7 @@ export function FillBlankLesson({ onComplete, sentences = [], difficulty = 1 }) 
     const nextResults = [...results, {
       id: item.wordId || item.answer,
       cefr: item.cefr || 'A1',
+      bucket: item.bucket || item._bucket || 'current',
       seen: 1,
       correct: ok ? 1 : 0,
     }];
