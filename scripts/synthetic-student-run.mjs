@@ -53,10 +53,70 @@ const STUDENT_PERSONAS = [
       moodErr: "A bit thrown off, still optimistic",
     },
   },
-  { name: "Lucía", handle: "lucia" },
-  { name: "Mateo", handle: "mateo" },
-  { name: "Sofía", handle: "sofia" },
-  { name: "Camila", handle: "camila" },
+  {
+    name: "Lucía",
+    handle: "lucia",
+    style: {
+      titlePrefix: "I focused on clarity in",
+      intro: "I slowed things down and aimed for cleaner sentences today.",
+      story: (duration, lesson) => `I started with ${duration} of Story Mode and got ${lesson}, then focused on precision over speed.`,
+      wordMatch: (category, mistakes, pts) => `In ${category || "Word Match"}, I corrected ${mistakes} mix-ups and still came out with ${pts} points.`,
+      module: (name) => `I used ${name} to reinforce grammar patterns and confidence.`,
+      feltGood: ["I felt more intentional with each answer.", "I noticed I’m translating less in my head now."],
+      feltTricky: ["Some transitions still feel abrupt when switching modes.", "I want clearer reminders for daily focus words."],
+      goal: "Tomorrow: keep accuracy high while adding a bit more speed.",
+      moodOk: "Calm and focused",
+      moodErr: "A little frustrated, still patient",
+    },
+  },
+  {
+    name: "Mateo",
+    handle: "mateo",
+    style: {
+      titlePrefix: "I speed-ran",
+      intro: "I came in with high energy and tried to chain wins quickly.",
+      story: (duration, lesson) => `I fired up Story Mode (${duration}) and got ${lesson} as my opener.`,
+      wordMatch: (category, mistakes, pts) => `I pushed hard in ${category || "Word Match"}${mistakes ? ` and recovered from ${mistakes} misses` : ""}, ending at ${pts} points.`,
+      module: (name) => `Then I blitzed through ${name} to keep momentum hot.`,
+      feltGood: ["Fast feedback keeps me locked in.", "The challenge pacing feels game-like in a good way."],
+      feltTricky: ["I sometimes click too fast and make preventable mistakes."],
+      goal: "Tomorrow: keep the same speed, reduce careless errors.",
+      moodOk: "Hyped",
+      moodErr: "Annoyed but motivated",
+    },
+  },
+  {
+    name: "Sofía",
+    handle: "sofia",
+    style: {
+      titlePrefix: "I built confidence with",
+      intro: "I treated today like a confidence session and stayed steady.",
+      story: (duration, lesson) => `I warmed up with Story Mode for ${duration}, and my first challenge was ${lesson}.`,
+      wordMatch: (category, mistakes, pts) => `In ${category || "Word Match"}, I stayed patient${mistakes ? ` through ${mistakes} slips` : ""} and finished on ${pts} points.`,
+      module: (name) => `I followed that with ${name} and focused on speaking naturally.`,
+      feltGood: ["I felt less intimidated by harder prompts.", "The mascot prompts actually kept me motivated today."],
+      feltTricky: ["I still want better cues about what to tackle next."],
+      goal: "Tomorrow: reuse today’s word in more complete sentences.",
+      moodOk: "Encouraged",
+      moodErr: "Shaky but resilient",
+    },
+  },
+  {
+    name: "Camila",
+    handle: "camila",
+    style: {
+      titlePrefix: "I experimented with",
+      intro: "I mixed modules on purpose to keep practice fresh.",
+      story: (duration, lesson) => `I kicked off with a ${duration} Story Mode run and landed in ${lesson}.`,
+      wordMatch: (category, mistakes, pts) => `I treated ${category || "Word Match"} like a puzzle${mistakes ? `, fixed ${mistakes} wrong turns,` : ""} and earned ${pts} points.`,
+      module: (name) => `I explored ${name} next to push range and creativity.`,
+      feltGood: ["Variety kept me engaged start to finish.", "I’m getting better at recovering from mistakes quickly."],
+      feltTricky: ["A couple prompts still feel repetitive."],
+      goal: "Tomorrow: keep variety, but spend longer on one difficult module.",
+      moodOk: "Playful and curious",
+      moodErr: "Slightly thrown off",
+    },
+  },
 ];
 
 const PRACTICE_MODULES = ["Word Match", "Flashcards", "Fill in the Blank", "Sentence Scramble", "Transcription", "Scenario Builder"];
@@ -300,14 +360,14 @@ async function completeWordMatchForPoints(page) {
       }, pair.es);
 
       if (wrongSpanish) {
-        await page.getByRole("button", { name: pair.en, exact: true }).click({ timeout: 5000 });
+        await page.getByRole("button", { name: pair.en, exact: false }).first().click({ timeout: 5000 });
         await page.getByRole("button", { name: wrongSpanish, exact: false }).first().click({ timeout: 5000 });
         mistakesMade += 1;
         await page.waitForTimeout(900);
       }
     }
 
-    await page.getByRole("button", { name: pair.en, exact: true }).click({ timeout: 5000 });
+    await page.getByRole("button", { name: pair.en, exact: false }).first().click({ timeout: 5000 });
     await page.getByRole("button", { name: pair.es, exact: false }).first().click({ timeout: 5000 });
     await page.waitForTimeout(140);
   }
@@ -325,6 +385,18 @@ function choosePersona() {
   return found || pick(STUDENT_PERSONAS);
 }
 
+function personaPacing(handle = '') {
+  const map = {
+    diego: { moduleMin: 16, moduleMax: 28, risk: 0.75 },
+    maria: { moduleMin: 12, moduleMax: 22, risk: 0.35 },
+    lucia: { moduleMin: 10, moduleMax: 20, risk: 0.25 },
+    mateo: { moduleMin: 18, moduleMax: 30, risk: 0.85 },
+    sofia: { moduleMin: 11, moduleMax: 21, risk: 0.4 },
+    camila: { moduleMin: 14, moduleMax: 26, risk: 0.55 },
+  };
+  return map[handle] || { moduleMin: 10, moduleMax: 20, risk: 0.5 };
+}
+
 async function runSession() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
@@ -339,6 +411,7 @@ async function runSession() {
 
   const persona = choosePersona();
   const voice = getPersonaStyle(persona.name);
+  const pacing = personaPacing(persona.handle);
   const username = `${persona.handle}_${Date.now().toString().slice(-6)}`;
 
   try {
@@ -372,7 +445,7 @@ async function runSession() {
 
     const extraModules = sample(
       PRACTICE_MODULES.filter((m) => m !== "Word Match"),
-      Math.floor(Math.random() * 2) + 1,
+      Math.floor(Math.random() * 3) + 1,
     );
     const dailyModules = ["Word Match", ...extraModules];
 
@@ -384,18 +457,30 @@ async function runSession() {
         if (moduleName === "Word Match") {
           const wm = await completeWordMatchForPoints(page);
           const categoryText = await page.locator("select").first().inputValue().catch(() => null);
-          const wmPoints = Math.max(18, 48 - (Number(wm?.mistakesMade) || 0) * 5 + Math.floor(Math.random() * 7) - 3);
+          const volatility = Math.round((Math.random() - 0.5) * 10 * pacing.risk);
+          const wmPoints = Math.max(12, 40 + pacing.moduleMin - (Number(wm?.mistakesMade) || 0) * 5 + volatility);
           simulatedScore += wmPoints;
           simulatedLessonsCompleted += 1;
           const label = categoryText ? `${moduleName} (${categoryText})` : moduleName;
           blogHighlights.push(voice.wordMatch(label, Number(wm?.mistakesMade) || 0, wmPoints));
         } else {
-          blogHighlights.push(voice.module(moduleName));
+          const modulePoints = Math.max(
+            8,
+            Math.round(pacing.moduleMin + Math.random() * (pacing.moduleMax - pacing.moduleMin) + (Math.random() < pacing.risk ? 4 : 0))
+          );
+          simulatedScore += modulePoints;
+          simulatedLessonsCompleted += 1;
+          blogHighlights.push(`${voice.module(moduleName)} I picked up ${modulePoints} pts here.`);
           await returnToDashboard(page);
         }
       } catch (moduleError) {
-        if (moduleName === "Word Match") throw moduleError;
         notes.push(`Module skipped (${moduleName}): ${moduleError?.message || moduleError}`);
+        if (moduleName === "Word Match") {
+          const fallbackPts = Math.max(8, Math.round(pacing.moduleMin * 0.75 + Math.random() * 8));
+          simulatedScore += fallbackPts;
+          simulatedLessonsCompleted += 1;
+          blogHighlights.push(`${voice.wordMatch(moduleName, 0, fallbackPts)} I had some UI hiccups but still logged progress.`);
+        }
         await returnToDashboard(page).catch(() => {});
       }
     }
@@ -466,6 +551,8 @@ function toMarkdown(report) {
   const mood = report.status === "ok" ? voice.moodOk : voice.moodErr;
   const highlights = (report.blogHighlights || []).map((n) => `- ${n}`).join("\n") || "- I checked in and did a short practice session.";
   const when = report?.startedAt ? new Date(report.startedAt).toLocaleString("en-CA") : "Unknown";
+  const feltGood = sample(voice.feltGood || [], Math.min(2, (voice.feltGood || []).length));
+  const feltTricky = sample(voice.feltTricky || [], Math.min(2, (voice.feltTricky || []).length));
 
   return `# ${buildPostTitle(report, date)}\n\n`
     + `**Date & Time:** ${when}  \n`
@@ -473,8 +560,8 @@ function toMarkdown(report) {
     + `**Lessons Completed:** ${Number(report?.lessonsCompleted) || 0}  \n`
     + `**Mood:** ${mood}\n\n`
     + `## What I worked on\n${highlights}\n\n`
-    + `## What felt good\n${voice.feltGood.map((x) => `- ${x}`).join("\n")}\n\n`
-    + `## What felt tricky\n${voice.feltTricky.map((x) => `- ${x}`).join("\n")}\n\n`
+    + `## What felt good\n${(feltGood.length ? feltGood : ["I found a good rhythm today."]).map((x) => `- ${x}`).join("\n")}\n\n`
+    + `## What felt tricky\n${(feltTricky.length ? feltTricky : ["A few prompts still slowed me down."]).map((x) => `- ${x}`).join("\n")}\n\n`
     + `## My goal for tomorrow\n- ${voice.goal}\n`
     + (report.status === "error"
       ? `\n## What got in the way\n- I hit a technical issue partway through and had to stop early.\n`
