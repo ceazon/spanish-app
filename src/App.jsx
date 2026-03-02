@@ -2622,52 +2622,104 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   const dailyFocusWord = launchOptions?.dailyFocusWord || null;
   const dailyFocusVerb = launchOptions?.dailyFocusVerb || user?.profile?.dailyFocusVerb || null;
 
-  function withDailyFocusWord(items = []) {
+  const pronouns = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"];
+  const rotationSeed = `${new Date().toDateString()}:${userKey}:${type}`;
+  const rotationIndex = [...rotationSeed].reduce((a, c) => a + c.charCodeAt(0), 0) % pronouns.length;
+
+  function withDailyFocusWord(items = [], chance = 0.65) {
     if (!dailyFocusWord?.es || !dailyFocusWord?.en) return items || [];
     const source = Array.isArray(items) ? items : [];
     const key = `${normalizeSimple(dailyFocusWord.en)}::${normalizeSimple(dailyFocusWord.es)}`;
     const seen = new Set(source.map((w) => `${normalizeSimple(w?.en || "")}::${normalizeSimple(w?.es || "")}`));
     if (seen.has(key)) return source;
+    if (Math.random() > chance) return source;
     return [{ id: dailyFocusWord.id || dailyFocusWord.es, en: dailyFocusWord.en, es: dailyFocusWord.es, cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1' }, ...source];
   }
 
+  function getDailyVerbCard() {
+    if (!dailyFocusVerb) return null;
+    const verb = (verbs || []).find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+    if (!verb) return null;
+    const preferredPronoun = pronouns[rotationIndex];
+    const form = (verb.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(preferredPronoun)) || verb.conjugations?.[rotationIndex % Math.max(1, verb.conjugations?.length || 1)] || verb.conjugations?.[0];
+    if (!form?.form) return null;
+    return {
+      id: `focus-verb-card:${verb.infinitive}:${form.pronoun}`,
+      es: form.form,
+      en: form.meaning || `${form.pronoun} ${verb.meaning || verb.infinitive}`,
+      cefr: user?.profile?.cefrBand || 'A1',
+    };
+  }
+
   const wordsForLesson = useMemo(() => {
-    if (forcedWords.length) return withDailyFocusWord(forcedWords);
-    if (category === "General") {
-      return withDailyFocusWord(selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) }));
-    }
-    return withDailyFocusWord(selectAdaptiveFlashcards(words, {
-      difficulty,
-      target: Math.max(4, vocabTarget),
-      userKey,
-      category: category || type,
-    }));
-  }, [words, difficulty, vocabTarget, userKey, category, type, user, forcedWords]);
+    const base = forcedWords.length
+      ? forcedWords
+      : category === "General"
+        ? selectWordsForModule({ profile: user?.profile, moduleType: type, count: Math.max(4, vocabTarget) })
+        : selectAdaptiveFlashcards(words, {
+            difficulty,
+            target: Math.max(4, vocabTarget),
+            userKey,
+            category: category || type,
+          });
+
+    const withWord = withDailyFocusWord(base, 0.62);
+    const verbCard = getDailyVerbCard();
+    if (!verbCard || Math.random() > 0.45) return withWord;
+    const exists = withWord.some((w) => normalizeSimple(w?.es || "") === normalizeSimple(verbCard.es));
+    return exists ? withWord : [verbCard, ...withWord];
+  }, [words, difficulty, vocabTarget, userKey, category, type, user, forcedWords, dailyFocusVerb]);
   const fillForLesson = useMemo(() => {
-    const injectDailyFill = (items = []) => {
-      if (!dailyFocusWord?.es || !dailyFocusWord?.en) return items;
-      const sentence = {
-        template: `Hoy practicamos la palabra ___ (${dailyFocusWord.en}).`,
-        answer: dailyFocusWord.es,
-        hint: `Use the Spanish word for "${dailyFocusWord.en}".`,
-        wordId: dailyFocusWord.id || dailyFocusWord.es,
-        cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1',
-      };
-      const hasAlready = (items || []).some((s) => normalizeSimple(s?.answer || "") === normalizeSimple(dailyFocusWord.es));
-      return hasAlready ? items : [sentence, ...(items || [])];
+    const injectDynamicDailyFill = (items = []) => {
+      let out = Array.isArray(items) ? [...items] : [];
+
+      if (dailyFocusWord?.es && dailyFocusWord?.en && Math.random() < 0.62) {
+        const sentence = {
+          template: `Hoy practicamos la palabra ___ (${dailyFocusWord.en}).`,
+          answer: dailyFocusWord.es,
+          hint: `Use the Spanish word for "${dailyFocusWord.en}".`,
+          wordId: dailyFocusWord.id || dailyFocusWord.es,
+          cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1',
+        };
+        const hasAlready = out.some((s) => normalizeSimple(s?.answer || "") === normalizeSimple(dailyFocusWord.es));
+        if (!hasAlready) out = [sentence, ...out];
+      }
+
+      if (dailyFocusVerb && Math.random() < 0.58) {
+        const verb = (verbs || []).find((v) => normalizeSimple(v?.infinitive || "") === normalizeSimple(dailyFocusVerb));
+        const preferredPronoun = pronouns[rotationIndex];
+        const form = (verb?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(preferredPronoun))
+          || verb?.conjugations?.[rotationIndex % Math.max(1, verb?.conjugations?.length || 1)]
+          || verb?.conjugations?.[0];
+        if (verb && form?.form) {
+          const prompt = {
+            template: `${form.pronoun} ___ español todos los días.`,
+            answer: form.form,
+            hint: `${form.pronoun} ${verb.meaning || verb.infinitive}`,
+            wordId: `${verb.infinitive}:${form.pronoun}`,
+            cefr: user?.profile?.cefrBand || 'A1',
+          };
+          const hasVerb = out.some((s) => normalizeSimple(s?.answer || "") === normalizeSimple(form.form));
+          if (!hasVerb) out = [prompt, ...out];
+        }
+      }
+
+      return shuffle(out).slice(0, Math.max(5, sentenceTarget));
     };
 
-    if (forcedFillItems.length) return injectDailyFill(forcedFillItems);
-    if (category === "General") {
-      return injectDailyFill(getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) }));
-    }
-    return injectDailyFill(selectAdaptiveFillBlanks(fillBlankSentences, {
-      difficulty,
-      target: Math.max(5, sentenceTarget),
-      userKey,
-      category: category || "General",
-    }));
-  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user, forcedFillItems, dailyFocusWord]);
+    const base = forcedFillItems.length
+      ? forcedFillItems
+      : category === "General"
+        ? getFillBlankItemsForModule({ profile: user?.profile, count: Math.max(5, sentenceTarget) })
+        : selectAdaptiveFillBlanks(fillBlankSentences, {
+            difficulty,
+            target: Math.max(5, sentenceTarget),
+            userKey,
+            category: category || "General",
+          });
+
+    return injectDynamicDailyFill(base);
+  }, [fillBlankSentences, difficulty, sentenceTarget, userKey, category, user, forcedFillItems, dailyFocusWord, dailyFocusVerb, verbs, rotationIndex]);
   const flashcardsForLesson = useMemo(() => {
     const fixed = (wordsForLesson || []).map((w) => {
       const enKey = normalizeSimple(w?.en || "");
