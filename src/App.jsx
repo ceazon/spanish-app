@@ -2055,11 +2055,16 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         if (subIdx < currentSublevel) pct = 100;
         else if (subIdx === currentSublevel) pct = currentSublevelProgress;
       }
+      const strengthKey = `${band}:${subIdx}`;
+      const strengthRaw = Number(user.profile?.strengthByLevel?.[strengthKey] || 0);
+      const strengthPct = Math.max(0, Math.min(100, Math.round((strengthRaw / 10) * 100)));
       return {
         band,
         title,
         levelNumber: bandIdx * 10 + subIdx + 1,
         percent: pct,
+        strengthPct,
+        strengthRaw,
         isCurrent: bandIdx === currentBandIdx && subIdx === currentSublevel,
       };
     });
@@ -2284,6 +2289,13 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
                     <div style={{ color:'#d1d5db', fontSize:12, marginBottom:10 }}>{node.title}</div>
                     <div style={{ height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
                       <div style={{ width:`${Math.max(0, Math.min(100, node.percent))}%`, height:'100%', background:isComplete ? 'linear-gradient(90deg,#16a34a,#22c55e)' : 'linear-gradient(90deg,#7c3aed,#a855f7)' }} />
+                    </div>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:8, marginBottom:4 }}>
+                      <div style={{ color:'#86efac', fontSize:10, letterSpacing:1 }}>STRENGTH</div>
+                      <div style={{ color:'#86efac', fontSize:10, fontWeight:700 }}>{node.strengthPct}%</div>
+                    </div>
+                    <div style={{ height:5, borderRadius:8, background:'rgba(34,197,94,0.16)', overflow:'hidden' }}>
+                      <div style={{ width:`${node.strengthPct}%`, height:'100%', background:'linear-gradient(90deg,#22c55e,#86efac)' }} />
                     </div>
                   </button>
                 );
