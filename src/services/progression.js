@@ -1,7 +1,7 @@
 // Spanish-app/src/services/progression.js
 
 import { getLevelLabel } from '../config/cefr.js';
-import vocabData from '../content/cefr-vocab.json' with { type: 'json' };
+import masterVocabData from '../content/cefr-vocab-master.json' with { type: 'json' };
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -20,9 +20,14 @@ function shuffled(arr = []) {
   return out;
 }
 
-// Upgrading to v3 for the CEFR progression system
-export const PROFILE_SCHEMA_VERSION = 3;
-const CEFR_COUNTS = vocabData?.counts || { A1: 1, A2: 1, B1: 1, B2: 1 };
+// Upgrading to v4 for micro-level progression
+export const PROFILE_SCHEMA_VERSION = 4;
+const MASTER_WORDS = Array.isArray(masterVocabData?.words) ? masterVocabData.words : [];
+const CEFR_COUNTS = MASTER_WORDS.reduce((acc, w) => {
+  const band = w?.cefr || 'A1';
+  acc[band] = (acc[band] || 0) + 1;
+  return acc;
+}, { A1: 1, A2: 1, B1: 1, B2: 1 });
 const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 function normalizeExposureEntry(entry = {}) {
@@ -179,12 +184,14 @@ export function defaultLearningState() {
     cefrBand: "A1",
     bandProgress: 0.0, // mastery progress 0.0..1.0
     learningProgress: 0.0, // exposure progress 0.0..1.0
-    level: "Newcomer",
-    levelTitle: "Newcomer",
-    nextLevelTitle: "Beginner",
+    level: "Newcomer I",
+    levelTitle: "Newcomer I",
+    nextLevelTitle: "Newcomer II",
+    microLevel: 0,
+    microLevelProgress: 0,
     sublevel: 0,
     sublevelProgress: 0,
-    overallLevel: 1,   // 1 to 40
+    overallLevel: 1,   // 1 to 80 (A1..B2 with 20 each)
     globalDifficulty: 1,
     recentAccuracies: [],
     mastery: {},
@@ -202,10 +209,10 @@ export function migrateUser(user) {
   if (!user) return user;
   const p = user.profile || {};
 
-  // If already v3, just return
-  if (p.schemaVersion === 3) return user;
+  // If already v4, just return
+  if (p.schemaVersion === PROFILE_SCHEMA_VERSION) return user;
 
-  // v2 -> v3 migration
+  // Legacy -> v4 migration
   const learning = {
     ...defaultLearningState(),
     ...p,
@@ -220,10 +227,12 @@ export function migrateUser(user) {
   learning.progressPointsByBand = learning.progressPointsByBand || {};
   learning.bandProgress = computeHybridBandProgress(learning.wordExposure || {}, learning.progressPointsByBand || {}, learning.cefrBand);
   learning.learningProgress = computeBandLearningProgress(learning.wordExposure || {}, learning.cefrBand);
-  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(learning.cefrBand, learning.bandProgress);
+  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel, microLevel, pctWithinMicro } = getLevelLabel(learning.cefrBand, learning.bandProgress);
   learning.level = title;
   learning.levelTitle = title;
   learning.nextLevelTitle = nextTitle;
+  learning.microLevel = microLevel;
+  learning.microLevelProgress = pctWithinMicro;
   learning.sublevel = sublevel;
   learning.sublevelProgress = pctWithinSublevel;
   learning.overallLevel = overallLevel;
@@ -273,7 +282,7 @@ export function getAdaptiveDifficulty(profile = {}, lessonType) {
 }
 
 export function updateLearningProfile(profile = {}, result = {}) {
-  const p = profile.schemaVersion === 3 ? { ...profile } : migrateUser({ profile }).profile;
+  const p = profile.schemaVersion === PROFILE_SCHEMA_VERSION ? { ...profile } : migrateUser({ profile }).profile;
   const normalized = normalizeModuleResult(result);
 
   const lessonType = normalized.moduleType;
@@ -322,11 +331,13 @@ export function updateLearningProfile(profile = {}, result = {}) {
 
   // Canonical level projection from current CEFR band + band progress.
   const prevOverallLevel = Number(p.overallLevel || 1);
-  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel } = getLevelLabel(p.cefrBand, p.bandProgress);
+  const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel, microLevel, pctWithinMicro } = getLevelLabel(p.cefrBand, p.bandProgress);
 
   p.level = title;
   p.levelTitle = title;
   p.nextLevelTitle = nextTitle;
+  p.microLevel = microLevel;
+  p.microLevelProgress = pctWithinMicro;
   p.sublevel = sublevel;
   p.sublevelProgress = pctWithinSublevel;
   p.overallLevel = overallLevel;
@@ -369,6 +380,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
     strengthenedLevelKey: `${p.cefrBand}:${p.sublevel}`,
     levelTitle: p.levelTitle || p.level,
     nextLevelTitle: p.nextLevelTitle,
+    microLevel: p.microLevel,
+    microLevelProgress: p.microLevelProgress,
     sublevel: p.sublevel,
     sublevelProgress: p.sublevelProgress,
     overallLevel: p.overallLevel,
