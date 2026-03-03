@@ -80,6 +80,13 @@ const VERBS = [
     conjugations: [{ pronoun: "yo", form: "quiero", meaning: "I want" }, { pronoun: "tú", form: "quieres", meaning: "you want" }, { pronoun: "él / ella", form: "quiere", meaning: "he/she wants" }, { pronoun: "nosotros", form: "queremos", meaning: "we want" }, { pronoun: "vosotros", form: "queréis", meaning: "you all want" }, { pronoun: "ellos / ellas", form: "quieren", meaning: "they want" }] },
 ];
 
+const APP_VERBS = ((dailyFocusVerbs?.verbs || []).length ? dailyFocusVerbs.verbs : VERBS).map((v) => ({
+  ...v,
+  type: v?.type || (String(v?.infinitive || '').endsWith('ar') ? 'Regular -ar' : String(v?.infinitive || '').endsWith('er') ? 'Regular -er' : 'Regular -ir'),
+  example: v?.example || `Hoy yo ${v?.conjugations?.[0]?.form || v?.infinitive} español.`,
+  exampleEn: v?.exampleEn || `Today I ${v?.meaning || v?.infinitive} Spanish.`,
+}));
+
 const LISTEN_SENTENCES = [
   { es: "Hola, ¿cómo estás?", en: "Hello, how are you?" },
   { es: "Buenos días, me llamo Carlos.", en: "Good morning, my name is Carlos." },
@@ -335,7 +342,7 @@ function getDailyFocusBundle(profile = {}, username = "guest", now = new Date())
   const blendedPool = [...currentPool.slice(0, 40), ...reviewPool.slice(0, 20), ...stretchPool.slice(0, 20)];
 
   const verbDifficulty = Number(profile?.globalDifficulty || 1);
-  const focusVerbPool = (dailyFocusVerbs?.verbs || []).length ? dailyFocusVerbs.verbs : VERBS;
+  const focusVerbPool = APP_VERBS;
   const verbsRanked = [...focusVerbPool].sort((a, b) => {
     const aIrregular = String(a?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
     const bIrregular = String(b?.type || '').toLowerCase().includes('irregular') ? 1 : 0;
@@ -1067,7 +1074,7 @@ function AuthScreen({ onLogin }) {
 // GRAMMAR LESSONS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function VerbLesson({ onComplete, verbs = VERBS }) {
+function VerbLesson({ onComplete, verbs = APP_VERBS }) {
   const [vi, setVi] = useState(() => Math.floor(Math.random()*verbs.length));
   const [phase, setPhase] = useState("intro"); const [pi, setPi] = useState(0);
   const [input, setInput] = useState(""); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
@@ -1141,7 +1148,7 @@ function VerbLesson({ onComplete, verbs = VERBS }) {
   );
 }
 
-function SpeedRoundLesson({ onComplete, verbs = VERBS }) {
+function SpeedRoundLesson({ onComplete, verbs = APP_VERBS }) {
   const TOTAL=60;
   const [started, setStarted] = useState(false); const [timeLeft, setTimeLeft] = useState(TOTAL);
   const [questions] = useState(() => {
@@ -1905,7 +1912,7 @@ function PictureDescriptionLesson({ onComplete, pictureScenes = PICTURE_SCENES }
   );
 }
 
-function PlacementTestLesson({ onComplete, vocab = VOCAB, sentences = SENTENCES, verbs = VERBS }) {
+function PlacementTestLesson({ onComplete, vocab = VOCAB, sentences = SENTENCES, verbs = APP_VERBS }) {
   const vocabPool = Object.values(vocab).flat();
   const [questions] = useState(() => {
     const q = [];
@@ -2328,8 +2335,8 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
     const bucketWords = allWords.slice(start, end);
     const sampledWords = (bucketWords.length ? bucketWords : allWords).slice(0, 4).map((w) => ({ es: w.es, en: w.en }));
 
-    const verbStart = Math.floor((node.sublevel / 10) * VERBS.length);
-    const sampledVerbs = VERBS.slice(verbStart, verbStart + 2).map((v) => ({
+    const verbStart = Math.floor((node.sublevel / 10) * APP_VERBS.length);
+    const sampledVerbs = APP_VERBS.slice(verbStart, verbStart + 2).map((v) => ({
       infinitive: v.infinitive,
       meaning: v.meaning,
       conjugations: (v.conjugations || []).slice(0, 3),
@@ -2687,7 +2694,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, []);
 
   const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...((expandedContent && expandedContent.sentences) || [])];
-  const verbs = contentPack?.verbs || VERBS;
+  const verbs = contentPack?.verbs || APP_VERBS;
   const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
   const scenariosDataRaw = contentPack?.scenarios || [...SCENARIOS, ...(expandedInteractiveContent?.scenarios || [])];
   const scenesRaw = contentPack?.scenes || [...SCENES, ...(expandedInteractiveContent?.scenes || [])];

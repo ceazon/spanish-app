@@ -335,7 +335,9 @@ export function updateLearningProfile(profile = {}, result = {}) {
   p.progressPointsByBand = { ...(p.progressPointsByBand || {}) };
   p.strengthByLevel = { ...(p.strengthByLevel || {}) };
   const currentSubForStrength = Number(p.sublevel || 0);
-  const progressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
+  const baseProgressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
+  const verbHeavyModules = new Set(['Learn Verbs', 'Speed Round']);
+  const progressEarned = baseProgressEarned * (verbHeavyModules.has(lessonType) ? 0.8 : 1);
   const strengthEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreStrengthPoint(wr), 0);
   p.progressPointsByBand[p.cefrBand] = Number(p.progressPointsByBand[p.cefrBand] || 0) + progressEarned;
 
