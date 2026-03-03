@@ -1,4 +1,6 @@
-import { migrateUser } from "./progression";
+import { migrateUser, defaultLearningState } from "./progression";
+
+const FORCE_RESET_PROFILE_VERSION = "v4-reset-2026-03-02";
 
 function hasWindowStorage() {
   return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
@@ -19,7 +21,31 @@ export async function loadUser(username) {
   const key = `user:${username}`;
   try {
     const r = hasWindowStorage() ? await window.storage.get(key) : getLocal(key);
-    return r ? migrateUser(JSON.parse(r.value)) : null;
+    if (!r) return null;
+
+    const parsed = migrateUser(JSON.parse(r.value));
+    const resetVersion = parsed?.profile?.resetVersion;
+    if (resetVersion === FORCE_RESET_PROFILE_VERSION) return parsed;
+
+    // One-time global progression reset for v4 rollout.
+    const resetUser = {
+      ...parsed,
+      history: [],
+      profile: {
+        ...defaultLearningState(),
+        resetVersion: FORCE_RESET_PROFILE_VERSION,
+      },
+    };
+
+    try {
+      const value = JSON.stringify(resetUser);
+      if (hasWindowStorage()) await window.storage.set(key, value);
+      else setLocal(key, value);
+    } catch {
+      try { setLocal(key, JSON.stringify(resetUser)); } catch {}
+    }
+
+    return resetUser;
   } catch {
     return null;
   }
