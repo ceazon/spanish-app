@@ -1242,7 +1242,19 @@ function SpeedRoundLesson({ onComplete, verbs = APP_VERBS }) {
 }
 
 function SentenceScrambleLesson({ onComplete, scrambleSentences = SCRAMBLE_SENTENCES }) {
-  const [items] = useState(() => shuffle(scrambleSentences).slice(0,5));
+  const [items] = useState(() => {
+    const source = Array.isArray(scrambleSentences) ? [...scrambleSentences] : [];
+    const unique = [];
+    const seen = new Set();
+    for (const s of source) {
+      const key = String(s?.correct || '').trim().toLowerCase();
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      unique.push(s);
+    }
+    const fallback = shuffle(SCRAMBLE_SENTENCES).filter((s) => !seen.has(String(s?.correct || '').trim().toLowerCase()));
+    return shuffle([...unique, ...fallback]).slice(0, 5);
+  });
   const [idx, setIdx] = useState(0); const [chosen, setChosen] = useState([]); const [pool, setPool] = useState([]); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
   useEffect(() => { setPool(shuffle([...items[idx].words])); setChosen([]); setFeedback(null); },[idx]);
   function addWord(w,i) { if(feedback) return; const p=[...pool]; p.splice(i,1); setPool(p); setChosen(c=>[...c,w]); }
@@ -2723,7 +2735,10 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     return () => { mounted = false; };
   }, []);
 
-  const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...((expandedContent && expandedContent.sentences) || [])];
+  const baseFillBlankSentences = [...SENTENCES, ...((expandedContent && expandedContent.sentences) || [])];
+  const fillBlankSentencesRaw = Array.isArray(contentPack?.sentences) && contentPack.sentences.length
+    ? [...baseFillBlankSentences, ...contentPack.sentences]
+    : baseFillBlankSentences;
   const verbs = useMemo(() => {
     const canonical = Array.isArray(APP_VERBS) ? APP_VERBS : [];
     const incoming = Array.isArray(contentPack?.verbs) ? contentPack.verbs : [];
@@ -2756,10 +2771,16 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     }
     return merged;
   }, [contentPack?.verbs]);
-  const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
+  const baseListenSentences = [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
+  const listenSentencesRaw = Array.isArray(contentPack?.listenSentences) && contentPack.listenSentences.length
+    ? [...baseListenSentences, ...contentPack.listenSentences]
+    : baseListenSentences;
   const scenariosDataRaw = contentPack?.scenarios || [...SCENARIOS, ...(expandedInteractiveContent?.scenarios || [])];
   const scenesRaw = contentPack?.scenes || [...SCENES, ...(expandedInteractiveContent?.scenes || [])];
-  const scrambleSentencesRaw = contentPack?.scrambleSentences || [...SCRAMBLE_SENTENCES, ...(expandedContent?.scrambleSentences || [])];
+  const baseScrambleSentences = [...SCRAMBLE_SENTENCES, ...(expandedContent?.scrambleSentences || [])];
+  const scrambleSentencesRaw = Array.isArray(contentPack?.scrambleSentences) && contentPack.scrambleSentences.length
+    ? [...baseScrambleSentences, ...contentPack.scrambleSentences]
+    : baseScrambleSentences;
   const fillBlankSentences = filterByBandMix(fillBlankSentencesRaw);
   const listenSentences = filterByBandMix(listenSentencesRaw);
   const scrambleSentences = filterByBandMix(scrambleSentencesRaw);
