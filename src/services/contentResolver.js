@@ -1,8 +1,9 @@
 // Spanish-app/src/services/contentResolver.js
 
 import vocabData from '../content/cefr-vocab.json';
+import masterVocabData from '../content/cefr-vocab-master.json';
 
-const ALL_VOCAB = vocabData.vocab || [];
+const ALL_VOCAB = (masterVocabData?.words || vocabData.vocab || []).filter(Boolean);
 const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 // Tunable progression knobs (safe defaults)
@@ -51,6 +52,11 @@ function wordsInBand(band = 'A1') {
  * This avoids hardcoding buckets in content during incremental rollout.
  */
 function deriveSublevel(word, bandWords) {
+  // Canonical v4 data carries microLevel 1..20. Map to legacy sublevel 0..9.
+  if (Number.isFinite(Number(word?.microLevel))) {
+    const micro = clamp(Number(word.microLevel), 1, 20);
+    return clamp(Math.floor((micro - 1) / 2), 0, 9);
+  }
   const list = bandWords || wordsInBand(word.cefr);
   const idx = Math.max(0, list.findIndex((w) => (w.id || w.es) === (word.id || word.es)));
   const denom = Math.max(1, list.length);
