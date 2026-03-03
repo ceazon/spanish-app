@@ -1,0 +1,4960 @@
+{
+  "source": "https://raw.githubusercontent.com/choe220/1000-spanish-words/main/assets/words_updated.json",
+  "words": [
+    {
+      "es": "se",
+      "en": "to him, to h",
+      "topic": "pronoun"
+    },
+    {
+      "es": "lo",
+      "en": "hi",
+      "topic": "pronoun"
+    },
+    {
+      "es": "le",
+      "en": "to him, h",
+      "topic": "pronoun"
+    },
+    {
+      "es": "me",
+      "en": "me",
+      "topic": "pronoun"
+    },
+    {
+      "es": "él",
+      "en": "él",
+      "topic": "pronoun"
+    },
+    {
+      "es": "ella",
+      "en": "sh",
+      "topic": "pronoun"
+    },
+    {
+      "es": "te",
+      "en": "you",
+      "topic": "pronoun"
+    },
+    {
+      "es": "nos",
+      "en": "us",
+      "topic": "pronoun"
+    },
+    {
+      "es": "yo",
+      "en": "yo",
+      "topic": "pronoun"
+    },
+    {
+      "es": "usted",
+      "en": "you",
+      "topic": "pronoun"
+    },
+    {
+      "es": "mí",
+      "en": "(after “para”)",
+      "topic": "pronoun"
+    },
+    {
+      "es": "nosotros",
+      "en": "nosotros",
+      "topic": "pronoun"
+    },
+    {
+      "es": "tú",
+      "en": "you",
+      "topic": "pronoun"
+    },
+    {
+      "es": "sí",
+      "en": "self",
+      "topic": "pronoun"
+    },
+    {
+      "es": "ti",
+      "en": "you (after “para”)",
+      "topic": "pronoun"
+    },
+    {
+      "es": "os",
+      "en": "you (plural, used in Spain)",
+      "topic": "pronoun"
+    },
+    {
+      "es": "conmigo",
+      "en": "with",
+      "topic": "pronoun"
+    },
+    {
+      "es": "vos",
+      "en": "you",
+      "topic": "pronoun"
+    },
+    {
+      "es": "el año",
+      "en": "year",
+      "topic": "noun"
+    },
+    {
+      "es": "el país",
+      "en": "country",
+      "topic": "noun"
+    },
+    {
+      "es": "el tiempo",
+      "en": "time",
+      "topic": "noun"
+    },
+    {
+      "es": "la parte",
+      "en": "part",
+      "topic": "noun"
+    },
+    {
+      "es": "la vida",
+      "en": "life",
+      "topic": "noun"
+    },
+    {
+      "es": "los años",
+      "en": "years",
+      "topic": "noun"
+    },
+    {
+      "es": "el día",
+      "en": "day",
+      "topic": "noun"
+    },
+    {
+      "es": "la vez",
+      "en": "time",
+      "topic": "noun"
+    },
+    {
+      "es": "la persona",
+      "en": "person",
+      "topic": "noun"
+    },
+    {
+      "es": "la mujer",
+      "en": "woman",
+      "topic": "noun"
+    },
+    {
+      "es": "el caso",
+      "en": "case",
+      "topic": "noun"
+    },
+    {
+      "es": "el hombre",
+      "en": "man",
+      "topic": "noun"
+    },
+    {
+      "es": "el momento",
+      "en": "moment",
+      "topic": "noun"
+    },
+    {
+      "es": "el mundo",
+      "en": "world",
+      "topic": "noun"
+    },
+    {
+      "es": "la casa",
+      "en": "house",
+      "topic": "noun"
+    },
+    {
+      "es": "la cosa",
+      "en": "thing",
+      "topic": "noun"
+    },
+    {
+      "es": "el gobierno",
+      "en": "government",
+      "topic": "noun"
+    },
+    {
+      "es": "el lugar",
+      "en": "place",
+      "topic": "noun"
+    },
+    {
+      "es": "el trabajo",
+      "en": "work",
+      "topic": "noun"
+    },
+    {
+      "es": "la forma",
+      "en": "form",
+      "topic": "noun"
+    },
+    {
+      "es": "el estado",
+      "en": "state",
+      "topic": "noun"
+    },
+    {
+      "es": "el grupo",
+      "en": "group",
+      "topic": "noun"
+    },
+    {
+      "es": "el punto",
+      "en": "point",
+      "topic": "noun"
+    },
+    {
+      "es": "el niño",
+      "en": "child",
+      "topic": "noun"
+    },
+    {
+      "es": "la ciudad",
+      "en": "city",
+      "topic": "noun"
+    },
+    {
+      "es": "el problema",
+      "en": "problem",
+      "topic": "noun"
+    },
+    {
+      "es": "el sistema",
+      "en": "system",
+      "topic": "noun"
+    },
+    {
+      "es": "el presidente",
+      "en": "president",
+      "topic": "noun"
+    },
+    {
+      "es": "la manera",
+      "en": "way",
+      "topic": "noun"
+    },
+    {
+      "es": "la historia",
+      "en": "history",
+      "topic": "noun"
+    },
+    {
+      "es": "el tipo",
+      "en": "type",
+      "topic": "noun"
+    },
+    {
+      "es": "los millones",
+      "en": "millions",
+      "topic": "noun"
+    },
+    {
+      "es": "el partido",
+      "en": "party",
+      "topic": "noun"
+    },
+    {
+      "es": "el mes",
+      "en": "month",
+      "topic": "noun"
+    },
+    {
+      "es": "la noche",
+      "en": "night",
+      "topic": "noun"
+    },
+    {
+      "es": "la obra",
+      "en": "work",
+      "topic": "noun"
+    },
+    {
+      "es": "el equipo",
+      "en": "team",
+      "topic": "noun"
+    },
+    {
+      "es": "el proceso",
+      "en": "process",
+      "topic": "noun"
+    },
+    {
+      "es": "las veces",
+      "en": "times",
+      "topic": "noun"
+    },
+    {
+      "es": "el cambio",
+      "en": "change",
+      "topic": "noun"
+    },
+    {
+      "es": "el hijo",
+      "en": "son",
+      "topic": "noun"
+    },
+    {
+      "es": "el centro",
+      "en": "center",
+      "topic": "noun"
+    },
+    {
+      "es": "el servicio",
+      "en": "service",
+      "topic": "noun"
+    },
+    {
+      "es": "la empresa",
+      "en": "company",
+      "topic": "noun"
+    },
+    {
+      "es": "la cuenta",
+      "en": "account",
+      "topic": "noun"
+    },
+    {
+      "es": "la mano",
+      "en": "hand",
+      "topic": "noun"
+    },
+    {
+      "es": "el nivel",
+      "en": "level",
+      "topic": "noun"
+    },
+    {
+      "es": "el proyecto",
+      "en": "project",
+      "topic": "noun"
+    },
+    {
+      "es": "la gente",
+      "en": "people",
+      "topic": "noun"
+    },
+    {
+      "es": "el agua",
+      "en": "water",
+      "topic": "noun"
+    },
+    {
+      "es": "la hora",
+      "en": "time",
+      "topic": "noun"
+    },
+    {
+      "es": "el padre",
+      "en": "parent",
+      "topic": "noun"
+    },
+    {
+      "es": "el desarrollo",
+      "en": "development",
+      "topic": "noun"
+    },
+    {
+      "es": "la semana",
+      "en": "week",
+      "topic": "noun"
+    },
+    {
+      "es": "el lado",
+      "en": "side",
+      "topic": "noun"
+    },
+    {
+      "es": "la familia",
+      "en": "family",
+      "topic": "noun"
+    },
+    {
+      "es": "la situación",
+      "en": "situation",
+      "topic": "noun"
+    },
+    {
+      "es": "la madre",
+      "en": "mother",
+      "topic": "noun"
+    },
+    {
+      "es": "la información",
+      "en": "information",
+      "topic": "noun"
+    },
+    {
+      "es": "el fin",
+      "en": "end",
+      "topic": "noun"
+    },
+    {
+      "es": "el programa",
+      "en": "program",
+      "topic": "noun"
+    },
+    {
+      "es": "la salud",
+      "en": "health",
+      "topic": "noun"
+    },
+    {
+      "es": "el cuerpo",
+      "en": "body",
+      "topic": "noun"
+    },
+    {
+      "es": "la actividad",
+      "en": "activity",
+      "topic": "noun"
+    },
+    {
+      "es": "el derecho",
+      "en": "right",
+      "topic": "noun"
+    },
+    {
+      "es": "el ejemplo",
+      "en": "example",
+      "topic": "noun"
+    },
+    {
+      "es": "el libro",
+      "en": "book",
+      "topic": "noun"
+    },
+    {
+      "es": "el medio",
+      "en": "middle",
+      "topic": "noun"
+    },
+    {
+      "es": "el tema",
+      "en": "topic",
+      "topic": "noun"
+    },
+    {
+      "es": "los días",
+      "en": "days",
+      "topic": "noun"
+    },
+    {
+      "es": "la ley",
+      "en": "law",
+      "topic": "noun"
+    },
+    {
+      "es": "el hecho",
+      "en": "fact",
+      "topic": "noun"
+    },
+    {
+      "es": "la zona",
+      "en": "zone",
+      "topic": "noun"
+    },
+    {
+      "es": "el nombre",
+      "en": "name",
+      "topic": "noun"
+    },
+    {
+      "es": "el resultado",
+      "en": "result",
+      "topic": "noun"
+    },
+    {
+      "es": "el número",
+      "en": "number",
+      "topic": "noun"
+    },
+    {
+      "es": "el final",
+      "en": "end",
+      "topic": "noun"
+    },
+    {
+      "es": "el sector",
+      "en": "sector",
+      "topic": "noun"
+    },
+    {
+      "es": "la calle",
+      "en": "street",
+      "topic": "noun"
+    },
+    {
+      "es": "el estudio",
+      "en": "study",
+      "topic": "noun"
+    },
+    {
+      "es": "la puerta",
+      "en": "door",
+      "topic": "noun"
+    },
+    {
+      "es": "la investigación",
+      "en": "research",
+      "topic": "noun"
+    },
+    {
+      "es": "el espacio",
+      "en": "space",
+      "topic": "noun"
+    },
+    {
+      "es": "la sociedad",
+      "en": "society",
+      "topic": "noun"
+    },
+    {
+      "es": "la acción",
+      "en": "action",
+      "topic": "noun"
+    },
+    {
+      "es": "el pueblo",
+      "en": "town",
+      "topic": "noun"
+    },
+    {
+      "es": "el director",
+      "en": "director",
+      "topic": "noun"
+    },
+    {
+      "es": "la realidad",
+      "en": "reality",
+      "topic": "noun"
+    },
+    {
+      "es": "la voz",
+      "en": "voice",
+      "topic": "noun"
+    },
+    {
+      "es": "el producto",
+      "en": "product",
+      "topic": "noun"
+    },
+    {
+      "es": "el amigo",
+      "en": "friend",
+      "topic": "noun"
+    },
+    {
+      "es": "el mercado",
+      "en": "market",
+      "topic": "noun"
+    },
+    {
+      "es": "la cabeza",
+      "en": "head",
+      "topic": "noun"
+    },
+    {
+      "es": "la población",
+      "en": "population",
+      "topic": "noun"
+    },
+    {
+      "es": "la muerte",
+      "en": "death",
+      "topic": "noun"
+    },
+    {
+      "es": "el minuto",
+      "en": "minute",
+      "topic": "noun"
+    },
+    {
+      "es": "la tierra",
+      "en": "land",
+      "topic": "noun"
+    },
+    {
+      "es": "la verdad",
+      "en": "truth",
+      "topic": "noun"
+    },
+    {
+      "es": "el sentido",
+      "en": "sense",
+      "topic": "noun"
+    },
+    {
+      "es": "el hermano",
+      "en": "brother",
+      "topic": "noun"
+    },
+    {
+      "es": "la medida",
+      "en": "measure",
+      "topic": "noun"
+    },
+    {
+      "es": "la seguridad",
+      "en": "security",
+      "topic": "noun"
+    },
+    {
+      "es": "la imagen",
+      "en": "image",
+      "topic": "noun"
+    },
+    {
+      "es": "la comunidad",
+      "en": "community",
+      "topic": "noun"
+    },
+    {
+      "es": "el poder",
+      "en": "power",
+      "topic": "noun"
+    },
+    {
+      "es": "la universidad",
+      "en": "university",
+      "topic": "noun"
+    },
+    {
+      "es": "el uso",
+      "en": "use",
+      "topic": "noun"
+    },
+    {
+      "es": "la razón",
+      "en": "reason",
+      "topic": "noun"
+    },
+    {
+      "es": "la organización",
+      "en": "organization",
+      "topic": "noun"
+    },
+    {
+      "es": "la idea",
+      "en": "idea",
+      "topic": "noun"
+    },
+    {
+      "es": "la educación",
+      "en": "education",
+      "topic": "noun"
+    },
+    {
+      "es": "el paso",
+      "en": "step",
+      "topic": "noun"
+    },
+    {
+      "es": "el área",
+      "en": "area",
+      "topic": "noun"
+    },
+    {
+      "es": "el siglo",
+      "en": "century",
+      "topic": "noun"
+    },
+    {
+      "es": "el objetivo",
+      "en": "target",
+      "topic": "noun"
+    },
+    {
+      "es": "el dato",
+      "en": "data",
+      "topic": "noun"
+    },
+    {
+      "es": "la posibilidad",
+      "en": "possibility",
+      "topic": "noun"
+    },
+    {
+      "es": "la producción",
+      "en": "production",
+      "topic": "noun"
+    },
+    {
+      "es": "el joven",
+      "en": "youth",
+      "topic": "noun"
+    },
+    {
+      "es": "la necesidad",
+      "en": "need",
+      "topic": "noun"
+    },
+    {
+      "es": "el policía",
+      "en": "police",
+      "topic": "noun"
+    },
+    {
+      "es": "la especie",
+      "en": "species",
+      "topic": "noun"
+    },
+    {
+      "es": "el camino",
+      "en": "path",
+      "topic": "noun"
+    },
+    {
+      "es": "el plan",
+      "en": "plan",
+      "topic": "noun"
+    },
+    {
+      "es": "el arte",
+      "en": "art",
+      "topic": "noun"
+    },
+    {
+      "es": "la atención",
+      "en": "attention",
+      "topic": "noun"
+    },
+    {
+      "es": "el ciento",
+      "en": "hundred",
+      "topic": "noun"
+    },
+    {
+      "es": "la política",
+      "en": "policy",
+      "topic": "noun"
+    },
+    {
+      "es": "la decisión",
+      "en": "decision",
+      "topic": "noun"
+    },
+    {
+      "es": "la cultura",
+      "en": "culture",
+      "topic": "noun"
+    },
+    {
+      "es": "la luz",
+      "en": "light",
+      "topic": "noun"
+    },
+    {
+      "es": "la mayoría",
+      "en": "majority",
+      "topic": "noun"
+    },
+    {
+      "es": "la mañana",
+      "en": "morning",
+      "topic": "noun"
+    },
+    {
+      "es": "la enfermedad",
+      "en": "disease",
+      "topic": "noun"
+    },
+    {
+      "es": "la relación",
+      "en": "relationship",
+      "topic": "noun"
+    },
+    {
+      "es": "el juego",
+      "en": "game",
+      "topic": "noun"
+    },
+    {
+      "es": "el campo",
+      "en": "field",
+      "topic": "noun"
+    },
+    {
+      "es": "la edad",
+      "en": "age",
+      "topic": "noun"
+    },
+    {
+      "es": "la experiencia",
+      "en": "experience",
+      "topic": "noun"
+    },
+    {
+      "es": "el riesgo",
+      "en": "risk",
+      "topic": "noun"
+    },
+    {
+      "es": "la fuerza",
+      "en": "force",
+      "topic": "noun"
+    },
+    {
+      "es": "la calidad",
+      "en": "quality",
+      "topic": "noun"
+    },
+    {
+      "es": "los ojos",
+      "en": "eyes",
+      "topic": "noun"
+    },
+    {
+      "es": "la región",
+      "en": "region",
+      "topic": "noun"
+    },
+    {
+      "es": "el amor",
+      "en": "love",
+      "topic": "noun"
+    },
+    {
+      "es": "las horas",
+      "en": "hours",
+      "topic": "noun"
+    },
+    {
+      "es": "el movimiento",
+      "en": "movement",
+      "topic": "noun"
+    },
+    {
+      "es": "la palabra",
+      "en": "word",
+      "topic": "noun"
+    },
+    {
+      "es": "la guerra",
+      "en": "war",
+      "topic": "noun"
+    },
+    {
+      "es": "el dinero",
+      "en": "money",
+      "topic": "noun"
+    },
+    {
+      "es": "la capacidad",
+      "en": "capacity",
+      "topic": "noun"
+    },
+    {
+      "es": "el autor",
+      "en": "author",
+      "topic": "noun"
+    },
+    {
+      "es": "el dólar",
+      "en": "dollar",
+      "topic": "noun"
+    },
+    {
+      "es": "el precio",
+      "en": "price",
+      "topic": "noun"
+    },
+    {
+      "es": "el acuerdo",
+      "en": "agreement",
+      "topic": "noun"
+    },
+    {
+      "es": "la cara",
+      "en": "face",
+      "topic": "noun"
+    },
+    {
+      "es": "el control",
+      "en": "control",
+      "topic": "noun"
+    },
+    {
+      "es": "el modelo",
+      "en": "model",
+      "topic": "noun"
+    },
+    {
+      "es": "el frente",
+      "en": "front",
+      "topic": "noun"
+    },
+    {
+      "es": "la tarde",
+      "en": "afternoon",
+      "topic": "noun"
+    },
+    {
+      "es": "la autoridad",
+      "en": "authority",
+      "topic": "noun"
+    },
+    {
+      "es": "la película",
+      "en": "film",
+      "topic": "noun"
+    },
+    {
+      "es": "la línea",
+      "en": "line",
+      "topic": "noun"
+    },
+    {
+      "es": "la red",
+      "en": "network",
+      "topic": "noun"
+    },
+    {
+      "es": "las condiciones",
+      "en": "conditions",
+      "topic": "noun"
+    },
+    {
+      "es": "la falta",
+      "en": "fault",
+      "topic": "noun"
+    },
+    {
+      "es": "el peso",
+      "en": "weight",
+      "topic": "noun"
+    },
+    {
+      "es": "el modo",
+      "en": "mode",
+      "topic": "noun"
+    },
+    {
+      "es": "la música",
+      "en": "music",
+      "topic": "noun"
+    },
+    {
+      "es": "el ministro",
+      "en": "minister",
+      "topic": "noun"
+    },
+    {
+      "es": "el fondo",
+      "en": "background",
+      "topic": "noun"
+    },
+    {
+      "es": "la base",
+      "en": "base",
+      "topic": "noun"
+    },
+    {
+      "es": "la orden",
+      "en": "order",
+      "topic": "noun"
+    },
+    {
+      "es": "la clase",
+      "en": "class",
+      "topic": "noun"
+    },
+    {
+      "es": "la presencia",
+      "en": "presence",
+      "topic": "noun"
+    },
+    {
+      "es": "la función",
+      "en": "function",
+      "topic": "noun"
+    },
+    {
+      "es": "la mesa",
+      "en": "table",
+      "topic": "noun"
+    },
+    {
+      "es": "el actor",
+      "en": "actor",
+      "topic": "noun"
+    },
+    {
+      "es": "la respuesta",
+      "en": "answer",
+      "topic": "noun"
+    },
+    {
+      "es": "la ocasión",
+      "en": "occasion",
+      "topic": "noun"
+    },
+    {
+      "es": "el principio",
+      "en": "principle",
+      "topic": "noun"
+    },
+    {
+      "es": "el paciente",
+      "en": "patient",
+      "topic": "noun"
+    },
+    {
+      "es": "el efecto",
+      "en": "effect",
+      "topic": "noun"
+    },
+    {
+      "es": "la diferencia",
+      "en": "difference",
+      "topic": "noun"
+    },
+    {
+      "es": "el señor",
+      "en": "mister",
+      "topic": "noun"
+    },
+    {
+      "es": "el papel",
+      "en": "paper",
+      "topic": "noun"
+    },
+    {
+      "es": "la serie",
+      "en": "series",
+      "topic": "noun"
+    },
+    {
+      "es": "las manos",
+      "en": "hands",
+      "topic": "noun"
+    },
+    {
+      "es": "la capital",
+      "en": "capital",
+      "topic": "noun"
+    },
+    {
+      "es": "la fuente",
+      "en": "source",
+      "topic": "noun"
+    },
+    {
+      "es": "la duda",
+      "en": "doubt",
+      "topic": "noun"
+    },
+    {
+      "es": "el aspecto",
+      "en": "aspect",
+      "topic": "noun"
+    },
+    {
+      "es": "el miembro",
+      "en": "member",
+      "topic": "noun"
+    },
+    {
+      "es": "la compañía",
+      "en": "company",
+      "topic": "noun"
+    },
+    {
+      "es": "el jefe",
+      "en": "boss",
+      "topic": "noun"
+    },
+    {
+      "es": "el jugador",
+      "en": "player",
+      "topic": "noun"
+    },
+    {
+      "es": "la vista",
+      "en": "view",
+      "topic": "noun"
+    },
+    {
+      "es": "la cantidad",
+      "en": "quantity",
+      "topic": "noun"
+    },
+    {
+      "es": "la dirección",
+      "en": "address",
+      "topic": "noun"
+    },
+    {
+      "es": "el valor",
+      "en": "value",
+      "topic": "noun"
+    },
+    {
+      "es": "el resto",
+      "en": "rest",
+      "topic": "noun"
+    },
+    {
+      "es": "el silencio",
+      "en": "silence",
+      "topic": "noun"
+    },
+    {
+      "es": "el / la ex",
+      "en": "ex",
+      "topic": "noun"
+    },
+    {
+      "es": "el aire",
+      "en": "air",
+      "topic": "noun"
+    },
+    {
+      "es": "el metro",
+      "en": "metro",
+      "topic": "noun"
+    },
+    {
+      "es": "el teatro",
+      "en": "theater",
+      "topic": "noun"
+    },
+    {
+      "es": "el apoyo",
+      "en": "support",
+      "topic": "noun"
+    },
+    {
+      "es": "la mirada",
+      "en": "look",
+      "topic": "noun"
+    },
+    {
+      "es": "la tecnología",
+      "en": "technology",
+      "topic": "noun"
+    },
+    {
+      "es": "el personaje",
+      "en": "character",
+      "topic": "noun"
+    },
+    {
+      "es": "la energía",
+      "en": "energy",
+      "topic": "noun"
+    },
+    {
+      "es": "el viaje",
+      "en": "trip",
+      "topic": "noun"
+    },
+    {
+      "es": "el futuro",
+      "en": "future",
+      "topic": "noun"
+    },
+    {
+      "es": "el acto",
+      "en": "event",
+      "topic": "noun"
+    },
+    {
+      "es": "el / la artista",
+      "en": "artist",
+      "topic": "noun"
+    },
+    {
+      "es": "la época",
+      "en": "period",
+      "topic": "noun"
+    },
+    {
+      "es": "el ministerio",
+      "en": "ministry",
+      "topic": "noun"
+    },
+    {
+      "es": "el sueño",
+      "en": "dream",
+      "topic": "noun"
+    },
+    {
+      "es": "el euro",
+      "en": "euro",
+      "topic": "noun"
+    },
+    {
+      "es": "la causa",
+      "en": "cause",
+      "topic": "noun"
+    },
+    {
+      "es": "el sitio",
+      "en": "site",
+      "topic": "noun"
+    },
+    {
+      "es": "la figura",
+      "en": "figure",
+      "topic": "noun"
+    },
+    {
+      "es": "el consejo",
+      "en": "advice",
+      "topic": "noun"
+    },
+    {
+      "es": "el cargo",
+      "en": "position",
+      "topic": "noun"
+    },
+    {
+      "es": "el profesor",
+      "en": "professor",
+      "topic": "noun"
+    },
+    {
+      "es": "la propuesta",
+      "en": "proposal",
+      "topic": "noun"
+    },
+    {
+      "es": "el cine",
+      "en": "cinema",
+      "topic": "noun"
+    },
+    {
+      "es": "la escuela",
+      "en": "school",
+      "topic": "noun"
+    },
+    {
+      "es": "el ojo",
+      "en": "eye",
+      "topic": "noun"
+    },
+    {
+      "es": "el público",
+      "en": "public",
+      "topic": "noun"
+    },
+    {
+      "es": "el objeto",
+      "en": "object",
+      "topic": "noun"
+    },
+    {
+      "es": "los recursos",
+      "en": "resources",
+      "topic": "noun"
+    },
+    {
+      "es": "el tratamiento",
+      "en": "treatment",
+      "topic": "noun"
+    },
+    {
+      "es": "el compañero",
+      "en": "colleague",
+      "topic": "noun"
+    },
+    {
+      "es": "la libertad",
+      "en": "freedom",
+      "topic": "noun"
+    },
+    {
+      "es": "la participación",
+      "en": "participation",
+      "topic": "noun"
+    },
+    {
+      "es": "el asunto",
+      "en": "subject",
+      "topic": "noun"
+    },
+    {
+      "es": "el interés",
+      "en": "interest",
+      "topic": "noun"
+    },
+    {
+      "es": "la unidad",
+      "en": "unit",
+      "topic": "noun"
+    },
+    {
+      "es": "el banco",
+      "en": "bank",
+      "topic": "noun"
+    },
+    {
+      "es": "la vuelta",
+      "en": "turn",
+      "topic": "noun"
+    },
+    {
+      "es": "la posición",
+      "en": "position",
+      "topic": "noun"
+    },
+    {
+      "es": "la carrera",
+      "en": "career",
+      "topic": "noun"
+    },
+    {
+      "es": "las palabras",
+      "en": "words",
+      "topic": "noun"
+    },
+    {
+      "es": "la planta",
+      "en": "plant",
+      "topic": "noun"
+    },
+    {
+      "es": "la práctica",
+      "en": "practice",
+      "topic": "noun"
+    },
+    {
+      "es": "el esfuerzo",
+      "en": "effort",
+      "topic": "noun"
+    },
+    {
+      "es": "la comunicación",
+      "en": "communication",
+      "topic": "noun"
+    },
+    {
+      "es": "la comisión",
+      "en": "commission",
+      "topic": "noun"
+    },
+    {
+      "es": "la economía",
+      "en": "economy",
+      "topic": "noun"
+    },
+    {
+      "es": "el ser",
+      "en": "being",
+      "topic": "noun"
+    },
+    {
+      "es": "el análisis",
+      "en": "analysis",
+      "topic": "noun"
+    },
+    {
+      "es": "el pie",
+      "en": "footer",
+      "topic": "noun"
+    },
+    {
+      "es": "las relaciones",
+      "en": "relations",
+      "topic": "noun"
+    },
+    {
+      "es": "el conocimiento",
+      "en": "knowledge",
+      "topic": "noun"
+    },
+    {
+      "es": "la crisis",
+      "en": "crisis",
+      "topic": "noun"
+    },
+    {
+      "es": "el premio",
+      "en": "award",
+      "topic": "noun"
+    },
+    {
+      "es": "el encuentro",
+      "en": "meeting",
+      "topic": "noun"
+    },
+    {
+      "es": "el conjunto",
+      "en": "set",
+      "topic": "noun"
+    },
+    {
+      "es": "la consecuencia",
+      "en": "consequence",
+      "topic": "noun"
+    },
+    {
+      "es": "el suelo",
+      "en": "soil",
+      "topic": "noun"
+    },
+    {
+      "es": "la década",
+      "en": "decade",
+      "topic": "noun"
+    },
+    {
+      "es": "el texto",
+      "en": "text",
+      "topic": "noun"
+    },
+    {
+      "es": "el miedo",
+      "en": "fear",
+      "topic": "noun"
+    },
+    {
+      "es": "el / la estudiante",
+      "en": "student",
+      "topic": "noun"
+    },
+    {
+      "es": "el título",
+      "en": "title",
+      "topic": "noun"
+    },
+    {
+      "es": "el origen",
+      "en": "source",
+      "topic": "noun"
+    },
+    {
+      "es": "el médico",
+      "en": "doctor",
+      "topic": "noun"
+    },
+    {
+      "es": "la formación",
+      "en": "training",
+      "topic": "noun"
+    },
+    {
+      "es": "la fecha",
+      "en": "date",
+      "topic": "noun"
+    },
+    {
+      "es": "la boca",
+      "en": "mouth",
+      "topic": "noun"
+    },
+    {
+      "es": "el sol",
+      "en": "sun",
+      "topic": "noun"
+    },
+    {
+      "es": "el éxito",
+      "en": "success",
+      "topic": "noun"
+    },
+    {
+      "es": "la entrada",
+      "en": "entry",
+      "topic": "noun"
+    },
+    {
+      "es": "la sala",
+      "en": "room",
+      "topic": "noun"
+    },
+    {
+      "es": "el crecimiento",
+      "en": "growth",
+      "topic": "noun"
+    },
+    {
+      "es": "la reunión",
+      "en": "meeting",
+      "topic": "noun"
+    },
+    {
+      "es": "el animal",
+      "en": "animal",
+      "topic": "noun"
+    },
+    {
+      "es": "el informe",
+      "en": "report",
+      "topic": "noun"
+    },
+    {
+      "es": "el hospital",
+      "en": "hospital",
+      "topic": "noun"
+    },
+    {
+      "es": "la importancia",
+      "en": "importance",
+      "topic": "noun"
+    },
+    {
+      "es": "el negocio",
+      "en": "business",
+      "topic": "noun"
+    },
+    {
+      "es": "el mar",
+      "en": "sea",
+      "topic": "noun"
+    },
+    {
+      "es": "el consumo",
+      "en": "consumption",
+      "topic": "noun"
+    },
+    {
+      "es": "el artículo",
+      "en": "article",
+      "topic": "noun"
+    },
+    {
+      "es": "la prensa",
+      "en": "press",
+      "topic": "noun"
+    },
+    {
+      "es": "la carta",
+      "en": "letter",
+      "topic": "noun"
+    },
+    {
+      "es": "el departamento",
+      "en": "department",
+      "topic": "noun"
+    },
+    {
+      "es": "el material",
+      "en": "material",
+      "topic": "noun"
+    },
+    {
+      "es": "la estrategia",
+      "en": "strategy",
+      "topic": "noun"
+    },
+    {
+      "es": "la construcción",
+      "en": "construction",
+      "topic": "noun"
+    },
+    {
+      "es": "la televisión",
+      "en": "television",
+      "topic": "noun"
+    },
+    {
+      "es": "el color",
+      "en": "color",
+      "topic": "noun"
+    },
+    {
+      "es": "la estructura",
+      "en": "structure",
+      "topic": "noun"
+    },
+    {
+      "es": "el general",
+      "en": "general",
+      "topic": "noun"
+    },
+    {
+      "es": "el cabo",
+      "en": "cape",
+      "topic": "noun"
+    },
+    {
+      "es": "nuevo",
+      "en": "new",
+      "topic": "adjective"
+    },
+    {
+      "es": "grande",
+      "en": "big",
+      "topic": "adjective"
+    },
+    {
+      "es": "bueno",
+      "en": "good",
+      "topic": "adjective"
+    },
+    {
+      "es": "último",
+      "en": "last",
+      "topic": "adjective"
+    },
+    {
+      "es": "mayor",
+      "en": "greater",
+      "topic": "adjective"
+    },
+    {
+      "es": "nacional",
+      "en": "national",
+      "topic": "adjective"
+    },
+    {
+      "es": "social",
+      "en": "social",
+      "topic": "adjective"
+    },
+    {
+      "es": "mejor",
+      "en": "better",
+      "topic": "adjective"
+    },
+    {
+      "es": "propio",
+      "en": "own",
+      "topic": "adjective"
+    },
+    {
+      "es": "importante",
+      "en": "important",
+      "topic": "adjective"
+    },
+    {
+      "es": "público",
+      "en": "public",
+      "topic": "adjective"
+    },
+    {
+      "es": "alto",
+      "en": "high",
+      "topic": "adjective"
+    },
+    {
+      "es": "político",
+      "en": "political",
+      "topic": "adjective"
+    },
+    {
+      "es": "pequeño",
+      "en": "small",
+      "topic": "adjective"
+    },
+    {
+      "es": "único",
+      "en": "unique",
+      "topic": "adjective"
+    },
+    {
+      "es": "largo",
+      "en": "long",
+      "topic": "adjective"
+    },
+    {
+      "es": "humano",
+      "en": "human",
+      "topic": "adjective"
+    },
+    {
+      "es": "económico",
+      "en": "economic",
+      "topic": "adjective"
+    },
+    {
+      "es": "posible",
+      "en": "possible",
+      "topic": "adjective"
+    },
+    {
+      "es": "general",
+      "en": "general",
+      "topic": "adjective"
+    },
+    {
+      "es": "internacional",
+      "en": "international",
+      "topic": "adjective"
+    },
+    {
+      "es": "diferente",
+      "en": "different",
+      "topic": "adjective"
+    },
+    {
+      "es": "solo",
+      "en": "only",
+      "topic": "adjective"
+    },
+    {
+      "es": "español",
+      "en": "Spanish",
+      "topic": "adjective"
+    },
+    {
+      "es": "principal",
+      "en": "main",
+      "topic": "adjective"
+    },
+    {
+      "es": "necesario",
+      "en": "required",
+      "topic": "adjective"
+    },
+    {
+      "es": "próximo",
+      "en": "next",
+      "topic": "adjective"
+    },
+    {
+      "es": "distinto",
+      "en": "different",
+      "topic": "adjective"
+    },
+    {
+      "es": "claro",
+      "en": "light",
+      "topic": "adjective"
+    },
+    {
+      "es": "siguiente",
+      "en": "following",
+      "topic": "adjective"
+    },
+    {
+      "es": "malo",
+      "en": "bad",
+      "topic": "adjective"
+    },
+    {
+      "es": "anterior",
+      "en": "previous",
+      "topic": "adjective"
+    },
+    {
+      "es": "especial",
+      "en": "special",
+      "topic": "adjective"
+    },
+    {
+      "es": "natural",
+      "en": "natural",
+      "topic": "adjective"
+    },
+    {
+      "es": "cultural",
+      "en": "cultural",
+      "topic": "adjective"
+    },
+    {
+      "es": "bajo",
+      "en": "low",
+      "topic": "adjective"
+    },
+    {
+      "es": "actual",
+      "en": "current",
+      "topic": "adjective"
+    },
+    {
+      "es": "blanco",
+      "en": "white",
+      "topic": "adjective"
+    },
+    {
+      "es": "fuerte",
+      "en": "strong",
+      "topic": "adjective"
+    },
+    {
+      "es": "difícil",
+      "en": "difficult",
+      "topic": "adjective"
+    },
+    {
+      "es": "mundial",
+      "en": "world-wide",
+      "topic": "adjective"
+    },
+    {
+      "es": "menor",
+      "en": "lesser",
+      "topic": "adjective"
+    },
+    {
+      "es": "viejo",
+      "en": "old",
+      "topic": "adjective"
+    },
+    {
+      "es": "real",
+      "en": "real",
+      "topic": "adjective"
+    },
+    {
+      "es": "local",
+      "en": "local",
+      "topic": "adjective"
+    },
+    {
+      "es": "negro",
+      "en": "black",
+      "topic": "adjective"
+    },
+    {
+      "es": "europeo",
+      "en": "European",
+      "topic": "adjective"
+    },
+    {
+      "es": "diverso",
+      "en": "various",
+      "topic": "adjective"
+    },
+    {
+      "es": "libre",
+      "en": "free",
+      "topic": "adjective"
+    },
+    {
+      "es": "seguro",
+      "en": "safe",
+      "topic": "adjective"
+    },
+    {
+      "es": "común",
+      "en": "common",
+      "topic": "adjective"
+    },
+    {
+      "es": "privado",
+      "en": "private",
+      "topic": "adjective"
+    },
+    {
+      "es": "central",
+      "en": "central",
+      "topic": "adjective"
+    },
+    {
+      "es": "popular",
+      "en": "popular",
+      "topic": "adjective"
+    },
+    {
+      "es": "dicho",
+      "en": "such",
+      "topic": "adjective"
+    },
+    {
+      "es": "físico",
+      "en": "physical",
+      "topic": "adjective"
+    },
+    {
+      "es": "superior",
+      "en": "top",
+      "topic": "adjective"
+    },
+    {
+      "es": "joven",
+      "en": "young",
+      "topic": "adjective"
+    },
+    {
+      "es": "personal",
+      "en": "personal",
+      "topic": "adjective"
+    },
+    {
+      "es": "capaz",
+      "en": "capable",
+      "topic": "adjective"
+    },
+    {
+      "es": "antiguo",
+      "en": "old",
+      "topic": "adjective"
+    },
+    {
+      "es": "histórico",
+      "en": "historical",
+      "topic": "adjective"
+    },
+    {
+      "es": "cierto",
+      "en": "certain",
+      "topic": "adjective"
+    },
+    {
+      "es": "técnico",
+      "en": "technical",
+      "topic": "adjective"
+    },
+    {
+      "es": "presente",
+      "en": "present",
+      "topic": "adjective"
+    },
+    {
+      "es": "oficial",
+      "en": "official",
+      "topic": "adjective"
+    },
+    {
+      "es": "mexicano",
+      "en": "Mexican",
+      "topic": "adjective"
+    },
+    {
+      "es": "fácil",
+      "en": "easy",
+      "topic": "adjective"
+    },
+    {
+      "es": "militar",
+      "en": "military",
+      "topic": "adjective"
+    },
+    {
+      "es": "contrario",
+      "en": "contrary",
+      "topic": "adjective"
+    },
+    {
+      "es": "civil",
+      "en": "civil",
+      "topic": "adjective"
+    },
+    {
+      "es": "verdadero",
+      "en": "true",
+      "topic": "adjective"
+    },
+    {
+      "es": "lleno",
+      "en": "full",
+      "topic": "adjective"
+    },
+    {
+      "es": "suficiente",
+      "en": "enough",
+      "topic": "adjective"
+    },
+    {
+      "es": "rápido",
+      "en": "fast",
+      "topic": "adjective"
+    },
+    {
+      "es": "científico",
+      "en": "scientific",
+      "topic": "adjective"
+    },
+    {
+      "es": "directo",
+      "en": "direct",
+      "topic": "adjective"
+    },
+    {
+      "es": "completo",
+      "en": "complete",
+      "topic": "adjective"
+    },
+    {
+      "es": "interno",
+      "en": "internal",
+      "topic": "adjective"
+    },
+    {
+      "es": "fundamental",
+      "en": "fundamental",
+      "topic": "adjective"
+    },
+    {
+      "es": "comercial",
+      "en": "commercial",
+      "topic": "adjective"
+    },
+    {
+      "es": "familiar",
+      "en": "familiar",
+      "topic": "adjective"
+    },
+    {
+      "es": "amplio",
+      "en": "extensive",
+      "topic": "adjective"
+    },
+    {
+      "es": "educativo",
+      "en": "educational",
+      "topic": "adjective"
+    },
+    {
+      "es": "vivo",
+      "en": "live, alive",
+      "topic": "adjective"
+    },
+    {
+      "es": "similar",
+      "en": "similar",
+      "topic": "adjective"
+    },
+    {
+      "es": "rojo",
+      "en": "red",
+      "topic": "adjective"
+    },
+    {
+      "es": "financiero",
+      "en": "financial",
+      "topic": "adjective"
+    },
+    {
+      "es": "medio",
+      "en": "medium",
+      "topic": "adjective"
+    },
+    {
+      "es": "enorme",
+      "en": "huge",
+      "topic": "adjective"
+    },
+    {
+      "es": "total",
+      "en": "total",
+      "topic": "adjective"
+    },
+    {
+      "es": "profesional",
+      "en": "professional",
+      "topic": "adjective"
+    },
+    {
+      "es": "adecuado",
+      "en": "suitable",
+      "topic": "adjective"
+    },
+    {
+      "es": "médico",
+      "en": "doctor",
+      "topic": "adjective"
+    },
+    {
+      "es": "grave",
+      "en": "serious",
+      "topic": "adjective"
+    },
+    {
+      "es": "tradicional",
+      "en": "traditional",
+      "topic": "adjective"
+    },
+    {
+      "es": "electoral",
+      "en": "electoral",
+      "topic": "adjective"
+    },
+    {
+      "es": "básico",
+      "en": "basic",
+      "topic": "adjective"
+    },
+    {
+      "es": "igual",
+      "en": "same",
+      "topic": "adjective"
+    },
+    {
+      "es": "duro",
+      "en": "hard",
+      "topic": "adjective"
+    },
+    {
+      "es": "profundo",
+      "en": "deep",
+      "topic": "adjective"
+    },
+    {
+      "es": "final",
+      "en": "last",
+      "topic": "adjective"
+    },
+    {
+      "es": "municipal",
+      "en": "municipal",
+      "topic": "adjective"
+    },
+    {
+      "es": "inmediato",
+      "en": "immediate",
+      "topic": "adjective"
+    },
+    {
+      "es": "junto",
+      "en": "together",
+      "topic": "adjective"
+    },
+    {
+      "es": "argentino",
+      "en": "Argentinean",
+      "topic": "adjective"
+    },
+    {
+      "es": "peor",
+      "en": "worse",
+      "topic": "adjective"
+    },
+    {
+      "es": "francés",
+      "en": "French",
+      "topic": "adjective"
+    },
+    {
+      "es": "corto",
+      "en": "short",
+      "topic": "adjective"
+    },
+    {
+      "es": "oscuro",
+      "en": "dark",
+      "topic": "adjective"
+    },
+    {
+      "es": "estadounidense",
+      "en": "American",
+      "topic": "adjective"
+    },
+    {
+      "es": "cercano",
+      "en": "near",
+      "topic": "adjective"
+    },
+    {
+      "es": "regional",
+      "en": "regional",
+      "topic": "adjective"
+    },
+    {
+      "es": "feliz",
+      "en": "happy",
+      "topic": "adjective"
+    },
+    {
+      "es": "positivo",
+      "en": "positive",
+      "topic": "adjective"
+    },
+    {
+      "es": "máximo",
+      "en": "maximum",
+      "topic": "adjective"
+    },
+    {
+      "es": "serio",
+      "en": "serious",
+      "topic": "adjective"
+    },
+    {
+      "es": "laboral",
+      "en": "labor",
+      "topic": "adjective"
+    },
+    {
+      "es": "imposible",
+      "en": "impossible",
+      "topic": "adjective"
+    },
+    {
+      "es": "simple",
+      "en": "simple",
+      "topic": "adjective"
+    },
+    {
+      "es": "pobre",
+      "en": "poor",
+      "topic": "adjective"
+    },
+    {
+      "es": "reciente",
+      "en": "recent",
+      "topic": "adjective"
+    },
+    {
+      "es": "extraño",
+      "en": "strange",
+      "topic": "adjective"
+    },
+    {
+      "es": "ambiental",
+      "en": "environmental",
+      "topic": "adjective"
+    },
+    {
+      "es": "específico",
+      "en": "specific",
+      "topic": "adjective"
+    },
+    {
+      "es": "normal",
+      "en": "normal",
+      "topic": "adjective"
+    },
+    {
+      "es": "determinado",
+      "en": "determined",
+      "topic": "adjective"
+    },
+    {
+      "es": "moderno",
+      "en": "modern",
+      "topic": "adjective"
+    },
+    {
+      "es": "urbano",
+      "en": "urban",
+      "topic": "adjective"
+    },
+    {
+      "es": "mínimo",
+      "en": "minimum",
+      "topic": "adjective"
+    },
+    {
+      "es": "musical",
+      "en": "musical",
+      "topic": "adjective"
+    },
+    {
+      "es": "deportivo",
+      "en": "sporty",
+      "topic": "adjective"
+    },
+    {
+      "es": "federal",
+      "en": "federal",
+      "topic": "adjective"
+    },
+    {
+      "es": "frío",
+      "en": "cold",
+      "topic": "adjective"
+    },
+    {
+      "es": "legal",
+      "en": "legal",
+      "topic": "adjective"
+    },
+    {
+      "es": "verde",
+      "en": "green",
+      "topic": "adjective"
+    },
+    {
+      "es": "interesante",
+      "en": "interesting",
+      "topic": "adjective"
+    },
+    {
+      "es": "artístico",
+      "en": "artistic",
+      "topic": "adjective"
+    },
+    {
+      "es": "judicial",
+      "en": "judicial",
+      "topic": "adjective"
+    },
+    {
+      "es": "particular",
+      "en": "particular",
+      "topic": "adjective"
+    },
+    {
+      "es": "colombiano",
+      "en": "Colombian",
+      "topic": "adjective"
+    },
+    {
+      "es": "previo",
+      "en": "previous",
+      "topic": "adjective"
+    },
+    {
+      "es": "cubano",
+      "en": "Cuban",
+      "topic": "adjective"
+    },
+    {
+      "es": "pleno",
+      "en": "full",
+      "topic": "adjective"
+    },
+    {
+      "es": "eléctrico",
+      "en": "electric",
+      "topic": "adjective"
+    },
+    {
+      "es": "tecnológico",
+      "en": "technology",
+      "topic": "adjective"
+    },
+    {
+      "es": "abierto",
+      "en": "open",
+      "topic": "adjective"
+    },
+    {
+      "es": "global",
+      "en": "global",
+      "topic": "adjective"
+    },
+    {
+      "es": "infantil",
+      "en": "childish",
+      "topic": "adjective"
+    },
+    {
+      "es": "absoluto",
+      "en": "absolute",
+      "topic": "adjective"
+    },
+    {
+      "es": "definitivo",
+      "en": "definitive",
+      "topic": "adjective"
+    },
+    {
+      "es": "complejo",
+      "en": "complex",
+      "topic": "adjective"
+    },
+    {
+      "es": "estatal",
+      "en": "statewide",
+      "topic": "adjective"
+    },
+    {
+      "es": "rico",
+      "en": "rich",
+      "topic": "adjective"
+    },
+    {
+      "es": "raro",
+      "en": "rare",
+      "topic": "adjective"
+    },
+    {
+      "es": "significativo",
+      "en": "significant",
+      "topic": "adjective"
+    },
+    {
+      "es": "sencillo",
+      "en": "simple",
+      "topic": "adjective"
+    },
+    {
+      "es": "perfecto",
+      "en": "perfect",
+      "topic": "adjective"
+    },
+    {
+      "es": "permanente",
+      "en": "permanent",
+      "topic": "adjective"
+    },
+    {
+      "es": "religioso",
+      "en": "religious",
+      "topic": "adjective"
+    },
+    {
+      "es": "activo",
+      "en": "active",
+      "topic": "adjective"
+    },
+    {
+      "es": "famoso",
+      "en": "famous",
+      "topic": "adjective"
+    },
+    {
+      "es": "numeroso",
+      "en": "numerous",
+      "topic": "adjective"
+    },
+    {
+      "es": "rural",
+      "en": "rural",
+      "topic": "adjective"
+    },
+    {
+      "es": "tranquilo",
+      "en": "quiet",
+      "topic": "adjective"
+    },
+    {
+      "es": "extranjero",
+      "en": "foreign",
+      "topic": "adjective"
+    },
+    {
+      "es": "democrático",
+      "en": "democratic",
+      "topic": "adjective"
+    },
+    {
+      "es": "azul",
+      "en": "blue",
+      "topic": "adjective"
+    },
+    {
+      "es": "femenino",
+      "en": "female",
+      "topic": "adjective"
+    },
+    {
+      "es": "escaso",
+      "en": "scarce",
+      "topic": "adjective"
+    },
+    {
+      "es": "intenso",
+      "en": "intense",
+      "topic": "adjective"
+    },
+    {
+      "es": "puro",
+      "en": "pure",
+      "topic": "adjective"
+    },
+    {
+      "es": "unido",
+      "en": "joined",
+      "topic": "adjective"
+    },
+    {
+      "es": "universitario",
+      "en": "academic",
+      "topic": "adjective"
+    },
+    {
+      "es": "original",
+      "en": "original",
+      "topic": "adjective"
+    },
+    {
+      "es": "exterior",
+      "en": "outside",
+      "topic": "adjective"
+    },
+    {
+      "es": "seco",
+      "en": "dry",
+      "topic": "adjective"
+    },
+    {
+      "es": "digital",
+      "en": "digital",
+      "topic": "adjective"
+    },
+    {
+      "es": "alemán",
+      "en": "German",
+      "topic": "adjective"
+    },
+    {
+      "es": "literario",
+      "en": "literary",
+      "topic": "adjective"
+    },
+    {
+      "es": "independiente",
+      "en": "independent",
+      "topic": "adjective"
+    },
+    {
+      "es": "armado",
+      "en": "armed",
+      "topic": "adjective"
+    },
+    {
+      "es": "sanitario",
+      "en": "sanitary",
+      "topic": "adjective"
+    },
+    {
+      "es": "electrónico",
+      "en": "electronic",
+      "topic": "adjective"
+    },
+    {
+      "es": "indígena",
+      "en": "indigenous",
+      "topic": "adjective"
+    },
+    {
+      "es": "concreto",
+      "en": "concrete",
+      "topic": "adjective"
+    },
+    {
+      "es": "fiscal",
+      "en": "fiscal",
+      "topic": "adjective"
+    },
+    {
+      "es": "clásico",
+      "en": "classic",
+      "topic": "adjective"
+    },
+    {
+      "es": "evidente",
+      "en": "clear",
+      "topic": "adjective"
+    },
+    {
+      "es": "individual",
+      "en": "individual",
+      "topic": "adjective"
+    },
+    {
+      "es": "colectivo",
+      "en": "collective",
+      "topic": "adjective"
+    },
+    {
+      "es": "negativo",
+      "en": "negative",
+      "topic": "adjective"
+    },
+    {
+      "es": "productivo",
+      "en": "productive",
+      "topic": "adjective"
+    },
+    {
+      "es": "doble",
+      "en": "double",
+      "topic": "adjective"
+    },
+    {
+      "es": "anual",
+      "en": "annual",
+      "topic": "adjective"
+    },
+    {
+      "es": "efectivo",
+      "en": "effective",
+      "topic": "adjective"
+    },
+    {
+      "es": "habitual",
+      "en": "usual",
+      "topic": "adjective"
+    },
+    {
+      "es": "inicial",
+      "en": "initial",
+      "topic": "adjective"
+    },
+    {
+      "es": "débil",
+      "en": "weak",
+      "topic": "adjective"
+    },
+    {
+      "es": "ser",
+      "en": "be",
+      "topic": "verb"
+    },
+    {
+      "es": "estar",
+      "en": "be",
+      "topic": "verb"
+    },
+    {
+      "es": "tener",
+      "en": "have",
+      "topic": "verb"
+    },
+    {
+      "es": "hacer",
+      "en": "make",
+      "topic": "verb"
+    },
+    {
+      "es": "poder",
+      "en": "be able to, can",
+      "topic": "verb"
+    },
+    {
+      "es": "decir",
+      "en": "say",
+      "topic": "verb"
+    },
+    {
+      "es": "haber",
+      "en": "have",
+      "topic": "verb"
+    },
+    {
+      "es": "ir",
+      "en": "go",
+      "topic": "verb"
+    },
+    {
+      "es": "dar",
+      "en": "give",
+      "topic": "verb"
+    },
+    {
+      "es": "ver",
+      "en": "see",
+      "topic": "verb"
+    },
+    {
+      "es": "saber",
+      "en": "know",
+      "topic": "verb"
+    },
+    {
+      "es": "pasar",
+      "en": "pass by",
+      "topic": "verb"
+    },
+    {
+      "es": "deber",
+      "en": "must",
+      "topic": "verb"
+    },
+    {
+      "es": "querer",
+      "en": "want",
+      "topic": "verb"
+    },
+    {
+      "es": "llegar",
+      "en": "arrive",
+      "topic": "verb"
+    },
+    {
+      "es": "dejar",
+      "en": "leave",
+      "topic": "verb"
+    },
+    {
+      "es": "llevar",
+      "en": "take",
+      "topic": "verb"
+    },
+    {
+      "es": "encontrar",
+      "en": "find",
+      "topic": "verb"
+    },
+    {
+      "es": "seguir",
+      "en": "follow",
+      "topic": "verb"
+    },
+    {
+      "es": "poner",
+      "en": "put",
+      "topic": "verb"
+    },
+    {
+      "es": "quedar",
+      "en": "stay",
+      "topic": "verb"
+    },
+    {
+      "es": "parecer",
+      "en": "seem",
+      "topic": "verb"
+    },
+    {
+      "es": "hablar",
+      "en": "speak",
+      "topic": "verb"
+    },
+    {
+      "es": "pensar",
+      "en": "think",
+      "topic": "verb"
+    },
+    {
+      "es": "volver",
+      "en": "back to",
+      "topic": "verb"
+    },
+    {
+      "es": "conocer",
+      "en": "know",
+      "topic": "verb"
+    },
+    {
+      "es": "salir",
+      "en": "exit",
+      "topic": "verb"
+    },
+    {
+      "es": "realizar",
+      "en": "make",
+      "topic": "verb"
+    },
+    {
+      "es": "tomar",
+      "en": "take",
+      "topic": "verb"
+    },
+    {
+      "es": "tratar",
+      "en": "try",
+      "topic": "verb"
+    },
+    {
+      "es": "contar",
+      "en": "count",
+      "topic": "verb"
+    },
+    {
+      "es": "llamar",
+      "en": "call",
+      "topic": "verb"
+    },
+    {
+      "es": "venir",
+      "en": "come",
+      "topic": "verb"
+    },
+    {
+      "es": "mirar",
+      "en": "see",
+      "topic": "verb"
+    },
+    {
+      "es": "presentar",
+      "en": "present",
+      "topic": "verb"
+    },
+    {
+      "es": "permitir",
+      "en": "allow",
+      "topic": "verb"
+    },
+    {
+      "es": "esperar",
+      "en": "wait",
+      "topic": "verb"
+    },
+    {
+      "es": "sentir",
+      "en": "feel",
+      "topic": "verb"
+    },
+    {
+      "es": "vivir",
+      "en": "live",
+      "topic": "verb"
+    },
+    {
+      "es": "buscar",
+      "en": "search",
+      "topic": "verb"
+    },
+    {
+      "es": "creer",
+      "en": "believe",
+      "topic": "verb"
+    },
+    {
+      "es": "crear",
+      "en": "create",
+      "topic": "verb"
+    },
+    {
+      "es": "perder",
+      "en": "lose",
+      "topic": "verb"
+    },
+    {
+      "es": "existir",
+      "en": "exist",
+      "topic": "verb"
+    },
+    {
+      "es": "considerar",
+      "en": "consider",
+      "topic": "verb"
+    },
+    {
+      "es": "abrir",
+      "en": "open",
+      "topic": "verb"
+    },
+    {
+      "es": "trabajar",
+      "en": "work",
+      "topic": "verb"
+    },
+    {
+      "es": "recibir",
+      "en": "receive",
+      "topic": "verb"
+    },
+    {
+      "es": "mantener",
+      "en": "maintain",
+      "topic": "verb"
+    },
+    {
+      "es": "explicar",
+      "en": "explain",
+      "topic": "verb"
+    },
+    {
+      "es": "lograr",
+      "en": "achieve",
+      "topic": "verb"
+    },
+    {
+      "es": "empezar",
+      "en": "start",
+      "topic": "verb"
+    },
+    {
+      "es": "recordar",
+      "en": "remember",
+      "topic": "verb"
+    },
+    {
+      "es": "comenzar",
+      "en": "start",
+      "topic": "verb"
+    },
+    {
+      "es": "pedir",
+      "en": "ask for",
+      "topic": "verb"
+    },
+    {
+      "es": "preguntar",
+      "en": "ask",
+      "topic": "verb"
+    },
+    {
+      "es": "producir",
+      "en": "produce",
+      "topic": "verb"
+    },
+    {
+      "es": "convertir",
+      "en": "convert",
+      "topic": "verb"
+    },
+    {
+      "es": "entrar",
+      "en": "enter",
+      "topic": "verb"
+    },
+    {
+      "es": "mostrar",
+      "en": "show",
+      "topic": "verb"
+    },
+    {
+      "es": "señalar",
+      "en": "point out",
+      "topic": "verb"
+    },
+    {
+      "es": "escribir",
+      "en": "write",
+      "topic": "verb"
+    },
+    {
+      "es": "utilizar",
+      "en": "use",
+      "topic": "verb"
+    },
+    {
+      "es": "entender",
+      "en": "understand",
+      "topic": "verb"
+    },
+    {
+      "es": "terminar",
+      "en": "finish",
+      "topic": "verb"
+    },
+    {
+      "es": "ganar",
+      "en": "win",
+      "topic": "verb"
+    },
+    {
+      "es": "incluir",
+      "en": "include",
+      "topic": "verb"
+    },
+    {
+      "es": "morir",
+      "en": "die",
+      "topic": "verb"
+    },
+    {
+      "es": "asegurar",
+      "en": "secure",
+      "topic": "verb"
+    },
+    {
+      "es": "ocurrir",
+      "en": "occur",
+      "topic": "verb"
+    },
+    {
+      "es": "ofrecer",
+      "en": "offer",
+      "topic": "verb"
+    },
+    {
+      "es": "jugar",
+      "en": "play",
+      "topic": "verb"
+    },
+    {
+      "es": "gustar",
+      "en": "like",
+      "topic": "verb"
+    },
+    {
+      "es": "escuchar",
+      "en": "listen to",
+      "topic": "verb"
+    },
+    {
+      "es": "sentar",
+      "en": "sit",
+      "topic": "verb"
+    },
+    {
+      "es": "cambiar",
+      "en": "change",
+      "topic": "verb"
+    },
+    {
+      "es": "aparecer",
+      "en": "appear",
+      "topic": "verb"
+    },
+    {
+      "es": "acabar",
+      "en": "end",
+      "topic": "verb"
+    },
+    {
+      "es": "decidir",
+      "en": "decide",
+      "topic": "verb"
+    },
+    {
+      "es": "resultar",
+      "en": "result",
+      "topic": "verb"
+    },
+    {
+      "es": "caer",
+      "en": "fall",
+      "topic": "verb"
+    },
+    {
+      "es": "desarrollar",
+      "en": "develop",
+      "topic": "verb"
+    },
+    {
+      "es": "necesitar",
+      "en": "need",
+      "topic": "verb"
+    },
+    {
+      "es": "sacar",
+      "en": "take out",
+      "topic": "verb"
+    },
+    {
+      "es": "establecer",
+      "en": "establish",
+      "topic": "verb"
+    },
+    {
+      "es": "conseguir",
+      "en": "get",
+      "topic": "verb"
+    },
+    {
+      "es": "indicar",
+      "en": "indicate",
+      "topic": "verb"
+    },
+    {
+      "es": "formar",
+      "en": "form",
+      "topic": "verb"
+    },
+    {
+      "es": "reconocer",
+      "en": "recognize",
+      "topic": "verb"
+    },
+    {
+      "es": "dirigir",
+      "en": "address",
+      "topic": "verb"
+    },
+    {
+      "es": "servir",
+      "en": "serve",
+      "topic": "verb"
+    },
+    {
+      "es": "alcanzar",
+      "en": "reach",
+      "topic": "verb"
+    },
+    {
+      "es": "intentar",
+      "en": "try",
+      "topic": "verb"
+    },
+    {
+      "es": "cumplir",
+      "en": "meet",
+      "topic": "verb"
+    },
+    {
+      "es": "leer",
+      "en": "read",
+      "topic": "verb"
+    },
+    {
+      "es": "obtener",
+      "en": "get",
+      "topic": "verb"
+    },
+    {
+      "es": "ayudar",
+      "en": "help",
+      "topic": "verb"
+    },
+    {
+      "es": "usar",
+      "en": "use",
+      "topic": "verb"
+    },
+    {
+      "es": "observar",
+      "en": "see",
+      "topic": "verb"
+    },
+    {
+      "es": "responder",
+      "en": "answer",
+      "topic": "verb"
+    },
+    {
+      "es": "afirmar",
+      "en": "claim",
+      "topic": "verb"
+    },
+    {
+      "es": "evitar",
+      "en": "avoid",
+      "topic": "verb"
+    },
+    {
+      "es": "suponer",
+      "en": "assume",
+      "topic": "verb"
+    },
+    {
+      "es": "afectar",
+      "en": "affect",
+      "topic": "verb"
+    },
+    {
+      "es": "generar",
+      "en": "generate",
+      "topic": "verb"
+    },
+    {
+      "es": "continuar",
+      "en": "continue",
+      "topic": "verb"
+    },
+    {
+      "es": "cerrar",
+      "en": "close",
+      "topic": "verb"
+    },
+    {
+      "es": "pagar",
+      "en": "pay",
+      "topic": "verb"
+    },
+    {
+      "es": "acercar",
+      "en": "bring over",
+      "topic": "verb"
+    },
+    {
+      "es": "levantar",
+      "en": "raise",
+      "topic": "verb"
+    },
+    {
+      "es": "participar",
+      "en": "participate",
+      "topic": "verb"
+    },
+    {
+      "es": "representar",
+      "en": "represent",
+      "topic": "verb"
+    },
+    {
+      "es": "tocar",
+      "en": "touch",
+      "topic": "verb"
+    },
+    {
+      "es": "informar",
+      "en": "inform",
+      "topic": "verb"
+    },
+    {
+      "es": "destacar",
+      "en": "highlight",
+      "topic": "verb"
+    },
+    {
+      "es": "iniciar",
+      "en": "start",
+      "topic": "verb"
+    },
+    {
+      "es": "dedicar",
+      "en": "dedicate",
+      "topic": "verb"
+    },
+    {
+      "es": "oír",
+      "en": "hear",
+      "topic": "verb"
+    },
+    {
+      "es": "acompañar",
+      "en": "accompany",
+      "topic": "verb"
+    },
+    {
+      "es": "referir",
+      "en": "refer to",
+      "topic": "verb"
+    },
+    {
+      "es": "sufrir",
+      "en": "suffer",
+      "topic": "verb"
+    },
+    {
+      "es": "nacer",
+      "en": "birth",
+      "topic": "verb"
+    },
+    {
+      "es": "comer",
+      "en": "eat",
+      "topic": "verb"
+    },
+    {
+      "es": "bajar",
+      "en": "download",
+      "topic": "verb"
+    },
+    {
+      "es": "suceder",
+      "en": "succeed",
+      "topic": "verb"
+    },
+    {
+      "es": "dormir",
+      "en": "sleep",
+      "topic": "verb"
+    },
+    {
+      "es": "preparar",
+      "en": "prepare",
+      "topic": "verb"
+    },
+    {
+      "es": "agregar",
+      "en": "add",
+      "topic": "verb"
+    },
+    {
+      "es": "correr",
+      "en": "run",
+      "topic": "verb"
+    },
+    {
+      "es": "subir",
+      "en": "go up",
+      "topic": "verb"
+    },
+    {
+      "es": "publicar",
+      "en": "publish",
+      "topic": "verb"
+    },
+    {
+      "es": "traer",
+      "en": "bring",
+      "topic": "verb"
+    },
+    {
+      "es": "anunciar",
+      "en": "announce",
+      "topic": "verb"
+    },
+    {
+      "es": "descubrir",
+      "en": "discover",
+      "topic": "verb"
+    },
+    {
+      "es": "construir",
+      "en": "build",
+      "topic": "verb"
+    },
+    {
+      "es": "detener",
+      "en": "stop",
+      "topic": "verb"
+    },
+    {
+      "es": "aceptar",
+      "en": "accept",
+      "topic": "verb"
+    },
+    {
+      "es": "meter",
+      "en": "tuck in",
+      "topic": "verb"
+    },
+    {
+      "es": "ocupar",
+      "en": "occupy",
+      "topic": "verb"
+    },
+    {
+      "es": "demostrar",
+      "en": "show",
+      "topic": "verb"
+    },
+    {
+      "es": "proponer",
+      "en": "propose",
+      "topic": "verb"
+    },
+    {
+      "es": "estudiar",
+      "en": "study",
+      "topic": "verb"
+    },
+    {
+      "es": "comprar",
+      "en": "buy",
+      "topic": "verb"
+    },
+    {
+      "es": "expresar",
+      "en": "express",
+      "topic": "verb"
+    },
+    {
+      "es": "olvidar",
+      "en": "forget",
+      "topic": "verb"
+    },
+    {
+      "es": "aumentar",
+      "en": "increase",
+      "topic": "verb"
+    },
+    {
+      "es": "definir",
+      "en": "define",
+      "topic": "verb"
+    },
+    {
+      "es": "regresar",
+      "en": "return",
+      "topic": "verb"
+    },
+    {
+      "es": "añadir",
+      "en": "add",
+      "topic": "verb"
+    },
+    {
+      "es": "mover",
+      "en": "move",
+      "topic": "verb"
+    },
+    {
+      "es": "entregar",
+      "en": "deliver",
+      "topic": "verb"
+    },
+    {
+      "es": "sostener",
+      "en": "hold",
+      "topic": "verb"
+    },
+    {
+      "es": "reducir",
+      "en": "reduce",
+      "topic": "verb"
+    },
+    {
+      "es": "aprender",
+      "en": "learn",
+      "topic": "verb"
+    },
+    {
+      "es": "provocar",
+      "en": "provoke",
+      "topic": "verb"
+    },
+    {
+      "es": "mejorar",
+      "en": "improve",
+      "topic": "verb"
+    },
+    {
+      "es": "unir",
+      "en": "join",
+      "topic": "verb"
+    },
+    {
+      "es": "constituir",
+      "en": "constitute",
+      "topic": "verb"
+    },
+    {
+      "es": "compartir",
+      "en": "share",
+      "topic": "verb"
+    },
+    {
+      "es": "enfrentar",
+      "en": "confront",
+      "topic": "verb"
+    },
+    {
+      "es": "imaginar",
+      "en": "imagine",
+      "topic": "verb"
+    },
+    {
+      "es": "crecer",
+      "en": "grow",
+      "topic": "verb"
+    },
+    {
+      "es": "comprender",
+      "en": "understand",
+      "topic": "verb"
+    },
+    {
+      "es": "apoyar",
+      "en": "support",
+      "topic": "verb"
+    },
+    {
+      "es": "comentar",
+      "en": "comment",
+      "topic": "verb"
+    },
+    {
+      "es": "vender",
+      "en": "sell",
+      "topic": "verb"
+    },
+    {
+      "es": "faltar",
+      "en": "skip",
+      "topic": "verb"
+    },
+    {
+      "es": "aplicar",
+      "en": "apply",
+      "topic": "verb"
+    },
+    {
+      "es": "colocar",
+      "en": "place",
+      "topic": "verb"
+    },
+    {
+      "es": "cubrir",
+      "en": "cover",
+      "topic": "verb"
+    },
+    {
+      "es": "repetir",
+      "en": "repeat",
+      "topic": "verb"
+    },
+    {
+      "es": "disponer",
+      "en": "arrange",
+      "topic": "verb"
+    },
+    {
+      "es": "obligar",
+      "en": "force",
+      "topic": "verb"
+    },
+    {
+      "es": "celebrar",
+      "en": "celebrate",
+      "topic": "verb"
+    },
+    {
+      "es": "echar",
+      "en": "cast out of",
+      "topic": "verb"
+    },
+    {
+      "es": "relacionar",
+      "en": "link",
+      "topic": "verb"
+    },
+    {
+      "es": "marcar",
+      "en": "mark",
+      "topic": "verb"
+    },
+    {
+      "es": "desear",
+      "en": "wish",
+      "topic": "verb"
+    },
+    {
+      "es": "significar",
+      "en": "mean",
+      "topic": "verb"
+    },
+    {
+      "es": "caminar",
+      "en": "walk",
+      "topic": "verb"
+    },
+    {
+      "es": "superar",
+      "en": "go beyond",
+      "topic": "verb"
+    },
+    {
+      "es": "organizar",
+      "en": "organize",
+      "topic": "verb"
+    },
+    {
+      "es": "registrar",
+      "en": "register",
+      "topic": "verb"
+    },
+    {
+      "es": "andar",
+      "en": "walk",
+      "topic": "verb"
+    },
+    {
+      "es": "identificar",
+      "en": "identify",
+      "topic": "verb"
+    },
+    {
+      "es": "elegir",
+      "en": "choose",
+      "topic": "verb"
+    },
+    {
+      "es": "abandonar",
+      "en": "leave",
+      "topic": "verb"
+    },
+    {
+      "es": "soler",
+      "en": "be used to",
+      "topic": "verb"
+    },
+    {
+      "es": "plantear",
+      "en": "raise",
+      "topic": "verb"
+    },
+    {
+      "es": "ubicar",
+      "en": "locate",
+      "topic": "verb"
+    },
+    {
+      "es": "requerir",
+      "en": "request",
+      "topic": "verb"
+    },
+    {
+      "es": "partir",
+      "en": "start",
+      "topic": "verb"
+    },
+    {
+      "es": "reunir",
+      "en": "gather",
+      "topic": "verb"
+    },
+    {
+      "es": "actuar",
+      "en": "act",
+      "topic": "verb"
+    },
+    {
+      "es": "lanzar",
+      "en": "launch",
+      "topic": "verb"
+    },
+    {
+      "es": "importar",
+      "en": "import",
+      "topic": "verb"
+    },
+    {
+      "es": "analizar",
+      "en": "analyze",
+      "topic": "verb"
+    },
+    {
+      "es": "mencionar",
+      "en": "mention",
+      "topic": "verb"
+    },
+    {
+      "es": "sumar",
+      "en": "add",
+      "topic": "verb"
+    },
+    {
+      "es": "pretender",
+      "en": "pretend",
+      "topic": "verb"
+    },
+    {
+      "es": "enviar",
+      "en": "send",
+      "topic": "verb"
+    },
+    {
+      "es": "declarar",
+      "en": "declare",
+      "topic": "verb"
+    },
+    {
+      "es": "manifestar",
+      "en": "manifest",
+      "topic": "verb"
+    },
+    {
+      "es": "atender",
+      "en": "attend",
+      "topic": "verb"
+    },
+    {
+      "es": "basar",
+      "en": "base",
+      "topic": "verb"
+    },
+    {
+      "es": "recuperar",
+      "en": "retrieve",
+      "topic": "verb"
+    },
+    {
+      "es": "aprovechar",
+      "en": "take advantage of",
+      "topic": "verb"
+    },
+    {
+      "es": "asumir",
+      "en": "assume",
+      "topic": "verb"
+    },
+    {
+      "es": "desaparecer",
+      "en": "disappear",
+      "topic": "verb"
+    },
+    {
+      "es": "funcionar",
+      "en": "work",
+      "topic": "verb"
+    },
+    {
+      "es": "permanecer",
+      "en": "stay",
+      "topic": "verb"
+    },
+    {
+      "es": "preocupar",
+      "en": "concern",
+      "topic": "verb"
+    },
+    {
+      "es": "preferir",
+      "en": "prefer",
+      "topic": "verb"
+    },
+    {
+      "es": "confirmar",
+      "en": "confirm",
+      "topic": "verb"
+    },
+    {
+      "es": "advertir",
+      "en": "warn",
+      "topic": "verb"
+    },
+    {
+      "es": "imponer",
+      "en": "impose",
+      "topic": "verb"
+    },
+    {
+      "es": "integrar",
+      "en": "integrate",
+      "topic": "verb"
+    },
+    {
+      "es": "recoger",
+      "en": "pick up",
+      "topic": "verb"
+    },
+    {
+      "es": "parar",
+      "en": "stop",
+      "topic": "verb"
+    },
+    {
+      "es": "proteger",
+      "en": "protect",
+      "topic": "verb"
+    },
+    {
+      "es": "depender",
+      "en": "depend",
+      "topic": "verb"
+    },
+    {
+      "es": "negar",
+      "en": "deny",
+      "topic": "verb"
+    },
+    {
+      "es": "resolver",
+      "en": "solve",
+      "topic": "verb"
+    },
+    {
+      "es": "surgir",
+      "en": "arise",
+      "topic": "verb"
+    },
+    {
+      "es": "corresponder",
+      "en": "correspond",
+      "topic": "verb"
+    },
+    {
+      "es": "determinar",
+      "en": "determine",
+      "topic": "verb"
+    },
+    {
+      "es": "concluir",
+      "en": "conclude",
+      "topic": "verb"
+    },
+    {
+      "es": "visitar",
+      "en": "visit",
+      "topic": "verb"
+    },
+    {
+      "es": "exigir",
+      "en": "demand",
+      "topic": "verb"
+    },
+    {
+      "es": "contener",
+      "en": "contain",
+      "topic": "verb"
+    },
+    {
+      "es": "aprobar",
+      "en": "approve",
+      "topic": "verb"
+    },
+    {
+      "es": "romper",
+      "en": "break",
+      "topic": "verb"
+    },
+    {
+      "es": "viajar",
+      "en": "travel",
+      "topic": "verb"
+    },
+    {
+      "es": "quitar",
+      "en": "remove",
+      "topic": "verb"
+    },
+    {
+      "es": "interesar",
+      "en": "interest",
+      "topic": "verb"
+    },
+    {
+      "es": "defender",
+      "en": "defend",
+      "topic": "verb"
+    },
+    {
+      "es": "avanzar",
+      "en": "advance",
+      "topic": "verb"
+    },
+    {
+      "es": "prever",
+      "en": "foresee",
+      "topic": "verb"
+    },
+    {
+      "es": "implicar",
+      "en": "involve",
+      "topic": "verb"
+    },
+    {
+      "es": "apuntar",
+      "en": "point out",
+      "topic": "verb"
+    },
+    {
+      "es": "invitar",
+      "en": "invite",
+      "topic": "verb"
+    },
+    {
+      "es": "causar",
+      "en": "cause",
+      "topic": "verb"
+    },
+    {
+      "es": "vestir",
+      "en": "dress",
+      "topic": "verb"
+    },
+    {
+      "es": "controlar",
+      "en": "check",
+      "topic": "verb"
+    },
+    {
+      "es": "adquirir",
+      "en": "purchase",
+      "topic": "verb"
+    },
+    {
+      "es": "incorporar",
+      "en": "incorporate",
+      "topic": "verb"
+    },
+    {
+      "es": "guardar",
+      "en": "save",
+      "topic": "verb"
+    },
+    {
+      "es": "insistir",
+      "en": "insist",
+      "topic": "verb"
+    },
+    {
+      "es": "conducir",
+      "en": "drive",
+      "topic": "verb"
+    },
+    {
+      "es": "acordar",
+      "en": "agree",
+      "topic": "verb"
+    },
+    {
+      "es": "contestar",
+      "en": "answer",
+      "topic": "verb"
+    },
+    {
+      "es": "tirar",
+      "en": "throw away",
+      "topic": "verb"
+    },
+    {
+      "es": "despertar",
+      "en": "wake up",
+      "topic": "verb"
+    },
+    {
+      "es": "reír",
+      "en": "laugh",
+      "topic": "verb"
+    },
+    {
+      "es": "sorprender",
+      "en": "surprise",
+      "topic": "verb"
+    },
+    {
+      "es": "llorar",
+      "en": "cry",
+      "topic": "verb"
+    },
+    {
+      "es": "situar",
+      "en": "locate",
+      "topic": "verb"
+    },
+    {
+      "es": "garantizar",
+      "en": "guarantee",
+      "topic": "verb"
+    },
+    {
+      "es": "separar",
+      "en": "separate",
+      "topic": "verb"
+    },
+    {
+      "es": "impedir",
+      "en": "prevent",
+      "topic": "verb"
+    },
+    {
+      "es": "gritar",
+      "en": "shout",
+      "topic": "verb"
+    },
+    {
+      "es": "costar",
+      "en": "cost",
+      "topic": "verb"
+    },
+    {
+      "es": "cruzar",
+      "en": "cross",
+      "topic": "verb"
+    },
+    {
+      "es": "disfrutar",
+      "en": "enjoy",
+      "topic": "verb"
+    },
+    {
+      "es": "cantar",
+      "en": "sing",
+      "topic": "verb"
+    },
+    {
+      "es": "citar",
+      "en": "quote",
+      "topic": "verb"
+    },
+    {
+      "es": "sonreír",
+      "en": "smile",
+      "topic": "verb"
+    },
+    {
+      "es": "extender",
+      "en": "extend",
+      "topic": "verb"
+    },
+    {
+      "es": "poseer",
+      "en": "own",
+      "topic": "verb"
+    },
+    {
+      "es": "contribuir",
+      "en": "contribute",
+      "topic": "verb"
+    },
+    {
+      "es": "exponer",
+      "en": "exhibit",
+      "topic": "verb"
+    },
+    {
+      "es": "instalar",
+      "en": "install",
+      "topic": "verb"
+    },
+    {
+      "es": "notar",
+      "en": "note",
+      "topic": "verb"
+    },
+    {
+      "es": "sonar",
+      "en": "sound",
+      "topic": "verb"
+    },
+    {
+      "es": "convencer",
+      "en": "convince",
+      "topic": "verb"
+    },
+    {
+      "es": "mandar",
+      "en": "send",
+      "topic": "verb"
+    },
+    {
+      "es": "asociar",
+      "en": "link",
+      "topic": "verb"
+    },
+    {
+      "es": "aportar",
+      "en": "provide",
+      "topic": "verb"
+    },
+    {
+      "es": "acudir",
+      "en": "go to",
+      "topic": "verb"
+    },
+    {
+      "es": "asistir",
+      "en": "attend",
+      "topic": "verb"
+    },
+    {
+      "es": "firmar",
+      "en": "sign",
+      "topic": "verb"
+    },
+    {
+      "es": "pertenecer",
+      "en": "belong to",
+      "topic": "verb"
+    },
+    {
+      "es": "solicitar",
+      "en": "request",
+      "topic": "verb"
+    },
+    {
+      "es": "enseñar",
+      "en": "show",
+      "topic": "verb"
+    },
+    {
+      "es": "cortar",
+      "en": "cut",
+      "topic": "verb"
+    },
+    {
+      "es": "recorrer",
+      "en": "tour",
+      "topic": "verb"
+    },
+    {
+      "es": "fijar",
+      "en": "post",
+      "topic": "verb"
+    },
+    {
+      "es": "promover",
+      "en": "promote",
+      "topic": "verb"
+    },
+    {
+      "es": "describir",
+      "en": "describe",
+      "topic": "verb"
+    },
+    {
+      "es": "revelar",
+      "en": "reveal",
+      "topic": "verb"
+    },
+    {
+      "es": "retirar",
+      "en": "withdraw",
+      "topic": "verb"
+    },
+    {
+      "es": "contemplar",
+      "en": "see",
+      "topic": "verb"
+    },
+    {
+      "es": "elaborar",
+      "en": "elaborate",
+      "topic": "verb"
+    },
+    {
+      "es": "ordenar",
+      "en": "order",
+      "topic": "verb"
+    },
+    {
+      "es": "hallar",
+      "en": "find",
+      "topic": "verb"
+    },
+    {
+      "es": "reflejar",
+      "en": "reflect",
+      "topic": "verb"
+    },
+    {
+      "es": "limitar",
+      "en": "limit",
+      "topic": "verb"
+    },
+    {
+      "es": "rodear",
+      "en": "go around",
+      "topic": "verb"
+    },
+    {
+      "es": "transformar",
+      "en": "transform",
+      "topic": "verb"
+    },
+    {
+      "es": "interpretar",
+      "en": "interpret",
+      "topic": "verb"
+    },
+    {
+      "es": "llenar",
+      "en": "fill out",
+      "topic": "verb"
+    },
+    {
+      "es": "consistir",
+      "en": "consist of",
+      "topic": "verb"
+    },
+    {
+      "es": "cuidar",
+      "en": "care",
+      "topic": "verb"
+    },
+    {
+      "es": "someter",
+      "en": "submit",
+      "topic": "verb"
+    },
+    {
+      "es": "avisar",
+      "en": "warn",
+      "topic": "verb"
+    },
+    {
+      "es": "emplear",
+      "en": "use",
+      "topic": "verb"
+    },
+    {
+      "es": "no",
+      "en": "not",
+      "topic": "adjverb"
+    },
+    {
+      "es": "más",
+      "en": "more",
+      "topic": "adjverb"
+    },
+    {
+      "es": "apenas",
+      "en": "hardly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "también",
+      "en": "also",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ya",
+      "en": "already",
+      "topic": "adjverb"
+    },
+    {
+      "es": "muy",
+      "en": "very",
+      "topic": "adjverb"
+    },
+    {
+      "es": "básicamente",
+      "en": "basically",
+      "topic": "adjverb"
+    },
+    {
+      "es": "después",
+      "en": "later",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ahora",
+      "en": "now",
+      "topic": "adjverb"
+    },
+    {
+      "es": "así",
+      "en": "thus",
+      "topic": "adjverb"
+    },
+    {
+      "es": "bien",
+      "en": "well",
+      "topic": "adjverb"
+    },
+    {
+      "es": "siempre",
+      "en": "always",
+      "topic": "adjverb"
+    },
+    {
+      "es": "antes",
+      "en": "before",
+      "topic": "adjverb"
+    },
+    {
+      "es": "tan",
+      "en": "so",
+      "topic": "adjverb"
+    },
+    {
+      "es": "cómo",
+      "en": "how",
+      "topic": "adjverb"
+    },
+    {
+      "es": "hoy",
+      "en": "today",
+      "topic": "adjverb"
+    },
+    {
+      "es": "entonces",
+      "en": "then",
+      "topic": "adjverb"
+    },
+    {
+      "es": "luego",
+      "en": "then",
+      "topic": "adjverb"
+    },
+    {
+      "es": "además",
+      "en": "in addition",
+      "topic": "adjverb"
+    },
+    {
+      "es": "nunca",
+      "en": "never",
+      "topic": "adjverb"
+    },
+    {
+      "es": "casi",
+      "en": "almost",
+      "topic": "adjverb"
+    },
+    {
+      "es": "poco",
+      "en": "sparsely",
+      "topic": "adjverb"
+    },
+    {
+      "es": "aquí",
+      "en": "here",
+      "topic": "adjverb"
+    },
+    {
+      "es": "menos",
+      "en": "least",
+      "topic": "adjverb"
+    },
+    {
+      "es": "tanto",
+      "en": "such",
+      "topic": "adjverb"
+    },
+    {
+      "es": "sin embargo",
+      "en": "however",
+      "topic": "adjverb"
+    },
+    {
+      "es": "mucho",
+      "en": "a lot",
+      "topic": "adjverb"
+    },
+    {
+      "es": "aún",
+      "en": "still",
+      "topic": "adjverb"
+    },
+    {
+      "es": "dentro",
+      "en": "within",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ayer",
+      "en": "yesterday",
+      "topic": "adjverb"
+    },
+    {
+      "es": "allí",
+      "en": "there",
+      "topic": "adjverb"
+    },
+    {
+      "es": "incluso",
+      "en": "inclusive",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ahí",
+      "en": "there",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ruidosamente",
+      "en": "loudly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "todavía",
+      "en": "still",
+      "topic": "adjverb"
+    },
+    {
+      "es": "hasta",
+      "en": "even",
+      "topic": "adjverb"
+    },
+    {
+      "es": "tampoco",
+      "en": "nor",
+      "topic": "adjverb"
+    },
+    {
+      "es": "cerca",
+      "en": "near",
+      "topic": "adjverb"
+    },
+    {
+      "es": "allá",
+      "en": "there",
+      "topic": "adjverb"
+    },
+    {
+      "es": "a lo mejor",
+      "en": "perhaps",
+      "topic": "adjverb"
+    },
+    {
+      "es": "cuidadosamente",
+      "en": "carefully",
+      "topic": "adjverb"
+    },
+    {
+      "es": "pronto",
+      "en": "soon",
+      "topic": "adjverb"
+    },
+    {
+      "es": "normalmente",
+      "en": "normally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "fuera",
+      "en": "out",
+      "topic": "adjverb"
+    },
+    {
+      "es": "atrás",
+      "en": "behind",
+      "topic": "adjverb"
+    },
+    {
+      "es": "encima",
+      "en": "above",
+      "topic": "adjverb"
+    },
+    {
+      "es": "tarde",
+      "en": "afternoon",
+      "topic": "adjverb"
+    },
+    {
+      "es": "finalmente",
+      "en": "finally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "especialmente",
+      "en": "especially",
+      "topic": "adjverb"
+    },
+    {
+      "es": "tal vez",
+      "en": "maybe",
+      "topic": "adjverb"
+    },
+    {
+      "es": "lejos",
+      "en": "far",
+      "topic": "adjverb"
+    },
+    {
+      "es": "demasiado",
+      "en": "too",
+      "topic": "adjverb"
+    },
+    {
+      "es": "quizá",
+      "en": "maybe",
+      "topic": "adjverb"
+    },
+    {
+      "es": "mal",
+      "en": "badly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "perfectamente",
+      "en": "perfectly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "bastante",
+      "en": "quite a lot",
+      "topic": "adjverb"
+    },
+    {
+      "es": "diariamente",
+      "en": "daily",
+      "topic": "adjverb"
+    },
+    {
+      "es": "adelante",
+      "en": "forward",
+      "topic": "adjverb"
+    },
+    {
+      "es": "detrás",
+      "en": "back",
+      "topic": "adjverb"
+    },
+    {
+      "es": "ni siquiera",
+      "en": "not even",
+      "topic": "adjverb"
+    },
+    {
+      "es": "primero",
+      "en": "first",
+      "topic": "adjverb"
+    },
+    {
+      "es": "actualmente",
+      "en": "currently",
+      "topic": "adjverb"
+    },
+    {
+      "es": "así como",
+      "en": "as well as",
+      "topic": "adjverb"
+    },
+    {
+      "es": "precisamente",
+      "en": "precisely",
+      "topic": "adjverb"
+    },
+    {
+      "es": "arriba",
+      "en": "up",
+      "topic": "adjverb"
+    },
+    {
+      "es": "realmente",
+      "en": "actually",
+      "topic": "adjverb"
+    },
+    {
+      "es": "jamás",
+      "en": "never",
+      "topic": "adjverb"
+    },
+    {
+      "es": "quizás",
+      "en": "maybe",
+      "topic": "adjverb"
+    },
+    {
+      "es": "recién",
+      "en": "just",
+      "topic": "adjverb"
+    },
+    {
+      "es": "asimismo",
+      "en": "also",
+      "topic": "adjverb"
+    },
+    {
+      "es": "no obstante",
+      "en": "however",
+      "topic": "adjverb"
+    },
+    {
+      "es": "difícilmente",
+      "en": "with difficulty",
+      "topic": "adjverb"
+    },
+    {
+      "es": "alrededor",
+      "en": "around",
+      "topic": "adjverb"
+    },
+    {
+      "es": "solamente",
+      "en": "only",
+      "topic": "adjverb"
+    },
+    {
+      "es": "aun",
+      "en": "even",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por supuesto",
+      "en": "of course",
+      "topic": "adjverb"
+    },
+    {
+      "es": "delante",
+      "en": "in front",
+      "topic": "adjverb"
+    },
+    {
+      "es": "abajo",
+      "en": "below",
+      "topic": "adjverb"
+    },
+    {
+      "es": "para nada",
+      "en": "not at all",
+      "topic": "adjverb"
+    },
+    {
+      "es": "fácilmente",
+      "en": "easily",
+      "topic": "adjverb"
+    },
+    {
+      "es": "simplemente",
+      "en": "simply",
+      "topic": "adjverb"
+    },
+    {
+      "es": "directamente",
+      "en": "directly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "lentamente",
+      "en": "slowly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "debajo",
+      "en": "under",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por tanto",
+      "en": "therefore",
+      "topic": "adjverb"
+    },
+    {
+      "es": "principalmente",
+      "en": "mainly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por lo tanto",
+      "en": "therefore",
+      "topic": "adjverb"
+    },
+    {
+      "es": "totalmente",
+      "en": "totally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "a menudo",
+      "en": "often",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por lo menos",
+      "en": "at least",
+      "topic": "adjverb"
+    },
+    {
+      "es": "acá",
+      "en": "here",
+      "topic": "adjverb"
+    },
+    {
+      "es": "probablemente",
+      "en": "probably",
+      "topic": "adjverb"
+    },
+    {
+      "es": "prácticamente",
+      "en": "practically",
+      "topic": "adjverb"
+    },
+    {
+      "es": "seguramente",
+      "en": "surely",
+      "topic": "adjverb"
+    },
+    {
+      "es": "frecuentemente",
+      "en": "frequently",
+      "topic": "adjverb"
+    },
+    {
+      "es": "aproximadamente",
+      "en": "approximately",
+      "topic": "adjverb"
+    },
+    {
+      "es": "completamente",
+      "en": "completely",
+      "topic": "adjverb"
+    },
+    {
+      "es": "posteriormente",
+      "en": "later",
+      "topic": "adjverb"
+    },
+    {
+      "es": "nuevamente",
+      "en": "again",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por fin",
+      "en": "finally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "igualmente",
+      "en": "equally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "acaso",
+      "en": "perhaps",
+      "topic": "adjverb"
+    },
+    {
+      "es": "justo",
+      "en": "just",
+      "topic": "adjverb"
+    },
+    {
+      "es": "recientemente",
+      "en": "recently",
+      "topic": "adjverb"
+    },
+    {
+      "es": "por favor",
+      "en": "kindly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "rápidamente",
+      "en": "quickly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "únicamente",
+      "en": "only",
+      "topic": "adjverb"
+    },
+    {
+      "es": "afuera",
+      "en": "outside",
+      "topic": "adjverb"
+    },
+    {
+      "es": "respectivamente",
+      "en": "respectively",
+      "topic": "adjverb"
+    },
+    {
+      "es": "inmediatamente",
+      "en": "immediately",
+      "topic": "adjverb"
+    },
+    {
+      "es": "exactamente",
+      "en": "exactly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "claramente",
+      "en": "clearly",
+      "topic": "adjverb"
+    },
+    {
+      "es": "generalmente",
+      "en": "generally",
+      "topic": "adjverb"
+    },
+    {
+      "es": "enseguida",
+      "en": "right away",
+      "topic": "adjverb"
+    },
+    {
+      "es": "temprano",
+      "en": "early",
+      "topic": "adjverb"
+    },
+    {
+      "es": "adentro",
+      "en": "inside",
+      "topic": "adjverb"
+    },
+    {
+      "es": "de",
+      "en": "from",
+      "topic": "preposition"
+    },
+    {
+      "es": "en",
+      "en": "at, in, on",
+      "topic": "preposition"
+    },
+    {
+      "es": "a",
+      "en": "to",
+      "topic": "preposition"
+    },
+    {
+      "es": "con",
+      "en": "with",
+      "topic": "preposition"
+    },
+    {
+      "es": "por",
+      "en": "by",
+      "topic": "preposition"
+    },
+    {
+      "es": "para",
+      "en": "for",
+      "topic": "preposition"
+    },
+    {
+      "es": "sobre",
+      "en": "about",
+      "topic": "preposition"
+    },
+    {
+      "es": "entre",
+      "en": "between",
+      "topic": "preposition"
+    },
+    {
+      "es": "sin",
+      "en": "without",
+      "topic": "preposition"
+    },
+    {
+      "es": "desde",
+      "en": "from",
+      "topic": "preposition"
+    },
+    {
+      "es": "durante",
+      "en": "during",
+      "topic": "preposition"
+    },
+    {
+      "es": "hacia",
+      "en": "to",
+      "topic": "preposition"
+    },
+    {
+      "es": "ante",
+      "en": "before",
+      "topic": "preposition"
+    },
+    {
+      "es": "contra",
+      "en": "against",
+      "topic": "preposition"
+    },
+    {
+      "es": "según",
+      "en": "according to",
+      "topic": "preposition"
+    },
+    {
+      "es": "tras",
+      "en": "after",
+      "topic": "preposition"
+    },
+    {
+      "es": "a través de",
+      "en": "through",
+      "topic": "preposition"
+    },
+    {
+      "es": "a partir de",
+      "en": "as of",
+      "topic": "preposition"
+    },
+    {
+      "es": "frente a",
+      "en": "in front of",
+      "topic": "preposition"
+    },
+    {
+      "es": "además de",
+      "en": "in addition to",
+      "topic": "preposition"
+    },
+    {
+      "es": "a pesar de",
+      "en": "in spite of",
+      "topic": "preposition"
+    },
+    {
+      "es": "mediante",
+      "en": "through",
+      "topic": "preposition"
+    },
+    {
+      "es": "junto a",
+      "en": "together with",
+      "topic": "preposition"
+    },
+    {
+      "es": "debido a",
+      "en": "due to",
+      "topic": "preposition"
+    },
+    {
+      "es": "gracias a",
+      "en": "thanks to",
+      "topic": "preposition"
+    },
+    {
+      "es": "pese a",
+      "en": "despite",
+      "topic": "preposition"
+    },
+    {
+      "es": "de acuerdo con",
+      "en": "in accordance with",
+      "topic": "preposition"
+    },
+    {
+      "es": "en cuanto a",
+      "en": "in regard to",
+      "topic": "preposition"
+    },
+    {
+      "es": "junto con",
+      "en": "together with",
+      "topic": "preposition"
+    },
+    {
+      "es": "acerca de",
+      "en": "about",
+      "topic": "preposition"
+    },
+    {
+      "es": "respecto a",
+      "en": "with respect to",
+      "topic": "preposition"
+    },
+    {
+      "es": "en torno a",
+      "en": "around",
+      "topic": "preposition"
+    },
+    {
+      "es": "en lugar de",
+      "en": "instead of",
+      "topic": "preposition"
+    },
+    {
+      "es": "de acuerdo a",
+      "en": "according to",
+      "topic": "preposition"
+    },
+    {
+      "es": "y",
+      "en": "and",
+      "topic": "conjunction"
+    },
+    {
+      "es": "e",
+      "en": "and",
+      "topic": "conjunction"
+    },
+    {
+      "es": "ni…ni",
+      "en": "neither…nor",
+      "topic": "conjunction"
+    },
+    {
+      "es": "o",
+      "en": "or",
+      "topic": "conjunction"
+    },
+    {
+      "es": "u",
+      "en": "or",
+      "topic": "conjunction"
+    },
+    {
+      "es": "o bien…o bien",
+      "en": "either…or",
+      "topic": "conjunction"
+    },
+    {
+      "es": "pero",
+      "en": "but",
+      "topic": "conjunction"
+    },
+    {
+      "es": "mas",
+      "en": "but",
+      "topic": "conjunction"
+    },
+    {
+      "es": "aunque",
+      "en": "although",
+      "topic": "conjunction"
+    },
+    {
+      "es": "es decir",
+      "en": "that is",
+      "topic": "conjunction"
+    },
+    {
+      "es": "porque",
+      "en": "because",
+      "topic": "conjunction"
+    },
+    {
+      "es": "pues",
+      "en": "since",
+      "topic": "conjunction"
+    },
+    {
+      "es": "si",
+      "en": "if",
+      "topic": "conjunction"
+    },
+    {
+      "es": "como",
+      "en": "as",
+      "topic": "conjunction"
+    },
+    {
+      "es": "guay",
+      "en": "cool (used in Spain)",
+      "topic": "interjection"
+    },
+    {
+      "es": "vale",
+      "en": "okey (used in Spain)",
+      "topic": "interjection"
+    },
+    {
+      "es": "órale",
+      "en": "sure (used in Mexico)",
+      "topic": "interjection"
+    },
+    {
+      "es": "guau",
+      "en": "wow",
+      "topic": "interjection"
+    },
+    {
+      "es": "bravo",
+      "en": "good job",
+      "topic": "interjection"
+    },
+    {
+      "es": "che",
+      "en": "dude (used in Argentina and Uruguay)",
+      "topic": "interjection"
+    },
+    {
+      "es": "huy",
+      "en": "oops",
+      "topic": "interjection"
+    },
+    {
+      "es": "ojalá",
+      "en": "I hope so",
+      "topic": "interjection"
+    }
+  ]
+}

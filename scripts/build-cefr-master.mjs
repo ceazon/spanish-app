@@ -3,12 +3,28 @@ import path from 'node:path';
 
 const root = process.cwd();
 const approvedPath = path.join(root, 'src/content/approved-vocab-1000.json');
+const seedPath = path.join(root, 'src/content/external/spanish-1000-seed.json');
 const outPath = path.join(root, 'src/content/cefr-vocab-master.json');
 
 const approved = JSON.parse(fs.readFileSync(approvedPath, 'utf8'));
 const vocab = approved?.vocab || {};
+const seed = fs.existsSync(seedPath) ? JSON.parse(fs.readFileSync(seedPath, 'utf8')) : { words: [] };
 
 const rows = [];
+// 1) External frequency-ordered seed (primary)
+for (const [idx, item] of (seed?.words || []).entries()) {
+  if (!item?.es || !item?.en) continue;
+  const cefr = idx < 500 ? 'A1' : 'A2';
+  rows.push({
+    es: item.es,
+    en: item.en,
+    topic: item.topic || 'general',
+    cefr,
+    _sourceRank: idx + 1,
+  });
+}
+
+// 2) Approved vocab augmentation
 for (const [topic, items] of Object.entries(vocab)) {
   for (const item of items || []) {
     if (!item?.es || !item?.en) continue;
@@ -19,6 +35,7 @@ for (const [topic, items] of Object.entries(vocab)) {
       en: item.en,
       topic,
       cefr,
+      _sourceRank: 10000 + rows.length,
     });
   }
 }
@@ -38,7 +55,8 @@ const byBand = {
 };
 
 function withMicroLevels(list, band) {
-  return list.map((w, idx) => {
+  const sorted = [...list].sort((a, b) => Number(a?._sourceRank || 999999) - Number(b?._sourceRank || 999999));
+  return sorted.map((w, idx) => {
     const denom = Math.max(1, list.length);
     const microLevel = Math.max(1, Math.min(20, Math.floor((idx / denom) * 20) + 1));
     return {
