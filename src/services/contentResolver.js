@@ -1,7 +1,7 @@
 // Spanish-app/src/services/contentResolver.js
 
-import vocabData from '../content/cefr-vocab.json';
-import masterVocabData from '../content/cefr-vocab-master.json';
+import vocabData from '../content/cefr-vocab.json' with { type: 'json' };
+import masterVocabData from '../content/cefr-vocab-master.json' with { type: 'json' };
 
 const ALL_VOCAB = (masterVocabData?.words || vocabData.vocab || []).filter(Boolean);
 const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];

@@ -9,9 +9,9 @@ import {
 } from './progression.js';
 
 test('placementFromScore returns user-friendly CEFR level titles', () => {
-  assert.equal(placementFromScore(2, 10).level, 'Newcomer');
-  assert.equal(placementFromScore(5, 10).level, 'Apprentice');
-  assert.equal(placementFromScore(8, 10).level, 'Elementary');
+  assert.equal(placementFromScore(2, 10).level, 'Newcomer I');
+  assert.equal(placementFromScore(5, 10).level, 'Apprentice I');
+  assert.equal(placementFromScore(8, 10).level, 'Elementary I');
 });
 
 test('daily quests mark done correctly', () => {
@@ -28,13 +28,34 @@ test('daily quests mark done correctly', () => {
   assert.equal(quests.every(q => q.done), true);
 });
 
+test('word exposure schedules spaced review timestamps', () => {
+  const updated = updateLearningProfile(migrateUser({ username: 'a', profile: {} }).profile, {
+    lessonType: 'Flashcards',
+    points: 40,
+    correct: 4,
+    total: 5,
+    wordResults: [
+      { id: 'w:test:1', cefr: 'A1', seen: 1, correct: 1 },
+      { id: 'w:test:2', cefr: 'A1', seen: 1, correct: 0 },
+    ],
+  });
+
+  const e1 = updated.wordExposure['w:test:1'];
+  const e2 = updated.wordExposure['w:test:2'];
+  assert.ok(e1?.nextReviewAt, 'expected nextReviewAt for correct word');
+  assert.ok(e2?.nextReviewAt, 'expected nextReviewAt for incorrect word');
+  assert.ok(Number.isFinite(new Date(e1.nextReviewAt).getTime()));
+  assert.ok(Number.isFinite(new Date(e2.nextReviewAt).getTime()));
+  assert.ok(typeof updated.gateStatus?.minSkill === 'number');
+});
+
 test('migrate user + adaptive progression keeps profile across versions', () => {
   const userV1 = {
     username: 'test',
     profile: { level: 'beginner', recommendedLessons: ['Learn Verbs'] },
   };
   const migrated = migrateUser(userV1);
-  assert.equal(migrated.profile.schemaVersion, 3);
+  assert.equal(migrated.profile.schemaVersion, 4);
   assert.equal(Array.isArray(migrated.profile.recommendedLessons), true);
 
   const updated = updateLearningProfile(migrated.profile, {
