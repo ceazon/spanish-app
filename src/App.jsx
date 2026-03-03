@@ -1243,17 +1243,40 @@ function SpeedRoundLesson({ onComplete, verbs = APP_VERBS }) {
 
 function SentenceScrambleLesson({ onComplete, scrambleSentences = SCRAMBLE_SENTENCES }) {
   const [items] = useState(() => {
+    const normalizeKey = (v) => String(v || '').trim().toLowerCase().replace(/\s+/g, ' ');
     const source = Array.isArray(scrambleSentences) ? [...scrambleSentences] : [];
     const unique = [];
     const seen = new Set();
+
     for (const s of source) {
-      const key = String(s?.correct || '').trim().toLowerCase();
+      const key = normalizeKey(s?.correct);
       if (!key || seen.has(key)) continue;
       seen.add(key);
       unique.push(s);
     }
-    const fallback = shuffle(SCRAMBLE_SENTENCES).filter((s) => !seen.has(String(s?.correct || '').trim().toLowerCase()));
-    return shuffle([...unique, ...fallback]).slice(0, 5);
+
+    const fallback = shuffle(SCRAMBLE_SENTENCES).filter((s) => !seen.has(normalizeKey(s?.correct)));
+    let chosen = shuffle([...unique, ...fallback]).slice(0, 5);
+
+    // Hard guarantee: always serve 5 challenges.
+    if (chosen.length < 5) {
+      const fillers = [
+        { words: shuffle(['Yo', 'hablo', 'español', 'hoy']), correct: 'Yo hablo español hoy', hint: 'I speak Spanish today.' },
+        { words: shuffle(['Nosotros', 'comemos', 'arroz', 'ahora']), correct: 'Nosotros comemos arroz ahora', hint: 'We eat rice now.' },
+        { words: shuffle(['Ellos / ellas', 'viven', 'felices', 'aquí']), correct: 'Ellos / ellas viven felices aquí', hint: 'They live happily here.' },
+        { words: shuffle(['Tú', 'lees', 'un', 'libro']), correct: 'Tú lees un libro', hint: 'You read a book.' },
+        { words: shuffle(['Vosotros', 'estudiáis', 'español', 'hoy']), correct: 'Vosotros estudiáis español hoy', hint: 'You all study Spanish today.' },
+      ];
+      for (const f of fillers) {
+        if (chosen.length >= 5) break;
+        const key = normalizeKey(f.correct);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        chosen.push(f);
+      }
+    }
+
+    return chosen.slice(0, 5);
   });
   const [idx, setIdx] = useState(0); const [chosen, setChosen] = useState([]); const [pool, setPool] = useState([]); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
   useEffect(() => { setPool(shuffle([...items[idx].words])); setChosen([]); setFeedback(null); },[idx]);
@@ -3215,25 +3238,45 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [chatTopics, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
 
   const scrambleForLesson = useMemo(() => {
-    const target = Math.max(10, Math.min(16, 8 + difficulty * 2));
+    const target = Math.max(18, Math.min(36, 14 + difficulty * 3));
 
-    // Expand pool dynamically from level-aligned words + verbs.
+    // Expand pool dynamically from level-aligned words + verbs (hundreds of combinations possible).
     const generated = [];
     const pronOrder = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"];
-    for (let i = 0; i < Math.min(24, (wordsForLesson || []).length); i++) {
-      const w = wordsForLesson[i];
-      const v = verbsForLesson[i % Math.max(1, verbsForLesson.length)];
-      const pron = pronOrder[(rotationIndex + i) % pronOrder.length];
-      const form = (v?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(pron)) || v?.conjugations?.[0];
-      if (!w?.es || !w?.en || !form?.form) continue;
-      const correct = `${form.pronoun} ${form.form} ${w.es} hoy`;
-      generated.push({
-        id: `gen-scr:${normalizeSimple(w.es)}:${normalizeSimple(v?.infinitive || "")}:${normalizeSimple(form.pronoun)}`,
-        words: shuffle([form.pronoun, form.form, w.es, "hoy"]),
-        correct,
-        hint: `${form.pronoun} ${v?.meaning || v?.infinitive || "use"} ${w.en} today.`,
-        cefr: user?.profile?.cefrBand || 'A1',
-      });
+    const wordsSeed = (wordsForLesson || []).slice(0, 36);
+    const verbsSeed = (verbsForLesson || []).slice(0, 18);
+
+    for (let i = 0; i < wordsSeed.length; i++) {
+      const w = wordsSeed[i];
+      for (let j = 0; j < verbsSeed.length; j++) {
+        const v = verbsSeed[j];
+        const pron = pronOrder[(rotationIndex + i + j) % pronOrder.length];
+        const form = (v?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(pron)) || v?.conjugations?.[0];
+        if (!w?.es || !w?.en || !form?.form) continue;
+
+        const variants = [
+          {
+            correct: `${form.pronoun} ${form.form} ${w.es} hoy`,
+            hint: `${form.pronoun} ${v?.meaning || v?.infinitive || "use"} ${w.en} today.`,
+            words: [form.pronoun, form.form, w.es, "hoy"],
+          },
+          {
+            correct: `${form.pronoun} ${form.form} ${w.es} ahora`,
+            hint: `${form.pronoun} ${v?.meaning || v?.infinitive || "use"} ${w.en} now.`,
+            words: [form.pronoun, form.form, w.es, "ahora"],
+          },
+        ];
+
+        for (const variant of variants) {
+          generated.push({
+            id: `gen-scr:${normalizeSimple(w.es)}:${normalizeSimple(v?.infinitive || "")}:${normalizeSimple(form.pronoun)}:${normalizeSimple(variant.correct)}`,
+            words: shuffle(variant.words),
+            correct: variant.correct,
+            hint: variant.hint,
+            cefr: user?.profile?.cefrBand || 'A1',
+          });
+        }
+      }
     }
 
     const selected = selectAdaptiveScrambles([...(scrambleSentences || []), ...generated], {
