@@ -1186,38 +1186,38 @@
     },
     {
       "infinitive": "deber",
-      "meaning": "to owe / should",
+      "meaning": "to owe",
       "cefr": "A1",
       "conjugations": [
         {
           "pronoun": "yo",
           "form": "debo",
-          "meaning": "yo to owe / should"
+          "meaning": "yo to owe"
         },
         {
           "pronoun": "tú",
           "form": "debes",
-          "meaning": "tú to owe / should"
+          "meaning": "tú to owe"
         },
         {
           "pronoun": "él / ella",
           "form": "debe",
-          "meaning": "él / ella to owe / should"
+          "meaning": "él / ella to owe"
         },
         {
           "pronoun": "nosotros",
           "form": "debemos",
-          "meaning": "nosotros to owe / should"
+          "meaning": "nosotros to owe"
         },
         {
           "pronoun": "vosotros",
           "form": "debéis",
-          "meaning": "vosotros to owe / should"
+          "meaning": "vosotros to owe"
         },
         {
           "pronoun": "ellos / ellas",
           "form": "deben",
-          "meaning": "ellos / ellas to owe / should"
+          "meaning": "ellos / ellas to owe"
         }
       ]
     },
@@ -1667,75 +1667,75 @@
     },
     {
       "infinitive": "ser",
-      "meaning": "to be (essential)",
+      "meaning": "to be",
       "cefr": "A2",
       "conjugations": [
         {
           "pronoun": "yo",
           "form": "soy",
-          "meaning": "yo to be (essential)"
+          "meaning": "yo to be"
         },
         {
           "pronoun": "tú",
           "form": "eres",
-          "meaning": "tú to be (essential)"
+          "meaning": "tú to be"
         },
         {
           "pronoun": "él / ella",
           "form": "es",
-          "meaning": "él / ella to be (essential)"
+          "meaning": "él / ella to be"
         },
         {
           "pronoun": "nosotros",
           "form": "somos",
-          "meaning": "nosotros to be (essential)"
+          "meaning": "nosotros to be"
         },
         {
           "pronoun": "vosotros",
           "form": "sois",
-          "meaning": "vosotros to be (essential)"
+          "meaning": "vosotros to be"
         },
         {
           "pronoun": "ellos / ellas",
           "form": "son",
-          "meaning": "ellos / ellas to be (essential)"
+          "meaning": "ellos / ellas to be"
         }
       ]
     },
     {
       "infinitive": "estar",
-      "meaning": "to be (temporary)",
+      "meaning": "to be",
       "cefr": "A2",
       "conjugations": [
         {
           "pronoun": "yo",
           "form": "estoy",
-          "meaning": "yo to be (temporary)"
+          "meaning": "yo to be"
         },
         {
           "pronoun": "tú",
           "form": "estás",
-          "meaning": "tú to be (temporary)"
+          "meaning": "tú to be"
         },
         {
           "pronoun": "él / ella",
           "form": "está",
-          "meaning": "él / ella to be (temporary)"
+          "meaning": "él / ella to be"
         },
         {
           "pronoun": "nosotros",
           "form": "estamos",
-          "meaning": "nosotros to be (temporary)"
+          "meaning": "nosotros to be"
         },
         {
           "pronoun": "vosotros",
           "form": "estáis",
-          "meaning": "vosotros to be (temporary)"
+          "meaning": "vosotros to be"
         },
         {
           "pronoun": "ellos / ellas",
           "form": "están",
-          "meaning": "ellos / ellas to be (temporary)"
+          "meaning": "ellos / ellas to be"
         }
       ]
     },

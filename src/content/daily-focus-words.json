@@ -255,7 +255,7 @@
     {
       "id": "food:pescado",
       "es": "Pescado",
-      "en": "Fish (food)",
+      "en": "Fish",
       "cefr": "A2",
       "topic": "Food"
     },
@@ -311,7 +311,7 @@
     {
       "id": "animals:pez",
       "es": "Pez",
-      "en": "Fish (animal)",
+      "en": "Fish",
       "cefr": "A2",
       "topic": "Animals"
     },

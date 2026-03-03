@@ -4,7 +4,7 @@
     {
       "id": "A1.01:se",
       "es": "se",
-      "en": "to him, to h",
+      "en": "himself",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -13,7 +13,7 @@
     {
       "id": "A1.01:lo",
       "es": "lo",
-      "en": "hi",
+      "en": "it",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -22,7 +22,7 @@
     {
       "id": "A1.01:le",
       "es": "le",
-      "en": "to him, h",
+      "en": "to him",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -40,7 +40,7 @@
     {
       "id": "A1.01:él",
       "es": "él",
-      "en": "él",
+      "en": "he",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -49,7 +49,7 @@
     {
       "id": "A1.01:ella",
       "es": "ella",
-      "en": "sh",
+      "en": "she",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -76,7 +76,7 @@
     {
       "id": "A1.01:yo",
       "es": "yo",
-      "en": "yo",
+      "en": "I",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -94,7 +94,7 @@
     {
       "id": "A1.01:mí",
       "es": "mí",
-      "en": "(after “para”)",
+      "en": "me",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -103,7 +103,7 @@
     {
       "id": "A1.01:nosotros",
       "es": "nosotros",
-      "en": "nosotros",
+      "en": "we",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -121,7 +121,7 @@
     {
       "id": "A1.01:sí",
       "es": "sí",
-      "en": "self",
+      "en": "himself",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -130,7 +130,7 @@
     {
       "id": "A1.01:ti",
       "es": "ti",
-      "en": "you (after “para”)",
+      "en": "you",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -139,7 +139,7 @@
     {
       "id": "A1.01:os",
       "es": "os",
-      "en": "you (plural, used in Spain)",
+      "en": "you",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -148,7 +148,7 @@
     {
       "id": "A1.01:conmigo",
       "es": "conmigo",
-      "en": "with",
+      "en": "with me",
       "cefr": "A1",
       "microLevel": 1,
       "topic": "pronoun",
@@ -625,7 +625,7 @@
     {
       "id": "A1.03:el-padre",
       "es": "el padre",
-      "en": "parent",
+      "en": "father",
       "cefr": "A1",
       "microLevel": 3,
       "topic": "noun",
@@ -769,7 +769,7 @@
     {
       "id": "A1.03:el-medio",
       "es": "el medio",
-      "en": "middle",
+      "en": "means",
       "cefr": "A1",
       "microLevel": 3,
       "topic": "noun",
@@ -1192,7 +1192,7 @@
     {
       "id": "A1.04:el-objetivo",
       "es": "el objetivo",
-      "en": "target",
+      "en": "goal",
       "cefr": "A1",
       "microLevel": 4,
       "topic": "noun",
@@ -1246,7 +1246,7 @@
     {
       "id": "A1.05:el-policía",
       "es": "el policía",
-      "en": "police",
+      "en": "police officer",
       "cefr": "A1",
       "microLevel": 5,
       "topic": "noun",
@@ -2083,7 +2083,7 @@
     {
       "id": "A1.07:el-acto",
       "es": "el acto",
-      "en": "event",
+      "en": "act",
       "cefr": "A1",
       "microLevel": 7,
       "topic": "noun",
@@ -2434,7 +2434,7 @@
     {
       "id": "A1.08:el-pie",
       "es": "el pie",
-      "en": "footer",
+      "en": "foot",
       "cefr": "A1",
       "microLevel": 8,
       "topic": "noun",
@@ -2560,7 +2560,7 @@
     {
       "id": "A1.09:el-origen",
       "es": "el origen",
-      "en": "source",
+      "en": "origin",
       "cefr": "A1",
       "microLevel": 9,
       "topic": "noun",
@@ -3055,7 +3055,7 @@
     {
       "id": "A1.10:necesario",
       "es": "necesario",
-      "en": "required",
+      "en": "necessary",
       "cefr": "A1",
       "microLevel": 10,
       "topic": "adjective",
@@ -3082,7 +3082,7 @@
     {
       "id": "A1.11:claro",
       "es": "claro",
-      "en": "light",
+      "en": "clear",
       "cefr": "A1",
       "microLevel": 11,
       "topic": "adjective",
@@ -3190,7 +3190,7 @@
     {
       "id": "A1.11:mundial",
       "es": "mundial",
-      "en": "world-wide",
+      "en": "global",
       "cefr": "A1",
       "microLevel": 11,
       "topic": "adjective",
@@ -3199,7 +3199,7 @@
     {
       "id": "A1.11:menor",
       "es": "menor",
-      "en": "lesser",
+      "en": "minor",
       "cefr": "A1",
       "microLevel": 11,
       "topic": "adjective",
@@ -3316,7 +3316,7 @@
     {
       "id": "A1.11:dicho",
       "es": "dicho",
-      "en": "such",
+      "en": "said",
       "cefr": "A1",
       "microLevel": 11,
       "topic": "adjective",
@@ -3334,7 +3334,7 @@
     {
       "id": "A1.11:superior",
       "es": "superior",
-      "en": "top",
+      "en": "superior",
       "cefr": "A1",
       "microLevel": 11,
       "topic": "adjective",
@@ -3568,7 +3568,7 @@
     {
       "id": "A1.12:amplio",
       "es": "amplio",
-      "en": "extensive",
+      "en": "wide",
       "cefr": "A1",
       "microLevel": 12,
       "topic": "adjective",
@@ -3586,7 +3586,7 @@
     {
       "id": "A1.12:vivo",
       "es": "vivo",
-      "en": "live, alive",
+      "en": "alive",
       "cefr": "A1",
       "microLevel": 12,
       "topic": "adjective",
@@ -3667,7 +3667,7 @@
     {
       "id": "A1.12:médico",
       "es": "médico",
-      "en": "doctor",
+      "en": "medical",
       "cefr": "A1",
       "microLevel": 12,
       "topic": "adjective",
@@ -3775,7 +3775,7 @@
     {
       "id": "A1.13:argentino",
       "es": "argentino",
-      "en": "Argentinean",
+      "en": "Argentine",
       "cefr": "A1",
       "microLevel": 13,
       "topic": "adjective",
@@ -4009,7 +4009,7 @@
     {
       "id": "A1.14:deportivo",
       "es": "deportivo",
-      "en": "sporty",
+      "en": "sports",
       "cefr": "A1",
       "microLevel": 14,
       "topic": "adjective",
@@ -4135,7 +4135,7 @@
     {
       "id": "A1.14:tecnológico",
       "es": "tecnológico",
-      "en": "technology",
+      "en": "technological",
       "cefr": "A1",
       "microLevel": 14,
       "topic": "adjective",
@@ -4162,7 +4162,7 @@
     {
       "id": "A1.14:infantil",
       "es": "infantil",
-      "en": "childish",
+      "en": "children's",
       "cefr": "A1",
       "microLevel": 14,
       "topic": "adjective",
@@ -4198,7 +4198,7 @@
     {
       "id": "A1.14:estatal",
       "es": "estatal",
-      "en": "statewide",
+      "en": "state",
       "cefr": "A1",
       "microLevel": 14,
       "topic": "adjective",
@@ -4378,7 +4378,7 @@
     {
       "id": "A1.15:unido",
       "es": "unido",
-      "en": "joined",
+      "en": "united",
       "cefr": "A1",
       "microLevel": 15,
       "topic": "adjective",
@@ -4405,7 +4405,7 @@
     {
       "id": "A1.15:exterior",
       "es": "exterior",
-      "en": "outside",
+      "en": "exterior",
       "cefr": "A1",
       "microLevel": 15,
       "topic": "adjective",
@@ -4531,7 +4531,7 @@
     {
       "id": "A1.15:buenas-noches",
       "es": "Buenas noches",
-      "en": "Good night",
+      "en": "Good evening",
       "cefr": "A1",
       "microLevel": 15,
       "topic": "Greetings",
@@ -6124,7 +6124,7 @@
     {
       "id": "A1.20:cine",
       "es": "Cine",
-      "en": "Cinema",
+      "en": "Movie theater",
       "cefr": "A1",
       "microLevel": 20,
       "topic": "Places",
@@ -6304,7 +6304,7 @@
     {
       "id": "A2.01:poder",
       "es": "poder",
-      "en": "be able to, can",
+      "en": "can",
       "cefr": "A2",
       "microLevel": 1,
       "topic": "verb",
@@ -6367,7 +6367,7 @@
     {
       "id": "A2.01:pasar",
       "es": "pasar",
-      "en": "pass by",
+      "en": "pass",
       "cefr": "A2",
       "microLevel": 1,
       "topic": "verb",
@@ -6484,7 +6484,7 @@
     {
       "id": "A2.02:volver",
       "es": "volver",
-      "en": "back to",
+      "en": "return",
       "cefr": "A2",
       "microLevel": 2,
       "topic": "verb",
@@ -6502,7 +6502,7 @@
     {
       "id": "A2.02:salir",
       "es": "salir",
-      "en": "exit",
+      "en": "leave",
       "cefr": "A2",
       "microLevel": 2,
       "topic": "verb",
@@ -6511,7 +6511,7 @@
     {
       "id": "A2.02:realizar",
       "es": "realizar",
-      "en": "make",
+      "en": "carry out",
       "cefr": "A2",
       "microLevel": 2,
       "topic": "verb",
@@ -6565,7 +6565,7 @@
     {
       "id": "A2.02:mirar",
       "es": "mirar",
-      "en": "see",
+      "en": "look",
       "cefr": "A2",
       "microLevel": 2,
       "topic": "verb",
@@ -6700,7 +6700,7 @@
     {
       "id": "A2.03:mantener",
       "es": "mantener",
-      "en": "maintain",
+      "en": "keep",
       "cefr": "A2",
       "microLevel": 3,
       "topic": "verb",
@@ -6754,7 +6754,7 @@
     {
       "id": "A2.03:pedir",
       "es": "pedir",
-      "en": "ask for",
+      "en": "ask",
       "cefr": "A2",
       "microLevel": 3,
       "topic": "verb",
@@ -6880,7 +6880,7 @@
     {
       "id": "A2.04:asegurar",
       "es": "asegurar",
-      "en": "secure",
+      "en": "ensure",
       "cefr": "A2",
       "microLevel": 4,
       "topic": "verb",
@@ -6925,7 +6925,7 @@
     {
       "id": "A2.04:escuchar",
       "es": "escuchar",
-      "en": "listen to",
+      "en": "listen",
       "cefr": "A2",
       "microLevel": 4,
       "topic": "verb",
@@ -7015,7 +7015,7 @@
     {
       "id": "A2.04:sacar",
       "es": "sacar",
-      "en": "take out",
+      "en": "remove",
       "cefr": "A2",
       "microLevel": 4,
       "topic": "verb",
@@ -7069,7 +7069,7 @@
     {
       "id": "A2.04:dirigir",
       "es": "dirigir",
-      "en": "address",
+      "en": "direct",
       "cefr": "A2",
       "microLevel": 4,
       "topic": "verb",
@@ -7105,7 +7105,7 @@
     {
       "id": "A2.05:cumplir",
       "es": "cumplir",
-      "en": "meet",
+      "en": "fulfill",
       "cefr": "A2",
       "microLevel": 5,
       "topic": "verb",
@@ -7150,7 +7150,7 @@
     {
       "id": "A2.05:observar",
       "es": "observar",
-      "en": "see",
+      "en": "observe",
       "cefr": "A2",
       "microLevel": 5,
       "topic": "verb",
@@ -7168,7 +7168,7 @@
     {
       "id": "A2.05:afirmar",
       "es": "afirmar",
-      "en": "claim",
+      "en": "state",
       "cefr": "A2",
       "microLevel": 5,
       "topic": "verb",
@@ -7240,7 +7240,7 @@
     {
       "id": "A2.05:acercar",
       "es": "acercar",
-      "en": "bring over",
+      "en": "bring closer",
       "cefr": "A2",
       "microLevel": 5,
       "topic": "verb",
@@ -7357,7 +7357,7 @@
     {
       "id": "A2.06:nacer",
       "es": "nacer",
-      "en": "birth",
+      "en": "be born",
       "cefr": "A2",
       "microLevel": 6,
       "topic": "verb",
@@ -7375,7 +7375,7 @@
     {
       "id": "A2.06:bajar",
       "es": "bajar",
-      "en": "download",
+      "en": "go down",
       "cefr": "A2",
       "microLevel": 6,
       "topic": "verb",
@@ -7384,7 +7384,7 @@
     {
       "id": "A2.06:suceder",
       "es": "suceder",
-      "en": "succeed",
+      "en": "happen",
       "cefr": "A2",
       "microLevel": 6,
       "topic": "verb",
@@ -7501,7 +7501,7 @@
     {
       "id": "A2.06:meter",
       "es": "meter",
-      "en": "tuck in",
+      "en": "put in",
       "cefr": "A2",
       "microLevel": 6,
       "topic": "verb",
@@ -7699,7 +7699,7 @@
     {
       "id": "A2.07:enfrentar",
       "es": "enfrentar",
-      "en": "confront",
+      "en": "face",
       "cefr": "A2",
       "microLevel": 7,
       "topic": "verb",
@@ -7762,7 +7762,7 @@
     {
       "id": "A2.07:faltar",
       "es": "faltar",
-      "en": "skip",
+      "en": "miss",
       "cefr": "A2",
       "microLevel": 7,
       "topic": "verb",
@@ -7834,7 +7834,7 @@
     {
       "id": "A2.08:echar",
       "es": "echar",
-      "en": "cast out of",
+      "en": "throw",
       "cefr": "A2",
       "microLevel": 8,
       "topic": "verb",
@@ -7888,7 +7888,7 @@
     {
       "id": "A2.08:superar",
       "es": "superar",
-      "en": "go beyond",
+      "en": "overcome",
       "cefr": "A2",
       "microLevel": 8,
       "topic": "verb",
@@ -7978,7 +7978,7 @@
     {
       "id": "A2.08:requerir",
       "es": "requerir",
-      "en": "request",
+      "en": "require",
       "cefr": "A2",
       "microLevel": 8,
       "topic": "verb",
@@ -7987,7 +7987,7 @@
     {
       "id": "A2.08:partir",
       "es": "partir",
-      "en": "start",
+      "en": "leave",
       "cefr": "A2",
       "microLevel": 8,
       "topic": "verb",
@@ -8059,7 +8059,7 @@
     {
       "id": "A2.09:pretender",
       "es": "pretender",
-      "en": "pretend",
+      "en": "intend",
       "cefr": "A2",
       "microLevel": 9,
       "topic": "verb",
@@ -8095,7 +8095,7 @@
     {
       "id": "A2.09:atender",
       "es": "atender",
-      "en": "attend",
+      "en": "assist",
       "cefr": "A2",
       "microLevel": 9,
       "topic": "verb",
@@ -8455,7 +8455,7 @@
     {
       "id": "A2.10:controlar",
       "es": "controlar",
-      "en": "check",
+      "en": "control",
       "cefr": "A2",
       "microLevel": 10,
       "topic": "verb",
@@ -8464,7 +8464,7 @@
     {
       "id": "A2.11:adquirir",
       "es": "adquirir",
-      "en": "purchase",
+      "en": "acquire",
       "cefr": "A2",
       "microLevel": 11,
       "topic": "verb",
@@ -8527,7 +8527,7 @@
     {
       "id": "A2.11:tirar",
       "es": "tirar",
-      "en": "throw away",
+      "en": "throw",
       "cefr": "A2",
       "microLevel": 11,
       "topic": "verb",
@@ -8887,7 +8887,7 @@
     {
       "id": "A2.12:contemplar",
       "es": "contemplar",
-      "en": "see",
+      "en": "contemplate",
       "cefr": "A2",
       "microLevel": 12,
       "topic": "verb",
@@ -8896,7 +8896,7 @@
     {
       "id": "A2.12:elaborar",
       "es": "elaborar",
-      "en": "elaborate",
+      "en": "produce",
       "cefr": "A2",
       "microLevel": 12,
       "topic": "verb",
@@ -8941,7 +8941,7 @@
     {
       "id": "A2.13:rodear",
       "es": "rodear",
-      "en": "go around",
+      "en": "surround",
       "cefr": "A2",
       "microLevel": 13,
       "topic": "verb",
@@ -8968,7 +8968,7 @@
     {
       "id": "A2.13:llenar",
       "es": "llenar",
-      "en": "fill out",
+      "en": "fill",
       "cefr": "A2",
       "microLevel": 13,
       "topic": "verb",
@@ -8986,7 +8986,7 @@
     {
       "id": "A2.13:cuidar",
       "es": "cuidar",
-      "en": "care",
+      "en": "care for",
       "cefr": "A2",
       "microLevel": 13,
       "topic": "verb",
@@ -9103,7 +9103,7 @@
     {
       "id": "A2.13:así",
       "es": "así",
-      "en": "thus",
+      "en": "so",
       "cefr": "A2",
       "microLevel": 13,
       "topic": "adjverb",
@@ -9184,7 +9184,7 @@
     {
       "id": "A2.14:además",
       "es": "además",
-      "en": "in addition",
+      "en": "besides",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9211,7 +9211,7 @@
     {
       "id": "A2.14:poco",
       "es": "poco",
-      "en": "sparsely",
+      "en": "little",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9229,7 +9229,7 @@
     {
       "id": "A2.14:menos",
       "es": "menos",
-      "en": "least",
+      "en": "less",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9238,7 +9238,7 @@
     {
       "id": "A2.14:tanto",
       "es": "tanto",
-      "en": "such",
+      "en": "so much",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9256,7 +9256,7 @@
     {
       "id": "A2.14:mucho",
       "es": "mucho",
-      "en": "a lot",
+      "en": "much",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9274,7 +9274,7 @@
     {
       "id": "A2.14:dentro",
       "es": "dentro",
-      "en": "within",
+      "en": "inside",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9301,7 +9301,7 @@
     {
       "id": "A2.14:incluso",
       "es": "incluso",
-      "en": "inclusive",
+      "en": "even",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9346,7 +9346,7 @@
     {
       "id": "A2.14:tampoco",
       "es": "tampoco",
-      "en": "nor",
+      "en": "neither",
       "cefr": "A2",
       "microLevel": 14,
       "topic": "adjverb",
@@ -9436,7 +9436,7 @@
     {
       "id": "A2.15:tarde",
       "es": "tarde",
-      "en": "afternoon",
+      "en": "late",
       "cefr": "A2",
       "microLevel": 15,
       "topic": "adjverb",
@@ -9517,7 +9517,7 @@
     {
       "id": "A2.15:bastante",
       "es": "bastante",
-      "en": "quite a lot",
+      "en": "quite",
       "cefr": "A2",
       "microLevel": 15,
       "topic": "adjverb",
@@ -9544,7 +9544,7 @@
     {
       "id": "A2.15:detrás",
       "es": "detrás",
-      "en": "back",
+      "en": "behind",
       "cefr": "A2",
       "microLevel": 15,
       "topic": "adjverb",
@@ -9661,7 +9661,7 @@
     {
       "id": "A2.16:difícilmente",
       "es": "difícilmente",
-      "en": "with difficulty",
+      "en": "hardly",
       "cefr": "A2",
       "microLevel": 16,
       "topic": "adjverb",
@@ -9958,7 +9958,7 @@
     {
       "id": "A2.17:por-favor",
       "es": "por favor",
-      "en": "kindly",
+      "en": "please",
       "cefr": "A2",
       "microLevel": 17,
       "topic": "adjverb",
@@ -10165,7 +10165,7 @@
     {
       "id": "A2.18:hacia",
       "es": "hacia",
-      "en": "to",
+      "en": "towards",
       "cefr": "A2",
       "microLevel": 18,
       "topic": "preposition",
@@ -10264,7 +10264,7 @@
     {
       "id": "A2.18:junto-a",
       "es": "junto a",
-      "en": "together with",
+      "en": "next to",
       "cefr": "A2",
       "microLevel": 18,
       "topic": "preposition",
@@ -10309,7 +10309,7 @@
     {
       "id": "A2.19:en-cuanto-a",
       "es": "en cuanto a",
-      "en": "in regard to",
+      "en": "as for",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "preposition",
@@ -10336,7 +10336,7 @@
     {
       "id": "A2.19:respecto-a",
       "es": "respecto a",
-      "en": "with respect to",
+      "en": "regarding",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "preposition",
@@ -10471,7 +10471,7 @@
     {
       "id": "A2.19:pues",
       "es": "pues",
-      "en": "since",
+      "en": "well",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "conjunction",
@@ -10498,7 +10498,7 @@
     {
       "id": "A2.19:guay",
       "es": "guay",
-      "en": "cool (used in Spain)",
+      "en": "cool",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "interjection",
@@ -10507,7 +10507,7 @@
     {
       "id": "A2.19:vale",
       "es": "vale",
-      "en": "okey (used in Spain)",
+      "en": "okay",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "interjection",
@@ -10516,7 +10516,7 @@
     {
       "id": "A2.19:órale",
       "es": "órale",
-      "en": "sure (used in Mexico)",
+      "en": "alright",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "interjection",
@@ -10534,7 +10534,7 @@
     {
       "id": "A2.19:bravo",
       "es": "bravo",
-      "en": "good job",
+      "en": "bravo",
       "cefr": "A2",
       "microLevel": 19,
       "topic": "interjection",
@@ -10543,7 +10543,7 @@
     {
       "id": "A2.20:che",
       "es": "che",
-      "en": "dude (used in Argentina and Uruguay)",
+      "en": "dude",
       "cefr": "A2",
       "microLevel": 20,
       "topic": "interjection",
@@ -10615,7 +10615,7 @@
     {
       "id": "A2.20:pescado",
       "es": "Pescado",
-      "en": "Fish (food)",
+      "en": "Fish",
       "cefr": "A2",
       "microLevel": 20,
       "topic": "Food",
@@ -10642,7 +10642,7 @@
     {
       "id": "A2.20:pez",
       "es": "Pez",
-      "en": "Fish (animal)",
+      "en": "Fish",
       "cefr": "A2",
       "microLevel": 20,
       "topic": "Animals",
