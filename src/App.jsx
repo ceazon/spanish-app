@@ -728,12 +728,17 @@ function selectAdaptiveScrambles(pool = [], { difficulty = 1, target = 6, userKe
   const recent = readRecentScrambles(userKey, category);
   const mix = targetMixForDifficulty(difficulty);
 
-  const scored = unique
+  const protectedRecent = new Set(recent.slice(0, Math.min(24, recent.length)));
+  const candidatePool = unique.filter((s) => !protectedRecent.has(s?.correct));
+  const working = candidatePool.length >= Math.max(8, target) ? candidatePool : unique;
+
+  const scored = working
     .map((s) => {
       const diff = estimateScrambleDifficulty(s);
       const recencyIdx = recent.indexOf(s.correct);
-      const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0, 1 - recencyIdx / Math.max(1, recent.length));
-      const randomBoost = Math.random() * 0.25;
+      // Penalize recently seen items; fresh items should rank highest.
+      const noveltyBoost = recencyIdx === -1 ? 1 : Math.max(0.02, recencyIdx / Math.max(1, recent.length));
+      const randomBoost = Math.random() * 0.35;
       return { ...s, _diff: diff, _score: noveltyBoost + randomBoost };
     })
     .sort((a, b) => b._score - a._score);
