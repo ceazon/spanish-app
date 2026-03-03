@@ -66,6 +66,7 @@ function deriveSublevel(word, bandWords) {
 function splitPoolsByProgress(profile, band = 'A1') {
   const bWords = wordsInBand(band);
   const currentSub = clamp(Number(profile?.sublevel || 0), 0, 9);
+  const now = Date.now();
 
   const current = [];
   const review = [];
@@ -74,6 +75,13 @@ function splitPoolsByProgress(profile, band = 'A1') {
   for (const w of bWords) {
     const stats = exposureStats(profile, w.id || w.es);
     const sub = deriveSublevel(w, bWords);
+    const exposure = profile?.wordExposure?.[w.id || w.es] || {};
+    const due = exposure?.nextReviewAt ? (new Date(exposure.nextReviewAt).getTime() <= now) : false;
+
+    if (due) {
+      review.push({ ...w, _sub: sub, _bucket: 'review_due', _priority: -1 });
+      continue;
+    }
 
     if (sub < currentSub) {
       // Earlier levels become review material
@@ -94,6 +102,8 @@ function splitPoolsByProgress(profile, band = 'A1') {
 
   // Sort current so not-mastered words appear first
   current.sort((a, b) => (a._priority || 0) - (b._priority || 0));
+  // Due reviews first
+  review.sort((a, b) => (a._priority || 0) - (b._priority || 0));
 
   return { current, review, stretch, currentSub, bWords };
 }

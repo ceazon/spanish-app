@@ -2554,10 +2554,11 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         <div style={{ color:'#9ca3af', fontSize:12, marginBottom:10 }}>
           {user?.profile?.gateStatus?.pass ? '✅ You are ready to progress.' : 'Complete this mastery gate to unlock the next micro-level.'}
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,minmax(0,1fr))', gap:8 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,minmax(0,1fr))', gap:8 }}>
           <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Coverage: <strong>{user?.profile?.gateStatus?.coverage ?? 0}%</strong></div>
           <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Mastery: <strong>{user?.profile?.gateStatus?.mastery ?? 0}%</strong></div>
           <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Accuracy: <strong>{user?.profile?.gateStatus?.accuracy ?? 0}%</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Min Skill: <strong>{user?.profile?.gateStatus?.minSkill ?? 0}%</strong></div>
         </div>
       </div>
 

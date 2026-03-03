@@ -34,6 +34,7 @@ const MICRO_LEVELS_PER_BAND = 20;
 const MICRO_GATE_MIN_COVERAGE = 0.6;
 const MICRO_GATE_MIN_MASTERY = 0.65;
 const MICRO_GATE_MIN_ACC = 0.7;
+const SKILL_GATE_MIN = 55;
 
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
@@ -43,6 +44,8 @@ function normalizeExposureEntry(entry = {}) {
     correct,
     cefr: entry.cefr || "A1",
     lastSeen: entry.lastSeen || null,
+    nextReviewAt: entry.nextReviewAt || null,
+    stability: Number(entry.stability || 0),
   };
 }
 
@@ -127,12 +130,19 @@ function applyWordResults(profile, wordResults = []) {
     const id = wr?.id;
     if (!id) continue;
     const prior = normalizeExposureEntry(nextExposure[id]);
+    const isCorrect = Number(wr.correct || 0) > 0;
+    const stability = Math.max(0, Number(prior.stability || 0) + (isCorrect ? 1 : -1));
+    const reviewDays = stability >= 5 ? 14 : stability >= 3 ? 7 : stability >= 1 ? 3 : 1;
+    const nextReviewAt = new Date(Date.now() + reviewDays * 24 * 60 * 60 * 1000).toISOString();
+
     nextExposure[id] = {
       ...prior,
       cefr: wr.cefr || prior.cefr || profile.cefrBand || "A1",
       seen: prior.seen + Number(wr.seen || 1),
       correct: prior.correct + Number(wr.correct || 0),
       lastSeen: new Date().toISOString(),
+      stability,
+      nextReviewAt,
     };
   }
   return nextExposure;
@@ -140,6 +150,16 @@ function applyWordResults(profile, wordResults = []) {
 
 function getWordsForMicroLevel(band = 'A1', microLevel = 0) {
   return MASTER_WORDS.filter((w) => (w?.cefr || 'A1') === band && (Number(w?.microLevel || 1) - 1) === microLevel);
+}
+
+function computeSkillGateStatus(profile = {}) {
+  const s = profile?.skillMastery || {};
+  const values = ['recognition', 'recall', 'listening', 'production', 'grammar'].map((k) => Number(s?.[k] || 0));
+  const minSkill = values.length ? Math.min(...values) : 0;
+  return {
+    pass: minSkill >= SKILL_GATE_MIN,
+    minSkill,
+  };
 }
 
 function computeMicroGateStatus(profile = {}, band = 'A1', microLevel = 0) {
@@ -373,15 +393,18 @@ export function updateLearningProfile(profile = {}, result = {}) {
   // unless coverage+mastery+accuracy thresholds are met for current micro level.
   const currentMicro = clamp(Number.isFinite(Number(p.microLevel)) ? Number(p.microLevel) : Number((p.sublevel || 0) * 2), 0, MICRO_LEVELS_PER_BAND - 1);
   const gate = computeMicroGateStatus(p, p.cefrBand, currentMicro);
+  const skillGate = computeSkillGateStatus(p);
+  const gatePass = gate.pass && skillGate.pass;
   p.gateStatus = {
     microLevel: currentMicro,
-    pass: gate.pass,
+    pass: gatePass,
     coverage: Math.round(gate.coverage * 100),
     mastery: Math.round(gate.mastery * 100),
     accuracy: Math.round(gate.acc * 100),
+    minSkill: Math.round(skillGate.minSkill),
   };
   const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
-  if (!gate.pass && computedBandProgress >= nextMicroStart) {
+  if (!gatePass && computedBandProgress >= nextMicroStart) {
     computedBandProgress = Math.max(0, nextMicroStart - 0.001);
   }
   p.bandProgress = computedBandProgress;
@@ -389,7 +412,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
   // Handle CEFR band level-up when micro 20 gate is passed and progress reaches 100%.
   if (p.bandProgress >= 1.0) {
     const finalGate = computeMicroGateStatus(p, p.cefrBand, MICRO_LEVELS_PER_BAND - 1);
-    if (finalGate.pass) {
+    const finalSkillGate = computeSkillGateStatus(p);
+    if (finalGate.pass && finalSkillGate.pass) {
       const bands = ["A1", "A2", "B1", "B2"];
       const idx = bands.indexOf(p.cefrBand);
       if (idx < bands.length - 1) {
