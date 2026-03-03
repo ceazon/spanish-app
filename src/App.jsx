@@ -1075,10 +1075,22 @@ function AuthScreen({ onLogin }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function VerbLesson({ onComplete, verbs = APP_VERBS }) {
-  const [vi, setVi] = useState(() => Math.floor(Math.random()*verbs.length));
+  const mergedVerbs = useMemo(() => {
+    const incoming = Array.isArray(verbs) ? verbs : [];
+    const canonicalByInf = new Map((APP_VERBS || []).map((v) => [normalizeSimple(v?.infinitive || ''), v]));
+    return incoming.map((v) => {
+      const base = canonicalByInf.get(normalizeSimple(v?.infinitive || ''));
+      if (!base) return v;
+      const byPron = new Map((base.conjugations || []).map((c) => [normalizeSimple(c?.pronoun || ''), c]));
+      for (const c of (v?.conjugations || [])) byPron.set(normalizeSimple(c?.pronoun || ''), c);
+      return { ...base, ...v, conjugations: Array.from(byPron.values()) };
+    });
+  }, [verbs]);
+
+  const [vi, setVi] = useState(() => Math.floor(Math.random()*Math.max(1, mergedVerbs.length)));
   const [phase, setPhase] = useState("intro"); const [pi, setPi] = useState(0);
   const [input, setInput] = useState(""); const [feedback, setFeedback] = useState(null); const [score, setScore] = useState(0);
-  const verb = verbs[vi];
+  const verb = mergedVerbs[vi] || APP_VERBS[0];
   function nextQ(ok) {
     const ns=score+(ok?1:0); setScore(ns);
     const n=pi+1;
@@ -1121,7 +1133,7 @@ function VerbLesson({ onComplete, verbs = APP_VERBS }) {
           </div>
         </div>
         <div style={{ display:"flex", gap:12 }}>
-          <button onClick={() => { setVi((vi+1)%verbs.length); setPhase("intro"); }} style={{ flex:1, padding:"13px", borderRadius:12, fontSize:14, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif", border:"1px solid rgba(255,255,255,0.08)" }}>Try Another</button>
+          <button onClick={() => { setVi((vi+1)%Math.max(1, mergedVerbs.length)); setPhase("intro"); }} style={{ flex:1, padding:"13px", borderRadius:12, fontSize:14, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif", border:"1px solid rgba(255,255,255,0.08)" }}>Try Another</button>
           <PrimaryBtn onClick={() => { setPhase("practice"); setPi(0); setInput(""); setFeedback(null); setScore(0); }} style={{ flex:2 }}>Practice This Verb →</PrimaryBtn>
         </div>
       </div>
@@ -1150,12 +1162,25 @@ function VerbLesson({ onComplete, verbs = APP_VERBS }) {
 
 function SpeedRoundLesson({ onComplete, verbs = APP_VERBS }) {
   const TOTAL=60;
+  const mergedVerbs = useMemo(() => {
+    const incoming = Array.isArray(verbs) ? verbs : [];
+    const canonicalByInf = new Map((APP_VERBS || []).map((v) => [normalizeSimple(v?.infinitive || ''), v]));
+    const out = incoming.map((v) => {
+      const base = canonicalByInf.get(normalizeSimple(v?.infinitive || ''));
+      if (!base) return v;
+      const byPron = new Map((base.conjugations || []).map((c) => [normalizeSimple(c?.pronoun || ''), c]));
+      for (const c of (v?.conjugations || [])) byPron.set(normalizeSimple(c?.pronoun || ''), c);
+      return { ...base, ...v, conjugations: Array.from(byPron.values()) };
+    });
+    return out.length ? out : APP_VERBS;
+  }, [verbs]);
+
   const [started, setStarted] = useState(false); const [timeLeft, setTimeLeft] = useState(TOTAL);
   const [questions] = useState(() => {
     const qs=[];
     const pronouns = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"];
     for(let i=0;i<40;i++){
-      const v=verbs[Math.floor(Math.random()*verbs.length)];
+      const v=mergedVerbs[Math.floor(Math.random()*mergedVerbs.length)];
       const wantedPronoun = pronouns[i % pronouns.length];
       const c=(v.conjugations||[]).find((x)=>String(x?.pronoun||"").toLowerCase()===wantedPronoun)
         || v.conjugations[Math.floor(Math.random()*v.conjugations.length)];
