@@ -3194,8 +3194,28 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, [chatTopics, dailyFocusWord, dailyFocusVerb, verbs, pronouns, rotationIndex]);
 
   const scrambleForLesson = useMemo(() => {
-    const target = Math.max(4, Math.min(8, 3 + difficulty));
-    const selected = selectAdaptiveScrambles(scrambleSentences, {
+    const target = Math.max(10, Math.min(16, 8 + difficulty * 2));
+
+    // Expand pool dynamically from level-aligned words + verbs.
+    const generated = [];
+    const pronOrder = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos / ellas"];
+    for (let i = 0; i < Math.min(24, (wordsForLesson || []).length); i++) {
+      const w = wordsForLesson[i];
+      const v = verbsForLesson[i % Math.max(1, verbsForLesson.length)];
+      const pron = pronOrder[(rotationIndex + i) % pronOrder.length];
+      const form = (v?.conjugations || []).find((c) => normalizeSimple(c?.pronoun || "") === normalizeSimple(pron)) || v?.conjugations?.[0];
+      if (!w?.es || !w?.en || !form?.form) continue;
+      const correct = `${form.pronoun} ${form.form} ${w.es} hoy`;
+      generated.push({
+        id: `gen-scr:${normalizeSimple(w.es)}:${normalizeSimple(v?.infinitive || "")}:${normalizeSimple(form.pronoun)}`,
+        words: shuffle([form.pronoun, form.form, w.es, "hoy"]),
+        correct,
+        hint: `${form.pronoun} ${v?.meaning || v?.infinitive || "use"} ${w.en} today.`,
+        cefr: user?.profile?.cefrBand || 'A1',
+      });
+    }
+
+    const selected = selectAdaptiveScrambles([...(scrambleSentences || []), ...generated], {
       difficulty,
       target,
       userKey,
@@ -3238,7 +3258,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
       byCorrect[s.correct] = s;
     }
     return shuffle(Object.values(byCorrect)).slice(0, target);
-  }, [scrambleSentences, difficulty, userKey, dailyFocusWord, dailyFocusVerb, verbs, rotationIndex, user]);
+  }, [scrambleSentences, difficulty, userKey, dailyFocusWord, dailyFocusVerb, verbs, rotationIndex, user, wordsForLesson, verbsForLesson, pronouns]);
   function pickCategory(cat) {
     if (cat === "General") {
       setCategory("General");
