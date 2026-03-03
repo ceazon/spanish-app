@@ -17,7 +17,7 @@ const MODULES = {
 };
 
 export const PATH_BANDS = ["A1", "A2"];
-export const SUBLEVELS_PER_BAND = 10;
+export const SUBLEVELS_PER_BAND = 20;
 
 /**
  * Structured path definition by sub-level role.
@@ -27,11 +27,12 @@ export const LEARNING_PATH = {
   A1: Array.from({ length: SUBLEVELS_PER_BAND }, (_, i) => ({
     band: "A1",
     sublevel: i,
-    title: i < 3 ? `Foundations ${i + 1}` : i < 7 ? `Core Communication ${i + 1}` : `Confidence Building ${i + 1}`,
-    focus: i < 3 ? "Foundations" : i < 7 ? "Core Communication" : "Confidence Building",
+    title: i < 7 ? `Foundations ${i + 1}` : i < 14 ? `Core Communication ${i + 1}` : `Confidence Building ${i + 1}`,
+    focus: i < 7 ? "Foundations" : i < 14 ? "Core Communication" : "Confidence Building",
+    // Daily guided loop: warm-up -> new words -> production
     moduleSequence: [
-      MODULES.INTRO,
       MODULES.RECOGNITION,
+      MODULES.INTRO,
       MODULES.PRODUCTION,
     ],
     completionRules: {
@@ -43,13 +44,12 @@ export const LEARNING_PATH = {
   A2: Array.from({ length: SUBLEVELS_PER_BAND }, (_, i) => ({
     band: "A2",
     sublevel: i,
-    title: i < 3 ? `Everyday Expansion ${i + 1}` : i < 7 ? `Narration & Context ${i + 1}` : `Fluency Bridge ${i + 1}`,
-    focus: i < 3 ? "Everyday Expansion" : i < 7 ? "Narration & Context" : "Fluency Bridge",
+    title: i < 7 ? `Everyday Expansion ${i + 1}` : i < 14 ? `Narration & Context ${i + 1}` : `Fluency Bridge ${i + 1}`,
+    focus: i < 7 ? "Everyday Expansion" : i < 14 ? "Narration & Context" : "Fluency Bridge",
     moduleSequence: [
-      MODULES.INTRO,
       MODULES.RECOGNITION,
+      MODULES.INTRO,
       MODULES.PRODUCTION,
-      MODULES.APPLICATION,
     ],
     completionRules: {
       masteryTarget: 0.8,
@@ -84,14 +84,8 @@ export function getPathNode(profile = {}) {
  * - can later adapt based on weak areas / fatigue / streak
  */
 function randomizeStepSequence(base = []) {
-  if (!Array.isArray(base) || !base.length) return [];
-  const first = base[0]; // keep intro first
-  const rest = [...base.slice(1)];
-  for (let i = rest.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [rest[i], rest[j]] = [rest[j], rest[i]];
-  }
-  return [first, ...rest];
+  // v4 guided loop keeps deterministic order for habit formation.
+  return Array.isArray(base) ? [...base] : [];
 }
 
 export function buildDailyPlan(profile = {}, now = new Date()) {

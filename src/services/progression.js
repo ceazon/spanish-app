@@ -227,6 +227,13 @@ export function defaultLearningState() {
     globalDifficulty: 1,
     recentAccuracies: [],
     mastery: {},
+    skillMastery: {
+      recognition: 0,
+      recall: 0,
+      listening: 0,
+      production: 0,
+      grammar: 0,
+    },
     wordExposure: {}, // Tracking per-word mastery
     progressPointsByBand: {}, // weighted momentum points by CEFR band
     progressionEvents: [], // rolling ledger for debugging and analytics
@@ -303,6 +310,16 @@ export function placementFromScore(correct, total) {
   return { level: title, cefrBand, bandProgress, recommendedLessons };
 }
 
+function primarySkillForModule(moduleType = '') {
+  const m = String(moduleType || '');
+  if (['Flashcards', 'Word Match'].includes(m)) return 'recognition';
+  if (['Fill in the Blank', 'Sentence Scramble'].includes(m)) return 'recall';
+  if (['Transcription', 'Audio Shadowing', 'Pronunciation Coach'].includes(m)) return 'listening';
+  if (['Scenario Builder', 'Chat Partner', 'Picture Description', 'Image Labeling'].includes(m)) return 'production';
+  if (['Learn Verbs', 'Speed Round'].includes(m)) return 'grammar';
+  return 'recognition';
+}
+
 export function getAdaptiveDifficulty(profile = {}, lessonType) {
   const p = profile || {};
   const base = clamp(Number(p.globalDifficulty || 1), 1, 5);
@@ -356,6 +373,13 @@ export function updateLearningProfile(profile = {}, result = {}) {
   // unless coverage+mastery+accuracy thresholds are met for current micro level.
   const currentMicro = clamp(Number.isFinite(Number(p.microLevel)) ? Number(p.microLevel) : Number((p.sublevel || 0) * 2), 0, MICRO_LEVELS_PER_BAND - 1);
   const gate = computeMicroGateStatus(p, p.cefrBand, currentMicro);
+  p.gateStatus = {
+    microLevel: currentMicro,
+    pass: gate.pass,
+    coverage: Math.round(gate.coverage * 100),
+    mastery: Math.round(gate.mastery * 100),
+    accuracy: Math.round(gate.acc * 100),
+  };
   const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
   if (!gate.pass && computedBandProgress >= nextMicroStart) {
     computedBandProgress = Math.max(0, nextMicroStart - 0.001);
@@ -409,6 +433,13 @@ export function updateLearningProfile(profile = {}, result = {}) {
       attempts: (prior.attempts || 0) + 1,
       lastPlayed: new Date().toISOString(),
     },
+  };
+
+  const skillKey = primarySkillForModule(lessonType);
+  const priorSkill = Number(p.skillMastery?.[skillKey] || 0);
+  p.skillMastery = {
+    ...(p.skillMastery || {}),
+    [skillKey]: clamp(Math.round(priorSkill * 0.75 + accPct * 0.25), 0, 100),
   };
   p.lastLessonType = lessonType;
   p.updatedAt = new Date().toISOString();

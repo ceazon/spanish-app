@@ -2525,7 +2525,7 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
 
             <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:10 }}>
               <PrimaryBtn onClick={() => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id })} style={{ padding:"8px 12px" }}>
-                Continue Path: {nextSuggested} →
+                Continue My Path: {nextSuggested} →
               </PrimaryBtn>
               <button onClick={() => onStartLesson("Placement Test")} style={{ padding:"8px 12px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#9ca3af", fontSize:12 }}>Retake Test</button>
             </div>
@@ -2547,6 +2547,18 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
             </div>
           </div>
         )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Level-Up Gate</div>
+        <div style={{ color:'#9ca3af', fontSize:12, marginBottom:10 }}>
+          {user?.profile?.gateStatus?.pass ? '✅ You are ready to progress.' : 'Complete this mastery gate to unlock the next micro-level.'}
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,minmax(0,1fr))', gap:8 }}>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Coverage: <strong>{user?.profile?.gateStatus?.coverage ?? 0}%</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Mastery: <strong>{user?.profile?.gateStatus?.mastery ?? 0}%</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Accuracy: <strong>{user?.profile?.gateStatus?.accuracy ?? 0}%</strong></div>
+        </div>
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
