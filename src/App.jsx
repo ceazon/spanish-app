@@ -2694,7 +2694,38 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
   }, []);
 
   const fillBlankSentencesRaw = contentPack?.sentences || [...SENTENCES, ...((expandedContent && expandedContent.sentences) || [])];
-  const verbs = contentPack?.verbs || APP_VERBS;
+  const verbs = useMemo(() => {
+    const canonical = Array.isArray(APP_VERBS) ? APP_VERBS : [];
+    const incoming = Array.isArray(contentPack?.verbs) ? contentPack.verbs : [];
+    if (!incoming.length) return canonical;
+
+    const byInf = new Map(canonical.map((v) => [normalizeSimple(v?.infinitive || ''), v]));
+    const merged = incoming.map((v) => {
+      const key = normalizeSimple(v?.infinitive || '');
+      const base = byInf.get(key);
+      if (!base) return v;
+
+      const incomingConj = Array.isArray(v?.conjugations) ? v.conjugations : [];
+      const baseConj = Array.isArray(base?.conjugations) ? base.conjugations : [];
+      const byPron = new Map(baseConj.map((c) => [normalizeSimple(c?.pronoun || ''), c]));
+      for (const c of incomingConj) {
+        byPron.set(normalizeSimple(c?.pronoun || ''), c);
+      }
+
+      return {
+        ...base,
+        ...v,
+        conjugations: Array.from(byPron.values()),
+      };
+    });
+
+    const seen = new Set(merged.map((v) => normalizeSimple(v?.infinitive || '')));
+    for (const c of canonical) {
+      const key = normalizeSimple(c?.infinitive || '');
+      if (!seen.has(key)) merged.push(c);
+    }
+    return merged;
+  }, [contentPack?.verbs]);
   const listenSentencesRaw = contentPack?.listenSentences || [...LISTEN_SENTENCES, ...(expandedContent?.listenSentences || [])];
   const scenariosDataRaw = contentPack?.scenarios || [...SCENARIOS, ...(expandedInteractiveContent?.scenarios || [])];
   const scenesRaw = contentPack?.scenes || [...SCENES, ...(expandedInteractiveContent?.scenes || [])];
