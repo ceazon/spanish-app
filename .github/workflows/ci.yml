@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-build-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Validate CEFR master corpus
+        run: npm run content:validate-master
+
+      - name: Validate verbs corpus
+        run: npm run content:validate-verbs
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
