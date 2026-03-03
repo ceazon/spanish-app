@@ -30,6 +30,11 @@ const CEFR_COUNTS = MASTER_WORDS.reduce((acc, w) => {
 }, { A1: 1, A2: 1, B1: 1, B2: 1 });
 const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
+const MICRO_LEVELS_PER_BAND = 20;
+const MICRO_GATE_MIN_COVERAGE = 0.6;
+const MICRO_GATE_MIN_MASTERY = 0.65;
+const MICRO_GATE_MIN_ACC = 0.7;
+
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
   const correct = Number(entry.correct || 0);
@@ -131,6 +136,33 @@ function applyWordResults(profile, wordResults = []) {
     };
   }
   return nextExposure;
+}
+
+function getWordsForMicroLevel(band = 'A1', microLevel = 0) {
+  return MASTER_WORDS.filter((w) => (w?.cefr || 'A1') === band && (Number(w?.microLevel || 1) - 1) === microLevel);
+}
+
+function computeMicroGateStatus(profile = {}, band = 'A1', microLevel = 0) {
+  const words = getWordsForMicroLevel(band, microLevel);
+  if (!words.length) return { pass: true, coverage: 1, mastery: 1, acc: 1 };
+
+  const exposure = profile?.wordExposure || {};
+  let seenCount = 0;
+  let masteredCount = 0;
+  let accSum = 0;
+
+  for (const w of words) {
+    const e = normalizeExposureEntry(exposure[w.id || w.es]);
+    if (e.seen > 0) seenCount += 1;
+    if (isMastered(e)) masteredCount += 1;
+    accSum += e.seen > 0 ? (e.correct / e.seen) : 0;
+  }
+
+  const coverage = seenCount / words.length;
+  const mastery = masteredCount / words.length;
+  const acc = accSum / words.length;
+  const pass = coverage >= MICRO_GATE_MIN_COVERAGE && mastery >= MICRO_GATE_MIN_MASTERY && acc >= MICRO_GATE_MIN_ACC;
+  return { pass, coverage, mastery, acc };
 }
 
 function appendProgressionEvent(profile, event) {
@@ -314,18 +346,33 @@ export function updateLearningProfile(profile = {}, result = {}) {
   }
 
   // Hybrid progression: mastery + momentum for steady forward movement.
-  p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
+  let computedBandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
   // Learning progress is exposure-based so users see momentum quickly.
   p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
 
-  // Handle CEFR band level-up when mastered progress reaches 100%.
+  // Micro-level gating: prevent progress from crossing into next micro level
+  // unless coverage+mastery+accuracy thresholds are met for current micro level.
+  const currentMicro = clamp(Number.isFinite(Number(p.microLevel)) ? Number(p.microLevel) : Number((p.sublevel || 0) * 2), 0, MICRO_LEVELS_PER_BAND - 1);
+  const gate = computeMicroGateStatus(p, p.cefrBand, currentMicro);
+  const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
+  if (!gate.pass && computedBandProgress >= nextMicroStart) {
+    computedBandProgress = Math.max(0, nextMicroStart - 0.001);
+  }
+  p.bandProgress = computedBandProgress;
+
+  // Handle CEFR band level-up when micro 20 gate is passed and progress reaches 100%.
   if (p.bandProgress >= 1.0) {
-    const bands = ["A1", "A2", "B1", "B2"];
-    const idx = bands.indexOf(p.cefrBand);
-    if (idx < bands.length - 1) {
-      p.cefrBand = bands[idx + 1];
-      p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
-      p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
+    const finalGate = computeMicroGateStatus(p, p.cefrBand, MICRO_LEVELS_PER_BAND - 1);
+    if (finalGate.pass) {
+      const bands = ["A1", "A2", "B1", "B2"];
+      const idx = bands.indexOf(p.cefrBand);
+      if (idx < bands.length - 1) {
+        p.cefrBand = bands[idx + 1];
+        p.bandProgress = computeHybridBandProgress(p.wordExposure, p.progressPointsByBand, p.cefrBand);
+        p.learningProgress = computeBandLearningProgress(p.wordExposure, p.cefrBand);
+      }
+    } else {
+      p.bandProgress = 0.999;
     }
   }
 
