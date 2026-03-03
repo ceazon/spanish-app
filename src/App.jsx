@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import starterPack from "./content/packs/starter-pack.json";
 import approvedVocab from "./content/approved-vocab-1000.json";
 import cefrVocab from "./content/cefr-vocab.json";
+import cefrVocabMaster from "./content/cefr-vocab-master.json";
 import dailyFocusWords from "./content/daily-focus-words.json";
 import dailyFocusVerbs from "./content/daily-focus-verbs.json";
 import { LESSON_META, LESSON_TYPES, NO_CATEGORY } from "./config/lessons";
@@ -2416,6 +2417,32 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
     return { ...node, words: sampledWords, verbs: sampledVerbs, concepts };
   }
 
+  const wordLookup = useMemo(() => {
+    const map = new Map();
+    for (const w of (cefrVocabMaster?.words || [])) {
+      if (!w?.id || !w?.es || !w?.en) continue;
+      map.set(String(w.id), { id: w.id, es: w.es, en: w.en, cefr: w.cefr || 'A1' });
+    }
+    return map;
+  }, []);
+
+  const dueReviewWords = useMemo(() => {
+    const nowTs = Date.now();
+    const entries = Object.entries(user?.profile?.wordExposure || {})
+      .map(([id, e]) => ({ id, nextReviewAt: e?.nextReviewAt, stability: Number(e?.stability || 0) }))
+      .filter((e) => e?.nextReviewAt && new Date(e.nextReviewAt).getTime() <= nowTs)
+      .sort((a, b) => new Date(a.nextReviewAt).getTime() - new Date(b.nextReviewAt).getTime() || a.stability - b.stability);
+
+    const out = [];
+    for (const e of entries) {
+      const w = wordLookup.get(String(e.id));
+      if (!w) continue;
+      out.push(w);
+      if (out.length >= 12) break;
+    }
+    return out;
+  }, [user?.profile?.wordExposure, wordLookup]);
+
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
     return titles.map((title, subIdx) => {
@@ -2505,6 +2532,30 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
         <div style={{ display:"grid", gap:8 }}>
           {quests.map(q => <div key={q.label} style={{ color:q.done?"#4ade80":"#9ca3af", fontSize:13 }}>{q.done?"✓":"○"} {q.label}</div>)}
         </div>
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+          <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700 }}>Due Review Queue</div>
+          <div style={{ color:"#6b7280", fontSize:12 }}>{dueReviewWords.length} due</div>
+        </div>
+        <div style={{ color:'#9ca3af', fontSize:12, marginBottom:10 }}>
+          Review due words first to keep long-term retention high.
+        </div>
+        <div style={{ display:'flex', gap:8, flexWrap:'wrap', marginBottom:10 }}>
+          {dueReviewWords.slice(0, 6).map((w) => (
+            <div key={w.id} style={{ padding:'6px 10px', borderRadius:999, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>
+              {w.es}
+            </div>
+          ))}
+          {!dueReviewWords.length && <div style={{ color:'#6b7280', fontSize:12 }}>No overdue words right now. Nice work.</div>}
+        </div>
+        <PrimaryBtn
+          onClick={() => onStartLesson('Flashcards', { challengeWords: dueReviewWords.length ? dueReviewWords : undefined })}
+          style={{ padding:'8px 12px' }}
+        >
+          Review Due Words →
+        </PrimaryBtn>
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
