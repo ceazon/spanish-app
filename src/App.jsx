@@ -12,6 +12,8 @@ import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clear
 import { getDailyQuestState, recomputeProfileFromHistory, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
 import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
 import { ensurePathState, getNextPathStep, completePathStep } from "./services/learningPath";
+import { GATE_POLICY_V1, gateKeyFromLevel } from "./config/gates.js";
+import { unlockGate, finalizeGateAttempt } from "./services/gateTests.js";
 import { Toast, ProgressBar, FeedbackBanner, PrimaryBtn, TextInput } from "./components/ui";
 import { FlashcardLesson, WordMatchLesson, FillBlankLesson } from "./lessons/vocab";
 
@@ -2343,9 +2345,10 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode }) {
+function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, onOpenStoryMode }) {
   const [showProgressMap, setShowProgressMap] = useState(false);
   const [levelPreview, setLevelPreview] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -2443,6 +2446,33 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
     return out;
   }, [user?.profile?.wordExposure, wordLookup]);
 
+  const gateLevels = Array.isArray(GATE_POLICY_V1?.gateLevels) ? [...GATE_POLICY_V1.gateLevels] : [];
+  gateLevels.sort((a, b) => Number(a?.level || 0) - Number(b?.level || 0));
+  const blockingGate = gateLevels
+    .map((g) => ({ ...g, gateKey: gateKeyFromLevel(g.level), state: user?.profile?.gates?.[gateKeyFromLevel(g.level)] || null }))
+    .find((g) => Number(user?.profile?.overallLevel || 1) >= Number(g?.level || 0) && g?.state?.status !== "passed") || null;
+
+  const nextAction = blockingGate
+    ? {
+        title: `Pass Level ${blockingGate.level} Gate Test`,
+        subtitle: `Required to continue progression (${blockingGate.type})`,
+        cta: "Take Gate Test",
+        run: () => onStartGateTest?.(blockingGate),
+      }
+    : dueReviewWords.length >= 6
+      ? {
+          title: `Review ${dueReviewWords.length} due words`,
+          subtitle: "Quick retention boost before new challenges",
+          cta: "Start Review",
+          run: () => onStartLesson('Flashcards', { challengeWords: dueReviewWords }),
+        }
+      : {
+          title: `Continue: ${nextSuggested}`,
+          subtitle: `Next guided step in your ${getFriendlyPathName(user.profile || {})}`,
+          cta: "Continue Mission",
+          run: () => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id }),
+        };
+
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
     return titles.map((title, subIdx) => {
@@ -2498,19 +2528,21 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
         </div>
       </div>
-      <div style={{ background:"linear-gradient(140deg, rgba(124,58,237,0.22), rgba(6,182,212,0.16))", border:"1px solid rgba(124,58,237,0.4)", borderRadius:18, padding:"16px", marginBottom:16 }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
-          <div>
-            <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2 }}>FEATURED MODE</div>
-            <div style={{ color:"#fff", fontSize:24, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>🎮 Hop into Story Mode</div>
-            <div style={{ color:"#ddd6fe", fontSize:13, marginTop:4 }}>Take on a timed challenge run and finish with a mission report.</div>
+      {showDetails && (
+        <div style={{ background:"linear-gradient(140deg, rgba(124,58,237,0.22), rgba(6,182,212,0.16))", border:"1px solid rgba(124,58,237,0.4)", borderRadius:18, padding:"16px", marginBottom:16 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
+            <div>
+              <div style={{ color:"#c4b5fd", fontSize:11, letterSpacing:2 }}>FEATURED MODE</div>
+              <div style={{ color:"#fff", fontSize:24, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>🎮 Hop into Story Mode</div>
+              <div style={{ color:"#ddd6fe", fontSize:13, marginTop:4 }}>Take on a timed challenge run and finish with a mission report.</div>
+            </div>
+            <PrimaryBtn onClick={onOpenStoryMode} style={{ whiteSpace:"nowrap" }}>Take on the Challenge</PrimaryBtn>
           </div>
-          <PrimaryBtn onClick={onOpenStoryMode} style={{ whiteSpace:"nowrap" }}>Take on the Challenge</PrimaryBtn>
         </div>
-      </div>
+      )}
       <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:16, maxWidth:430 }} />
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, marginBottom:24 }}>
-        {[{label:"Total Points",value:user.points,icon:"⚡",color:"#f59e0b"},{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"},{label:"Lessons",value:user.history.length,icon:"📚",color:"#a78bfa"}].map(s=>(
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:14, marginBottom:16 }}>
+        {[{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"}].map(s=>(
           <div key={s.label} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:16, padding:"16px 18px" }}>
             <div style={{ fontSize:24, marginBottom:6 }}>{s.icon}</div>
             <div style={{ color:"#9ca3af", fontSize:10, letterSpacing:1, marginBottom:4 }}>{s.label.toUpperCase()}</div>
@@ -2518,6 +2550,21 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           </div>
         ))}
       </div>
+
+      <div style={{ background:"rgba(6,182,212,0.12)", border:"1px solid rgba(34,211,238,0.35)", borderRadius:20, padding:"18px", marginBottom:16 }}>
+        <div style={{ color:'#67e8f9', fontSize:11, letterSpacing:2, marginBottom:8 }}>NEXT STEP</div>
+        <div style={{ color:'#fff', fontSize:24, fontWeight:900, fontFamily:"'Playfair Display', serif" }}>{nextAction.title}</div>
+        <div style={{ color:'#bae6fd', fontSize:13, marginTop:4, marginBottom:12 }}>{nextAction.subtitle}</div>
+        <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+          <PrimaryBtn onClick={nextAction.run}>{nextAction.cta} →</PrimaryBtn>
+          <button onClick={() => setShowDetails((v) => !v)} style={{ padding:"10px 14px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#cbd5e1", fontSize:12 }}>
+            {showDetails ? 'Close Explore' : 'Explore'}
+          </button>
+        </div>
+      </div>
+
+      {showDetails && (
+      <>
       {!aiStatus?.anyAvailable && (
         <div style={{ background:"rgba(239,68,68,0.1)", border:"1px solid rgba(239,68,68,0.35)", borderRadius:14, padding:"12px 16px", marginBottom:20 }}>
           <div style={{ color:"#fca5a5", fontSize:13, fontWeight:700 }}>AI lessons unavailable right now</div>
@@ -2611,6 +2658,12 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Accuracy: <strong>{user?.profile?.gateStatus?.accuracy ?? 0}%</strong></div>
           <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Min Skill: <strong>{user?.profile?.gateStatus?.minSkill ?? 0}%</strong></div>
         </div>
+        {blockingGate && (
+          <div style={{ marginTop:10, display:'flex', justifyContent:'space-between', alignItems:'center', gap:10, background:'rgba(239,68,68,0.08)', border:'1px solid rgba(248,113,113,0.35)', borderRadius:10, padding:'10px 12px' }}>
+            <div style={{ color:'#fecaca', fontSize:12 }}>Formal Gate Active: Level {blockingGate.level} ({blockingGate.type})</div>
+            <PrimaryBtn onClick={() => onStartGateTest?.(blockingGate)} style={{ padding:'8px 12px' }}>Take Gate Test</PrimaryBtn>
+          </div>
+        )}
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
@@ -2674,6 +2727,8 @@ function Dashboard({ user, onStartLesson, onLogout, aiStatus, onOpenStoryMode })
           </div>
         </div>
       ))}
+      </>
+      )}
 
       {showProgressMap && (
         <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.72)', zIndex:1000, display:'flex', alignItems:'center', justifyContent:'center', padding:20 }}>
@@ -3486,7 +3541,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
     "Chat Partner": () => <ChatPartnerLesson onBack={onBack} onComplete={done} chatTopics={chatTopicsForLesson} />,
     "Image Labeling": () => <ImageLabelingLesson onComplete={done} scenes={scenesForLesson} />,
     "Picture Description": () => <PictureDescriptionLesson onComplete={done} pictureScenes={pictureForLesson} />,
-    "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",meta)} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
+    "Placement Test": () => <PlacementTestLesson onComplete={(pts,correct,total,meta)=>onComplete(pts,correct,total,"Placement Test",{ ...(meta || {}), formalGate: !!launchOptions?.formalGate, gateKey: launchOptions?.gateKey || null, gateLevel: launchOptions?.gateLevel || null, gateType: launchOptions?.gateType || null })} vocab={vocabMap} sentences={fillForLesson} verbs={verbsForLesson} />,
     "Dictionary Book": () => <DictionaryBookLesson
       user={user}
       contentPack={contentPack}
@@ -4266,7 +4321,40 @@ export default function App() {
     setTimeout(() => setCelebration(null), 5200);
   }
 
+  function getBlockingGate(profile = {}) {
+    const currentLevel = Number(profile?.overallLevel || 1);
+    const levels = Array.isArray(GATE_POLICY_V1?.gateLevels) ? [...GATE_POLICY_V1.gateLevels] : [];
+    levels.sort((a, b) => Number(a?.level || 0) - Number(b?.level || 0));
+
+    for (const g of levels) {
+      const level = Number(g?.level || 0);
+      if (!level || currentLevel < level) continue;
+      const key = gateKeyFromLevel(level);
+      const state = profile?.gates?.[key];
+      if (state?.status !== "passed") return { ...g, gateKey: key, state };
+    }
+    return null;
+  }
+
   function startLesson(type, opts = {}) {
+    const blockingGate = getBlockingGate(user?.profile || {});
+    const wantsGateBypass = !!opts?.formalGate;
+    if (blockingGate && type !== "Placement Test" && !wantsGateBypass) {
+      showToast(`Checkpoint unlocked: pass Level ${blockingGate.level} test to continue`, "error");
+      setLessonLaunchOptions({
+        formalGate: true,
+        gateKey: blockingGate.gateKey,
+        gateLevel: blockingGate.level,
+        gateType: blockingGate.type,
+        dailyFocusWord: dailyFocus?.word || null,
+        dailyFocusVerb: dailyFocus?.verb || null,
+        dailyFocusKey: dailyFocus?.key || null,
+      });
+      setLessonType("Placement Test");
+      setScreen("lesson");
+      return;
+    }
+
     const pathMode = !!opts.path;
     const challengeWords = Array.isArray(opts.challengeWords)
       ? opts.challengeWords
@@ -4284,6 +4372,10 @@ export default function App() {
       pathStepId: opts.pathStepId || null,
       challengeWords,
       challengeFillItems,
+      formalGate: !!opts?.formalGate,
+      gateKey: opts?.gateKey || null,
+      gateLevel: opts?.gateLevel || null,
+      gateType: opts?.gateType || null,
       dailyFocusWord: dailyFocus?.word || null,
       dailyFocusVerb: dailyFocus?.verb || null,
       dailyFocusKey: dailyFocus?.key || null,
@@ -4368,6 +4460,16 @@ export default function App() {
     showToast(`Story Mode started: ${built?.episodeTitle || "Mission"}`);
   }
 
+  function startFormalGateTest(gate) {
+    if (!gate) return;
+    startLesson("Placement Test", {
+      formalGate: true,
+      gateKey: gate?.gateKey || gateKeyFromLevel(gate?.level),
+      gateLevel: gate?.level,
+      gateType: gate?.type || "checkpoint",
+    });
+  }
+
   async function handleLessonComplete(pts,correct,total,category,meta) {
     const difficulty = getAdaptiveDifficulty(user?.profile || {}, lessonType);
     const entry={date:new Date().toISOString(),points:pts,correct,total,category,type:lessonType,meta:{...(meta||{}), difficulty}};
@@ -4392,6 +4494,40 @@ export default function App() {
     // Update guided learning path step completion only for guided launches
     if (meta?.pathStep) {
       profileUpdate = completePathStep(profileUpdate, lessonType);
+    }
+
+    // Unlock formal gates for any reached level thresholds.
+    const reachedLevel = Number(profileUpdate?.overallLevel || 1);
+    for (const gl of (GATE_POLICY_V1?.gateLevels || [])) {
+      const level = Number(gl?.level || 0);
+      if (!level || reachedLevel < level) continue;
+      const key = gateKeyFromLevel(level);
+      profileUpdate = unlockGate(profileUpdate, key, gl?.type || "checkpoint");
+    }
+
+    // If this was launched as a formal gate test, finalize gate status.
+    if (meta?.formalGate && meta?.gateKey) {
+      const gateType = meta?.gateType || profileUpdate?.gates?.[meta.gateKey]?.type || "checkpoint";
+      const rule = (GATE_POLICY_V1?.rulesByType || {})[gateType] || GATE_POLICY_V1?.rulesByType?.checkpoint || {};
+      const scorePct = total > 0 ? Math.round((Number(correct || 0) / Number(total || 1)) * 100) : 0;
+      const passed = scorePct >= Number(rule?.passScorePct || 75);
+      const finalized = finalizeGateAttempt({
+        profile: profileUpdate,
+        gateKey: meta.gateKey,
+        attemptResult: {
+          attemptId: `gate_local_${Date.now()}`,
+          scorePct,
+          sectionScores: {},
+          weakAreas: passed ? [] : ["grammar", "production"],
+          passed,
+          startedAt: entry?.date,
+          durationSec: Number(meta?.durationSec || 0),
+        },
+        gatePolicy: GATE_POLICY_V1,
+      });
+      profileUpdate = finalized.profile;
+      if (passed) showToast(`✅ Gate passed for Level ${meta?.gateLevel || ""}`.trim());
+      else showToast(`Gate not passed (${scorePct}%). Review path and retry.`, "error");
     }
 
     const previousOverallLevel = user?.profile?.overallLevel || 1;
@@ -4485,7 +4621,7 @@ export default function App() {
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onStartGateTest={startFormalGateTest} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}

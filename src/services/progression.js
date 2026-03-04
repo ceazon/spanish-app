@@ -258,6 +258,10 @@ export function defaultLearningState() {
     progressPointsByBand: {}, // weighted momentum points by CEFR band
     progressionEvents: [], // rolling ledger for debugging and analytics
     strengthByLevel: {}, // reinforcement score for previous/current levels
+    gates: {}, // formal gate state by level key, e.g. L10
+    certifiedLevels: [],
+    activeGateAttempt: null,
+    gateVersion: 1,
     recommendedLessons: ["Flashcards", "Word Match", "Fill in the Blank"],
     lastLessonType: null,
     updatedAt: new Date().toISOString(),
@@ -284,6 +288,10 @@ export function migrateUser(user) {
 
   // Set initial labels
   learning.progressPointsByBand = learning.progressPointsByBand || {};
+  learning.gates = learning.gates || {};
+  learning.certifiedLevels = Array.isArray(learning.certifiedLevels) ? learning.certifiedLevels : [];
+  learning.activeGateAttempt = learning.activeGateAttempt || null;
+  learning.gateVersion = Number(learning.gateVersion || 1);
   learning.bandProgress = computeHybridBandProgress(learning.wordExposure || {}, learning.progressPointsByBand || {}, learning.cefrBand);
   learning.learningProgress = computeBandLearningProgress(learning.wordExposure || {}, learning.cefrBand);
   const { title, nextTitle, overallLevel, sublevel, pctWithinSublevel, microLevel, pctWithinMicro } = getLevelLabel(learning.cefrBand, learning.bandProgress);
