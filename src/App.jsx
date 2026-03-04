@@ -2473,6 +2473,45 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           run: () => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id }),
         };
 
+  const wordbookSpotlight = useMemo(() => {
+    const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
+      .map(([id, e]) => ({ id, seen: Number(e?.seen || 0), correct: Number(e?.correct || 0) }))
+      .filter((x) => x.seen > 0)
+      .map((x) => ({ ...x, acc: x.seen > 0 ? x.correct / x.seen : 0 }));
+
+    const weak = exposureEntries
+      .filter((x) => x.acc < 0.7)
+      .sort((a, b) => a.acc - b.acc || b.seen - a.seen)
+      .map((x) => wordLookup.get(String(x.id)))
+      .find(Boolean) || null;
+
+    const mastered = exposureEntries
+      .filter((x) => x.seen >= 3 && x.acc >= 0.8)
+      .sort((a, b) => b.acc - a.acc || b.seen - a.seen)
+      .map((x) => wordLookup.get(String(x.id)))
+      .find(Boolean) || null;
+
+    const fallback = (cefrVocab?.vocab || []).find((w) => (w?.cefr || 'A1') === (user?.profile?.cefrBand || 'A1')) || { id: 'hola', es: 'hola', en: 'hello' };
+
+    const wordOfDay = fallback;
+    const items = [wordOfDay, weak, mastered].filter(Boolean);
+    const unique = [];
+    const seen = new Set();
+    for (const w of items) {
+      const key = `${normalizeSimple(w?.es || '')}:${normalizeSimple(w?.en || '')}`;
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      unique.push(w);
+    }
+
+    return {
+      wordOfDay,
+      weak,
+      mastered,
+      practiceSet: unique.slice(0, 3),
+    };
+  }, [user?.profile?.wordExposure, user?.profile?.cefrBand, wordLookup]);
+
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
     return titles.map((title, subIdx) => {
@@ -2560,6 +2599,35 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           <button onClick={() => setShowDetails((v) => !v)} style={{ padding:"10px 14px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#cbd5e1", fontSize:12 }}>
             {showDetails ? 'Close Explore' : 'Explore'}
           </button>
+        </div>
+      </div>
+
+      <div style={{ background:"rgba(124,58,237,0.12)", border:"1px solid rgba(168,85,247,0.32)", borderRadius:18, padding:"14px 16px", marginBottom:16 }}>
+        <div style={{ color:'#c4b5fd', fontSize:11, letterSpacing:2, marginBottom:8 }}>WORDBOOK SPOTLIGHT</div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,minmax(0,1fr))', gap:8, marginBottom:10 }}>
+          <div style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'8px 10px' }}>
+            <div style={{ color:'#9ca3af', fontSize:10 }}>Word of the day</div>
+            <div style={{ color:'#fff', fontWeight:800, fontSize:14 }}>{wordbookSpotlight?.wordOfDay?.es || 'hola'}</div>
+            <div style={{ color:'#cbd5e1', fontSize:11 }}>{wordbookSpotlight?.wordOfDay?.en || 'hello'}</div>
+          </div>
+          <div style={{ background:'rgba(248,113,113,0.08)', border:'1px solid rgba(248,113,113,0.26)', borderRadius:10, padding:'8px 10px' }}>
+            <div style={{ color:'#fca5a5', fontSize:10 }}>Needs review</div>
+            <div style={{ color:'#fff', fontWeight:800, fontSize:14 }}>{wordbookSpotlight?.weak?.es || '—'}</div>
+            <div style={{ color:'#fecaca', fontSize:11 }}>{wordbookSpotlight?.weak?.en || 'Keep practicing'}</div>
+          </div>
+          <div style={{ background:'rgba(34,197,94,0.08)', border:'1px solid rgba(34,197,94,0.26)', borderRadius:10, padding:'8px 10px' }}>
+            <div style={{ color:'#86efac', fontSize:10 }}>Mastered</div>
+            <div style={{ color:'#fff', fontWeight:800, fontSize:14 }}>{wordbookSpotlight?.mastered?.es || '—'}</div>
+            <div style={{ color:'#bbf7d0', fontSize:11 }}>{wordbookSpotlight?.mastered?.en || 'You got this'}</div>
+          </div>
+        </div>
+        <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+          <button onClick={() => onStartLesson('Dictionary Book')} style={{ padding:'9px 12px', borderRadius:10, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', color:'#ddd6fe', fontSize:12, fontWeight:700 }}>
+            Explore Dictionary
+          </button>
+          <PrimaryBtn onClick={() => onStartLesson('Flashcards', { challengeWords: wordbookSpotlight?.practiceSet || [] })} style={{ padding:'9px 12px' }}>
+            Practice These 3
+          </PrimaryBtn>
         </div>
       </div>
 
