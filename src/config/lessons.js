@@ -10,8 +10,6 @@ export const LESSON_META = {
   "Pronunciation Coach":{ icon: "🗣️", desc: "Speak into mic + get pronunciation score", group: "👂 Listening" },
   "Scenario Builder":   { icon: "🗣️", desc: "Pick culturally correct responses",  group: "💬 Conversation" },
   "Chat Partner":       { icon: "🤖", desc: "AI conversation partner",            group: "💬 Conversation" },
-  "Image Labeling":     { icon: "🖼️", desc: "Label objects in scenes",            group: "👁️ Visual" },
-  "Picture Description":{ icon: "🌄", desc: "Describe images in Spanish (AI)",   group: "👁️ Visual" },
   "Placement Test":     { icon: "🧪", desc: "Find your level + adaptive path",    group: "🎯 Adaptive" },
   "Dictionary Book":    { icon: "📚", desc: "Browse your word book by progress",  group: "📖 Vocabulary" },
 };
@@ -24,8 +22,6 @@ export const NO_CATEGORY = new Set([
   "Pronunciation Coach",
   "Scenario Builder",
   "Chat Partner",
-  "Image Labeling",
-  "Picture Description",
   "Speed Round",
   "Sentence Scramble",
   "Placement Test",
