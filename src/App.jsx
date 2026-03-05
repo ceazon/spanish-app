@@ -2345,7 +2345,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, onOpenStoryMode }) {
+function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, onOpenStoryMode, onStartFocusSession }) {
   const [showProgressMap, setShowProgressMap] = useState(false);
   const [levelPreview, setLevelPreview] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
@@ -2669,6 +2669,9 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         <div style={{ color:'#bae6fd', fontSize:13, marginTop:4, marginBottom:12 }}>{nextAction.subtitle}</div>
         <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
           <PrimaryBtn onClick={nextAction.run}>{nextAction.cta} →</PrimaryBtn>
+          <button onClick={() => onStartFocusSession?.(5)} style={{ padding:"10px 12px", borderRadius:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.4)", color:"#a7f3d0", fontSize:12, fontWeight:700 }}>Focus 5m</button>
+          <button onClick={() => onStartFocusSession?.(10)} style={{ padding:"10px 12px", borderRadius:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.4)", color:"#a7f3d0", fontSize:12, fontWeight:700 }}>Focus 10m</button>
+          <button onClick={() => onStartFocusSession?.(15)} style={{ padding:"10px 12px", borderRadius:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.4)", color:"#a7f3d0", fontSize:12, fontWeight:700 }}>Focus 15m</button>
           <button onClick={() => setShowDetails((v) => !v)} style={{ padding:"10px 14px", borderRadius:10, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", color:"#cbd5e1", fontSize:12 }}>
             {showDetails ? 'Close Explore' : 'Explore'}
           </button>
@@ -4499,6 +4502,8 @@ export default function App() {
   const [aiStatus, setAiStatus] = useState({ anyAvailable: true, providers: {}, checkedAt: null });
   const [storyMode, setStoryMode] = useState(null);
   const [storySummary, setStorySummary] = useState(null);
+  const [focusSession, setFocusSession] = useState(null);
+  const [focusSummary, setFocusSummary] = useState(null);
   const [dailyFocus, setDailyFocus] = useState(null);
   const [showDailyFocusModal, setShowDailyFocusModal] = useState(false);
   const [celebration, setCelebration] = useState(null);
@@ -4704,6 +4709,50 @@ export default function App() {
     showToast(`Story Mode started: ${built?.episodeTitle || "Mission"}`);
   }
 
+  function buildFocusPlan(minutes = 10) {
+    const modules = ["Flashcards", "Word Match", "Fill in the Blank", "Learn Verbs", "Sentence Scramble", "Transcription", "Scenario Builder"]
+      .filter((m) => LESSON_TYPES.includes(m));
+    const count = Math.max(4, Math.round((minutes * 60) / 80));
+    const out = [];
+    let last = null;
+    for (let i = 0; i < count; i += 1) {
+      const pool = modules.filter((m) => m !== last);
+      const pick = pool[Math.floor(Math.random() * Math.max(1, pool.length))] || modules[0] || "Flashcards";
+      out.push(pick);
+      last = pick;
+    }
+    return out;
+  }
+
+  function startFocusSession(minutes = 10) {
+    const plan = buildFocusPlan(minutes);
+    if (!plan.length) {
+      showToast("No modules available for Focus Session", "error");
+      return;
+    }
+    const now = Date.now();
+    const first = plan[0];
+    setFocusSummary(null);
+    setStoryMode(null);
+    setFocusSession({
+      active: true,
+      minutes,
+      plan,
+      index: 0,
+      startedAt: now,
+      endAt: now + minutes * 60 * 1000,
+      results: [],
+    });
+    setLessonLaunchOptions({
+      dailyFocusWord: dailyFocus?.word || null,
+      dailyFocusVerb: dailyFocus?.verb || null,
+      dailyFocusKey: dailyFocus?.key || null,
+    });
+    setLessonType(first);
+    setScreen("lesson");
+    showToast(`Focus Session started: ${minutes} minutes`);
+  }
+
   function startFormalGateTest(gate) {
     if (!gate) return;
     startLesson("Placement Test", {
@@ -4853,6 +4902,42 @@ export default function App() {
       return;
     }
 
+    if (focusSession?.active) {
+      const now = Date.now();
+      const nextResults = [...(focusSession.results || []), { type: lessonType, pts, correct, total }];
+      const nextIndex = (focusSession.index || 0) + 1;
+      const timedOut = now >= focusSession.endAt;
+      const finishedPlan = nextIndex >= (focusSession.plan?.length || 0);
+
+      if (timedOut || finishedPlan) {
+        const totalPoints = nextResults.reduce((s, r) => s + (Number(r.pts) || 0), 0);
+        const totalCorrect = nextResults.reduce((s, r) => s + (Number(r.correct) || 0), 0);
+        const totalQuestions = nextResults.reduce((s, r) => s + (Number(r.total) || 0), 0);
+        setFocusSummary({
+          minutes: focusSession.minutes,
+          completed: nextResults.length,
+          points: totalPoints,
+          totalCorrect,
+          totalQuestions,
+        });
+        setFocusSession(null);
+        setScreen("focus-summary");
+        return;
+      }
+
+      const nextType = focusSession.plan[nextIndex];
+      setFocusSession({ ...focusSession, index: nextIndex, results: nextResults });
+      setLessonLaunchOptions({
+        dailyFocusWord: dailyFocus?.word || null,
+        dailyFocusVerb: dailyFocus?.verb || null,
+        dailyFocusKey: dailyFocus?.key || null,
+      });
+      setLessonType(nextType);
+      showToast(`Focus Session • Module ${nextIndex + 1}/${focusSession.plan.length}: ${nextType}`);
+      setScreen("lesson");
+      return;
+    }
+
     setLastResult({pts,correct,total,progression:latestProgressionEvent});setScreen("result");
   }
   if (typeof window !== "undefined" && ["/student-blog", "/blog"].includes(window.location.pathname)) {
@@ -4865,13 +4950,15 @@ export default function App() {
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onStartGateTest={startFormalGateTest} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onStartGateTest={startFormalGateTest} onStartFocusSession={startFocusSession} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
+      {screen==="focus-summary"&&focusSummary&&<div style={{maxWidth:520,margin:"0 auto",padding:"52px 20px"}}><div style={{background:"rgba(16,185,129,0.14)",border:"1px solid rgba(16,185,129,0.38)",borderRadius:18,padding:"18px"}}><div style={{color:'#a7f3d0',fontSize:11,letterSpacing:2}}>FOCUS SESSION COMPLETE</div><h2 style={{color:'#fff',margin:'8px 0 6px',fontSize:28}}>Great consistency 🔥</h2><div style={{color:'#d1fae5',fontSize:13,marginBottom:12}}>You studied non-stop for {focusSummary.minutes} minutes.</div><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:12}}><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Modules</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.completed}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Points</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.points}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Accuracy</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.totalQuestions>0?Math.round((focusSummary.totalCorrect/focusSummary.totalQuestions)*100):0}%</div></div></div><div style={{display:'flex',gap:8}}><PrimaryBtn onClick={()=>setScreen('dashboard')}>Back to Dashboard</PrimaryBtn><button onClick={()=>startFocusSession(focusSummary.minutes||10)} style={{padding:'10px 12px',borderRadius:10,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.14)',color:'#d1fae5'}}>Run Again</button></div></div></div>}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
-      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setScreen("dashboard"); }} contentPack={contentPack} user={user} onStartLesson={startLesson}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setFocusSession(null); setScreen("dashboard"); }} contentPack={contentPack} user={user} onStartLesson={startLesson}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} progression={lastResult.progression} onBack={()=>setScreen("dashboard")}/></div>}
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
+      {focusSession?.active && <div style={{ position:"fixed", top:56, right:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.42)", borderRadius:12, padding:"8px 10px", color:"#a7f3d0", fontSize:12, zIndex:20 }}>Focus Session • {Math.max(0, Math.ceil((focusSession.endAt - Date.now())/60000))}m left</div>}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
       </div>
