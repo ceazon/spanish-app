@@ -2493,13 +2493,32 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
       return seed / 0x100000000;
     };
 
-    const arr = [...modules];
-    for (let i = arr.length - 1; i > 0; i -= 1) {
+    const mastery = user?.profile?.mastery || {};
+    const recommendedSet = new Set((user?.profile?.recommendedLessons || []).map((x) => String(x || '')));
+    const lastLessonType = String(user?.profile?.lastLessonType || '');
+
+    const scored = modules.map((m) => {
+      const moduleScore = typeof mastery?.[m.name]?.score === 'number' ? Number(mastery[m.name].score) : 50;
+      const weaknessBoost = Math.max(0, 100 - moduleScore);
+      const recommendationBoost = recommendedSet.has(m.name) ? 20 : 0;
+      const varietyBoost = lastLessonType && lastLessonType !== m.name ? 6 : 0;
+      const jitter = rand() * 8;
+      const priority = weaknessBoost + recommendationBoost + varietyBoost + jitter;
+      return { ...m, priority };
+    });
+
+    const featured = [...scored]
+      .sort((a, b) => b.priority - a.priority)
+      .slice(0, 3);
+
+    const all = [...modules];
+    for (let i = all.length - 1; i > 0; i -= 1) {
       const j = Math.floor(rand() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
+      [all[i], all[j]] = [all[j], all[i]];
     }
-    return { featured: arr.slice(0, 3), all: arr };
-  }, [user?.username, user?.displayName, selfStudyShuffleTick]);
+
+    return { featured, all };
+  }, [user?.username, user?.displayName, user?.profile?.mastery, user?.profile?.recommendedLessons, user?.profile?.lastLessonType, selfStudyShuffleTick]);
 
   const wordbookSpotlight = useMemo(() => {
     const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
