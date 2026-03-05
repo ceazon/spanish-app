@@ -3,7 +3,7 @@ name: Synthetic Advisor Daily
 "on":
   schedule:
     - cron: "45 21 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -43,40 +43,6 @@ jobs:
           git commit -m "chore(advisor): synthetic advisor recommendations"
           git push
 
-      - name: Build email payload
-        if: ${{ secrets.RESEND_API_KEY != '' && secrets.FROM_EMAIL != '' }}
-        run: |
-          DATE=$(date -u +%F)
-          mkdir -p .tmp
-          python3 - <<'PY' > .tmp/email-body.html
-import json, pathlib, html
-from datetime import datetime
-
-date = datetime.utcnow().strftime('%Y-%m-%d')
-p = pathlib.Path(f'advisor/prompts/{date}.json')
-if not p.exists():
-    print('<p>Advisor prompts JSON missing.</p>')
-    raise SystemExit(0)
-
-data = json.loads(p.read_text(encoding='utf-8'))
-recs = data.get('recommendations', [])[:3]
-parts = [f"<h2>Synthetic Advisor - {html.escape(date)}</h2>"]
-parts.append(f"<p>Analyzed <strong>{data.get('total_reports', 0)}</strong> reports in the last <strong>{data.get('window_days', 3)}</strong> day(s).</p>")
-if not recs:
-    parts.append('<p>No major recommendations today.</p>')
-else:
-    parts.append('<ol>')
-    for r in recs:
-      title = html.escape(str(r.get('title','Untitled')))
-      pri = html.escape(str(r.get('priority','P2')))
-      prompt = html.escape(str(r.get('implementation_prompt','')))
-      impact = html.escape(str(r.get('expected_impact','')))
-      parts.append(f"<li><strong>[{pri}] {title}</strong><br/><em>Impact:</em> {impact}<br/><em>Prompt:</em> {prompt}</li>")
-    parts.append('</ol>')
-parts.append('<p>Full report and machine prompts are committed in the repository under <code>advisor/</code>.</p>')
-print(''.join(parts))
-PY
-
       - name: Send email via Resend
         if: ${{ secrets.RESEND_API_KEY != '' && secrets.FROM_EMAIL != '' }}
         env:
@@ -85,13 +51,20 @@ PY
           TO_EMAIL: chadmarson@hotmail.com
         run: |
           DATE=$(date -u +%F)
+          REPORT_PATH="advisor/reports/${DATE}.md"
           SUBJECT="Synthetic Advisor: Recommendations for ${DATE}"
-          BODY=$(cat .tmp/email-body.html)
+          if [ ! -f "$REPORT_PATH" ]; then
+            echo "Advisor report not found at $REPORT_PATH"
+            exit 1
+          fi
+
+          HTML_BODY=$(printf '<h2>Synthetic Advisor - %s</h2><pre style="white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">%s</pre>' "$DATE" "$(sed 's/"/\\"/g' "$REPORT_PATH")")
+
           jq -n \
             --arg from "$FROM_EMAIL" \
             --arg to "$TO_EMAIL" \
             --arg subject "$SUBJECT" \
-            --arg html "$BODY" \
+            --arg html "$HTML_BODY" \
             '{from:$from,to:[$to],subject:$subject,html:$html}' > resend-payload.json
 
           curl -sS https://api.resend.com/emails \
