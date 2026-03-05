@@ -1,0 +1,101 @@
+name: Synthetic Advisor Daily
+
+on:
+  schedule:
+    - cron: "45 21 * * *" # daily summary (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  advisor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate synthetic advisor report
+        env:
+          ADVISOR_WINDOW_DAYS: "3"
+        run: npm run advisor:run
+
+      - name: Commit advisor outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add advisor/reports advisor/prompts || true
+          if git diff --cached --quiet; then
+            echo "No advisor changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(advisor): synthetic advisor recommendations"
+          git push
+
+      - name: Email advisor summary via Resend
+        if: ${{ secrets.RESEND_API_KEY != '' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          TO_EMAIL: chadmarson@hotmail.com
+        run: |
+          DATE=$(date -u +%F)
+          REPORT_PATH="advisor/reports/${DATE}.md"
+          if [ ! -f "$REPORT_PATH" ]; then
+            echo "Advisor report not found at $REPORT_PATH"
+            exit 1
+          fi
+
+          SUBJECT="Synthetic Advisor: Recommendations for ${DATE}"
+          BODY=$(python3 - <<'PY'
+import json, pathlib, html
+from datetime import datetime
+
+date = datetime.utcnow().strftime('%Y-%m-%d')
+p = pathlib.Path(f'advisor/prompts/{date}.json')
+if not p.exists():
+    print('<p>Advisor prompts JSON missing.</p>')
+    raise SystemExit(0)
+
+data = json.loads(p.read_text(encoding='utf-8'))
+recs = data.get('recommendations', [])[:3]
+parts = [f"<h2>Synthetic Advisor — {html.escape(date)}</h2>"]
+parts.append(f"<p>Analyzed <strong>{data.get('total_reports', 0)}</strong> reports in the last <strong>{data.get('window_days', 3)}</strong> day(s).</p>")
+if not recs:
+    parts.append('<p>No major recommendations today.</p>')
+else:
+    parts.append('<ol>')
+    for r in recs:
+      title = html.escape(str(r.get('title','Untitled')))
+      pri = html.escape(str(r.get('priority','P2')))
+      prompt = html.escape(str(r.get('implementation_prompt','')))
+      impact = html.escape(str(r.get('expected_impact','')))
+      parts.append(f"<li><strong>[{pri}] {title}</strong><br/><em>Impact:</em> {impact}<br/><em>Prompt:</em> {prompt}</li>")
+    parts.append('</ol>')
+parts.append('<p>Full report and machine prompts are committed in the repository under <code>advisor/</code>.</p>')
+print(''.join(parts))
+PY
+)
+
+          jq -n \
+            --arg from "$FROM_EMAIL" \
+            --arg to "$TO_EMAIL" \
+            --arg subject "$SUBJECT" \
+            --arg html "$BODY" \
+            '{from:$from,to:[$to],subject:$subject,html:$html}' > resend-payload.json
+
+          curl -sS https://api.resend.com/emails \
+            -H "Authorization: Bearer ${RESEND_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d @resend-payload.json
