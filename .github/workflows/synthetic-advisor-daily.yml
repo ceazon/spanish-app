@@ -44,12 +44,16 @@ jobs:
           git push
 
       - name: Send email via Resend
-        if: ${{ secrets.RESEND_API_KEY != '' && secrets.FROM_EMAIL != '' }}
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           TO_EMAIL: chadmarson@hotmail.com
         run: |
+          if [ -z "$RESEND_API_KEY" ] || [ -z "$FROM_EMAIL" ]; then
+            echo "RESEND_API_KEY or FROM_EMAIL is not set; skipping email send."
+            exit 0
+          fi
+
           DATE=$(date -u +%F)
           REPORT_PATH="advisor/reports/${DATE}.md"
           SUBJECT="Synthetic Advisor: Recommendations for ${DATE}"
