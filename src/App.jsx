@@ -3770,6 +3770,9 @@ function AdminScreen({ onBack }) {
   const [blogPosts, setBlogPosts] = useState([]);
   const [blogSource, setBlogSource] = useState("github");
   const [blogWarning, setBlogWarning] = useState("");
+  const [advisorReports, setAdvisorReports] = useState([]);
+  const [advisorSource, setAdvisorSource] = useState("github");
+  const [advisorWarning, setAdvisorWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
 
   async function unlock() {
@@ -3801,11 +3804,12 @@ function AdminScreen({ onBack }) {
     async function loadAdminData() {
       try {
         const headers = { "x-admin-password": token };
-        const [statsReq, usersReq, healthReq, blogReq] = await Promise.allSettled([
+        const [statsReq, usersReq, healthReq, blogReq, advisorReq] = await Promise.allSettled([
           fetch("/api/admin/stats", { headers }),
           fetch("/api/admin/users", { headers }),
           fetch("/api/admin/health", { headers }),
           fetch("/api/admin/blog/list", { headers }),
+          fetch("/api/admin/advisor/list", { headers }),
         ]);
 
         if (!mounted) return;
@@ -3836,6 +3840,17 @@ function AdminScreen({ onBack }) {
           setBlogWarning("Unable to load blog drafts from API.");
         }
 
+        if (advisorReq.status === "fulfilled" && advisorReq.value.ok) {
+          const advisorData = await advisorReq.value.json();
+          setAdvisorReports(Array.isArray(advisorData?.reports) ? advisorData.reports : []);
+          setAdvisorSource(advisorData?.source || "github");
+          setAdvisorWarning(advisorData?.warning || "");
+        } else {
+          setAdvisorReports([]);
+          setAdvisorSource("github");
+          setAdvisorWarning("Unable to load advisor recommendations from API.");
+        }
+
         if (!(statsReq.status === "fulfilled" && statsReq.value.ok)) {
           const details = statsReq.status === "fulfilled" ? await statsReq.value.json().catch(() => ({})) : {};
           setErr(details?.error || "Admin stats unavailable.");
@@ -3862,7 +3877,7 @@ function AdminScreen({ onBack }) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.ok) throw new Error(data?.error || "Approve failed");
-      setBlogPosts((prev) => prev.map((p) => (p.slug === slug ? { ...p, approved: true } : p)));
+      setBlogPosts((prev) => prev.filter((p) => p.slug !== slug));
     } catch (e) {
       setErr(e?.message || "Could not approve blog post");
     }
@@ -3966,6 +3981,36 @@ function AdminScreen({ onBack }) {
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Synthetic Advisor Recommendations</div>
+        <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Source: {advisorSource === "local" ? "Local workspace advisor outputs" : "GitHub advisor outputs"}</div>
+        {advisorWarning ? <div style={{ color:"#fbbf24", fontSize:12, marginBottom:8 }}>{advisorWarning}</div> : null}
+        {advisorReports.length === 0 ? (
+          <div style={{ color:"#9ca3af", fontSize:13 }}>No advisor reports yet. Run the Synthetic Advisor Daily workflow to generate recommendations.</div>
+        ) : (
+          <div style={{ display:"grid", gap:10 }}>
+            {advisorReports.slice(0, 3).map((rep) => (
+              <div key={rep.file || rep.date} style={{ border:"1px solid rgba(255,255,255,0.08)", borderRadius:10, padding:"10px 12px", background:"rgba(255,255,255,0.02)" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8, gap:10 }}>
+                  <div style={{ color:"#fff", fontSize:13, fontWeight:700 }}>Report {rep.date || rep.file}</div>
+                  <div style={{ color:"#9ca3af", fontSize:11 }}>{Number(rep.total_reports || 0)} student runs analyzed</div>
+                </div>
+                {(rep.recommendations || []).slice(0, 3).map((r) => (
+                  <div key={r.id || `${rep.file}-${r.title}`} style={{ border:"1px solid rgba(255,255,255,0.08)", borderRadius:8, padding:"8px 10px", marginBottom:8, background:"rgba(124,58,237,0.08)" }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", gap:8 }}>
+                      <div style={{ color:"#e9d5ff", fontSize:12, fontWeight:700 }}>{r.title}</div>
+                      <div style={{ color:r.priority === "P0" ? "#fca5a5" : r.priority === "P1" ? "#fcd34d" : "#93c5fd", fontSize:11, fontWeight:700 }}>{r.priority || "P2"}</div>
+                    </div>
+                    <div style={{ color:"#cbd5e1", fontSize:11, marginTop:4 }}>{r.expected_impact || r.proposed_change || ""}</div>
+                    <div style={{ color:"#9ca3af", fontSize:11, marginTop:4, whiteSpace:"pre-wrap" }}>{r.implementation_prompt || ""}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Learning Blog Draft Approval</div>
         <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Source: {blogSource === "local" ? "Local workspace drafts" : "GitHub repository drafts"}</div>
         {blogWarning ? <div style={{ color:"#fbbf24", fontSize:12, marginBottom:8 }}>{blogWarning}</div> : null}
@@ -3984,10 +4029,10 @@ function AdminScreen({ onBack }) {
                     <a href={post.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:12 }}>Open</a>
                     <button
                       onClick={() => approveBlogPost(post.slug)}
-                      disabled={post.approved || approvingSlug === post.slug}
-                      style={{ padding:"8px 10px", borderRadius:8, fontSize:12, fontWeight:700, background:post.approved?"rgba(34,197,94,0.2)":"rgba(124,58,237,0.22)", color:post.approved?"#86efac":"#ddd6fe", border:"1px solid rgba(124,58,237,0.4)" }}
+                      disabled={approvingSlug === post.slug}
+                      style={{ padding:"8px 10px", borderRadius:8, fontSize:12, fontWeight:700, background:"rgba(124,58,237,0.22)", color:"#ddd6fe", border:"1px solid rgba(124,58,237,0.4)" }}
                     >
-                      {post.approved ? "Approved" : approvingSlug === post.slug ? "Approving..." : "Approve"}
+                      {approvingSlug === post.slug ? "Approving..." : "Approve"}
                     </button>
                   </div>
                 </div>

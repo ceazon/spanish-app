@@ -18,7 +18,9 @@ export default async function handler(req, res) {
     const drafts = Array.isArray(draftResult) ? draftResult : draftResult.posts;
     const approved = await getApprovedSet();
     const approvedSet = new Set(approved);
-    const posts = drafts.map((d) => ({ ...d, approved: approvedSet.has(d.slug) }));
+    const posts = drafts
+      .map((d) => ({ ...d, approved: approvedSet.has(d.slug) }))
+      .filter((d) => !d.approved);
     res.status(200).json({
       ok: true,
       posts,
