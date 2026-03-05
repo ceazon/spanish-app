@@ -2349,6 +2349,8 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const [showProgressMap, setShowProgressMap] = useState(false);
   const [levelPreview, setLevelPreview] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [selfStudyExpanded, setSelfStudyExpanded] = useState(false);
+  const [selfStudyShuffleTick, setSelfStudyShuffleTick] = useState(0);
   const today=new Date().toDateString();
   const { quests, todayPts, todayLessons, todayListening } = getDailyQuestState(user.history, new Date());
   const dayLabels=[],dayPoints=[];
@@ -2472,6 +2474,32 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           cta: "Continue Mission",
           run: () => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id }),
         };
+
+  const selfStudyModules = useMemo(() => {
+    const modules = [
+      { name: 'Flashcards', icon: '🧠', desc: 'Build recall with fast review reps.' },
+      { name: 'Word Match', icon: '🧩', desc: 'Match English and Spanish under pressure.' },
+      { name: 'Fill in the Blank', icon: '✍️', desc: 'Complete sentences with the right word.' },
+      { name: 'Sentence Scramble', icon: '🔀', desc: 'Reorder words into natural Spanish.' },
+      { name: 'Transcription', icon: '🎧', desc: 'Train listening with dictation practice.' },
+      { name: 'Scenario Builder', icon: '🎭', desc: 'Practice realistic conversation choices.' },
+    ];
+
+    const key = `${user?.username || user?.displayName || 'student'}:${new Date().toISOString().slice(0, 10)}:${selfStudyShuffleTick}`;
+    let seed = 0;
+    for (let i = 0; i < key.length; i += 1) seed = (seed * 31 + key.charCodeAt(i)) >>> 0;
+    const rand = () => {
+      seed = (1664525 * seed + 1013904223) >>> 0;
+      return seed / 0x100000000;
+    };
+
+    const arr = [...modules];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(rand() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return { featured: arr.slice(0, 3), all: arr };
+  }, [user?.username, user?.displayName, selfStudyShuffleTick]);
 
   const wordbookSpotlight = useMemo(() => {
     const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
@@ -2600,6 +2628,64 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             {showDetails ? 'Close Explore' : 'Explore'}
           </button>
         </div>
+      </div>
+
+      <div style={{ background:'rgba(251,191,36,0.10)', border:'1px solid rgba(251,191,36,0.35)', borderRadius:18, padding:'14px 16px', marginBottom:16 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:10, marginBottom:8 }}>
+          <div>
+            <div style={{ color:'#fde68a', fontSize:11, letterSpacing:2 }}>SELF STUDY</div>
+            <div style={{ color:'#fff', fontSize:18, fontWeight:800, fontFamily:"'Playfair Display', serif" }}>Pick 1 of 3 and keep momentum</div>
+          </div>
+          <button
+            onClick={() => setSelfStudyShuffleTick((v) => v + 1)}
+            style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.15)', color:'#fef3c7', fontSize:12, fontWeight:700 }}
+          >
+            Shuffle 3
+          </button>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3, minmax(0,1fr))', gap:8, marginBottom:10 }}>
+          {selfStudyModules.featured.map((m) => (
+            <div key={m.name} style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', borderRadius:10, padding:'9px 10px' }}>
+              <div style={{ color:'#fff', fontSize:13, fontWeight:800 }}>{m.icon} {m.name}</div>
+              <div style={{ color:'#e5e7eb', fontSize:11, marginTop:4, minHeight:30 }}>{m.desc}</div>
+              <button
+                onClick={() => onStartLesson(m.name)}
+                style={{ marginTop:8, padding:'7px 10px', borderRadius:8, background:'rgba(251,191,36,0.16)', border:'1px solid rgba(251,191,36,0.35)', color:'#fde68a', fontSize:11, fontWeight:700 }}
+              >
+                Start
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
+          <button
+            onClick={() => setSelfStudyExpanded((v) => !v)}
+            style={{ padding:'9px 12px', borderRadius:10, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', color:'#fef3c7', fontSize:12, fontWeight:700 }}
+          >
+            {selfStudyExpanded ? 'Collapse Modules' : 'Explore All Modules'}
+          </button>
+        </div>
+
+        {selfStudyExpanded && (
+          <div style={{ marginTop:10, paddingTop:10, borderTop:'1px dashed rgba(255,255,255,0.18)', display:'grid', gap:8 }}>
+            {selfStudyModules.all.map((m) => (
+              <div key={`all-${m.name}`} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:8, background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'8px 10px' }}>
+                <div>
+                  <div style={{ color:'#fff', fontWeight:700, fontSize:13 }}>{m.icon} {m.name}</div>
+                  <div style={{ color:'#d1d5db', fontSize:11 }}>{m.desc}</div>
+                </div>
+                <button
+                  onClick={() => onStartLesson(m.name)}
+                  style={{ padding:'7px 10px', borderRadius:8, background:'rgba(251,191,36,0.16)', border:'1px solid rgba(251,191,36,0.35)', color:'#fde68a', fontSize:11, fontWeight:700, whiteSpace:'nowrap' }}
+                >
+                  Start
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div style={{ background:"rgba(124,58,237,0.12)", border:"1px solid rgba(168,85,247,0.32)", borderRadius:18, padding:"14px 16px", marginBottom:16 }}>
