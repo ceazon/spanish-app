@@ -4507,6 +4507,8 @@ export default function App() {
   const [dailyFocus, setDailyFocus] = useState(null);
   const [showDailyFocusModal, setShowDailyFocusModal] = useState(false);
   const [celebration, setCelebration] = useState(null);
+  const [showKeyboardHelper, setShowKeyboardHelper] = useState(false);
+  const [showKeyboardTips, setShowKeyboardTips] = useState(false);
 
   useEffect(() => {
     async function loadPack() {
@@ -4543,6 +4545,10 @@ export default function App() {
   }
 
   useEffect(() => {
+    if (screen === "lesson") setShowKeyboardHelper(true);
+  }, [screen]);
+
+  useEffect(() => {
     let mounted = true;
     async function loadAiStatus(force = false) {
       try {
@@ -4564,6 +4570,29 @@ export default function App() {
     };
   }, []);
   function showToast(msg,type="success") { setToast({msg,type}); setTimeout(()=>setToast(null),3000); }
+
+  function insertSpanishChar(char) {
+    if (typeof document === "undefined") return;
+    const el = document.activeElement;
+    if (!el) return;
+
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+      const start = typeof el.selectionStart === "number" ? el.selectionStart : el.value.length;
+      const end = typeof el.selectionEnd === "number" ? el.selectionEnd : el.value.length;
+      const next = `${el.value.slice(0, start)}${char}${el.value.slice(end)}`;
+      el.value = next;
+      const caret = start + char.length;
+      el.setSelectionRange(caret, caret);
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      return;
+    }
+
+    if (el.isContentEditable) {
+      try {
+        document.execCommand("insertText", false, char);
+      } catch {}
+    }
+  }
   function triggerCelebration(payload) {
     setCelebration(payload || { title: 'Milestone reached!', message: 'Great momentum — keep going!' });
     playCelebrationSound();
@@ -5028,6 +5057,44 @@ export default function App() {
           </div>
         </>
       )}
+      {screen==="lesson" && (
+        <>
+          <button
+            onClick={() => setShowKeyboardHelper((v) => !v)}
+            style={{ position:'fixed', left:10, bottom:10, zIndex:25, padding:'8px 10px', borderRadius:10, background:'rgba(30,41,59,0.85)', border:'1px solid rgba(148,163,184,0.4)', color:'#e2e8f0', fontSize:12, fontWeight:700 }}
+          >
+            {showKeyboardHelper ? 'Hide ES Keyboard' : 'Show ES Keyboard'}
+          </button>
+          {showKeyboardHelper && (
+            <div style={{ position:'fixed', left:10, bottom:46, zIndex:25, width:280, background:'rgba(2,6,23,0.92)', border:'1px solid rgba(148,163,184,0.35)', borderRadius:12, padding:'10px' }}>
+              <div style={{ color:'#93c5fd', fontSize:11, letterSpacing:1.2, marginBottom:8 }}>SPANISH KEYBOARD HELPER</div>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(4, minmax(0,1fr))', gap:6, marginBottom:8 }}>
+                {['á','é','í','ó','ú','ü','ñ','¿','¡'].map((ch) => (
+                  <button key={ch} onClick={() => insertSpanishChar(ch)} style={{ padding:'7px 0', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#fff', fontSize:16, fontWeight:800 }}>
+                    {ch}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+                <button onClick={() => setShowKeyboardTips((v) => !v)} style={{ padding:'7px 9px', borderRadius:8, background:'rgba(59,130,246,0.18)', border:'1px solid rgba(59,130,246,0.45)', color:'#bfdbfe', fontSize:11, fontWeight:700 }}>
+                  {showKeyboardTips ? 'Hide keyboard tips' : 'How to switch keyboard'}
+                </button>
+                <button onClick={() => { setShowKeyboardHelper(false); setShowKeyboardTips(false); showToast('Keyboard helper hidden. Switch back to EN from your device keyboard.'); }} style={{ padding:'7px 9px', borderRadius:8, background:'rgba(16,185,129,0.18)', border:'1px solid rgba(16,185,129,0.45)', color:'#a7f3d0', fontSize:11, fontWeight:700 }}>
+                  Done (Back to EN)
+                </button>
+              </div>
+              {showKeyboardTips && (
+                <div style={{ marginTop:8, paddingTop:8, borderTop:'1px dashed rgba(148,163,184,0.3)', color:'#cbd5e1', fontSize:11, lineHeight:1.45 }}>
+                  <div><strong>iOS/Android:</strong> hold globe/space key to switch language keyboard.</div>
+                  <div><strong>Mac:</strong> Control+Space to switch input source.</div>
+                  <div><strong>Windows:</strong> Win+Space to switch keyboard layout.</div>
+                </div>
+              )}
+            </div>
+          )}
+        </>
+      )}
+
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
       </div>
