@@ -1,9 +1,9 @@
 name: Synthetic Advisor Daily
 
-on:
+"on":
   schedule:
-    - cron: "45 21 * * *" # daily summary (UTC)
-  workflow_dispatch:
+    - cron: "45 21 * * *"
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -43,22 +43,12 @@ jobs:
           git commit -m "chore(advisor): synthetic advisor recommendations"
           git push
 
-      - name: Email advisor summary via Resend
-        if: ${{ secrets.RESEND_API_KEY != '' }}
-        env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-          TO_EMAIL: chadmarson@hotmail.com
+      - name: Build email payload
+        if: ${{ secrets.RESEND_API_KEY != '' && secrets.FROM_EMAIL != '' }}
         run: |
           DATE=$(date -u +%F)
-          REPORT_PATH="advisor/reports/${DATE}.md"
-          if [ ! -f "$REPORT_PATH" ]; then
-            echo "Advisor report not found at $REPORT_PATH"
-            exit 1
-          fi
-
-          SUBJECT="Synthetic Advisor: Recommendations for ${DATE}"
-          BODY=$(python3 - <<'PY'
+          mkdir -p .tmp
+          python3 - <<'PY' > .tmp/email-body.html
 import json, pathlib, html
 from datetime import datetime
 
@@ -70,7 +60,7 @@ if not p.exists():
 
 data = json.loads(p.read_text(encoding='utf-8'))
 recs = data.get('recommendations', [])[:3]
-parts = [f"<h2>Synthetic Advisor — {html.escape(date)}</h2>"]
+parts = [f"<h2>Synthetic Advisor - {html.escape(date)}</h2>"]
 parts.append(f"<p>Analyzed <strong>{data.get('total_reports', 0)}</strong> reports in the last <strong>{data.get('window_days', 3)}</strong> day(s).</p>")
 if not recs:
     parts.append('<p>No major recommendations today.</p>')
@@ -86,8 +76,17 @@ else:
 parts.append('<p>Full report and machine prompts are committed in the repository under <code>advisor/</code>.</p>')
 print(''.join(parts))
 PY
-)
 
+      - name: Send email via Resend
+        if: ${{ secrets.RESEND_API_KEY != '' && secrets.FROM_EMAIL != '' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          TO_EMAIL: chadmarson@hotmail.com
+        run: |
+          DATE=$(date -u +%F)
+          SUBJECT="Synthetic Advisor: Recommendations for ${DATE}"
+          BODY=$(cat .tmp/email-body.html)
           jq -n \
             --arg from "$FROM_EMAIL" \
             --arg to "$TO_EMAIL" \
