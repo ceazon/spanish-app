@@ -1,24 +1,24 @@
 {
-  "startedAt": "2026-03-05T03:36:12.661Z",
-  "endedAt": "2026-03-05T03:37:09.863Z",
+  "startedAt": "2026-03-05T21:02:53.172Z",
+  "endedAt": "2026-03-05T21:03:50.129Z",
   "baseUrl": "https://chadlingo.com",
-  "username": "maria_772661",
+  "username": "maria_573173",
   "studentName": "María",
   "status": "ok",
   "notes": [
     "Opened site successfully: https://chadlingo.com",
     "Story Mode unavailable, continuing with practice modules: locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Take on the Challenge/i }).first() to be visible\n",
     "Module skipped (Word Match): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Word Match/i }).first() to be visible\n",
-    "Module skipped (Transcription): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Transcription/i }).first() to be visible\n",
-    "Module skipped (Fill in the Blank): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Fill in the Blank/i }).first() to be visible\n",
+    "Module skipped (Flashcards): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Flashcards/i }).first() to be visible\n",
     "Module skipped (Scenario Builder): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Scenario Builder/i }).first() to be visible\n",
-    "Session score estimate: 16 points across 1 completed lessons."
+    "Module skipped (Sentence Scramble): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Sentence Scramble/i }).first() to be visible\n",
+    "Session score estimate: 12 points across 1 completed lessons."
   ],
   "blogHighlights": [
     "I settled in and treated today like a mini language lab.",
-    "In Word Match, I practiced carefully and finished with 16 points. I had some UI hiccups but still logged progress."
+    "In Word Match, I practiced carefully and finished with 12 points. I had some UI hiccups but still logged progress."
   ],
-  "score": 16,
+  "score": 12,
   "lessonsCompleted": 1,
   "error": null
 }
