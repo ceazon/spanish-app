@@ -4741,6 +4741,8 @@ export default function App() {
       index: 0,
       startedAt: now,
       endAt: now + minutes * 60 * 1000,
+      remainingMs: minutes * 60 * 1000,
+      paused: false,
       results: [],
     });
     setLessonLaunchOptions({
@@ -4751,6 +4753,50 @@ export default function App() {
     setLessonType(first);
     setScreen("lesson");
     showToast(`Focus Session started: ${minutes} minutes`);
+  }
+
+  function pauseFocusSession() {
+    if (!focusSession?.active || focusSession?.paused) return;
+    const remainingMs = Math.max(0, Number(focusSession.endAt || 0) - Date.now());
+    setFocusSession({ ...focusSession, paused: true, remainingMs, endAt: Date.now() + remainingMs });
+    showToast("Focus paused");
+  }
+
+  function resumeFocusSession() {
+    if (!focusSession?.active || !focusSession?.paused) return;
+    const remainingMs = Math.max(0, Number(focusSession.remainingMs || 0));
+    setFocusSession({ ...focusSession, paused: false, endAt: Date.now() + remainingMs });
+    showToast("Focus resumed");
+  }
+
+  function skipFocusModule() {
+    if (!focusSession?.active) return;
+    const nextIndex = (focusSession.index || 0) + 1;
+    if (nextIndex >= (focusSession.plan?.length || 0)) {
+      setFocusSummary({
+        minutes: focusSession.minutes,
+        completed: (focusSession.results || []).length,
+        points: (focusSession.results || []).reduce((s, r) => s + (Number(r.pts) || 0), 0),
+        totalCorrect: (focusSession.results || []).reduce((s, r) => s + (Number(r.correct) || 0), 0),
+        totalQuestions: (focusSession.results || []).reduce((s, r) => s + (Number(r.total) || 0), 0),
+      });
+      setFocusSession(null);
+      setScreen("focus-summary");
+      return;
+    }
+    const nextType = focusSession.plan[nextIndex];
+    setFocusSession({ ...focusSession, index: nextIndex });
+    setLessonType(nextType);
+    setScreen("lesson");
+    showToast(`Skipped. Next: ${nextType}`);
+  }
+
+  function endFocusSessionEarly() {
+    if (!focusSession?.active) return;
+    const ok = typeof window === "undefined" ? true : window.confirm("End focus session early and return to dashboard?");
+    if (!ok) return;
+    setFocusSession(null);
+    setScreen("dashboard");
   }
 
   function startFormalGateTest(gate) {
@@ -4955,10 +5001,20 @@ export default function App() {
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="focus-summary"&&focusSummary&&<div style={{maxWidth:520,margin:"0 auto",padding:"52px 20px"}}><div style={{background:"rgba(16,185,129,0.14)",border:"1px solid rgba(16,185,129,0.38)",borderRadius:18,padding:"18px"}}><div style={{color:'#a7f3d0',fontSize:11,letterSpacing:2}}>FOCUS SESSION COMPLETE</div><h2 style={{color:'#fff',margin:'8px 0 6px',fontSize:28}}>Great consistency 🔥</h2><div style={{color:'#d1fae5',fontSize:13,marginBottom:12}}>You studied non-stop for {focusSummary.minutes} minutes.</div><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:12}}><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Modules</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.completed}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Points</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.points}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Accuracy</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.totalQuestions>0?Math.round((focusSummary.totalCorrect/focusSummary.totalQuestions)*100):0}%</div></div></div><div style={{display:'flex',gap:8}}><PrimaryBtn onClick={()=>setScreen('dashboard')}>Back to Dashboard</PrimaryBtn><button onClick={()=>startFocusSession(focusSummary.minutes||10)} style={{padding:'10px 12px',borderRadius:10,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.14)',color:'#d1fae5'}}>Run Again</button></div></div></div>}
       {screen==="admin"&&<AdminScreen onBack={()=>{ if (typeof window !== "undefined") window.history.pushState({}, "", "/"); setScreen("dashboard"); }} />}
-      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ setStoryMode(null); setFocusSession(null); setScreen("dashboard"); }} contentPack={contentPack} user={user} onStartLesson={startLesson}/>}
+      {screen==="lesson"&&<LessonScreen type={lessonType} launchOptions={lessonLaunchOptions} difficulty={getAdaptiveDifficulty(user?.profile || {}, lessonType)} aiStatus={aiStatus} onComplete={handleLessonComplete} onBack={()=>{ if (focusSession?.active) { const ok = typeof window === "undefined" ? true : window.confirm("End focus session and return to dashboard?"); if (!ok) return; } setStoryMode(null); setFocusSession(null); setScreen("dashboard"); }} contentPack={contentPack} user={user} onStartLesson={startLesson}/>}
       {screen==="result"&&lastResult&&<div style={{maxWidth:500,margin:"0 auto",padding:"60px 20px"}}><ResultScreen points={lastResult.pts} correct={lastResult.correct} total={lastResult.total} progression={lastResult.progression} onBack={()=>setScreen("dashboard")}/></div>}
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
-      {focusSession?.active && <div style={{ position:"fixed", top:56, right:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.42)", borderRadius:12, padding:"8px 10px", color:"#a7f3d0", fontSize:12, zIndex:20 }}>Focus Session • {Math.max(0, Math.ceil((focusSession.endAt - Date.now())/60000))}m left</div>}
+      {focusSession?.active && <div style={{ position:"fixed", top:56, right:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.42)", borderRadius:12, padding:"8px 10px", color:"#a7f3d0", fontSize:12, zIndex:20 }}>Focus Session {focusSession?.paused ? '(Paused)' : ''} • {Math.max(0, Math.ceil(((focusSession?.paused ? Number(focusSession?.remainingMs || 0) : (Number(focusSession?.endAt || 0) - Date.now())))/60000))}m left</div>}
+      {focusSession?.active && screen==="lesson" && (
+        <div style={{ position:'fixed', top:94, right:10, zIndex:20, display:'flex', gap:6, flexWrap:'wrap', justifyContent:'flex-end', maxWidth:300 }}>
+          {focusSession?.paused
+            ? <button onClick={resumeFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(16,185,129,0.24)', border:'1px solid rgba(16,185,129,0.45)', color:'#a7f3d0', fontSize:12, fontWeight:700 }}>Resume</button>
+            : <button onClick={pauseFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(250,204,21,0.2)', border:'1px solid rgba(250,204,21,0.45)', color:'#fde68a', fontSize:12, fontWeight:700 }}>Pause</button>
+          }
+          <button onClick={skipFocusModule} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#d1fae5', fontSize:12, fontWeight:700 }}>Skip</button>
+          <button onClick={endFocusSessionEarly} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(239,68,68,0.2)', border:'1px solid rgba(239,68,68,0.4)', color:'#fecaca', fontSize:12, fontWeight:700 }}>End</button>
+        </div>
+      )}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
       </div>
