@@ -427,21 +427,26 @@ async function runSession() {
     blogHighlights.push(voice.intro);
 
     const chosenDuration = pick(STORY_DURATIONS);
-    await safeClickButton(page, /Take on the Challenge/i);
-    await page.getByRole("button", { name: /Start Story Mode/i }).waitFor({ timeout: 10000 });
-    await safeClickButton(page, new RegExp(`^${chosenDuration.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i"));
-    await safeClickButton(page, /Start Story Mode/i);
+    try {
+      await safeClickButton(page, /Take on the Challenge/i, 15000);
+      await page.getByRole("button", { name: /Start Story Mode/i }).waitFor({ timeout: 15000 });
+      await safeClickButton(page, new RegExp(`^${chosenDuration.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i"), 10000);
+      await safeClickButton(page, /Start Story Mode/i, 10000);
 
-    const lessonHeader = (
-      await page
-        .locator("text=Flashcards, text=Word Match, text=Fill in the Blank, text=Sentence Scramble, text=Transcription, text=Scenario Builder, text=Placement Test")
-        .first()
-        .textContent()
-        .catch(() => "a challenge")
-    ).trim();
+      const lessonHeader = (
+        await page
+          .locator("text=Flashcards, text=Word Match, text=Fill in the Blank, text=Sentence Scramble, text=Transcription, text=Scenario Builder, text=Placement Test")
+          .first()
+          .textContent()
+          .catch(() => "a challenge")
+      ).trim();
 
-    blogHighlights.push(voice.story(chosenDuration, lessonHeader));
-    await returnToDashboard(page);
+      blogHighlights.push(voice.story(chosenDuration, lessonHeader));
+      await returnToDashboard(page);
+    } catch (storyModeError) {
+      notes.push(`Story Mode unavailable, continuing with practice modules: ${storyModeError?.message || storyModeError}`);
+      await returnToDashboard(page).catch(() => {});
+    }
 
     const extraModules = sample(
       PRACTICE_MODULES.filter((m) => m !== "Word Match"),
