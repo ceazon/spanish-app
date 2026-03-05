@@ -4509,6 +4509,7 @@ export default function App() {
   const [celebration, setCelebration] = useState(null);
   const [showKeyboardHelper, setShowKeyboardHelper] = useState(false);
   const [showKeyboardTips, setShowKeyboardTips] = useState(false);
+  const lastInputRef = useRef(null);
 
   useEffect(() => {
     async function loadPack() {
@@ -4549,6 +4550,16 @@ export default function App() {
   }, [screen]);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
+    const onFocusIn = (e) => {
+      const t = e?.target;
+      if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) lastInputRef.current = t;
+    };
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, []);
+
+  useEffect(() => {
     let mounted = true;
     async function loadAiStatus(force = false) {
       try {
@@ -4573,25 +4584,35 @@ export default function App() {
 
   function insertSpanishChar(char) {
     if (typeof document === "undefined") return;
-    const el = document.activeElement;
-    if (!el) return;
+    const active = document.activeElement;
+    const el = (active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement)
+      ? active
+      : (lastInputRef.current instanceof HTMLInputElement || lastInputRef.current instanceof HTMLTextAreaElement)
+        ? lastInputRef.current
+        : null;
 
-    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-      const start = typeof el.selectionStart === "number" ? el.selectionStart : el.value.length;
-      const end = typeof el.selectionEnd === "number" ? el.selectionEnd : el.value.length;
-      const next = `${el.value.slice(0, start)}${char}${el.value.slice(end)}`;
-      el.value = next;
-      const caret = start + char.length;
-      el.setSelectionRange(caret, caret);
-      el.dispatchEvent(new Event("input", { bubbles: true }));
+    if (!el) {
+      showToast(`No input selected. Copied ${char} to clipboard.`, "error");
+      if (navigator?.clipboard?.writeText) navigator.clipboard.writeText(char).catch(() => {});
       return;
     }
 
-    if (el.isContentEditable) {
-      try {
-        document.execCommand("insertText", false, char);
-      } catch {}
+    const start = typeof el.selectionStart === "number" ? el.selectionStart : el.value.length;
+    const end = typeof el.selectionEnd === "number" ? el.selectionEnd : el.value.length;
+    const next = `${el.value.slice(0, start)}${char}${el.value.slice(end)}`;
+    el.value = next;
+    const caret = start + char.length;
+    el.focus();
+    el.setSelectionRange(caret, caret);
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
+  function copySpanishChar(char) {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(char).then(() => showToast(`Copied ${char}`)).catch(() => showToast("Copy failed", "error"));
+      return;
     }
+    showToast("Clipboard not available", "error");
   }
   function triggerCelebration(payload) {
     setCelebration(payload || { title: 'Milestone reached!', message: 'Great momentum — keep going!' });
@@ -5070,9 +5091,24 @@ export default function App() {
               <div style={{ color:'#93c5fd', fontSize:11, letterSpacing:1.2, marginBottom:8 }}>SPANISH KEYBOARD HELPER</div>
               <div style={{ display:'grid', gridTemplateColumns:'repeat(4, minmax(0,1fr))', gap:6, marginBottom:8 }}>
                 {['á','é','í','ó','ú','ü','ñ','¿','¡'].map((ch) => (
-                  <button key={ch} onClick={() => insertSpanishChar(ch)} style={{ padding:'7px 0', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#fff', fontSize:16, fontWeight:800 }}>
-                    {ch}
-                  </button>
+                  <div key={ch} style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:4 }}>
+                    <button
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => insertSpanishChar(ch)}
+                      style={{ padding:'7px 0', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#fff', fontSize:16, fontWeight:800 }}
+                      title={`Insert ${ch}`}
+                    >
+                      {ch}
+                    </button>
+                    <button
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => copySpanishChar(ch)}
+                      style={{ padding:'0 6px', borderRadius:8, background:'rgba(59,130,246,0.18)', border:'1px solid rgba(59,130,246,0.35)', color:'#bfdbfe', fontSize:10, fontWeight:700 }}
+                      title={`Copy ${ch}`}
+                    >
+                      Copy
+                    </button>
+                  </div>
                 ))}
               </div>
               <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
