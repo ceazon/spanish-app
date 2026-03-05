@@ -2483,6 +2483,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
       { name: 'Sentence Scramble', icon: '🔀', desc: 'Reorder words into natural Spanish.' },
       { name: 'Transcription', icon: '🎧', desc: 'Train listening with dictation practice.' },
       { name: 'Scenario Builder', icon: '🎭', desc: 'Practice realistic conversation choices.' },
+      { name: 'Learn Verbs', icon: '🧪', desc: 'Drill conjugations and core verb forms.' },
     ];
 
     const key = `${user?.username || user?.displayName || 'student'}:${new Date().toISOString().slice(0, 10)}:${selfStudyShuffleTick}`;
