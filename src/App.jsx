@@ -5006,14 +5006,27 @@ export default function App() {
       {storyMode?.active && <div style={{ position:"fixed", top:10, right:10, background:"rgba(124,58,237,0.22)", border:"1px solid rgba(124,58,237,0.4)", borderRadius:12, padding:"8px 10px", color:"#ddd6fe", fontSize:12, zIndex:20 }}>Story Mode • {Math.max(0, Math.ceil((storyMode.endAt - Date.now())/60000))}m left</div>}
       {focusSession?.active && <div style={{ position:"fixed", top:56, right:10, background:"rgba(16,185,129,0.2)", border:"1px solid rgba(16,185,129,0.42)", borderRadius:12, padding:"8px 10px", color:"#a7f3d0", fontSize:12, zIndex:20 }}>Focus Session {focusSession?.paused ? '(Paused)' : ''} • {Math.max(0, Math.ceil(((focusSession?.paused ? Number(focusSession?.remainingMs || 0) : (Number(focusSession?.endAt || 0) - Date.now())))/60000))}m left</div>}
       {focusSession?.active && screen==="lesson" && (
-        <div style={{ position:'fixed', top:94, right:10, zIndex:20, display:'flex', gap:6, flexWrap:'wrap', justifyContent:'flex-end', maxWidth:300 }}>
-          {focusSession?.paused
-            ? <button onClick={resumeFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(16,185,129,0.24)', border:'1px solid rgba(16,185,129,0.45)', color:'#a7f3d0', fontSize:12, fontWeight:700 }}>Resume</button>
-            : <button onClick={pauseFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(250,204,21,0.2)', border:'1px solid rgba(250,204,21,0.45)', color:'#fde68a', fontSize:12, fontWeight:700 }}>Pause</button>
-          }
-          <button onClick={skipFocusModule} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#d1fae5', fontSize:12, fontWeight:700 }}>Skip</button>
-          <button onClick={endFocusSessionEarly} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(239,68,68,0.2)', border:'1px solid rgba(239,68,68,0.4)', color:'#fecaca', fontSize:12, fontWeight:700 }}>End</button>
-        </div>
+        <>
+          <div style={{ position:'fixed', top:94, right:10, zIndex:20, display:'flex', gap:6, flexWrap:'wrap', justifyContent:'flex-end', maxWidth:300 }}>
+            {focusSession?.paused
+              ? <button onClick={resumeFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(16,185,129,0.24)', border:'1px solid rgba(16,185,129,0.45)', color:'#a7f3d0', fontSize:12, fontWeight:700 }}>Resume</button>
+              : <button onClick={pauseFocusSession} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(250,204,21,0.2)', border:'1px solid rgba(250,204,21,0.45)', color:'#fde68a', fontSize:12, fontWeight:700 }}>Pause</button>
+            }
+            <button onClick={skipFocusModule} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.14)', color:'#d1fae5', fontSize:12, fontWeight:700 }}>Skip</button>
+            <button onClick={endFocusSessionEarly} style={{ padding:'8px 10px', borderRadius:8, background:'rgba(239,68,68,0.2)', border:'1px solid rgba(239,68,68,0.4)', color:'#fecaca', fontSize:12, fontWeight:700 }}>End</button>
+          </div>
+          <div style={{ position:'fixed', top:132, right:10, zIndex:20, width:300, background:'rgba(2,6,23,0.78)', border:'1px solid rgba(148,163,184,0.26)', borderRadius:10, padding:'10px 12px' }}>
+            <div style={{ color:'#a7f3d0', fontSize:11, letterSpacing:1.2, marginBottom:6 }}>SESSION PLAN</div>
+            <div style={{ color:'#e2e8f0', fontSize:12, marginBottom:6 }}>Module {Math.min((focusSession.index || 0) + 1, focusSession.plan?.length || 1)} / {focusSession.plan?.length || 1}</div>
+            <div style={{ display:'grid', gap:4, maxHeight:140, overflowY:'auto', paddingRight:4 }}>
+              {(focusSession.plan || []).slice(focusSession.index || 0, (focusSession.index || 0) + 6).map((m, idx) => (
+                <div key={`${m}-${idx}-${focusSession.index}`} style={{ color: idx === 0 ? '#bbf7d0' : '#cbd5e1', fontSize:12, fontWeight: idx === 0 ? 800 : 500, opacity: idx === 0 ? 1 : 0.9 }}>
+                  {idx === 0 ? '▶ Now: ' : `${idx}. `}{m}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
       )}
       <div style={{ position:"fixed", right:10, bottom:8, color:"#6b7280", fontSize:10, opacity:0.7, pointerEvents:"none" }}>
         build {APP_COMMIT}
