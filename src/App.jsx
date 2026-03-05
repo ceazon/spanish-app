@@ -2454,6 +2454,23 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
     .map((g) => ({ ...g, gateKey: gateKeyFromLevel(g.level), state: user?.profile?.gates?.[gateKeyFromLevel(g.level)] || null }))
     .find((g) => Number(user?.profile?.overallLevel || 1) >= Number(g?.level || 0) && g?.state?.status !== "passed") || null;
 
+  const recentMomentumSamples = Array.isArray(user?.history) ? user.history.slice(-5) : [];
+  const recentAvgPoints = recentMomentumSamples.length
+    ? recentMomentumSamples.reduce((s, h) => s + Number(h?.points || 0), 0) / recentMomentumSamples.length
+    : 0;
+  const recentAvgAccuracy = recentMomentumSamples.length
+    ? recentMomentumSamples.reduce((s, h) => {
+        const total = Number(h?.total || 0);
+        const correct = Number(h?.correct || 0);
+        const acc = total > 0 ? (correct / total) * 100 : 65;
+        return s + acc;
+      }, 0) / recentMomentumSamples.length
+    : 0;
+  const lowPointRunsLast3 = (Array.isArray(user?.history) ? user.history.slice(-3) : []).filter((h) => Number(h?.points || 0) < 25).length;
+  const lowMomentumMode = recentMomentumSamples.length >= 3 && (recentAvgPoints < 35 || recentAvgAccuracy < 65 || lowPointRunsLast3 >= 2);
+  const easyRecoveryModules = ["Flashcards", "Word Match", "Learn Verbs", "Fill in the Blank"];
+  const easyRecoveryPick = easyRecoveryModules.find((m) => LESSON_TYPES.includes(m)) || "Flashcards";
+
   const nextAction = blockingGate
     ? {
         title: `Pass Level ${blockingGate.level} Gate Test`,
@@ -2468,12 +2485,19 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           cta: "Start Review",
           run: () => onStartLesson('Flashcards', { challengeWords: dueReviewWords }),
         }
-      : {
-          title: `Continue: ${nextSuggested}`,
-          subtitle: `Next guided step in your ${getFriendlyPathName(user.profile || {})}`,
-          cta: "Continue Mission",
-          run: () => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id }),
-        };
+      : lowMomentumMode
+        ? {
+            title: `Recovery Sprint: ${easyRecoveryPick}`,
+            subtitle: "Quick win mode: regain momentum with a high-success module",
+            cta: "Start Recovery",
+            run: () => onStartLesson(easyRecoveryPick),
+          }
+        : {
+            title: `Continue: ${nextSuggested}`,
+            subtitle: `Next guided step in your ${getFriendlyPathName(user.profile || {})}`,
+            cta: "Continue Mission",
+            run: () => onStartLesson(nextSuggested, { path: true, pathStepId: nextPathStep?.id }),
+          };
 
   const selfStudyModules = useMemo(() => {
     const modules = [
@@ -2503,8 +2527,9 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
       const weaknessBoost = Math.max(0, 100 - moduleScore);
       const recommendationBoost = recommendedSet.has(m.name) ? 20 : 0;
       const varietyBoost = lastLessonType && lastLessonType !== m.name ? 6 : 0;
+      const momentumBoost = lowMomentumMode && easyRecoveryModules.includes(m.name) ? 26 : 0;
       const jitter = rand() * 8;
-      const priority = weaknessBoost + recommendationBoost + varietyBoost + jitter;
+      const priority = weaknessBoost + recommendationBoost + varietyBoost + momentumBoost + jitter;
       return { ...m, priority };
     });
 
@@ -2519,7 +2544,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
     }
 
     return { featured, all };
-  }, [user?.username, user?.displayName, user?.profile?.mastery, user?.profile?.recommendedLessons, user?.profile?.lastLessonType, selfStudyShuffleTick]);
+  }, [user?.username, user?.displayName, user?.profile?.mastery, user?.profile?.recommendedLessons, user?.profile?.lastLessonType, lowMomentumMode, selfStudyShuffleTick]);
 
   const wordbookSpotlight = useMemo(() => {
     const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
