@@ -1,0 +1,22 @@
+{
+  "startedAt": "2026-03-06T14:00:09.803Z",
+  "endedAt": "2026-03-06T14:00:46.376Z",
+  "baseUrl": "https://chadlingo.com",
+  "username": "diego_609804",
+  "studentName": "Diego",
+  "status": "ok",
+  "notes": [
+    "Opened site successfully: https://chadlingo.com",
+    "Story Mode unavailable, continuing with practice modules: locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Take on the Challenge/i }).first() to be visible\n",
+    "Module skipped (Word Match): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Word Match/i }).first() to be visible\n",
+    "Module skipped (Transcription): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Transcription/i }).first() to be visible\n",
+    "Session score estimate: 18 points across 1 completed lessons."
+  ],
+  "blogHighlights": [
+    "I jumped in fast and went straight to practice mode.",
+    "I grinded Word Match and closed at 18 points. I had some UI hiccups but still logged progress."
+  ],
+  "score": 18,
+  "lessonsCompleted": 1,
+  "error": null
+}
