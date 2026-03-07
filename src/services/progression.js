@@ -34,7 +34,7 @@ const MICRO_LEVELS_PER_BAND = 20;
 const MICRO_GATE_MIN_COVERAGE = 0.6;
 const MICRO_GATE_MIN_MASTERY = 0.65;
 const MICRO_GATE_MIN_ACC = 0.7;
-const SKILL_GATE_MIN = 55;
+const SKILL_GATE_MIN = 40; // Phase 2: minimum 40% across all skills to level up
 
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
@@ -236,6 +236,8 @@ export function defaultLearningState() {
     cefrBand: "A1",
     bandProgress: 0.0, // mastery progress 0.0..1.0
     learningProgress: 0.0, // exposure progress 0.0..1.0
+    vocabularySize: 0,
+    lastLevelUpAt: null,
     level: "Newcomer I",
     levelTitle: "Newcomer I",
     nextLevelTitle: "Newcomer II",
@@ -448,6 +450,10 @@ export function updateLearningProfile(profile = {}, result = {}) {
   p.overallLevel = overallLevel;
   const leveledUp = overallLevel > prevOverallLevel;
 
+  if (leveledUp) {
+    p.lastLevelUpAt = new Date().toISOString();
+  }
+
   const recent = [...(p.recentAccuracies || []), accPct].slice(-20);
   const recentAvg = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : 0;
 
@@ -473,6 +479,10 @@ export function updateLearningProfile(profile = {}, result = {}) {
     ...(p.skillMastery || {}),
     [skillKey]: clamp(Math.round(priorSkill * 0.75 + accPct * 0.25), 0, 100),
   };
+
+  // Update vocabulary size
+  p.vocabularySize = Object.values(p.wordExposure || {}).filter(isMastered).length;
+
   p.lastLessonType = lessonType;
   p.updatedAt = new Date().toISOString();
 

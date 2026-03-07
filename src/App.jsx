@@ -2471,6 +2471,10 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const easyRecoveryModules = ["Flashcards", "Word Match", "Learn Verbs", "Fill in the Blank"];
   const easyRecoveryPick = easyRecoveryModules.find((m) => LESSON_TYPES.includes(m)) || "Flashcards";
 
+  const gateStatus = user?.profile?.gateStatus || {};
+  const skillGatePass = gateStatus.pass || false;
+  const minSkill = gateStatus.minSkill || 0;
+
   const nextAction = blockingGate
     ? {
         title: `Pass Level ${blockingGate.level} Gate Test`,
@@ -2485,8 +2489,15 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           cta: "Start Review",
           run: () => onStartLesson('Flashcards', { challengeWords: dueReviewWords }),
         }
-      : lowMomentumMode
+      : !skillGatePass && Number(user.profile?.microLevelProgress || 0) >= 99
         ? {
+            title: "Skill Balance Required",
+            subtitle: `Your ${gateStatus.minSkill < 40 ? 'weakest skill' : 'skills'} need work (${minSkill}%). Try diverse modules.`,
+            cta: "Improve Skills",
+            run: () => setSelfStudyExpanded(true),
+          }
+        : lowMomentumMode
+          ? {
             title: `Recovery Sprint: ${easyRecoveryPick}`,
             subtitle: "Quick win mode: regain momentum with a high-success module",
             cta: "Start Recovery",
@@ -2623,7 +2634,10 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             title="View your progress map"
           >
             <div style={{ color:"#9ca3af", fontSize:12 }}>
-              Level {canonicalLabel.overallLevel || user.profile?.overallLevel || 1} • {currentSublevelProgress}% to {canonicalLabel.nextTitle || user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+              {currentBand}.{String(currentSublevel + 1).padStart(2, '0')} • Level {canonicalLabel.overallLevel || user.profile?.overallLevel || 1} • {currentSublevelProgress}% to {canonicalLabel.nextTitle || user.profile?.nextLevelTitle || user.profile?.levelTitle || 'Next'}
+            </div>
+            <div style={{ color: "#a78bfa", fontSize: 11, marginTop: 4 }}>
+              Vocabulary: {user.profile?.vocabularySize || 0} words mastered
             </div>
             <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
               <div style={{ width:`${Math.max(0, Math.min(100, currentSublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
@@ -4926,6 +4940,7 @@ export default function App() {
     const newOverallLevel = profileUpdate?.overallLevel || 1;
     if (newOverallLevel > previousOverallLevel) {
       showToast(`🎉 Level Up! ${profileUpdate.levelTitle} · Level ${newOverallLevel}`);
+      playCelebrationSound();
       const milestone = newOverallLevel % 5 === 0;
       triggerCelebration({
         tag: milestone ? 'MAJOR MILESTONE' : 'LEVEL UP',
