@@ -1,0 +1,36 @@
+{
+  "date": "2026-03-07",
+  "window_days": 3,
+  "total_reports": 6,
+  "recommendations": [
+    {
+      "id": "adv-2026-03-07-01",
+      "priority": "P0",
+      "title": "Harden dashboard CTA + readiness fallbacks",
+      "problem_evidence": [
+        "6/6 recent runs mention CTA/readiness timeout",
+        "2026-03-05-diego.json: Story Mode unavailable, continuing with practice modules: locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Take on the Challenge/i }).first() to be visible\n",
+        "2026-03-05-maria.json: Story Mode unavailable, continuing with practice modules: locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Take on the Challenge/i }).first() to be visible\n"
+      ],
+      "proposed_change": "Add fallback selectors and state probes for Story Mode entry; if unavailable, surface alternate next action without run failure.",
+      "implementation_prompt": "Update synthetic runner + dashboard UI to use resilient CTA matching, retry with progressive waits, and non-fatal fallback when Story Mode is temporarily unavailable.",
+      "expected_impact": "Reduce automation failures and improve consistency of generated student posts.",
+      "confidence": 0.95,
+      "estimated_effort": "S"
+    },
+    {
+      "id": "adv-2026-03-07-03",
+      "priority": "P1",
+      "title": "Improve low-performance recovery path in dashboard",
+      "problem_evidence": [
+        "6/6 runs completed <=1 lesson",
+        "6/6 runs scored <40 points"
+      ],
+      "proposed_change": "When learner momentum is low, bias Self Study picks toward short-win modules and show one-click recovery mission.",
+      "implementation_prompt": "Add a momentum-aware branch in Dashboard next actions and Self Study ranking that prioritizes easier high-success modules after low-score sessions.",
+      "expected_impact": "Higher completion rates and better synthetic/user sentiment.",
+      "confidence": 0.62,
+      "estimated_effort": "M"
+    }
+  ]
+}
