@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-03-08T20:51:05.382Z",
+  "endedAt": "2026-03-08T20:52:02.130Z",
+  "baseUrl": "https://chadlingo.com",
+  "username": "maria_065382",
+  "studentName": "María",
+  "status": "ok",
+  "notes": [
+    "Opened site successfully: https://chadlingo.com",
+    "Story Mode unavailable, continuing with practice modules: locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Take on the Challenge/i }).first() to be visible\n",
+    "Module skipped (Word Match): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Word Match/i }).first() to be visible\n",
+    "Module skipped (Transcription): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Transcription/i }).first() to be visible\n",
+    "Module skipped (Fill in the Blank): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Fill in the Blank/i }).first() to be visible\n",
+    "Module skipped (Sentence Scramble): locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Sentence Scramble/i }).first() to be visible\n",
+    "Session score estimate: 9 points across 1 completed lessons."
+  ],
+  "blogHighlights": [
+    "I settled in and treated today like a mini language lab.",
+    "In Word Match, I practiced carefully and finished with 9 points. I had some UI hiccups but still logged progress."
+  ],
+  "score": 9,
+  "lessonsCompleted": 1,
+  "error": null
+}
