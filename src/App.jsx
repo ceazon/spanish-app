@@ -2307,6 +2307,35 @@ function ResultScreen({ points, correct, total, onBack, progression }) {
 
 const AI_REQUIRED_LESSONS = new Set(["Chat Partner", "Picture Description"]);
 
+const BADGE_DEFS = [
+  { id: 'first-lesson', icon: '🌱', title: 'First Steps', desc: 'Complete your first lesson', check: ({ lessons }) => lessons >= 1 },
+  { id: 'ten-lessons', icon: '📘', title: 'Consistent Learner', desc: 'Complete 10 lessons', check: ({ lessons }) => lessons >= 10 },
+  { id: 'streak-3', icon: '🔥', title: 'On Fire', desc: 'Reach a 3-day streak', check: ({ streak }) => streak >= 3 },
+  { id: 'streak-7', icon: '🚀', title: 'Week Warrior', desc: 'Reach a 7-day streak', check: ({ streak }) => streak >= 7 },
+  { id: 'vocab-25', icon: '🧠', title: 'Word Collector', desc: 'Master 25 words', check: ({ vocab }) => vocab >= 25 },
+  { id: 'vocab-100', icon: '🏅', title: 'Word Master', desc: 'Master 100 words', check: ({ vocab }) => vocab >= 100 },
+  { id: 'level-5', icon: '🏆', title: 'Level Climber', desc: 'Reach level 5', check: ({ level }) => level >= 5 },
+];
+
+function getEarnedBadges(user = {}) {
+  const ctx = {
+    lessons: Array.isArray(user?.history) ? user.history.length : 0,
+    streak: Number(user?.streak || 0),
+    vocab: Number(user?.profile?.vocabularySize || 0),
+    level: Number(user?.profile?.overallLevel || 1),
+  };
+
+  return BADGE_DEFS
+    .filter((b) => b.check(ctx))
+    .map((b) => ({ ...b, earnedAt: user?.profile?.lastLevelUpAt || user?.lastLogin || user?.joined || null }));
+}
+
+function getJourneyModuleSuggestions(sublevel = 0) {
+  if (sublevel <= 2) return ['Flashcards', 'Word Match', 'Fill in the Blank'];
+  if (sublevel <= 5) return ['Sentence Scramble', 'Learn Verbs', 'Transcription'];
+  return ['Scenario Builder', 'Transcription', 'Word Match'];
+}
+
 function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   const [open, setOpen] = useState(false);
   const [json, setJson] = useState("");
@@ -2419,7 +2448,10 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         ? ['Conversation flow', 'Grammar in context', 'Word retrieval speed']
         : ['Confidence speaking', 'Real-life phrasing', 'Advanced review'];
 
-    return { ...node, words: sampledWords, verbs: sampledVerbs, concepts };
+    const recommendedModules = getJourneyModuleSuggestions(node.sublevel)
+      .filter((m) => LESSON_TYPES.includes(m));
+
+    return { ...node, words: sampledWords, verbs: sampledVerbs, concepts, recommendedModules };
   }
 
   const wordLookup = useMemo(() => {
@@ -2557,6 +2589,9 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
     return { featured, all };
   }, [user?.username, user?.displayName, user?.profile?.mastery, user?.profile?.recommendedLessons, user?.profile?.lastLessonType, lowMomentumMode, selfStudyShuffleTick]);
 
+  const earnedBadges = useMemo(() => getEarnedBadges(user), [user]);
+  const recentBadges = earnedBadges.slice(-3).reverse();
+
   const wordbookSpotlight = useMemo(() => {
     const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
       .map(([id, e]) => ({ id, seen: Number(e?.seen || 0), correct: Number(e?.correct || 0) }))
@@ -2675,6 +2710,24 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             <div style={{ color:s.color, fontSize:26, fontWeight:800, fontFamily:"'Playfair Display', serif" }}>{s.value}</div>
           </div>
         ))}
+      </div>
+
+      <div style={{ background:'rgba(34,197,94,0.10)', border:'1px solid rgba(74,222,128,0.30)', borderRadius:18, padding:'14px 16px', marginBottom:16 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8, gap:8 }}>
+          <div>
+            <div style={{ color:'#86efac', fontSize:11, letterSpacing:2 }}>BADGES</div>
+            <div style={{ color:'#fff', fontSize:18, fontWeight:800, fontFamily:"'Playfair Display', serif" }}>Recently earned</div>
+          </div>
+          <div style={{ color:'#bbf7d0', fontSize:12, fontWeight:700 }}>{earnedBadges.length} total</div>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3, minmax(0,1fr))', gap:8 }}>
+          {(recentBadges.length ? recentBadges : BADGE_DEFS.slice(0, 3)).map((b) => (
+            <div key={b.id} style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', borderRadius:10, padding:'8px 10px' }}>
+              <div style={{ color:'#fff', fontWeight:800, fontSize:13 }}>{b.icon} {b.title}</div>
+              <div style={{ color:'#d1d5db', fontSize:11, marginTop:2 }}>{b.desc}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ background:"rgba(6,182,212,0.12)", border:"1px solid rgba(34,211,238,0.35)", borderRadius:20, padding:"18px", marginBottom:16 }}>
@@ -3055,7 +3108,18 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
               {(levelPreview.concepts || []).map((c, i) => <div key={`${c}:${i}`} style={{ color:'#dcfce7', fontSize:13, marginBottom:4 }}>• {c}</div>)}
             </div>
 
-            <PrimaryBtn onClick={() => { onStartLesson('Flashcards', { challengeWords: (levelPreview.words || []).map((w) => ({ es: w.es, en: w.en })) }); setLevelPreview(null); setShowProgressMap(false); }}>
+            <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:10 }}>
+              {(levelPreview.recommendedModules || []).map((module) => (
+                <button
+                  key={module}
+                  onClick={() => { onStartLesson(module); setLevelPreview(null); setShowProgressMap(false); }}
+                  style={{ padding:'8px 10px', borderRadius:10, background:'rgba(99,102,241,0.18)', border:'1px solid rgba(129,140,248,0.35)', color:'#e0e7ff', fontSize:12, fontWeight:700 }}
+                >
+                  Start {module}
+                </button>
+              ))}
+            </div>
+            <PrimaryBtn onClick={() => { onStartLesson('Flashcards', { challengeWords: (levelPreview.words || []).map((w, i) => ({ id: `${levelPreview.levelNumber}:${i}:${w.es}`, es: w.es, en: w.en, cefr: levelPreview.band || 'A1' })) }); setLevelPreview(null); setShowProgressMap(false); }}>
               Practice this level now
             </PrimaryBtn>
           </div>
@@ -4701,6 +4765,7 @@ export default function App() {
   function handleLogin(u) {
     const today=new Date().toDateString(); const last=u.lastLogin?new Date(u.lastLogin).toDateString():null;
     const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+    const prevStreak = Number(u?.streak || 0);
     let streak=u.streak;
     if(last===today){}else if(last===yesterday.toDateString()){streak++;}else{streak=1;}
 
@@ -4729,6 +4794,17 @@ export default function App() {
       points: updated.points || 0,
       lessons: Array.isArray(updated.history) ? updated.history.length : 0,
     });
+
+    const streakMilestones = [3, 7, 14];
+    const streakHit = streakMilestones.find((m) => prevStreak < m && streak >= m);
+    if (streakHit) {
+      playCelebrationSound();
+      triggerCelebration({
+        tag: 'STREAK MILESTONE',
+        title: `🔥 ${streakHit}-Day Streak!`,
+        message: `Mascot says: Incredible consistency. You just hit a ${streakHit}-day streak!`,
+      });
+    }
   }
   async function dismissDailyFocusModal() {
     setShowDailyFocusModal(false);
