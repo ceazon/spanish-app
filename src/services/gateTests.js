@@ -1,4 +1,6 @@
 import { GATE_POLICY_V1, GATE_SECTION_KEYS, gateKeyFromLevel } from "../config/gates.js";
+import masterVocabData from "../content/cefr-vocab-master.json" with { type: "json" };
+import dailyFocusVerbsData from "../content/daily-focus-verbs.json" with { type: "json" };
 
 function nowIso(ts = Date.now()) {
   return new Date(ts).toISOString();
@@ -69,28 +71,145 @@ function pickRuleForGateType(gateType, gatePolicy = GATE_POLICY_V1) {
   return gatePolicy?.rulesByType?.[gateType] || gatePolicy?.rulesByType?.checkpoint;
 }
 
-/**
- * TODO: wire `resolver` to generate true question objects by section.
- * For now this produces placeholder shell questions with stable IDs.
- */
-function generateQuestions({ level, gateType, rule, resolver }) {
+const MASTER_WORDS = Array.isArray(masterVocabData?.words) ? masterVocabData.words : [];
+const VERBS = Array.isArray(dailyFocusVerbsData?.verbs) ? dailyFocusVerbsData.verbs : [];
+
+function seededRng(seed = Date.now()) {
+  let state = (Number(seed) || Date.now()) >>> 0;
+  return function rand() {
+    state = (1664525 * state + 1013904223) >>> 0;
+    return state / 0x100000000;
+  };
+}
+
+function shuffleWithRand(arr = [], rand = Math.random) {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rand() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function buildBandPool(profile = {}, level = 1) {
+  const inferredBand = Number(level) >= 11 ? "A2" : "A1";
+  const band = profile?.cefrBand || inferredBand;
+  return MASTER_WORDS.filter((w) => (w?.cefr || "A1") === band);
+}
+
+function safeOptions(correct, distractors = [], count = 4, rand = Math.random) {
+  const uniq = [...new Set([correct, ...distractors].filter(Boolean))];
+  const tail = uniq.filter((x) => x !== correct);
+  const picked = [correct, ...shuffleWithRand(tail, rand).slice(0, Math.max(0, count - 1))];
+  return shuffleWithRand(picked, rand);
+}
+
+function createVocabQuestion({ word, qid, level, gateType, rand }) {
+  const pool = MASTER_WORDS.filter((w) => w?.en && w?.en !== word?.en);
+  const distractors = shuffleWithRand(pool, rand).slice(0, 6).map((w) => w.en);
+  const options = safeOptions(word?.en, distractors, 4, rand);
+  return {
+    qid,
+    section: "vocab",
+    type: "mcq_translate",
+    prompt: `What does "${word?.es}" mean?`,
+    options,
+    answerKey: word?.en,
+    meta: { level, gateType, wordId: word?.id || word?.es, cefr: word?.cefr || "A1" },
+  };
+}
+
+function createGrammarQuestion({ verb, qid, level, gateType, rand }) {
+  const forms = Array.isArray(verb?.conjugations) ? verb.conjugations : [];
+  const target = forms.find((c) => String(c?.pronoun || "").toLowerCase().includes("yo")) || forms[0];
+  const distractors = forms.filter((c) => c?.form && c.form !== target?.form).map((c) => c.form);
+  const options = safeOptions(target?.form, distractors, 4, rand);
+  return {
+    qid,
+    section: "grammar",
+    type: "mcq_conjugation",
+    prompt: `Choose the best "${target?.pronoun || "yo"}" form of "${verb?.infinitive}"`,
+    options,
+    answerKey: target?.form,
+    meta: { level, gateType, infinitive: verb?.infinitive, cefr: verb?.cefr || "A1" },
+  };
+}
+
+function createListeningQuestion({ word, qid, level, gateType, rand }) {
+  const pool = MASTER_WORDS.filter((w) => w?.es && w?.es !== word?.es);
+  const distractors = shuffleWithRand(pool, rand).slice(0, 6).map((w) => w.es);
+  const options = safeOptions(word?.es, distractors, 4, rand);
+  return {
+    qid,
+    section: "listening",
+    type: "mcq_audio_token",
+    prompt: `You hear "${word?.es}". Which option matches what you heard?`,
+    options,
+    answerKey: word?.es,
+    meta: { level, gateType, wordId: word?.id || word?.es, cefr: word?.cefr || "A1" },
+  };
+}
+
+function createProductionQuestion({ word, qid, level, gateType }) {
+  return {
+    qid,
+    section: "production",
+    type: "short_translation",
+    prompt: `Write the Spanish word for: "${word?.en}"`,
+    options: [],
+    answerKey: word?.es,
+    meta: { level, gateType, wordId: word?.id || word?.es, cefr: word?.cefr || "A1", acceptableAnswers: [word?.es] },
+  };
+}
+
+function buildFallbackQuestion({ section, qid, level, gateType }) {
+  return {
+    qid,
+    section,
+    type: section,
+    prompt: `Gate ${section} question #${qid}`,
+    options: [],
+    answerKey: null,
+    meta: { level, gateType, generated: "fallback" },
+  };
+}
+
+function generateQuestions({ profile = {}, level, gateType, rule, resolver, seed }) {
   const questions = [];
   const composition = Array.isArray(rule?.composition) ? rule.composition : [];
+  const rand = seededRng(seed || Date.now());
+
+  const resolverWords = typeof resolver?.selectWordsForModule === "function"
+    ? resolver.selectWordsForModule({ profile, moduleType: "Placement Test", count: 40 })
+    : [];
+
+  const bandPool = buildBandPool(profile, level);
+  const sourceWords = shuffleWithRand(
+    [...(Array.isArray(resolverWords) ? resolverWords : []), ...bandPool].filter((w) => w?.es && w?.en),
+    rand,
+  );
+  const verbPool = shuffleWithRand(VERBS.filter((v) => v?.infinitive), rand);
+
+  let cursorBySection = { vocab: 0, grammar: 0, listening: 0, production: 0 };
 
   for (const block of composition) {
     const section = block?.section;
     const count = safeNumber(block?.count, 0);
+
     for (let i = 0; i < count; i += 1) {
-      questions.push({
-        qid: `${gateType}:${level}:${section}:${i + 1}`,
-        section,
-        type: section,
-        prompt: `TODO ${section} prompt #${i + 1}`,
-        options: [],
-        // Keep answerKey empty in scaffold. Fill at generation time.
-        answerKey: null,
-        meta: { level, gateType },
-      });
+      const qid = `${gateType}:${level}:${section}:${i + 1}`;
+      const idx = cursorBySection[section] || 0;
+      const word = sourceWords[idx % Math.max(1, sourceWords.length)] || null;
+      const verb = verbPool[idx % Math.max(1, verbPool.length)] || null;
+      cursorBySection[section] = idx + 1;
+
+      let q = null;
+      if (section === "vocab" && word) q = createVocabQuestion({ word, qid, level, gateType, rand });
+      else if (section === "grammar" && verb) q = createGrammarQuestion({ verb, qid, level, gateType, rand });
+      else if (section === "listening" && word) q = createListeningQuestion({ word, qid, level, gateType, rand });
+      else if (section === "production" && word) q = createProductionQuestion({ word, qid, level, gateType });
+
+      questions.push(q || buildFallbackQuestion({ section, qid, level, gateType }));
     }
   }
 
@@ -103,7 +222,7 @@ export function createGateAttempt({ profile = {}, gateKey, level, gateType, reso
   const startedAt = now;
   const expiresAt = safeNumber(rule?.timed ? startedAt + safeNumber(rule?.timeLimitSec, 0) * 1000 : 0, 0);
 
-  const questions = generateQuestions({ level, gateType, rule, resolver });
+  const questions = generateQuestions({ profile, level, gateType, rule, resolver, seed: startedAt });
 
   return {
     attemptId,
