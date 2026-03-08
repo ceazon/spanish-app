@@ -294,10 +294,14 @@ export function FillBlankLesson({ onComplete, sentences = [], difficulty = 1 }) 
     return <div style={{ color:"#9ca3af", textAlign:"center" }}>No sentence items available yet.</div>;
   }
   const s=items[idx]; const parts=s.template.split("___");
+  const targetEnglish = s.targetEnglish || (typeof s.hint === 'string' && s.hint.includes('"')
+    ? (s.hint.match(/"([^"]+)"/)?.[1] || null)
+    : (typeof s.hint === 'string' && !s.hint.includes('___') && s.hint.trim().split(/\s+/).length <= 4 ? s.hint : null));
   return (
     <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:24, maxWidth:480, margin:"0 auto" }}>
       <ProgressBar current={idx+1} total={items.length} />
       <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, padding:"24px 28px", textAlign:"center", width:"100%" }}>
+        {targetEnglish && <div style={{ color:"#67e8f9", fontSize:12, marginBottom:6, letterSpacing:1 }}>TARGET WORD: <strong>{targetEnglish}</strong></div>}
         <div style={{ color:"#9ca3af", fontSize:12, marginBottom:12, letterSpacing:1 }}>HINT: {s.hint}</div>
         <div style={{ color:"#e5e7eb", fontSize:22, fontWeight:500, lineHeight:1.6 }}>
           {parts[0]}<span style={{ display:"inline-block", minWidth:80, borderBottom:"2px solid #7c3aed", color:feedback==="correct"?"#4ade80":feedback==="incorrect"?"#f87171":"#a78bfa", fontWeight:700, padding:"0 4px" }}>{feedback?s.answer:input||" "}</span>{parts[1]}

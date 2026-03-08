@@ -52,16 +52,16 @@ const VOCAB = {
 };
 
 const SENTENCES = [
-  { template: "Yo ___ un estudiante.", answer: "soy", hint: "I ___ a student." },
-  { template: "Ella ___ en casa.", answer: "está", hint: "She ___ at home." },
-  { template: "Nosotros ___ español.", answer: "hablamos", hint: "We ___ Spanish." },
-  { template: "El gato ___ en la silla.", answer: "está", hint: "The cat ___ on the chair." },
-  { template: "Yo ___ café por la mañana.", answer: "bebo", hint: "I ___ coffee in the morning." },
-  { template: "Ellos ___ mucho.", answer: "comen", hint: "They ___ a lot." },
-  { template: "Tú ___ muy bien.", answer: "hablas", hint: "You speak very well." },
-  { template: "Él ___ un libro.", answer: "lee", hint: "He ___ a book." },
-  { template: "Yo ___ hambre.", answer: "tengo", hint: "I ___ hungry." },
-  { template: "Ella ___ bonita.", answer: "es", hint: "She ___ beautiful." },
+  { template: "Yo ___ un estudiante.", answer: "soy", hint: "I ___ a student.", targetEnglish: "am" },
+  { template: "Ella ___ en casa.", answer: "está", hint: "She ___ at home.", targetEnglish: "is" },
+  { template: "Nosotros ___ español.", answer: "hablamos", hint: "We ___ Spanish.", targetEnglish: "speak" },
+  { template: "El gato ___ en la silla.", answer: "está", hint: "The cat ___ on the chair.", targetEnglish: "is" },
+  { template: "Yo ___ café por la mañana.", answer: "bebo", hint: "I ___ coffee in the morning.", targetEnglish: "drink" },
+  { template: "Ellos ___ mucho.", answer: "comen", hint: "They ___ a lot.", targetEnglish: "eat" },
+  { template: "Tú ___ muy bien.", answer: "hablas", hint: "You speak very well.", targetEnglish: "speak" },
+  { template: "Él ___ un libro.", answer: "lee", hint: "He ___ a book.", targetEnglish: "reads" },
+  { template: "Yo ___ hambre.", answer: "tengo", hint: "I ___ hungry.", targetEnglish: "am" },
+  { template: "Ella ___ bonita.", answer: "es", hint: "She ___ beautiful.", targetEnglish: "is" },
 ];
 
 const VERBS = [
@@ -3300,6 +3300,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
           template: `Hoy practicamos la palabra ___ (${dailyFocusWord.en}).`,
           answer: dailyFocusWord.es,
           hint: `Use the Spanish word for "${dailyFocusWord.en}".`,
+          targetEnglish: dailyFocusWord.en,
           wordId: dailyFocusWord.id || dailyFocusWord.es,
           cefr: dailyFocusWord.cefr || user?.profile?.cefrBand || 'A1',
         };
@@ -3318,6 +3319,7 @@ function LessonScreen({ type, onComplete, onBack, contentPack, aiStatus, difficu
             template: `${form.pronoun} ___ español todos los días.`,
             answer: form.form,
             hint: `${form.pronoun} ${verb.meaning || verb.infinitive}`,
+            targetEnglish: verb.meaning || verb.infinitive,
             wordId: `${verb.infinitive}:${form.pronoun}`,
             cefr: user?.profile?.cefrBand || 'A1',
           };

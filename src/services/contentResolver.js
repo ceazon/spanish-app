@@ -182,6 +182,7 @@ export function getFillBlankItemsForModule({ profile, count = 8 } = {}) {
     const t = templates[i % templates.length](w);
     return {
       ...t,
+      targetEnglish: w.en,
       wordId: w.id || w.es,
       cefr: w.cefr || 'A1',
       bucket: w._bucket || w.bucket || 'current',
