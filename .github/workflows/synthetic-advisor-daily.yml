@@ -31,17 +31,14 @@ jobs:
           ADVISOR_WINDOW_DAYS: "3"
         run: npm run advisor:run
 
-      - name: Commit advisor outputs
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add advisor/reports advisor/prompts || true
-          if git diff --cached --quiet; then
-            echo "No advisor changes to commit"
-            exit 0
-          fi
-          git commit -m "chore(advisor): synthetic advisor recommendations"
-          git push
+      - name: Upload advisor outputs artifact (review-first mode)
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-advisor-${{ github.run_id }}
+          path: |
+            advisor/reports
+            advisor/prompts
+          if-no-files-found: warn
 
       - name: Send email via Resend
         env:
