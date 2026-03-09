@@ -3991,6 +3991,27 @@ function AdminScreen({ onBack }) {
   const [advisorWarning, setAdvisorWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
   const progressionScenarioReport = useMemo(() => buildProgressionScenarioReport(), []);
+  const progressionScenarioRows = useMemo(() => {
+    const scenarios = progressionScenarioReport?.scenarios || [];
+    return scenarios.map((s) => {
+      const lvl2 = Number(s?.milestones?.level2AtLesson || 999);
+      const plateau = Number(s?.quality?.maxPlateauLessons || 0);
+      const sessions = Number(s?.config?.sessions || 1);
+      const momentum = Number(s?.quality?.futureBandMomentum || 0);
+
+      let status = 'green';
+      let label = 'Healthy';
+      if (lvl2 > 8 || plateau >= sessions - 1) {
+        status = 'red';
+        label = 'Stuck risk';
+      } else if (lvl2 > 4 || plateau > Math.round(sessions * 0.6) || momentum <= 0) {
+        status = 'yellow';
+        label = 'Watch';
+      }
+
+      return { ...s, status, label };
+    });
+  }, [progressionScenarioReport]);
 
   async function unlock() {
     setLoading(true);
@@ -4201,11 +4222,24 @@ function AdminScreen({ onBack }) {
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Progression Scenario Report</div>
         <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Deterministic progression simulations (fast / steady / struggling / stretch-heavy).</div>
         <div style={{ display:'grid', gap:8 }}>
-          {(progressionScenarioReport?.scenarios || []).map((s) => (
+          {progressionScenarioRows.map((s) => (
             <div key={s.name} style={{ border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'10px 12px', background:'rgba(255,255,255,0.02)' }}>
               <div style={{ display:'flex', justifyContent:'space-between', gap:8, marginBottom:6 }}>
                 <div style={{ color:'#fff', fontSize:13, fontWeight:700 }}>{s.name}</div>
-                <div style={{ color:'#a7f3d0', fontSize:12 }}>L{s.final?.overallLevel || 1} • {s.final?.bandProgressPct || 0}%</div>
+                <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+                  <div style={{
+                    fontSize:11,
+                    fontWeight:700,
+                    padding:'3px 8px',
+                    borderRadius:999,
+                    background: s.status === 'green' ? 'rgba(34,197,94,0.18)' : s.status === 'yellow' ? 'rgba(251,191,36,0.18)' : 'rgba(239,68,68,0.18)',
+                    color: s.status === 'green' ? '#86efac' : s.status === 'yellow' ? '#fde68a' : '#fca5a5',
+                    border: s.status === 'green' ? '1px solid rgba(34,197,94,0.35)' : s.status === 'yellow' ? '1px solid rgba(251,191,36,0.35)' : '1px solid rgba(239,68,68,0.35)'
+                  }}>
+                    {s.status === 'green' ? '🟢' : s.status === 'yellow' ? '🟡' : '🔴'} {s.label}
+                  </div>
+                  <div style={{ color:'#a7f3d0', fontSize:12 }}>L{s.final?.overallLevel || 1} • {s.final?.bandProgressPct || 0}%</div>
+                </div>
               </div>
               <div style={{ color:'#cbd5e1', fontSize:11 }}>
                 L2@{s.milestones?.level2AtLesson ?? '—'} · L3@{s.milestones?.level3AtLesson ?? '—'} · L4@{s.milestones?.level4AtLesson ?? '—'}
