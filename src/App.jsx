@@ -11,6 +11,7 @@ import { shuffle, speak } from "./services/utils";
 import { loadUser, saveUser, loadActiveContentPack, saveActiveContentPack, clearActiveContentPack } from "./services/storage";
 import { getDailyQuestState, recomputeProfileFromHistory, placementFromScore, getAdaptiveDifficulty, updateLearningProfile } from "./services/progression";
 import { selectWordsForModule, getFillBlankItemsForModule } from "./services/contentResolver";
+import { buildProgressionScenarioReport } from "./services/progression-scenarios";
 import { ensurePathState, getNextPathStep, completePathStep } from "./services/learningPath";
 import { GATE_POLICY_V1, gateKeyFromLevel } from "./config/gates.js";
 import { unlockGate, finalizeGateAttempt } from "./services/gateTests.js";
@@ -3989,6 +3990,7 @@ function AdminScreen({ onBack }) {
   const [advisorSource, setAdvisorSource] = useState("github");
   const [advisorWarning, setAdvisorWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
+  const progressionScenarioReport = useMemo(() => buildProgressionScenarioReport(), []);
 
   async function unlock() {
     setLoading(true);
@@ -4193,6 +4195,27 @@ function AdminScreen({ onBack }) {
             ))}
           </div>
         )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Progression Scenario Report</div>
+        <div style={{ color:"#9ca3af", fontSize:11, marginBottom:8 }}>Deterministic progression simulations (fast / steady / struggling / stretch-heavy).</div>
+        <div style={{ display:'grid', gap:8 }}>
+          {(progressionScenarioReport?.scenarios || []).map((s) => (
+            <div key={s.name} style={{ border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'10px 12px', background:'rgba(255,255,255,0.02)' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', gap:8, marginBottom:6 }}>
+                <div style={{ color:'#fff', fontSize:13, fontWeight:700 }}>{s.name}</div>
+                <div style={{ color:'#a7f3d0', fontSize:12 }}>L{s.final?.overallLevel || 1} • {s.final?.bandProgressPct || 0}%</div>
+              </div>
+              <div style={{ color:'#cbd5e1', fontSize:11 }}>
+                L2@{s.milestones?.level2AtLesson ?? '—'} · L3@{s.milestones?.level3AtLesson ?? '—'} · L4@{s.milestones?.level4AtLesson ?? '—'}
+              </div>
+              <div style={{ color:'#9ca3af', fontSize:11, marginTop:4 }}>
+                Max plateau: {s.quality?.maxPlateauLessons ?? 0} lessons · Future momentum: {(s.quality?.futureBandMomentum || 0).toFixed(2)}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px", marginBottom:14 }}>

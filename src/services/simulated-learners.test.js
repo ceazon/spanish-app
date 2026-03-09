@@ -1,67 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { defaultLearningState, updateLearningProfile } from './progression.js';
-import vocab from '../content/cefr-vocab-master.json' with { type: 'json' };
+import { buildProgressionScenarioReport } from './progression-scenarios.js';
 
-function makeWordResults(words, accuracy = 0.7) {
-  return words.map((w, i) => ({
-    id: w.id || w.es,
-    cefr: w.cefr || 'A1',
-    seen: 1,
-    correct: i < Math.round(words.length * accuracy) ? 1 : 0,
-  }));
-}
+const report = buildProgressionScenarioReport();
+const byName = Object.fromEntries(report.scenarios.map((s) => [s.name, s]));
 
-function simulateSessions({ sessions = 12, wordsPerSession = 10, accuracy = 0.7 }) {
-  let profile = defaultLearningState();
-  const a1Words = (vocab.words || []).filter((w) => w.cefr === 'A1');
-
-  for (let s = 0; s < sessions; s++) {
-    // cycle word pool to create repeated exposure (needed for mastery)
-    const start = (s * 3) % Math.max(1, a1Words.length);
-    const window = [];
-    for (let i = 0; i < wordsPerSession; i++) {
-      window.push(a1Words[(start + i) % a1Words.length]);
-    }
-
-    const wordResults = makeWordResults(window, accuracy);
-    const correct = wordResults.reduce((n, r) => n + (r.correct ? 1 : 0), 0);
-
-    profile = updateLearningProfile(profile, {
-      lessonType: s % 2 === 0 ? 'Flashcards' : 'Word Match',
-      attemptedAt: new Date(Date.now() + s * 60000).toISOString(),
-      points: correct * 10,
-      correct,
-      total: wordResults.length,
-      wordResults,
-    });
-  }
-
-  return profile;
-}
-
-test('simulated learner: steady learner makes measurable progress from level 1', () => {
-  const p = simulateSessions({ sessions: 40, wordsPerSession: 10, accuracy: 0.78 });
-  assert.ok((p.bandProgress || 0) > 0.02, 'Expected steady learner to make measurable band progress');
-
-  // learningProgress can reset after transitions; check event history for movement
-  const maxLearning = Math.max(0, ...((p.progressionEvents || []).map((e) => Number(e.learningProgress || 0))));
-  assert.ok(maxLearning > 0.02, 'Expected visible learning progress movement in progression events');
+test('progression scenarios: fast starter levels up quickly', () => {
+  const fast = byName['Fast starter'];
+  assert.ok(fast, 'Fast starter scenario missing');
+  assert.ok((fast.milestones.level2AtLesson || 999) <= 3, 'Fast starter should reach level 2 very early');
+  assert.ok((fast.milestones.level3AtLesson || 999) <= 8, 'Fast starter should reach level 3 quickly');
+  assert.ok(fast.quality.maxPlateauLessons < fast.config.sessions, 'Fast starter should not hard-deadlock for an entire run');
 });
 
-test('simulated learner: high performer should progress faster than cautious learner', () => {
-  const cautious = simulateSessions({ sessions: 14, wordsPerSession: 8, accuracy: 0.6 });
-  const strong = simulateSessions({ sessions: 14, wordsPerSession: 8, accuracy: 0.9 });
-
-  assert.ok((strong.bandProgress || 0) >= (cautious.bandProgress || 0), 'Strong learner should not lag cautious learner');
-  assert.ok((strong.overallLevel || 1) >= (cautious.overallLevel || 1), 'Strong learner should have >= overall level');
+test('progression scenarios: steady learner progresses without deadlock', () => {
+  const steady = byName['Steady learner'];
+  assert.ok(steady, 'Steady learner scenario missing');
+  assert.ok((steady.final.overallLevel || 1) >= 2, 'Steady learner should progress above level 1');
+  assert.ok(steady.quality.maxPlateauLessons < steady.config.sessions, 'Steady learner should not hard-deadlock for an entire run');
 });
 
-test('simulated learner: no impossible jumps in a short run', () => {
-  const p = simulateSessions({ sessions: 6, wordsPerSession: 8, accuracy: 0.95 });
+test('progression scenarios: struggling learner still makes measurable progress', () => {
+  const slow = byName['Struggling but consistent'];
+  assert.ok(slow, 'Struggling scenario missing');
+  assert.ok((slow.final.bandProgressPct || 0) >= 10, 'Struggling learner should still gain measurable progress');
+  assert.ok((slow.final.overallLevel || 1) >= 1, 'Struggling learner should remain on valid level path');
+});
 
-  // Current MVP pacing may reach early A2 quickly with tiny seed corpus;
-  // keep this as a safety ceiling until pacing is tuned.
-  assert.ok((p.overallLevel || 1) <= 14, 'Learner should stay within early-path levels in a short run');
-  assert.ok(['A1', 'A2'].includes(p.cefrBand), 'Band should remain within A1/A2 in short run');
+test('progression scenarios: stretch-heavy learner accumulates future-band momentum', () => {
+  const stretch = byName['Stretch-heavy learner'];
+  assert.ok(stretch, 'Stretch scenario missing');
+  assert.ok((stretch.quality.futureBandMomentum || 0) > 0, 'Stretch learner should accumulate future-band momentum');
 });
