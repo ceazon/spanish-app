@@ -2562,6 +2562,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const nextGateFocus = gateChecklist
     .filter((m) => !m.pass)
     .sort((a, b) => b.deficit - a.deficit)[0] || null;
+  const nearLevelGateBlock = !gateStatus?.pass && currentSublevelProgress >= 95;
 
   const nextAction = blockingGate
     ? {
@@ -3187,6 +3188,30 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             </div>
 
             <MascotSpeechBubble text="Here are a few words, verbs, and focus concepts for this level. Want to train them now?" tone='success' style={{ marginBottom:12, maxWidth:520 }} />
+
+            {levelPreview.isCurrent && nearLevelGateBlock && (
+              <div style={{ background:'rgba(239,68,68,0.12)', border:'1px solid rgba(248,113,113,0.35)', borderRadius:12, padding:'10px 12px', marginBottom:12 }}>
+                <div style={{ color:'#fecaca', fontSize:12, fontWeight:800, marginBottom:6 }}>You are close, but gate requirements are blocking this level-up.</div>
+                <div style={{ display:'grid', gap:5, marginBottom:8 }}>
+                  {gateChecklist.filter((m) => !m.pass).map((m) => (
+                    <div key={`preview:${m.key}`} style={{ color:'#fee2e2', fontSize:12 }}>
+                      • {m.label}: +{m.deficit}% needed ({m.value}% / {m.target}%)
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
+                  {gateChecklist.filter((m) => !m.pass).slice(0, 2).map((m) => (
+                    <button
+                      key={`preview-action:${m.key}`}
+                      onClick={() => { m.run(); setLevelPreview(null); setShowProgressMap(false); }}
+                      style={{ padding:'7px 10px', borderRadius:8, background:'rgba(59,130,246,0.16)', border:'1px solid rgba(59,130,246,0.35)', color:'#bfdbfe', fontSize:11, fontWeight:700 }}
+                    >
+                      {m.cta}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:12 }}>
               <div style={{ background:'rgba(6,182,212,0.10)', border:'1px solid rgba(34,211,238,0.35)', borderRadius:14, padding:12 }}>
