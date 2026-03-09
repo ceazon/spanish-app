@@ -2734,8 +2734,9 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
           <div style={{ display:'grid', gap:6 }}>
-            <button onClick={onExportProgress} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(16,185,129,0.16)", color:"#a7f3d0", border:"1px solid rgba(16,185,129,0.35)", fontFamily:"'Outfit', sans-serif" }}>Export Progress</button>
-            <button onClick={onImportProgress} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(59,130,246,0.16)", color:"#bfdbfe", border:"1px solid rgba(59,130,246,0.35)", fontFamily:"'Outfit', sans-serif" }}>Import Progress</button>
+            <div style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(34,197,94,0.12)", color:"#bbf7d0", border:"1px solid rgba(34,197,94,0.28)", fontFamily:"'Outfit', sans-serif" }}>
+              Progress is tied to your profile
+            </div>
             <button onClick={onLogout} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
           </div>
         </div>
