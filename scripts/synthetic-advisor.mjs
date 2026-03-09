@@ -53,6 +53,56 @@ async function loadRecentReports() {
   return out.sort((a, b) => a.file.localeCompare(b.file));
 }
 
+function summarizeRecentTrend(recent = [], take = 2) {
+  const latest = [...recent].slice(-Math.max(1, take));
+  if (!latest.length) {
+    return {
+      count: 0,
+      timeout_runs: 0,
+      low_score_runs: 0,
+      low_completion_runs: 0,
+      avg_score: 0,
+      avg_lessons: 0,
+      status: "no_data",
+    };
+  }
+
+  const stats = latest.map((r) => {
+    const notes = `${r.report?.error || ''}\n${(r.report?.notes || []).join('\n')}`;
+    const score = Number(r.report?.score || 0);
+    const lessons = Number(r.report?.lessonsCompleted || 0);
+    return {
+      score,
+      lessons,
+      timeout: /take on the challenge|dashboard did not become ready|timeout|unavailable/i.test(notes),
+      lowScore: score < 40,
+      lowCompletion: lessons <= 1,
+    };
+  });
+
+  const timeoutRuns = stats.filter((s) => s.timeout).length;
+  const lowScoreRuns = stats.filter((s) => s.lowScore).length;
+  const lowCompletionRuns = stats.filter((s) => s.lowCompletion).length;
+  const avgScore = stats.reduce((a, s) => a + s.score, 0) / stats.length;
+  const avgLessons = stats.reduce((a, s) => a + s.lessons, 0) / stats.length;
+
+  const status = timeoutRuns === 0 && lowScoreRuns === 0 && lowCompletionRuns === 0
+    ? "stable"
+    : timeoutRuns <= 1 && lowScoreRuns <= 1 && lowCompletionRuns <= 1
+      ? "improving"
+      : "needs_attention";
+
+  return {
+    count: stats.length,
+    timeout_runs: timeoutRuns,
+    low_score_runs: lowScoreRuns,
+    low_completion_runs: lowCompletionRuns,
+    avg_score: Math.round(avgScore),
+    avg_lessons: Number(avgLessons.toFixed(2)),
+    status,
+  };
+}
+
 function buildRecommendations(recent) {
   const recs = [];
   const total = recent.length;
@@ -135,13 +185,23 @@ function buildRecommendations(recent) {
   return recs.slice(0, 5);
 }
 
-function toMarkdown({ date, windowDays, totalReports, recs }) {
+function toMarkdown({ date, windowDays, totalReports, recs, recentTrend }) {
   const lines = [];
   lines.push(`# Synthetic Advisor Report — ${date}`);
   lines.push('');
   lines.push(`- Window: last **${windowDays} day(s)**`);
   lines.push(`- Reports analyzed: **${totalReports}**`);
   lines.push(`- Recommendations: **${recs.length}**`);
+  lines.push('');
+
+  lines.push('## Recent Trend (last 2 runs, weighted highest)');
+  lines.push('');
+  lines.push(`- Status: **${recentTrend?.status || 'no_data'}**`);
+  lines.push(`- Avg score: **${recentTrend?.avg_score ?? 0}**`);
+  lines.push(`- Avg lessons completed: **${recentTrend?.avg_lessons ?? 0}**`);
+  lines.push(`- Timeout/readiness signals: **${recentTrend?.timeout_runs ?? 0}/${recentTrend?.count ?? 0}**`);
+  lines.push(`- Low-score runs (<40): **${recentTrend?.low_score_runs ?? 0}/${recentTrend?.count ?? 0}**`);
+  lines.push(`- Low-completion runs (<=1 lesson): **${recentTrend?.low_completion_runs ?? 0}/${recentTrend?.count ?? 0}**`);
   lines.push('');
 
   recs.forEach((r, idx) => {
@@ -170,11 +230,13 @@ async function main() {
 
   const recent = await loadRecentReports();
   const recommendations = buildRecommendations(recent);
+  const recentTrend = summarizeRecentTrend(recent, 2);
 
   const payload = {
     date,
     window_days: WINDOW_DAYS,
     total_reports: recent.length,
+    recent_trend_last_2_runs: recentTrend,
     recommendations,
   };
 
@@ -183,6 +245,7 @@ async function main() {
     windowDays: WINDOW_DAYS,
     totalReports: recent.length,
     recs: recommendations,
+    recentTrend,
   });
 
   const reportPath = path.join(OUT_REPORT_DIR, `${date}.md`);
