@@ -126,6 +126,9 @@ function scoreStrengthPoint(wr = {}) {
 
 function progressionVelocityMultiplier(overallLevel = 1) {
   const lvl = Number(overallLevel || 1);
+  if (lvl <= 1) return 3.0;
+  if (lvl <= 2) return 2.5;
+  if (lvl <= 3) return 2.0;
   if (lvl <= 6) return 1.8;      // onboarding boost: faster first wins
   if (lvl <= 15) return 1.2;     // still generous early progression
   if (lvl <= 30) return 0.9;     // normalize in mid-game
