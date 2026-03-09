@@ -273,16 +273,42 @@ async function waitForDashboardReady(page, timeout = 12000) {
   throw new Error("Dashboard did not become ready in time");
 }
 
-async function safeClickButton(page, nameMatcher, timeout = 12000) {
-  const btn = page.getByRole("button", { name: nameMatcher }).first();
-  await dismissDailyLaunchIfPresent(page);
-  await btn.waitFor({ timeout });
-  try {
-    await btn.click({ timeout });
-  } catch {
-    await dismissDailyLaunchIfPresent(page);
-    await btn.click({ timeout, force: true });
+async function ensureExploreOpen(page) {
+  const closeExplore = page.getByRole("button", { name: /Close Explore/i }).first();
+  if (await closeExplore.isVisible().catch(() => false)) return;
+
+  const explore = page.getByRole("button", { name: /^Explore$/i }).first();
+  if (await explore.isVisible().catch(() => false)) {
+    await explore.click({ force: true }).catch(() => {});
+    await page.waitForTimeout(250);
   }
+}
+
+async function safeClickButton(page, nameMatcher, timeout = 12000) {
+  await dismissDailyLaunchIfPresent(page);
+  await ensureExploreOpen(page);
+
+  const candidates = [
+    page.getByRole("button", { name: nameMatcher }).first(),
+    page.getByText(nameMatcher).first(),
+  ];
+
+  let lastErr = null;
+  for (const btn of candidates) {
+    try {
+      await btn.waitFor({ timeout: Math.max(3000, Math.round(timeout * 0.7)) });
+      await btn.click({ timeout }).catch(async () => {
+        await dismissDailyLaunchIfPresent(page);
+        await ensureExploreOpen(page);
+        await btn.click({ timeout, force: true });
+      });
+      return;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+
+  throw lastErr || new Error(`Unable to click target: ${String(nameMatcher)}`);
 }
 
 async function returnToDashboard(page) {
@@ -428,8 +454,8 @@ async function runSession() {
 
     const chosenDuration = pick(STORY_DURATIONS);
     try {
-      await safeClickButton(page, /Take on the Challenge/i, 15000);
-      await page.getByRole("button", { name: /Start Story Mode/i }).waitFor({ timeout: 15000 });
+      await safeClickButton(page, /Take on the Challenge/i, 20000);
+      await page.getByRole("button", { name: /Start Story Mode/i }).waitFor({ timeout: 20000 });
       await safeClickButton(page, new RegExp(`^${chosenDuration.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i"), 10000);
       await safeClickButton(page, /Start Story Mode/i, 10000);
 
@@ -456,7 +482,7 @@ async function runSession() {
 
     for (const moduleName of dailyModules) {
       try {
-        await safeClickButton(page, new RegExp(moduleName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), 10000);
+        await safeClickButton(page, new RegExp(moduleName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), 16000);
         await page.waitForTimeout(1200);
 
         if (moduleName === "Word Match") {
