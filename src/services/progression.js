@@ -124,6 +124,14 @@ function scoreStrengthPoint(wr = {}) {
   return 0.15;
 }
 
+function progressionVelocityMultiplier(overallLevel = 1) {
+  const lvl = Number(overallLevel || 1);
+  if (lvl <= 6) return 1.8;      // onboarding boost: faster first wins
+  if (lvl <= 15) return 1.2;     // still generous early progression
+  if (lvl <= 30) return 0.9;     // normalize in mid-game
+  return 0.75;                   // slower advanced climb
+}
+
 function applyWordResults(profile, wordResults = []) {
   const nextExposure = { ...(profile.wordExposure || {}) };
   for (const wr of wordResults) {
@@ -384,7 +392,8 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const currentSubForStrength = Number(p.sublevel || 0);
   const baseProgressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
   const verbHeavyModules = new Set(['Learn Verbs', 'Speed Round']);
-  const progressEarned = baseProgressEarned * (verbHeavyModules.has(lessonType) ? 0.8 : 1);
+  const velocity = progressionVelocityMultiplier(Number(p.overallLevel || 1));
+  const progressEarned = baseProgressEarned * (verbHeavyModules.has(lessonType) ? 0.8 : 1) * velocity;
   const strengthEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreStrengthPoint(wr), 0);
   p.progressPointsByBand[p.cefrBand] = Number(p.progressPointsByBand[p.cefrBand] || 0) + progressEarned;
 
