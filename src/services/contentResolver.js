@@ -9,7 +9,7 @@ const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 // Tunable progression knobs (safe defaults)
 const MASTERY_MIN_SEEN = 3;
 const MASTERY_MIN_ACC = 0.7;
-const SUBLEVEL_GATE_RATIO = 0.8; // 80% mastered in current sublevel to unlock stretch
+const SUBLEVEL_GATE_RATIO = 0.8; // default mastered ratio to unlock stretch
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -108,6 +108,13 @@ function splitPoolsByProgress(profile, band = 'A1') {
   return { current, review, stretch, currentSub, bWords };
 }
 
+function getStretchUnlockRatio(profile = {}) {
+  const lvl = Number(profile?.overallLevel || 1);
+  if (lvl <= 3) return 0.35;
+  if (lvl <= 6) return 0.5;
+  return SUBLEVEL_GATE_RATIO;
+}
+
 function currentSublevelMasteryRatio(profile, band = 'A1', currentSub = 0, bandWords = []) {
   const inSub = (bandWords || wordsInBand(band)).filter((w) => deriveSublevel(w, bandWords) === currentSub);
   if (!inSub.length) return 0;
@@ -126,7 +133,7 @@ export function selectWordsForModule({ profile, moduleType = 'Flashcards', count
 
   const { current, review, stretch, currentSub, bWords } = splitPoolsByProgress(profile, currentBand);
   const masteryRatio = currentSublevelMasteryRatio(profile, currentBand, currentSub, bWords);
-  const allowStretch = masteryRatio >= SUBLEVEL_GATE_RATIO;
+  const allowStretch = masteryRatio >= getStretchUnlockRatio(profile);
 
   // Base mix
   let currentTarget = Math.round(safeCount * 0.7);

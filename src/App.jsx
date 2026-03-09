@@ -1199,7 +1199,15 @@ function SpeedRoundLesson({ onComplete, verbs = APP_VERBS }) {
   const [qi, setQi] = useState(0); const [input, setInput] = useState(""); const [flash, setFlash] = useState(null);
   const [score, setScore] = useState(0); const [total, setTotal] = useState(0);
   const inputRef = useRef(null);
-  useEffect(() => { if(!started) return; const t=setInterval(()=>setTimeLeft(tl=>{if(tl<=1){clearInterval(t);onComplete(score*10,score,Math.max(total,1));return 0;}return tl-1;}),1000); return ()=>clearInterval(t); },[started]);
+  const finishedRef = useRef(false);
+  useEffect(() => { if(!started) return; const t=setInterval(()=>setTimeLeft(tl=>{if(tl<=1){clearInterval(t); if (!finishedRef.current) { finishedRef.current = true; onComplete(score*10,score,Math.max(total,1)); } return 0;}return tl-1;}),1000); return ()=>clearInterval(t); },[started, score, total, onComplete]);
+  useEffect(() => {
+    if (!started || finishedRef.current) return;
+    if (qi >= questions.length) {
+      finishedRef.current = true;
+      onComplete(score*10, score, Math.max(total, 1));
+    }
+  }, [qi, questions.length, started, score, total, onComplete]);
   useEffect(() => { if(started) inputRef.current?.focus(); },[started, qi]);
   function check() {
     if(!input.trim()||!started||timeLeft<=0) return;
@@ -2683,12 +2691,17 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
 
   const progressionMap = progressBands.flatMap((band, bandIdx) => {
     const titles = LEVEL_TITLES[band] || [];
+    const pointsByBand = user?.profile?.progressPointsByBand || {};
+    const futureBandMomentumPct = Math.max(0, Math.min(100, Math.round((Number(pointsByBand?.[band] || 0) / 20) * 100)));
     return titles.map((title, subIdx) => {
       let pct = 0;
       if (bandIdx < currentBandIdx) pct = 100;
       else if (bandIdx === currentBandIdx) {
         if (subIdx < currentSublevel) pct = 100;
         else if (subIdx === currentSublevel) pct = currentSublevelProgress;
+      } else {
+        // Show stretch momentum for future bands so learners see beyond current level.
+        pct = subIdx === 0 ? futureBandMomentumPct : 0;
       }
       const strengthKey = `${band}:${subIdx}`;
       const strengthRaw = Number(user.profile?.strengthByLevel?.[strengthKey] || 0);
