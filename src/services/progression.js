@@ -35,6 +35,7 @@ const MICRO_GATE_MIN_COVERAGE = 0.6;
 const MICRO_GATE_MIN_MASTERY = 0.65;
 const MICRO_GATE_MIN_ACC = 0.7;
 const SKILL_GATE_MIN = 40; // Phase 2: minimum 40% across all skills to level up
+const ONBOARDING_GATE_BYPASS_MAX_OVERALL_LEVEL = 3;
 
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
@@ -417,16 +418,21 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const gate = computeMicroGateStatus(p, p.cefrBand, currentMicro);
   const skillGate = computeSkillGateStatus(p);
   const gatePass = gate.pass && skillGate.pass;
+  const onboardingGateBypass = Number(p.overallLevel || 1) <= ONBOARDING_GATE_BYPASS_MAX_OVERALL_LEVEL;
+  const effectiveGatePass = onboardingGateBypass ? true : gatePass;
+
   p.gateStatus = {
     microLevel: currentMicro,
-    pass: gatePass,
+    pass: effectiveGatePass,
+    rawPass: gatePass,
+    onboardingBypass: onboardingGateBypass,
     coverage: Math.round(gate.coverage * 100),
     mastery: Math.round(gate.mastery * 100),
     accuracy: Math.round(gate.acc * 100),
     minSkill: Math.round(skillGate.minSkill),
   };
   const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
-  if (!gatePass && computedBandProgress >= nextMicroStart) {
+  if (!effectiveGatePass && computedBandProgress >= nextMicroStart) {
     computedBandProgress = Math.max(0, nextMicroStart - 0.001);
   }
   p.bandProgress = computedBandProgress;
