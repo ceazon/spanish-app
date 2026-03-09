@@ -2374,7 +2374,7 @@ function ContentPackManager({ contentPackMeta, onImportPack, onResetPack }) {
   );
 }
 
-function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, onOpenStoryMode, onStartFocusSession }) {
+function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, onOpenStoryMode, onStartFocusSession, onExportProgress, onImportProgress }) {
   const [showProgressMap, setShowProgressMap] = useState(false);
   const [levelPreview, setLevelPreview] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
@@ -2686,7 +2686,11 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <img src={dashboardMascot} alt="Chadlingo mascot" onError={(e) => { e.currentTarget.style.display = "none"; }} style={{ width:84, height:84, objectFit:"contain", borderRadius:14, background:"rgba(124,58,237,0.12)", padding:4 }} />
-          <button onClick={onLogout} style={{ padding:"8px 18px", borderRadius:8, fontSize:12, fontWeight:600, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+          <div style={{ display:'grid', gap:6 }}>
+            <button onClick={onExportProgress} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(16,185,129,0.16)", color:"#a7f3d0", border:"1px solid rgba(16,185,129,0.35)", fontFamily:"'Outfit', sans-serif" }}>Export Progress</button>
+            <button onClick={onImportProgress} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(59,130,246,0.16)", color:"#bfdbfe", border:"1px solid rgba(59,130,246,0.35)", fontFamily:"'Outfit', sans-serif" }}>Import Progress</button>
+            <button onClick={onLogout} style={{ padding:"8px 12px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(255,255,255,0.06)", color:"#9ca3af", fontFamily:"'Outfit', sans-serif" }}>Sign Out</button>
+          </div>
         </div>
       </div>
       {showDetails && (
@@ -4578,6 +4582,7 @@ function DailyFocusModal({ user, dailyFocus, onClose }) {
 export default function App() {
   const [user, setUser] = useState(null); const [screen, setScreen] = useState("auth");
   const [lessonType, setLessonType] = useState(null); const [lessonLaunchOptions, setLessonLaunchOptions] = useState(null); const [lastResult, setLastResult] = useState(null); const [toast, setToast] = useState(null);
+  const progressImportRef = useRef(null);
   const [contentPack, setContentPack] = useState(starterPack);
   const [aiStatus, setAiStatus] = useState({ anyAvailable: true, providers: {}, checkedAt: null });
   const [storyMode, setStoryMode] = useState(null);
@@ -4661,6 +4666,60 @@ export default function App() {
     };
   }, []);
   function showToast(msg,type="success") { setToast({msg,type}); setTimeout(()=>setToast(null),3000); }
+
+  function exportProgressBackup() {
+    if (!user?.username) {
+      showToast('No active user to export', 'error');
+      return;
+    }
+    try {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        app: 'chadlingo',
+        type: 'progress-backup-v1',
+        user,
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = String(user.username).replace(/[^a-z0-9_-]/gi, '_');
+      a.href = url;
+      a.download = `chadlingo-progress-${safeName}-${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Progress exported');
+    } catch {
+      showToast('Export failed', 'error');
+    }
+  }
+
+  function triggerImportProgress() {
+    progressImportRef.current?.click();
+  }
+
+  async function importProgressBackup(event) {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text || '{}');
+      const importedUser = parsed?.user;
+      if (!importedUser?.username) throw new Error('Invalid backup file');
+      if (user?.username && importedUser.username !== user.username) {
+        const ok = typeof window !== 'undefined' ? window.confirm(`Import backup for ${importedUser.username}? This will replace the current in-browser profile.`) : true;
+        if (!ok) return;
+      }
+      await saveUser(importedUser);
+      setUser(importedUser);
+      showToast('Progress imported successfully');
+    } catch {
+      showToast('Import failed: invalid backup file', 'error');
+    } finally {
+      if (event?.target) event.target.value = '';
+    }
+  }
 
   function insertSpanishChar(char) {
     if (typeof document === "undefined") return;
@@ -5139,7 +5198,8 @@ export default function App() {
       {toast&&<Toast msg={toast.msg} type={toast.type}/>}
       {celebration && <CelebrationOverlay celebration={celebration} onClose={() => setCelebration(null)} />}
       {showDailyFocusModal && user && dailyFocus && <DailyFocusModal user={user} dailyFocus={dailyFocus} onClose={dismissDailyFocusModal} />}
-      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onStartGateTest={startFormalGateTest} onStartFocusSession={startFocusSession} onOpenStoryMode={()=>setScreen("story-setup")} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
+      <input ref={progressImportRef} type="file" accept="application/json" onChange={importProgressBackup} style={{ display:'none' }} />
+      {screen==="dashboard"&&<Dashboard user={user} aiStatus={aiStatus} onStartLesson={startLesson} onStartGateTest={startFormalGateTest} onStartFocusSession={startFocusSession} onOpenStoryMode={()=>setScreen("story-setup")} onExportProgress={exportProgressBackup} onImportProgress={triggerImportProgress} onLogout={()=>{setShowDailyFocusModal(false);setDailyFocus(null);setUser(null);setScreen("auth");}}/>}
       {screen==="story-setup"&&<StoryModeSetup aiStatus={aiStatus} onBack={()=>setScreen("dashboard")} onStart={startStoryMode} />}
       {screen==="story-summary"&&<StorySummaryScreen summary={storySummary} onBack={()=>setScreen("dashboard")} />}
       {screen==="focus-summary"&&focusSummary&&<div style={{maxWidth:520,margin:"0 auto",padding:"52px 20px"}}><div style={{background:"rgba(16,185,129,0.14)",border:"1px solid rgba(16,185,129,0.38)",borderRadius:18,padding:"18px"}}><div style={{color:'#a7f3d0',fontSize:11,letterSpacing:2}}>FOCUS SESSION COMPLETE</div><h2 style={{color:'#fff',margin:'8px 0 6px',fontSize:28}}>Great consistency 🔥</h2><div style={{color:'#d1fae5',fontSize:13,marginBottom:12}}>You studied non-stop for {focusSummary.minutes} minutes.</div><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:12}}><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Modules</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.completed}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Points</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.points}</div></div><div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,padding:'8px 10px'}}><div style={{color:'#9ca3af',fontSize:10}}>Accuracy</div><div style={{color:'#fff',fontSize:20,fontWeight:800}}>{focusSummary.totalQuestions>0?Math.round((focusSummary.totalCorrect/focusSummary.totalQuestions)*100):0}%</div></div></div><div style={{display:'flex',gap:8}}><PrimaryBtn onClick={()=>setScreen('dashboard')}>Back to Dashboard</PrimaryBtn><button onClick={()=>startFocusSession(focusSummary.minutes||10)} style={{padding:'10px 12px',borderRadius:10,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.14)',color:'#d1fae5'}}>Run Again</button></div></div></div>}

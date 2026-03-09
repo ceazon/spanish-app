@@ -1,6 +1,8 @@
 import { migrateUser, defaultLearningState } from "./progression";
 
 const FORCE_RESET_PROFILE_VERSION = "v4-reset-2026-03-02";
+// Safety switch: keep OFF to preserve user progress. Turning this ON can reset history/profile.
+const ALLOW_FORCED_PROFILE_RESET = false;
 
 function hasWindowStorage() {
   return typeof window !== "undefined" && window.storage && typeof window.storage.get === "function";
@@ -26,6 +28,11 @@ export async function loadUser(username) {
     const parsed = migrateUser(JSON.parse(r.value));
     const resetVersion = parsed?.profile?.resetVersion;
     if (resetVersion === FORCE_RESET_PROFILE_VERSION) return parsed;
+
+    if (!ALLOW_FORCED_PROFILE_RESET) {
+      // Explicitly preserve user progress unless forced reset is intentionally enabled.
+      return parsed;
+    }
 
     // One-time global progression reset for v4 rollout.
     const resetUser = {
