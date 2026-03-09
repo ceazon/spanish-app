@@ -394,17 +394,25 @@ export function updateLearningProfile(profile = {}, result = {}) {
   p.progressPointsByBand = { ...(p.progressPointsByBand || {}) };
   p.strengthByLevel = { ...(p.strengthByLevel || {}) };
   const currentSubForStrength = Number(p.sublevel || 0);
-  const baseProgressEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreWordProgressPoint(wr, p.cefrBand), 0);
   const verbHeavyModules = new Set(['Learn Verbs', 'Speed Round']);
-  const velocity = progressionVelocityMultiplier(Number(p.overallLevel || 1));
-  const progressEarned = baseProgressEarned * (verbHeavyModules.has(lessonType) ? 0.8 : 1) * velocity;
-  const strengthEarned = normalized.wordResults.reduce((sum, wr) => sum + scoreStrengthPoint(wr), 0);
-  p.progressPointsByBand[p.cefrBand] = Number(p.progressPointsByBand[p.cefrBand] || 0) + progressEarned;
+  const moduleMultiplier = (verbHeavyModules.has(lessonType) ? 0.8 : 1) * progressionVelocityMultiplier(Number(p.overallLevel || 1));
 
+  let progressEarned = 0;
+  let strengthEarned = 0;
   for (const wr of normalized.wordResults) {
+    const targetBand = BAND_ORDER.includes(wr?.cefr) ? wr.cefr : p.cefrBand;
+
+    // Stretch content should contribute to future-band momentum too, but at a reduced pace.
+    const stretchWeight = wr?.bucket === 'stretch_next_band' ? 0.45 : 1;
+    const perWordProgress = scoreWordProgressPoint(wr, p.cefrBand) * moduleMultiplier * stretchWeight;
+    p.progressPointsByBand[targetBand] = Number(p.progressPointsByBand[targetBand] || 0) + perWordProgress;
+    progressEarned += perWordProgress;
+
     const sub = bucketTargetSublevel(wr?.bucket || 'current', currentSubForStrength);
-    const key = `${p.cefrBand}:${sub}`;
-    p.strengthByLevel[key] = Number(p.strengthByLevel[key] || 0) + scoreStrengthPoint(wr);
+    const strengthKey = `${targetBand}:${sub}`;
+    const perWordStrength = scoreStrengthPoint(wr) * stretchWeight;
+    p.strengthByLevel[strengthKey] = Number(p.strengthByLevel[strengthKey] || 0) + perWordStrength;
+    strengthEarned += perWordStrength;
   }
 
   // Hybrid progression: mastery + momentum for steady forward movement.
