@@ -2506,6 +2506,53 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const gateStatus = user?.profile?.gateStatus || {};
   const skillGatePass = gateStatus.pass || false;
   const minSkill = gateStatus.minSkill || 0;
+  const gateTargets = { coverage: 60, mastery: 65, accuracy: 70, minSkill: 40 };
+  const gateChecklist = [
+    {
+      key: 'coverage',
+      label: 'Coverage',
+      value: Number(gateStatus?.coverage || 0),
+      target: gateTargets.coverage,
+      hint: 'See more level words',
+      cta: 'Review New Words',
+      run: () => onStartLesson('Flashcards'),
+    },
+    {
+      key: 'mastery',
+      label: 'Mastery',
+      value: Number(gateStatus?.mastery || 0),
+      target: gateTargets.mastery,
+      hint: 'Get correct repeats on words',
+      cta: 'Master Weak Words',
+      run: () => onStartLesson('Word Match'),
+    },
+    {
+      key: 'accuracy',
+      label: 'Accuracy',
+      value: Number(gateStatus?.accuracy || 0),
+      target: gateTargets.accuracy,
+      hint: 'Improve correct answer rate',
+      cta: 'Accuracy Drill',
+      run: () => onStartLesson('Fill in the Blank'),
+    },
+    {
+      key: 'minSkill',
+      label: 'Skill Balance',
+      value: Number(gateStatus?.minSkill || 0),
+      target: gateTargets.minSkill,
+      hint: 'Train your weakest skill area',
+      cta: 'Train Weakest Skill',
+      run: () => setSelfStudyExpanded(true),
+    },
+  ].map((m) => ({
+    ...m,
+    pass: m.value >= m.target,
+    deficit: Math.max(0, m.target - m.value),
+    close: m.value >= m.target - 10,
+  }));
+  const nextGateFocus = gateChecklist
+    .filter((m) => !m.pass)
+    .sort((a, b) => b.deficit - a.deficit)[0] || null;
 
   const nextAction = blockingGate
     ? {
@@ -2921,16 +2968,35 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
-        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Level-Up Gate</div>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Level-Up Checklist</div>
         <div style={{ color:'#9ca3af', fontSize:12, marginBottom:10 }}>
-          {user?.profile?.gateStatus?.pass ? '✅ You are ready to progress.' : 'Complete this mastery gate to unlock the next micro-level.'}
+          {gateStatus?.pass ? '✅ You are ready to progress.' : 'To reach the next level, complete the checklist below.'}
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,minmax(0,1fr))', gap:8 }}>
-          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Coverage: <strong>{user?.profile?.gateStatus?.coverage ?? 0}%</strong></div>
-          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Mastery: <strong>{user?.profile?.gateStatus?.mastery ?? 0}%</strong></div>
-          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Accuracy: <strong>{user?.profile?.gateStatus?.accuracy ?? 0}%</strong></div>
-          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Min Skill: <strong>{user?.profile?.gateStatus?.minSkill ?? 0}%</strong></div>
+        {gateStatus?.onboardingBypass && (
+          <div style={{ marginBottom:10, color:'#bbf7d0', fontSize:12, background:'rgba(16,185,129,0.1)', border:'1px solid rgba(16,185,129,0.3)', borderRadius:10, padding:'8px 10px' }}>
+            Beginner boost active: early levels are accelerated while you build momentum.
+          </div>
+        )}
+        <div style={{ display:'grid', gap:8 }}>
+          {gateChecklist.map((m) => (
+            <div key={m.key} style={{ padding:'9px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12, display:'flex', alignItems:'center', justifyContent:'space-between', gap:10 }}>
+              <div>
+                <div style={{ fontWeight:700, color:'#e5e7eb' }}>{m.pass ? '✅' : (m.close ? '🟡' : '⛔')} {m.label}: <strong>{m.value}% / {m.target}%</strong></div>
+                {!m.pass && <div style={{ color:'#9ca3af', fontSize:11 }}>{m.hint} • {m.deficit}% to go</div>}
+              </div>
+              {!m.pass && (
+                <button onClick={m.run} style={{ padding:'7px 10px', borderRadius:8, background:'rgba(59,130,246,0.16)', border:'1px solid rgba(59,130,246,0.35)', color:'#bfdbfe', fontSize:11, fontWeight:700 }}>
+                  {m.cta}
+                </button>
+              )}
+            </div>
+          ))}
         </div>
+        {nextGateFocus && (
+          <div style={{ marginTop:10, color:'#dbeafe', fontSize:12, background:'rgba(59,130,246,0.1)', border:'1px solid rgba(59,130,246,0.3)', borderRadius:10, padding:'8px 10px' }}>
+            Best next step: focus on <strong>{nextGateFocus.label}</strong> first.
+          </div>
+        )}
         {blockingGate && (
           <div style={{ marginTop:10, display:'flex', justifyContent:'space-between', alignItems:'center', gap:10, background:'rgba(239,68,68,0.08)', border:'1px solid rgba(248,113,113,0.35)', borderRadius:10, padding:'10px 12px' }}>
             <div style={{ color:'#fecaca', fontSize:12 }}>Formal Gate Active: Level {blockingGate.level} ({blockingGate.type})</div>
