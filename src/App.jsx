@@ -2638,6 +2638,9 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
 
   const earnedBadges = useMemo(() => getEarnedBadges(user), [user]);
   const recentBadges = earnedBadges.slice(-3).reverse();
+  const lessonsCompletedTotal = Array.isArray(user?.history) ? user.history.length : 0;
+  const recentLessons = (Array.isArray(user?.history) ? user.history.slice(-3) : []).reverse();
+  const nextUnlockLabel = nextGateFocus ? `${nextGateFocus.label} +${nextGateFocus.deficit}%` : 'Ready for next gate';
 
   const wordbookSpotlight = useMemo(() => {
     const exposureEntries = Object.entries(user?.profile?.wordExposure || {})
@@ -3004,6 +3007,26 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             <PrimaryBtn onClick={() => onStartGateTest?.(blockingGate)} style={{ padding:'8px 12px' }}>Take Gate Test</PrimaryBtn>
           </div>
         )}
+      </div>
+
+      <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Profile Journey</div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,minmax(0,1fr))', gap:8, marginBottom:10 }}>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Current: <strong>{user?.profile?.levelTitle || 'Newcomer I'}</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Lessons: <strong>{lessonsCompletedTotal}</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.10)', color:'#d1d5db', fontSize:12 }}>Mastered: <strong>{user?.profile?.vocabularySize || 0} words</strong></div>
+          <div style={{ padding:'8px 10px', borderRadius:10, background:'rgba(59,130,246,0.12)', border:'1px solid rgba(59,130,246,0.30)', color:'#dbeafe', fontSize:12 }}>Next unlock: <strong>{nextUnlockLabel}</strong></div>
+        </div>
+        <div style={{ color:'#9ca3af', fontSize:12, marginBottom:6 }}>Recent gains</div>
+        <div style={{ display:'grid', gap:6 }}>
+          {(recentLessons.length ? recentLessons : [{ type: 'No lessons yet', points: 0, correct: 0, total: 0 }]).map((h, i) => (
+            <div key={`${h?.date || 'empty'}:${i}`} style={{ padding:'8px 10px', borderRadius:10, background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', color:'#d1d5db', fontSize:12, display:'flex', justifyContent:'space-between', gap:8 }}>
+              <span>{h?.type || 'Lesson'}</span>
+              <span style={{ color:'#86efac' }}>+{Number(h?.points || 0)} pts</span>
+              <span style={{ color:'#cbd5e1' }}>{Number(h?.total || 0) > 0 ? `${Math.round((Number(h?.correct || 0) / Number(h?.total || 1)) * 100)}%` : '—'}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:20, padding:"20px", marginBottom:20 }}>
