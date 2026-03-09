@@ -429,11 +429,19 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const onboardingGateBypass = Number(p.overallLevel || 1) <= ONBOARDING_GATE_BYPASS_MAX_OVERALL_LEVEL;
   const effectiveGatePass = onboardingGateBypass ? true : gatePass;
 
+  const readinessCoverage = clamp(gate.coverage / MICRO_GATE_MIN_COVERAGE, 0, 1);
+  const readinessMastery = clamp(gate.mastery / MICRO_GATE_MIN_MASTERY, 0, 1);
+  const readinessAccuracy = clamp(gate.acc / MICRO_GATE_MIN_ACC, 0, 1);
+  const readinessSkill = clamp(skillGate.minSkill / SKILL_GATE_MIN, 0, 1);
+  const readinessRatio = (readinessCoverage + readinessMastery + readinessAccuracy + readinessSkill) / 4;
+  const readinessPct = Math.round(readinessRatio * 100);
+
   p.gateStatus = {
     microLevel: currentMicro,
     pass: effectiveGatePass,
     rawPass: gatePass,
     onboardingBypass: onboardingGateBypass,
+    readiness: readinessPct,
     coverage: Math.round(gate.coverage * 100),
     mastery: Math.round(gate.mastery * 100),
     accuracy: Math.round(gate.acc * 100),
@@ -441,7 +449,10 @@ export function updateLearningProfile(profile = {}, result = {}) {
   };
   const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
   if (!effectiveGatePass && computedBandProgress >= nextMicroStart) {
-    computedBandProgress = Math.max(0, nextMicroStart - 0.001);
+    // Soft gate friction: stay below next micro boundary, but rise as readiness improves.
+    const dynamicGap = 0.0005 + (1 - readinessRatio) * 0.02;
+    const softCap = Math.max(0, nextMicroStart - dynamicGap);
+    computedBandProgress = Math.min(computedBandProgress, softCap);
   }
   p.bandProgress = computedBandProgress;
 

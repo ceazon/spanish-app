@@ -2562,6 +2562,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const nextGateFocus = gateChecklist
     .filter((m) => !m.pass)
     .sort((a, b) => b.deficit - a.deficit)[0] || null;
+  const gateReadiness = Number(gateStatus?.readiness || 0);
   const nearLevelGateBlock = !gateStatus?.pass && currentSublevelProgress >= 95;
 
   const nextAction = blockingGate
@@ -2990,6 +2991,15 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Level-Up Checklist</div>
         <div style={{ color:'#9ca3af', fontSize:12, marginBottom:10 }}>
           {gateStatus?.pass ? '✅ You are ready to progress.' : 'To reach the next level, complete the checklist below.'}
+        </div>
+        <div style={{ marginBottom:10, padding:'8px 10px', borderRadius:10, background:'rgba(59,130,246,0.10)', border:'1px solid rgba(59,130,246,0.30)' }}>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:4 }}>
+            <div style={{ color:'#bfdbfe', fontSize:11, letterSpacing:1 }}>LEVEL-UP READINESS</div>
+            <div style={{ color:'#dbeafe', fontSize:12, fontWeight:800 }}>{gateReadiness}%</div>
+          </div>
+          <div style={{ height:6, borderRadius:999, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
+            <div style={{ width:`${Math.max(0, Math.min(100, gateReadiness))}%`, height:'100%', background:'linear-gradient(90deg,#3b82f6,#93c5fd)' }} />
+          </div>
         </div>
         {gateStatus?.onboardingBypass && (
           <div style={{ marginBottom:10, color:'#bbf7d0', fontSize:12, background:'rgba(16,185,129,0.1)', border:'1px solid rgba(16,185,129,0.3)', borderRadius:10, padding:'8px 10px' }}>
