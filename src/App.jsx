@@ -2743,9 +2743,12 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             <div style={{ marginTop:8, width:320, maxWidth:'100%', height:8, borderRadius:8, background:'rgba(255,255,255,0.12)', overflow:'hidden' }}>
               <div style={{ width:`${Math.max(0, Math.min(100, currentSublevelProgress || 0))}%`, height:'100%', background:'linear-gradient(90deg, #7c3aed, #a855f7)', transition:'width 0.35s ease' }} />
             </div>
-            <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress</div>
+            <div style={{ color:'#9ca3af', fontSize:11, marginTop:8 }}>Learning Progress (exposure momentum)</div>
             <div style={{ marginTop:6, width:320, maxWidth:'100%', height:7, borderRadius:8, background:'rgba(255,255,255,0.10)', overflow:'hidden' }}>
               <div style={{ width:`${learningProgressPct}%`, height:'100%', background:'linear-gradient(90deg, #06b6d4, #22d3ee)', transition:'width 0.35s ease, filter 0.25s ease', filter: learningPulse ? 'brightness(1.35)' : 'brightness(1)' }} />
+            </div>
+            <div style={{ marginTop:6, color:'#94a3b8', fontSize:10 }}>
+              Level progress uses gate readiness + mastery; this bar tracks learning momentum.
             </div>
             {learningPulse && <div style={{ marginTop:6, color:'#67e8f9', fontSize:11, fontWeight:700 }}>✨ Nice progress!</div>}
           </button>
@@ -2773,6 +2776,18 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         </div>
       )}
       <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:16, maxWidth:430 }} />
+
+      <div style={{ background:'rgba(15,23,42,0.65)', border:'1px solid rgba(148,163,184,0.25)', borderRadius:12, padding:'10px 12px', marginBottom:14 }}>
+        <div style={{ color:'#cbd5e1', fontSize:12, fontWeight:700 }}>Progression Snapshot</div>
+        <div style={{ color:'#94a3b8', fontSize:11, marginTop:4 }}>
+          Level: {Number(user?.profile?.overallLevel || 1)} · Sublevel: {Math.round(Number(canonicalLabel?.pctWithinSublevel || 0))}% · Learning: {learningProgressPct}% · Gate readiness: {Number(gateStatus?.readiness || 0)}%
+        </div>
+        {!gateStatus?.pass ? (
+          <div style={{ color:'#fbbf24', fontSize:11, marginTop:4 }}>
+            Gate active — level may pause until coverage/mastery/accuracy + weakest skill thresholds are met.
+          </div>
+        ) : null}
+      </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:14, marginBottom:16 }}>
         {[{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"}].map(s=>(
           <div key={s.label} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:16, padding:"16px 18px" }}>
