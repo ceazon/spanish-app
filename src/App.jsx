@@ -4025,6 +4025,7 @@ function AdminScreen({ onBack }) {
   const [advisorSource, setAdvisorSource] = useState("github");
   const [advisorWarning, setAdvisorWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
+  const [showAllUsers, setShowAllUsers] = useState(false);
   const progressionScenarioReport = useMemo(() => buildProgressionScenarioReport(), []);
   const progressionScenarioRows = useMemo(() => {
     const scenarios = progressionScenarioReport?.scenarios || [];
@@ -4350,7 +4351,17 @@ function AdminScreen({ onBack }) {
       </div>
 
       <div style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"16px" }}>
-        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10 }}>Registered Users</div>
+        <div style={{ color:"#e5e7eb", fontSize:15, fontWeight:700, marginBottom:10, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <span>Registered Users</span>
+          {users.length > 5 ? (
+            <button
+              onClick={() => setShowAllUsers((v) => !v)}
+              style={{ padding:"6px 10px", borderRadius:8, fontSize:11, fontWeight:700, background:"rgba(147,197,253,0.12)", color:"#bfdbfe", border:"1px solid rgba(147,197,253,0.35)" }}
+            >
+              {showAllUsers ? "Show Top 5" : `Show All (${users.length})`}
+            </button>
+          ) : null}
+        </div>
         {users.length === 0 ? (
           <div style={{ color:"#9ca3af", fontSize:13 }}>No users tracked yet.</div>
         ) : (
@@ -4367,7 +4378,7 @@ function AdminScreen({ onBack }) {
                 </tr>
               </thead>
               <tbody>
-                {users.map((u) => (
+                {(showAllUsers ? users : users.slice(0, 5)).map((u) => (
                   <tr key={u.username} style={{ borderTop:"1px solid rgba(255,255,255,0.06)", color:"#d1d5db" }}>
                     <td style={{ padding:"8px 6px" }}>{u.username}</td>
                     <td style={{ padding:"8px 6px" }}>{u.displayName || "—"}</td>
