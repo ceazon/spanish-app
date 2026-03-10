@@ -2517,7 +2517,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const recentProgressEvents = progressionEvents.slice(-5).reverse();
   const skillGatePass = gateStatus.pass || false;
   const minSkill = gateStatus.minSkill || 0;
-  const gateTargets = { coverage: 60, mastery: 65, accuracy: 70, minSkill: 40 };
+  const gateTargets = { coverage: 50, mastery: 55, accuracy: 65, minSkill: 30 };
   const gateChecklist = [
     {
       key: 'coverage',
@@ -2786,9 +2786,30 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         </div>
         {!gateStatus?.pass ? (
           <div style={{ color:'#fbbf24', fontSize:11, marginTop:4 }}>
-            Gate active — level may pause until coverage/mastery/accuracy + weakest skill thresholds are met.
+            Gate active — level may pause until checklist thresholds are met.
           </div>
-        ) : null}
+        ) : (
+          <div style={{ color:'#86efac', fontSize:11, marginTop:4 }}>
+            ✅ Gate checklist passed.
+          </div>
+        )}
+
+        <div style={{ marginTop:6, display:'grid', gap:4 }}>
+          {[
+            { label: 'Coverage', value: Number(gateStatus?.coverage || 0), target: gateTargets.coverage },
+            { label: 'Mastery', value: Number(gateStatus?.mastery || 0), target: gateTargets.mastery },
+            { label: 'Accuracy', value: Number(gateStatus?.accuracy || 0), target: gateTargets.accuracy },
+            { label: 'Weakest Skill', value: Number(gateStatus?.minSkill || 0), target: gateTargets.minSkill },
+          ].map((m) => {
+            const pass = m.value >= m.target;
+            const deficit = Math.max(0, m.target - m.value);
+            return (
+              <div key={m.label} style={{ color: pass ? '#86efac' : '#fca5a5', fontSize:10 }}>
+                {pass ? '✅' : '⚠️'} {m.label}: {Math.round(m.value)}/{m.target}{pass ? '' : ` (need +${Math.round(deficit)})`}
+              </div>
+            );
+          })}
+        </div>
 
         <details style={{ marginTop:8 }}>
           <summary style={{ cursor:'pointer', color:'#93c5fd', fontSize:11, fontWeight:700 }}>View last 5 challenge progression traces</summary>

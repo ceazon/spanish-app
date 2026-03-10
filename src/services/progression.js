@@ -31,11 +31,11 @@ const CEFR_COUNTS = MASTER_WORDS.reduce((acc, w) => {
 const BAND_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 const MICRO_LEVELS_PER_BAND = 20;
-const MICRO_GATE_MIN_COVERAGE = 0.6;
-const MICRO_GATE_MIN_MASTERY = 0.65;
-const MICRO_GATE_MIN_ACC = 0.7;
-const SKILL_GATE_MIN = 40; // Phase 2: minimum 40% across all skills to level up
-const ONBOARDING_GATE_BYPASS_MAX_OVERALL_LEVEL = 3;
+const MICRO_GATE_MIN_COVERAGE = 0.5;
+const MICRO_GATE_MIN_MASTERY = 0.55;
+const MICRO_GATE_MIN_ACC = 0.65;
+const SKILL_GATE_MIN = 30; // Softer gate: minimum 30% across all skills
+const ONBOARDING_GATE_BYPASS_MAX_OVERALL_LEVEL = 5;
 
 function normalizeExposureEntry(entry = {}) {
   const seen = Number(entry.seen || 0);
@@ -450,7 +450,7 @@ export function updateLearningProfile(profile = {}, result = {}) {
   const nextMicroStart = (currentMicro + 1) / MICRO_LEVELS_PER_BAND;
   if (!effectiveGatePass && computedBandProgress >= nextMicroStart) {
     // Soft gate friction: stay below next micro boundary, but rise as readiness improves.
-    const dynamicGap = 0.0005 + (1 - readinessRatio) * 0.02;
+    const dynamicGap = 0.0002 + (1 - readinessRatio) * 0.008;
     const softCap = Math.max(0, nextMicroStart - dynamicGap);
     computedBandProgress = Math.min(computedBandProgress, softCap);
   }
