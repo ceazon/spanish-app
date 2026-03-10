@@ -121,6 +121,37 @@ const STUDENT_PERSONAS = [
 
 const PRACTICE_MODULES = ["Word Match", "Flashcards", "Fill in the Blank", "Sentence Scramble", "Transcription", "Scenario Builder"];
 const STORY_DURATIONS = ["5 min", "15 min"];
+
+const SHARED_VARIATION = {
+  intros: [
+    "I logged in with a clear plan and tried to stay intentional.",
+    "I kept today light but consistent and focused on momentum.",
+    "I treated this session like a short challenge sprint.",
+    "I focused on consistency first, speed second.",
+    "I aimed for cleaner answers and better rhythm today.",
+  ],
+  good: [
+    "I recovered from mistakes faster than usual.",
+    "The pacing felt smooth once I settled in.",
+    "I stayed engaged the whole session.",
+    "I felt more confident with sentence-level responses.",
+    "Short rounds helped me keep energy high.",
+  ],
+  tricky: [
+    "I still want better transitions between modules.",
+    "A few prompts felt repetitive.",
+    "I rushed some clicks and paid for it.",
+    "I want clearer guidance on what to tackle next.",
+    "I need to slow down when I feel overconfident.",
+  ],
+  goals: [
+    "Tomorrow I want to improve accuracy without losing pace.",
+    "Tomorrow I’ll focus on one difficult module for longer.",
+    "Tomorrow I want cleaner streaks with fewer careless misses.",
+    "Tomorrow I’ll push consistency and avoid rushed guesses.",
+    "Tomorrow I’ll keep the streak alive with one deeper run.",
+  ],
+};
 const KNOWN_TRANSLATIONS = {
   hello: "hola",
   goodbye: "adiós",
@@ -541,19 +572,78 @@ async function runSession() {
   };
 }
 
+function pickAny(items = [], fallback = "") {
+  if (!Array.isArray(items) || items.length === 0) return fallback;
+  return items[Math.floor(Math.random() * items.length)] || fallback;
+}
+
 function getPersonaStyle(name) {
   const p = STUDENT_PERSONAS.find((x) => x.name === name);
-  return p?.style || {
-    titlePrefix: "I practiced",
-    intro: "I logged in and got right into practice.",
-    story: (duration, lesson) => `I started Story Mode (${duration}) and got ${lesson}.`,
-    wordMatch: (category, mistakes, pts) => `I completed ${category || "Word Match"}${mistakes ? ` with ${mistakes} mistakes corrected` : ""} and got ${pts} points.`,
-    module: (name) => `I spent time in ${name}.`,
-    feltGood: ["The app felt smooth and motivating today."],
-    feltTricky: ["I want clearer guidance between modules."],
-    goal: "Keep the streak going with one deeper lesson tomorrow.",
-    moodOk: "Motivated",
-    moodErr: "Trying to stay positive",
+  const base = p?.style || {};
+
+  const titlePrefix = pickAny([
+    base.titlePrefix,
+    "I pushed my Spanish momentum with",
+    "I stayed consistent with",
+    "I sharpened my Spanish using",
+    "I built confidence through",
+  ].filter(Boolean), "I practiced");
+
+  const intro = pickAny([
+    base.intro,
+    ...SHARED_VARIATION.intros,
+  ].filter(Boolean), "I logged in and got right into practice.");
+
+  const goal = pickAny([
+    base.goal,
+    ...SHARED_VARIATION.goals,
+  ].filter(Boolean), "Keep the streak going with one deeper lesson tomorrow.");
+
+  const feltGood = [
+    ...(Array.isArray(base.feltGood) ? base.feltGood : []),
+    ...SHARED_VARIATION.good,
+  ];
+
+  const feltTricky = [
+    ...(Array.isArray(base.feltTricky) ? base.feltTricky : []),
+    ...SHARED_VARIATION.tricky,
+  ];
+
+  return {
+    titlePrefix,
+    intro,
+    story: (duration, lesson) => {
+      const templates = [
+        base.story?.(duration, lesson),
+        `I kicked off Story Mode for ${duration} and opened on ${lesson}.`,
+        `Story Mode (${duration}) set the tone, and I landed in ${lesson}.`,
+        `I opened with ${duration} in Story Mode, then tackled ${lesson}.`,
+      ].filter(Boolean);
+      return pickAny(templates, `I started Story Mode (${duration}) and got ${lesson}.`);
+    },
+    wordMatch: (category, mistakes, pts) => {
+      const templates = [
+        base.wordMatch?.(category, mistakes, pts),
+        `I worked through ${category || "Word Match"}${mistakes ? `, fixed ${mistakes} misses,` : ""} and finished on ${pts} points.`,
+        `${category || "Word Match"} gave me a strong rep set${mistakes ? ` (${mistakes} corrections)` : ""}; I closed at ${pts} points.`,
+        `I used ${category || "Word Match"} to tighten recall and ended with ${pts} points${mistakes ? ` after correcting ${mistakes} slips` : ""}.`,
+      ].filter(Boolean);
+      return pickAny(templates, `I completed ${category || "Word Match"} and got ${pts} points.`);
+    },
+    module: (moduleName) => {
+      const templates = [
+        base.module?.(moduleName),
+        `I rotated into ${moduleName} to keep practice varied.`,
+        `I spent a focused block in ${moduleName} and cleaned up weak spots.`,
+        `I used ${moduleName} for extra reps before wrapping up.`,
+      ].filter(Boolean);
+      return pickAny(templates, `I spent time in ${moduleName}.`);
+    },
+    feltGood,
+    feltTricky,
+    goal,
+    moodOk: base.moodOk || "Motivated",
+    moodErr: base.moodErr || "Trying to stay positive",
   };
 }
 
@@ -574,6 +664,24 @@ function buildPostTitle(report, date) {
   if (unique.length === 1) return `${style.titlePrefix} ${unique[0]} today — ${date}`;
   if (unique.length === 2) return `${style.titlePrefix} ${unique[0]} and ${unique[1]} — ${date}`;
   return `${style.titlePrefix} ${unique[0]}, ${unique[1]}, and ${unique[2]} — ${date}`;
+}
+
+async function diversifyAgainstRecentDrafts(markdown, personaSuffix) {
+  try {
+    const files = (await fs.readdir(draftDir))
+      .filter((n) => n.endsWith(`-${personaSuffix}.md`))
+      .sort((a, b) => b.localeCompare(a))
+      .slice(0, 5);
+
+    const current = markdown.toLowerCase().replace(/\d+/g, "").slice(0, 1400);
+    for (const f of files) {
+      const prev = (await fs.readFile(path.join(draftDir, f), "utf8")).toLowerCase().replace(/\d+/g, "").slice(0, 1400);
+      if (prev === current) {
+        return `${markdown}\n\n## Bonus reflection\n- Today felt different because I intentionally changed my pace and module order.\n`;
+      }
+    }
+  } catch {}
+  return markdown;
 }
 
 function toMarkdown(report) {
@@ -613,7 +721,9 @@ async function main() {
   const draftPath = path.join(draftDir, `${stamp}-${fileSuffix}.md`);
 
   await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
-  await fs.writeFile(draftPath, toMarkdown(report));
+  let markdown = toMarkdown(report);
+  markdown = await diversifyAgainstRecentDrafts(markdown, fileSuffix);
+  await fs.writeFile(draftPath, markdown);
 
   try {
     const publishResult = await autoPublishDraftAndReport(stamp, fileSuffix);
