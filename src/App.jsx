@@ -2513,6 +2513,8 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const easyRecoveryPick = easyRecoveryModules.find((m) => LESSON_TYPES.includes(m)) || "Flashcards";
 
   const gateStatus = user?.profile?.gateStatus || {};
+  const progressionEvents = Array.isArray(user?.profile?.progressionEvents) ? user.profile.progressionEvents : [];
+  const recentProgressEvents = progressionEvents.slice(-5).reverse();
   const skillGatePass = gateStatus.pass || false;
   const minSkill = gateStatus.minSkill || 0;
   const gateTargets = { coverage: 60, mastery: 65, accuracy: 70, minSkill: 40 };
@@ -2787,6 +2789,27 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
             Gate active — level may pause until coverage/mastery/accuracy + weakest skill thresholds are met.
           </div>
         ) : null}
+
+        <details style={{ marginTop:8 }}>
+          <summary style={{ cursor:'pointer', color:'#93c5fd', fontSize:11, fontWeight:700 }}>View last 5 challenge progression traces</summary>
+          <div style={{ marginTop:8, display:'grid', gap:6 }}>
+            {recentProgressEvents.length === 0 ? (
+              <div style={{ color:'#64748b', fontSize:11 }}>No progression events yet.</div>
+            ) : recentProgressEvents.map((ev, idx) => (
+              <div key={`${ev?.attemptedAt || idx}-${idx}`} style={{ border:'1px solid rgba(148,163,184,0.22)', borderRadius:10, padding:'8px 10px', background:'rgba(2,6,23,0.55)' }}>
+                <div style={{ color:'#e2e8f0', fontSize:11, fontWeight:700 }}>
+                  {ev?.moduleType || 'Lesson'} · +{Number(ev?.points || 0)} pts · {Number(ev?.correct || 0)}/{Number(ev?.total || 0)}
+                </div>
+                <div style={{ color:'#94a3b8', fontSize:10, marginTop:3 }}>
+                  Level L{Number(ev?.overallLevel || 1)} · Sublevel {Math.round(Number(ev?.sublevelProgress || 0))}% · Learning {Math.round(Number(ev?.learningProgress || 0) * 100)}%
+                </div>
+                <div style={{ color:'#64748b', fontSize:10, marginTop:2 }}>
+                  Progress +{Number(ev?.progressPointsEarned || 0).toFixed(2)} · Strength +{Number(ev?.strengthPointsEarned || 0).toFixed(2)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:14, marginBottom:16 }}>
         {[{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"}].map(s=>(
