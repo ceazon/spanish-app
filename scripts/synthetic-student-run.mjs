@@ -257,6 +257,24 @@ async function autoPublishDraftAndReport(stamp, fileSuffix) {
   return { ok: true, skipped: false, remote: AUTO_PUBLISH_REMOTE, branch: AUTO_PUBLISH_BRANCH };
 }
 
+async function postAnalyticsEvent(baseUrl, payload, notes = []) {
+  try {
+    const res = await fetch(`${String(baseUrl).replace(/\/$/, "")}/api/analytics/event`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      notes.push(`Analytics event failed (${res.status}) for ${payload?.eventType || 'unknown'}`);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    notes.push(`Analytics event error for ${payload?.eventType || 'unknown'}: ${e?.message || e}`);
+    return false;
+  }
+}
+
 async function gotoAnyBaseUrl(page, notes) {
   let lastError = null;
 
@@ -465,6 +483,7 @@ async function runSession() {
   let activeBaseUrl = PRIMARY_BASE_URL;
   let simulatedScore = 0;
   let simulatedLessonsCompleted = 0;
+  const completedRuns = [];
 
   const persona = choosePersona();
   const voice = getPersonaStyle(persona.name);
@@ -524,6 +543,7 @@ async function runSession() {
           simulatedScore += wmPoints;
           simulatedLessonsCompleted += 1;
           const label = categoryText ? `${moduleName} (${categoryText})` : moduleName;
+          completedRuns.push({ lessonType: moduleName, points: wmPoints, correct: Math.max(1, 6 - (Number(wm?.mistakesMade) || 0)), total: 6, durationSec: 180 });
           blogHighlights.push(voice.wordMatch(label, Number(wm?.mistakesMade) || 0, wmPoints));
         } else {
           const modulePoints = Math.max(
@@ -532,6 +552,7 @@ async function runSession() {
           );
           simulatedScore += modulePoints;
           simulatedLessonsCompleted += 1;
+          completedRuns.push({ lessonType: moduleName, points: modulePoints, correct: 3 + Math.floor(Math.random() * 4), total: 6, durationSec: 150 + Math.floor(Math.random() * 120) });
           blogHighlights.push(`${voice.module(moduleName)} I picked up ${modulePoints} pts here.`);
           await returnToDashboard(page);
         }
@@ -541,6 +562,7 @@ async function runSession() {
           const fallbackPts = Math.max(8, Math.round(pacing.moduleMin * 0.75 + Math.random() * 8));
           simulatedScore += fallbackPts;
           simulatedLessonsCompleted += 1;
+          completedRuns.push({ lessonType: moduleName, points: fallbackPts, correct: 2, total: 6, durationSec: 120 });
           blogHighlights.push(`${voice.wordMatch(moduleName, 0, fallbackPts)} I had some UI hiccups but still logged progress.`);
         }
         await returnToDashboard(page).catch(() => {});
@@ -548,6 +570,28 @@ async function runSession() {
     }
   
     notes.push(`Session score estimate: ${simulatedScore} points across ${simulatedLessonsCompleted} completed lessons.`);
+
+    // Ensure admin analytics reflects synthetic activity even if UI paths vary.
+    let runningPoints = 0;
+    let runningLessons = 0;
+    for (const run of completedRuns) {
+      runningPoints += Number(run.points) || 0;
+      runningLessons += 1;
+      await postAnalyticsEvent(activeBaseUrl, {
+        eventType: "lesson_complete",
+        username,
+        displayName: username,
+        lessonType: run.lessonType,
+        earnedPoints: Number(run.points) || 0,
+        progressPointsEarned: 0,
+        strengthPointsEarned: 0,
+        durationSec: Number(run.durationSec) || 120,
+        points: runningPoints,
+        lessons: runningLessons,
+        correct: Number(run.correct) || 0,
+        total: Number(run.total) || 1,
+      }, notes);
+    }
   } catch (e) {
     status = "error";
     error = e?.message || String(e);
