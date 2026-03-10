@@ -4025,6 +4025,7 @@ function AdminScreen({ onBack }) {
   const [advisorSource, setAdvisorSource] = useState("github");
   const [advisorWarning, setAdvisorWarning] = useState("");
   const [approvingSlug, setApprovingSlug] = useState("");
+  const [expandedBlogSlug, setExpandedBlogSlug] = useState("");
   const [showAllUsers, setShowAllUsers] = useState(false);
   const progressionScenarioReport = useMemo(() => buildProgressionScenarioReport(), []);
   const progressionScenarioRows = useMemo(() => {
@@ -4334,7 +4335,13 @@ function AdminScreen({ onBack }) {
                     <div style={{ color:"#9ca3af", fontSize:11, whiteSpace:"pre-wrap", marginTop:4 }}>{post.excerpt || "No preview"}</div>
                   </div>
                   <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-                    <a href={post.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:12 }}>Open</a>
+                    <button
+                      onClick={() => setExpandedBlogSlug((s) => (s === post.slug ? "" : post.slug))}
+                      style={{ padding:"8px 10px", borderRadius:8, fontSize:12, fontWeight:700, background:"rgba(147,197,253,0.16)", color:"#bfdbfe", border:"1px solid rgba(147,197,253,0.35)" }}
+                    >
+                      {expandedBlogSlug === post.slug ? "Hide" : "View"}
+                    </button>
+                    {post.htmlUrl ? <a href={post.htmlUrl} target="_blank" rel="noreferrer" style={{ color:"#93c5fd", fontSize:12 }}>GitHub</a> : null}
                     <button
                       onClick={() => approveBlogPost(post.slug)}
                       disabled={approvingSlug === post.slug}
@@ -4344,6 +4351,11 @@ function AdminScreen({ onBack }) {
                     </button>
                   </div>
                 </div>
+                {expandedBlogSlug === post.slug ? (
+                  <div style={{ marginTop:10, padding:"10px 12px", borderRadius:10, border:"1px solid rgba(255,255,255,0.08)", background:"rgba(2,6,23,0.45)", color:"#dbeafe", fontSize:12, lineHeight:1.6, whiteSpace:"pre-wrap" }}>
+                    {post.content || post.excerpt || "No content available."}
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
