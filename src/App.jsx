@@ -1017,6 +1017,31 @@ function AuthScreen({ onLogin }) {
     }
     setLoading(false);
   }
+
+  async function handleGuestStart() {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const guestId = `guest-${Math.random().toString(36).slice(2, 8)}`;
+      const user = {
+        username: guestId,
+        password: null,
+        displayName: "Guest",
+        authProvider: "guest",
+        points: 0,
+        streak: 0,
+        lastLogin: null,
+        history: [],
+        profile: {},
+        joined: new Date().toISOString(),
+      };
+      await saveUser(user);
+      onLogin(user);
+    } catch {
+      showToast("Could not start guest session");
+      setLoading(false);
+    }
+  }
   return (
     <div style={{ minHeight:"100vh", background:"#0f0a1e", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Outfit', sans-serif", backgroundImage:"radial-gradient(ellipse at 20% 50%, #1a0a3e 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #0a1a3e 0%, transparent 50%)" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}*{box-sizing:border-box}input,textarea{outline:none}button{cursor:pointer;border:none;background:none}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#7c3aed55;border-radius:2px}`}</style>
@@ -1035,9 +1060,28 @@ function AuthScreen({ onLogin }) {
           <h1 style={{ color:"#fff", margin:0, fontFamily:"'Playfair Display', serif", fontSize:34, fontWeight:900, lineHeight:1.1 }}>Chadlingo</h1>
           <p style={{ color:"#a78bfa", margin:"8px 0 0", fontSize:12, fontWeight:300, letterSpacing:3 }}>LEARN SPANISH WITH CHADLINGO</p>
         </div>
-        <div style={{ display:"flex", background:"rgba(255,255,255,0.06)", borderRadius:12, padding:4, marginBottom:28 }}>
+        <div style={{ display:"flex", background:"rgba(255,255,255,0.06)", borderRadius:12, padding:4, marginBottom:12 }}>
           {["login","register"].map(m => <button key={m} onClick={() => setMode(m)} style={{ flex:1, padding:"10px 0", borderRadius:9, fontSize:13, fontWeight:600, fontFamily:"'Outfit', sans-serif", transition:"all 0.2s", background:mode===m?"#7c3aed":"transparent", color:mode===m?"#fff":"#9ca3af" }}>{m.charAt(0).toUpperCase()+m.slice(1)}</button>)}
         </div>
+        <button
+          onClick={handleGuestStart}
+          disabled={loading}
+          style={{
+            width:"100%",
+            marginBottom:16,
+            padding:"11px 14px",
+            borderRadius:10,
+            fontSize:13,
+            fontWeight:700,
+            fontFamily:"'Outfit', sans-serif",
+            color:"#93c5fd",
+            background:"rgba(59,130,246,0.16)",
+            border:"1px solid rgba(59,130,246,0.45)",
+            opacity: loading ? 0.65 : 1,
+          }}
+        >
+          Start as a Guest
+        </button>
         <div style={{ display:"flex", flexDirection:"column", gap:14 }}>
           {["Username","Password"].map((label, i) => (
             <div key={label}>
