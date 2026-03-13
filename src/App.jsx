@@ -2431,6 +2431,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const [showProgressMap, setShowProgressMap] = useState(false);
   const [levelPreview, setLevelPreview] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [showProgressSnapshot, setShowProgressSnapshot] = useState(false);
   const [selfStudyExpanded, setSelfStudyExpanded] = useState(false);
   const [selfStudyShuffleTick, setSelfStudyShuffleTick] = useState(0);
   const today=new Date().toDateString();
@@ -2821,8 +2822,18 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           </div>
         </div>
       )}
-      <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:16, maxWidth:430 }} />
+      <button
+        onClick={() => setShowProgressSnapshot((v) => !v)}
+        style={{ background:'transparent', border:'none', padding:0, marginBottom:10, textAlign:'left' }}
+        title="Toggle progress details"
+      >
+        <MascotSpeechBubble text={mascotLine} tone={user.streak >= 7 ? "success" : "default"} style={{ marginBottom:4, maxWidth:520 }} />
+        <div style={{ color:'#93c5fd', fontSize:11, fontWeight:700, marginLeft:6 }}>
+          {showProgressSnapshot ? '▼ Hide progress details' : '▶ View progress details'}
+        </div>
+      </button>
 
+      {showProgressSnapshot ? (
       <div style={{ background:'rgba(15,23,42,0.65)', border:'1px solid rgba(148,163,184,0.25)', borderRadius:12, padding:'10px 12px', marginBottom:14 }}>
         <div style={{ color:'#cbd5e1', fontSize:12, fontWeight:700 }}>Progression Snapshot</div>
         <div style={{ color:'#94a3b8', fontSize:11, marginTop:4 }}>
@@ -2876,6 +2887,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
           </div>
         </details>
       </div>
+      ) : null}
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:14, marginBottom:16 }}>
         {[{label:"Today",value:todayPts,icon:"📅",color:"#22c55e"},{label:"Streak",value:`${user.streak}d`,icon:"🔥",color:"#ef4444"}].map(s=>(
           <div key={s.label} style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:16, padding:"16px 18px" }}>
