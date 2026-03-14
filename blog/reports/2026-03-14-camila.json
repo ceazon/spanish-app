@@ -1,0 +1,16 @@
+{
+  "startedAt": "2026-03-14T22:48:43.516Z",
+  "endedAt": "2026-03-14T22:49:04.517Z",
+  "baseUrl": "https://chadlingo.com",
+  "username": "camila_523517",
+  "studentName": "Camila",
+  "status": "error",
+  "notes": [
+    "Opened site successfully: https://chadlingo.com",
+    "Encountered issue: Dashboard did not become ready in time"
+  ],
+  "blogHighlights": [],
+  "score": 0,
+  "lessonsCompleted": 0,
+  "error": "Dashboard did not become ready in time"
+}
