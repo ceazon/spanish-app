@@ -2479,8 +2479,8 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
   const progressBands = ['A1', 'A2'];
   const currentBand = user.profile?.cefrBand || 'A1';
   const currentBandIdx = progressBands.indexOf(currentBand);
-  const currentSublevel = Number(canonicalLabel.sublevel || 0);
-  const currentSublevelProgress = Math.max(0, Math.min(100, Number(canonicalLabel.pctWithinSublevel || 0)));
+  const currentSublevel = Number(canonicalLabel.microLevel || 0);
+  const currentSublevelProgress = Math.max(0, Math.min(100, Number(canonicalLabel.pctWithinMicro || 0)));
 
   function buildLevelPreview(node) {
     const allWords = (cefrVocab?.vocab || []).filter((w) => (w?.cefr || 'A1') === node.band);
@@ -2760,7 +2760,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
         band,
         sublevel: subIdx,
         title,
-        levelNumber: bandIdx * 10 + subIdx + 1,
+        levelNumber: bandIdx * 20 + subIdx + 1,
         percent: pct,
         strengthPct,
         strengthRaw,
@@ -2837,7 +2837,7 @@ function Dashboard({ user, onStartLesson, onStartGateTest, onLogout, aiStatus, o
       <div style={{ background:'rgba(15,23,42,0.65)', border:'1px solid rgba(148,163,184,0.25)', borderRadius:12, padding:'10px 12px', marginBottom:14 }}>
         <div style={{ color:'#cbd5e1', fontSize:12, fontWeight:700 }}>Progression Snapshot</div>
         <div style={{ color:'#94a3b8', fontSize:11, marginTop:4 }}>
-          Level: {Number(user?.profile?.overallLevel || 1)} · Sublevel: {Math.round(Number(canonicalLabel?.pctWithinSublevel || 0))}% · Learning: {learningProgressPct}% · Gate readiness: {Number(gateStatus?.readiness || 0)}%
+          Level: {Number(canonicalLabel?.overallLevel || user?.profile?.overallLevel || 1)} · Sublevel: {Math.round(Number(canonicalLabel?.pctWithinMicro || 0))}% · Learning: {learningProgressPct}% · Gate readiness: {Number(gateStatus?.readiness || 0)}%
         </div>
         {!gateStatus?.pass ? (
           <div style={{ color:'#fbbf24', fontSize:11, marginTop:4 }}>
