@@ -2,6 +2,7 @@
 
 import { getLevelLabel } from '../config/cefr.js';
 import masterVocabData from '../content/cefr-vocab-master.json' with { type: 'json' };
+import { fsrsReview, gradeFromWordResult, seedFsrsState } from './fsrs.js';
 
 function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
@@ -47,6 +48,9 @@ function normalizeExposureEntry(entry = {}) {
     lastSeen: entry.lastSeen || null,
     nextReviewAt: entry.nextReviewAt || null,
     stability: Number(entry.stability || 0),
+    // FSRS memory state (days). Null marks entries still on the legacy
+    // counter scheduler; they are warm-started on their next review.
+    difficulty: entry.difficulty == null ? null : Number(entry.difficulty),
   };
 }
 
@@ -138,23 +142,39 @@ function progressionVelocityMultiplier(overallLevel = 1) {
 
 function applyWordResults(profile, wordResults = []) {
   const nextExposure = { ...(profile.wordExposure || {}) };
+  const nowMs = Date.now();
   for (const wr of wordResults) {
     const id = wr?.id;
     if (!id) continue;
     const prior = normalizeExposureEntry(nextExposure[id]);
-    const isCorrect = Number(wr.correct || 0) > 0;
-    const stability = Math.max(0, Number(prior.stability || 0) + (isCorrect ? 1 : -1));
-    const reviewDays = stability >= 5 ? 14 : stability >= 3 ? 7 : stability >= 1 ? 3 : 1;
-    const nextReviewAt = new Date(Date.now() + reviewDays * 24 * 60 * 60 * 1000).toISOString();
+    const grade = gradeFromWordResult(wr);
+
+    // One-time warm start for entries tracked by the legacy scheduler.
+    let difficulty = prior.difficulty;
+    let stability = prior.stability;
+    if (difficulty == null) {
+      const seed = seedFsrsState({ seen: prior.seen, correct: prior.correct, legacyStability: prior.stability });
+      difficulty = seed.difficulty;
+      stability = seed.stability;
+    }
+    const lastSeenMs = prior.lastSeen ? new Date(prior.lastSeen).getTime() : null;
+    const scheduled = fsrsReview({
+      difficulty,
+      stability,
+      lastSeenMs: Number.isFinite(lastSeenMs) ? lastSeenMs : nowMs,
+      grade,
+      nowMs,
+    });
 
     nextExposure[id] = {
       ...prior,
       cefr: wr.cefr || prior.cefr || profile.cefrBand || "A1",
       seen: prior.seen + Number(wr.seen || 1),
       correct: prior.correct + Number(wr.correct || 0),
-      lastSeen: new Date().toISOString(),
-      stability,
-      nextReviewAt,
+      lastSeen: new Date(nowMs).toISOString(),
+      difficulty: scheduled.difficulty,
+      stability: scheduled.stability, // FSRS stability, in days
+      nextReviewAt: scheduled.nextReviewAt,
     };
   }
   return nextExposure;
